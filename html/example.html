@@ -9,30 +9,40 @@
   <script src="../js/global.js"></script>
 </head>
 <body>
-  <input type="number">
-  <div>
+  <div class="masking">
     <span><i>&nbsp;</i></span>
     <span><i>&nbsp;</i></span>
     <span><i>&nbsp;</i></span>
     <span><i>&nbsp;</i></span>
   </div>
 
+  <div class="buttons">
+    <button data-number="1">1</button>
+    <button data-number="2">2</button>
+    <button data-number="3">3</button>
+    <button data-number="4">4</button>
+    <button data-number="5">5</button>
+    <button data-number="6">6</button>
+    <button data-number="7">7</button>
+    <button data-number="8">8</button>
+    <button data-number="9">9</button>
+    <button data-number="0">0</button>
+    <button class="remove">remove</button>
+  </div>
+
   <style>
-    input {
-      width: 100%;
-    }
-    div {
+    .masking {
       overflow: hidden;
       margin-top: 20px;
     }
-    span {
+    .masking span {
       position: relative;
       float: left;
       margin-right: 5px;
       width: 20px;
       height: 20px;
     }
-    span::before {
+    .masking span::before {
       content: '';
       position: absolute;
       top: 50%;
@@ -41,7 +51,7 @@
       height: 1px;
       background-color:rgb(0, 0, 255);
     }
-    i {
+    .masking i {
       position: absolute;
       top: 0;
       left: 0;
@@ -49,28 +59,32 @@
       height: 100%;
       border-radius: 50%;
     }
-    i.active {
+    .masking i.active {
       background-color:rgba(0, 0, 0, 1);
     }
   </style>
 
   <script>
     ;(function(){
-      var $input = $('input');
       var $items = $('span');
-      var length = 0;
+      var $buttons = $('button');
+      var array = []; // 패스워드 값
 
-      $input.on('keyup', function(event){
-        var $target = $items.eq($(this).val().length - 1);
+      $buttons.on('click', function(event){
+        var value = $(this).data('number');
 
-        if ($(this).val().length > length) { // 값 입력
-          $target.find('i').addClass('active');
+        if (!isNaN(value)) { // 숫자일 경우
+          if (array.length >= 4) return; // 배열 길이가 4보다 많으면 동작 안함
+
+          array.push(value);
+          $items.eq(array.length - 1).find('i').addClass('active');
         }
-        else { // 값 삭제
+        else { // 삭제일 경우
+          array.pop();
           $items.find('.active').last().removeClass('active');
         }
 
-        length = $(this).val().length; // 현재 값의 length 저장
+        console.log(array); // 콘솔에서 입력한 패스워드 배열 확인
       });
     }());
   </script>
