@@ -56,26 +56,21 @@
 
   <script>
     ;(function(){
-      // ROOT.console.add();
-
       var $input = $('input');
       var $items = $('span');
       var length = 0;
 
-      function active(target){
+      $input.on('keyup', function(event){
+        var $target = $items.eq($(this).val().length - 1);
 
-      };
-
-      $input.on('keydown', function(event){
-        var $target = $items.eq($(this).val().length);
-
-        if ($target.length) {
+        if ($(this).val().length > length) { // 값 입력
           $target.find('i').addClass('active');
         }
-
-        if (event.keyCode === 8) {
+        else { // 값 삭제
           $items.find('.active').last().removeClass('active');
         }
+
+        length = $(this).val().length; // 현재 값의 length 저장
       });
     }());
   </script>
