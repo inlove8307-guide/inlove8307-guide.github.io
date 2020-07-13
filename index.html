@@ -47,33 +47,33 @@
         </div>
         <!-- [E] VIEW -->
         <!-- [S] BUTTON -->
-        <div class="guide__button">
-          <button data-lang="html">html</button>
-          <button data-lang="css">css</button>
-          <button data-lang="js">script</button>
+        <div class="guide__tab">
+          <button class="tab__button tab__button--active" data-lang="html">html</button>
+          <button class="tab__button" data-lang="css">css</button>
+          <button class="tab__button" data-lang="js">script</button>
         </div>
         <!-- [E] BUTTON -->
-        <!-- [S] CODE -->
-        <div class="guide__code">
-<pre class="highlight" data-lang="html"><code class="language-html">
-<section class="main__content">
-  <h2 class="content__title">title</h2>
-</section>
-</code></pre>
+<!-- [S] CODE -->
+<div class="guide__code">
+  <pre class="highlight" data-lang="html" style="display:block"><code class="language-html">
+  <section class="main__content">
+    <h2 class="content__title">title</h2>
+  </section>
+  </code></pre>
 
-<pre class="highlight" data-lang="css"><code class="language-css">
-.style {display: none;}
-</code></pre>
+  <pre class="highlight" data-lang="css"><code class="language-css">
+  .style {display: none;}
+  </code></pre>
 
-<pre class="highlight" data-lang="js"><code class="language-js">
-;(function(){
-  'use strict';
+  <pre class="highlight" data-lang="js"><code class="language-js">
+  ;(function(){
+    'use strict';
 
-  var foo = 'bar';
-}());
-</code></pre>
-        </div>
-        <!-- [E] CODE -->
+    var foo = 'bar';
+  }());
+  </code></pre>
+</div>
+<!-- [E] CODE -->
       </div>
       <!-- [E] GUIDE -->
       </section>
@@ -91,10 +91,10 @@
 
       $('.language-html').html(string);
 
-      $('.guide__button button').on('click', function(event){
+      $('.guide__tab .tab__button').on('click', function(event){
         var _this = this;
 
-        $(this).addClass('guide__button--active').siblings().removeClass('guide__button--active');
+        $(this).addClass('tab__button--active').siblings().removeClass('tab__button--active');
 
         $(this).parent().siblings('.guide__code').find('.highlight').filter(function(){
           if ($(_this).data('lang') === $(this).data('lang')) return this;
