@@ -4,7 +4,11 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>UI GUIDE</title>
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/styles/atom-one-dark.min.css">
   <link rel="stylesheet" href="./css/style.css">
+
+  <script src="./lib/jquery/jquery-3.5.1.min.js"></script>
 </head>
 <body>
   <div class="container">
@@ -20,17 +24,86 @@
         <p class="menu__text">카테고리</p>
         <a class="menu__link menu__link--active" href="#">메뉴 1</a>
         <a class="menu__link" href="#">메뉴 2</a>
+        <a class="menu__link" href="#">메뉴 3</a>
         <p class="menu__text">카테고리</p>
         <a class="menu__link" href="#">메뉴 1</a>
         <a class="menu__link" href="#">메뉴 2</a>
+        <a class="menu__link" href="#">메뉴 3</a>
+        <p class="menu__text">카테고리</p>
+        <a class="menu__link" href="#">메뉴 1</a>
+        <a class="menu__link" href="#">메뉴 2</a>
+        <a class="menu__link" href="#">메뉴 3</a>
       </nav>
       <section class="main__content">
         <h2 class="content__title">컨텐츠 제목</h2>
+
+        <h3 class="content__title--small">섹션 제목</h3>
+
+        <!-- [S] GUIDE -->
+        <div class="guide">
+          <!-- [S] VIEW -->
+          <div class="guide__view">
+            <div class="">button</div>
+          </div>
+          <!-- [E] VIEW -->
+          <!-- [S] BUTTON -->
+          <div class="guide__button">
+            <button data-lang="html">html</button>
+            <button data-lang="css">css</button>
+            <button data-lang="js">script</button>
+          </div>
+          <!-- [E] BUTTON -->
+          <!-- [S] CODE -->
+          <div class="guide__code">
+            <pre class="highlight" data-lang="html"><code class="language-html">
+              <section class="main__content">
+                <h2 class="content__title">title</h2>
+              </section>
+            </code></pre>
+            <pre class="highlight" data-lang="css"><code class="language-css">
+              .style {display: none;}
+            </code></pre>
+            <pre class="highlight" data-lang="js"><code class="language-js">
+              ;(function(){
+                'use strict';
+
+                var foo = 'bar';
+              }());
+            </code></pre>
+          </div>
+          <!-- [E] CODE -->
+        </div>
+        <!-- [E] GUIDE -->
       </section>
     </main>
     <footer class="footer"></footer>
   </div>
 
-    <script src="./js/script.js"></script>
+  <script>
+    ;(function(){
+      'use strict';
+
+      var string = $('.language-html').html();
+
+      string = string.replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/\"/g,"&quot;").replace(/\'/g,"&#39;");
+
+      $('.language-html').html(string);
+
+      $('.guide__button button').on('click', function(event){
+        var _this = this;
+
+        $(this).addClass('guide__button--active').siblings().removeClass('guide__button--active');
+
+        $(this).parent().siblings('.guide__code').find('.highlight').filter(function(){
+          if ($(_this).data('lang') === $(this).data('lang')) return this;
+        }).show().siblings().hide();
+      });
+    }());
+  </script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/highlight.min.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script>
+
+  <script src="./js/script.js"></script>
 </body>
 </html>
