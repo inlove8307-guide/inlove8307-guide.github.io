@@ -137,13 +137,13 @@ window[namespace] = window[namespace] || {};
         text: '\
           .debug{position:fixed;bottom:0;left:0;z-index:9999;width:100%;height:0vh;}\
           .debug-inner{display:flex;flex-flow:column;position:relative;width:100%;height:100%;border-top:1px solid rgba(0, 0, 0, 1);background-color:rgba(255, 255, 255, 0.95);}\
-          .debug-title{margin:0;padding:2.77vw;border-bottom:1px solid rgba(0, 0, 0, 1);font-family:\'Noto Sans KR\';font-size:1.66vw;color:rgba(0, 0, 0, 1);}\
-          .debug-text{overflow-x:hidden;overflow-y:auto;flex:1;margin:0;padding:2.77vw;}\
-          .debug-text p{margin:0 0 2.77vw;padding:0;}\
-          .debug-text span{font-family:\'Noto Sans KR\';font-size:1.66vw;color:rgba(0, 0, 0, 1);}\
-          .debug-text i{margin-left:2.77vw;font-family:\'Noto Sans KR\';font-size:1.66vw;font-style:normal;color:rgba(0, 0, 0, 1);}\
-          .debug-clear{position:absolute;top:2.77vw;right:2.77vw;border:0;background-color:transparent;font-family:\'Noto Sans KR\';font-size:1.66vw;color:rgba(0, 0, 0, 1);}\
-          .debug-button{position:fixed;bottom:2.77vw;right:2.77vw;z-index:9999;margin:0;padding:0;width:6.94vw;height:6.94vw;border:1px solid rgba(255, 255, 255, 1);border-radius:100%;background-color:rgba(0, 0, 0, 1);font-weight:700;font-family:\'Noto Sans KR\';font-size:2.77vw;color:rgba(255, 255, 255, 1);}\
+          .debug-title{margin:0;padding:10px;border-bottom:1px solid rgba(0, 0, 0, 1);font-family:\'Noto Sans KR\';font-size:14px;color:rgba(0, 0, 0, 1);}\
+          .debug-text{overflow-x:hidden;overflow-y:auto;flex:1;margin:0;padding:10px;background-color:rgb(75, 75, 75);}\
+          .debug-text p{margin:0 0 10px;padding:0;}\
+          .debug-text span{font-family:\'Noto Sans KR\';font-size:14px;color:rgba(255, 255, 255, 1);}\
+          .debug-text i{margin-left:10px;font-family:\'Noto Sans KR\';font-size:14px;font-style:normal;color:rgba(255, 255, 255, 1);}\
+          .debug-clear{position:absolute;top:10px;right:10px;border:0;background-color:transparent;font-family:\'Noto Sans KR\';font-size:14px;color:rgba(0, 0, 0, 1);}\
+          .debug-button{position:fixed;bottom:10px;right:10px;z-index:9999;margin:0;padding:0;width:40px;height:40px;border:1px solid rgba(255, 255, 255, 1);border-radius:100%;background-color:rgba(0, 0, 0, 1);font-weight:700;font-family:\'Noto Sans KR\';font-size:14px;color:rgba(255, 255, 255, 1);}\
         '
       });
 

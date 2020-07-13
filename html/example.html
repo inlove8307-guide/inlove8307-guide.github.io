@@ -6,6 +6,7 @@
   <title>example</title>
 
   <script src="../lib/jquery/jquery-3.5.1.min.js"></script>
+  <script src="../lib/gsap/gsap.min.js"></script>
   <script src="../js/global.js"></script>
 </head>
 <body>
@@ -42,15 +43,6 @@
       width: 20px;
       height: 20px;
     }
-    .masking span::before {
-      content: '';
-      position: absolute;
-      top: 50%;
-      left: 0;
-      width: 100%;
-      height: 1px;
-      background-color:rgb(0, 0, 255);
-    }
     .masking i {
       position: absolute;
       top: 0;
@@ -58,17 +50,17 @@
       width: 100%;
       height: 100%;
       border-radius: 50%;
-    }
-    .masking i.active {
-      background-color:rgba(0, 0, 0, 1);
+      background-color:rgb(225, 225, 225);
     }
   </style>
 
   <script>
     ;(function(){
-      var $items = $('span');
-      var $buttons = $('button');
-      var array = []; // 패스워드 값
+      'use strict';
+
+      var $items = $('span')
+        , $buttons = $('button')
+        , array = []; // 패스워드 값
 
       $buttons.on('click', function(event){
         var value = $(this).data('number');
@@ -77,15 +69,27 @@
           if (array.length >= 4) return; // 배열 길이가 4보다 많으면 동작 안함
 
           array.push(value);
-          $items.eq(array.length - 1).find('i').addClass('active');
+
+          gsap.to($items.eq(array.length - 1).find('i'), {
+            duration: 0.25,
+            backgroundColor: 'rgb(0, 0, 0)'
+          });
         }
         else { // 삭제일 경우
+          if (!array.length) return;
+
           array.pop();
-          $items.find('.active').last().removeClass('active');
+
+          gsap.to($items.eq(array.length).find('i'), {
+            duration: 0.25,
+            backgroundColor: 'rgb(225, 225, 225)'
+          });
         }
 
-        console.log(array); // 콘솔에서 입력한 패스워드 배열 확인
+        ROOT.console.log(array); // 콘솔에서 입력한 패스워드 배열 확인
       });
+
+      ROOT.console.add();
     }());
   </script>
 </body>
