@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>UI GUIDE</title>
+
+  <link rel="stylesheet" href="../../lib/highlight/atom-one-dark.css">
+  <link rel="stylesheet" href="../../css/style.css">
+
+  <script src="../../lib/jquery/jquery-3.5.1.min.js"></script>
+  <script src="../../lib/gsap/gsap.min.js"></script>
+</head>
+<body>
+  <div class="container">
+    <main class="main">
+      <section class="main__content">
+        <h2 class="content__title">Collapse</h2>
+
+        <article class="guide">
+          <!-- GUIDE TITLE -->
+          <h3 class="guide__title">Collapse</h3>
+          <!-- [S] GUIDE -->
+          <div class="guide__content">
+            <!-- [S] VIEW -->
+            <div class="guide__view">
+              <ul class="collapse-default">
+                <li class="collapse-default__item">
+                  <button type="button" class="collapse-default__button">Collapse Button</button>
+                  <div class="collapse-default__content">
+                    Collapse Content
+                  </div>
+                </li>
+                <li class="collapse-default__item">
+                  <button type="button" class="collapse-default__button">Collapse Button</button>
+                  <div class="collapse-default__content">
+                    Collapse Content
+                  </div>
+                </li>
+                <li class="collapse-default__item">
+                  <button type="button" class="collapse-default__button">Collapse Button</button>
+                  <div class="collapse-default__content">
+                    Collapse Content
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <!-- [E] VIEW -->
+            <!-- [S] COMMENT -->
+            <ul class="guide__comment">
+              <li class="comment__text"># 2020.07.14 수정 : 내용</li>
+            </ul>
+            <!-- [E] COMMENT -->
+            <!-- [S] BUTTON -->
+            <div class="guide__tab">
+              <button class="tab__button tab__button--active" data-lang="html">html</button>
+              <button class="tab__button" data-lang="css">css</button>
+              <button class="tab__button" data-lang="js">script</button>
+            </div>
+            <!-- [E] BUTTON -->
+<!-- [S] CODE -->
+<div class="guide__code">
+  <pre class="highlight" data-lang="html" style="display:block"><code class="language-html">
+    <ul class="collapse-default">
+      <li class="collapse-default__item">
+        <button type="button" class="collapse-default__button">Collapse Button</button>
+        <div class="collapse-default__content">
+          Collapse Content
+        </div>
+      </li>
+      <li class="collapse-default__item">
+        <button type="button" class="collapse-default__button">Collapse Button</button>
+        <div class="collapse-default__content">
+          Collapse Content
+        </div>
+      </li>
+      <li class="collapse-default__item">
+        <button type="button" class="collapse-default__button">Collapse Button</button>
+        <div class="collapse-default__content">
+          Collapse Content
+        </div>
+      </li>
+    </ul>
+  </code></pre>
+
+  <pre class="highlight" data-lang="css"><code class="language-css">
+    .collapse-default {
+      overflow: hidden;
+      border: 0.1rem solid rgb(150, 150, 150);
+      border-radius: 0.5rem;
+    }
+    .collapse-default__button {
+      width: 100%;
+      min-height: 4rem;
+      margin-top: -0.1rem;
+      padding: 0.5rem 1rem;
+      border-top: 0.1rem solid rgb(150, 150, 150);
+      background-color: rgb(250, 250, 250);
+      text-align: left;
+    }
+    .collapse-default__content {
+      display: none;
+      padding: 1rem;
+      border-top: 0.1rem solid rgb(150, 150, 150);
+    }
+  </code></pre>
+
+  <pre class="highlight" data-lang="js"><code class="language-js">
+    $('.collapse__button').on('click', function(event){
+      var $target = $(this).siblings('.collapse__content');
+
+      if ($target.is(':hidden')) {
+        $target.slideDown(100).parent().siblings().find('.collapse__content').slideUp(100);
+      }
+      else {
+        $target.slideUp(100);
+      }
+    });
+  </code></pre>
+</div>
+<!-- [E] CODE -->
+          </div>
+          <!-- [E] GUIDE -->
+        </article>
+
+      </section>
+    </main>
+  </div>
+
+  <script src="../../lib/highlight/highlight.min.js"></script>
+  <script src="../../js/guide.js"></script>
+  <script src="../../js/components.js"></script>
+  <script>
+    hljs.initHighlightingOnLoad();
+    GUIDE.include.header();
+    GUIDE.include.menu('C01');
+  </script>
+</body>
+</html>

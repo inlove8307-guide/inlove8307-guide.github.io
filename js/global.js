@@ -173,11 +173,6 @@ window[namespace] = window[namespace] || {};
         $clear.on('click', function(event){
           $text.empty();
         });
-      },
-      del: function(){
-        $wrap.remove();
-        $button.remove();
-        $style.remove();
       }
     }
   }(window.console));

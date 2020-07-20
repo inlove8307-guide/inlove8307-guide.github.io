@@ -12,100 +12,57 @@
 </head>
 <body>
   <div class="container">
-    <header class="header">
-      <h1 class="header__title">UI GUIDE</h1>
-      <nav class="header__menu">
-        <a class="menu__link" href="#">Guide</a>
-        <a class="menu__link" href="#">Compnent</a>
-      </nav>
-    </header>
     <main class="main">
-      <nav class="main__menu">
-        <p class="menu__text">카테고리</p>
-        <a class="menu__link menu__link--active" href="#">메뉴 1</a>
-        <a class="menu__link" href="#">메뉴 2</a>
-        <a class="menu__link" href="#">메뉴 3</a>
-        <p class="menu__text">카테고리</p>
-        <a class="menu__link" href="#">메뉴 1</a>
-        <a class="menu__link" href="#">메뉴 2</a>
-        <a class="menu__link" href="#">메뉴 3</a>
-        <p class="menu__text">카테고리</p>
-        <a class="menu__link" href="#">메뉴 1</a>
-        <a class="menu__link" href="#">메뉴 2</a>
-        <a class="menu__link" href="#">메뉴 3</a>
-      </nav>
       <section class="main__content">
         <h2 class="content__title">컨텐츠 제목</h2>
 
-        <h3 class="content__title--small">섹션 제목</h3>
-
-      <!-- [S] GUIDE -->
-      <div class="guide">
-        <!-- [S] VIEW -->
-        <div class="guide__view">
-          <div class="">button</div>
-        </div>
-        <!-- [E] VIEW -->
-        <!-- [S] BUTTON -->
-        <div class="guide__tab">
-          <button class="tab__button tab__button--active" data-lang="html">html</button>
-          <button class="tab__button" data-lang="css">css</button>
-          <button class="tab__button" data-lang="js">script</button>
-        </div>
-        <!-- [E] BUTTON -->
+        <article class="guide">
+          <!-- GUIDE TITLE -->
+          <h3 class="guide__title">섹션 제목</h3>
+          <!-- [S] GUIDE -->
+          <div class="guide__content">
+            <!-- [S] VIEW -->
+            <div class="guide__view">
+              <button>버튼</button>
+            </div>
+            <!-- [E] VIEW -->
+            <!-- [S] COMMENT -->
+            <ul class="guide__comment">
+              <li class="comment__text"># 2020.07.14 수정 : 내용</li>
+            </ul>
+            <!-- [E] COMMENT -->
+            <!-- [S] BUTTON -->
+            <div class="guide__tab">
+              <button class="tab__button tab__button--active" data-lang="html">html</button>
+              <button class="tab__button" data-lang="css">css</button>
+              <button class="tab__button" data-lang="js">script</button>
+            </div>
+            <!-- [E] BUTTON -->
 <!-- [S] CODE -->
 <div class="guide__code">
   <pre class="highlight" data-lang="html" style="display:block"><code class="language-html">
-  <section class="main__content">
-    <h2 class="content__title">title</h2>
-  </section>
+    <tag>tag</tag>
   </code></pre>
 
   <pre class="highlight" data-lang="css"><code class="language-css">
-  .style {display: none;}
+    .style {property: value;}
   </code></pre>
 
   <pre class="highlight" data-lang="js"><code class="language-js">
-  ;(function(){
-    'use strict';
-
     var foo = 'bar';
-  }());
   </code></pre>
 </div>
 <!-- [E] CODE -->
-      </div>
-      <!-- [E] GUIDE -->
+          </div>
+          <!-- [E] GUIDE -->
+        </article>
+
       </section>
     </main>
-    <footer class="footer"></footer>
   </div>
 
-  <script>
-    ;(function(){
-      'use strict';
-
-      var string = $('.language-html').html();
-
-      string = string.replace(/</g,"&lt;").replace(/>/g,"&gt;");
-
-      $('.language-html').html(string);
-
-      $('.guide__tab .tab__button').on('click', function(event){
-        var _this = this;
-
-        $(this).addClass('tab__button--active').siblings().removeClass('tab__button--active');
-
-        $(this).parent().siblings('.guide__code').find('.highlight').filter(function(){
-          if ($(_this).data('lang') === $(this).data('lang')) return this;
-        }).show().siblings().hide();
-      });
-    }());
-  </script>
-
+  <script src="./js/guide.js"></script>
   <script src="./lib/highlight/highlight.min.js"></script>
   <script>hljs.initHighlightingOnLoad();</script>
-
-  <script src="./js/script.js"></script>
 </body>
 </html>
