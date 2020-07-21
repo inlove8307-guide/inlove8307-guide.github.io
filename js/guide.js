@@ -8,10 +8,10 @@ window[namespace] = window[namespace] || {};
   var include = {};
 
   include.header = function(){
-    $('.container').prepend(
-      '<header class="header">\
-        <h1 class="header__title">UI GUIDE</h1>\
-        <nav class="header__menu">\
+    $('.guide-container').prepend(
+      '<header class="guide-header">\
+        <h1 class="guide-header__title">UI GUIDE</h1>\
+        <nav class="guide-header__menu">\
           <a class="menu__link" href="#">Guide</a>\
           <a class="menu__link" href="#">Compnent</a>\
         </nav>\
@@ -20,32 +20,46 @@ window[namespace] = window[namespace] || {};
   };
 
   include.menu = function(code){
-    var html = {
-      C01:
-        '<nav class="main__menu">\
-          <p class="menu__text">Components</p>\
-          <a class="menu__link menu__link--active" href="#">Collapse</a>\
-        </nav>',
-      C02: '',
-      C03: ''
-    };
+    $('.guide-main').prepend(
+      '<nav class="guide-main__menu">\
+        <p class="menu__text">Rules</p>\
+        <a class="menu__link" data-code="C0101" href="../rules/rules_01.html">기본정책</a>\
+        <a class="menu__link" data-code="C0102" href="../rules/rules_02.html">표준규칙</a>\
+        <a class="menu__link" data-code="C0103" href="../rules/rules_03.html">코드규칙</a>\
+        <a class="menu__link" data-code="C0104" href="../rules/rules_04.html">네임규칙</a>\
+        <a class="menu__link" data-code="C0105" href="../rules/rules_05.html">설계패턴</a>\
+        <p class="menu__text">Accessibility</p>\
+        <a class="menu__link" data-code="C0201" href="../accessibility/accessibility_01.html">웹 접근성 개요</a>\
+        <a class="menu__link" data-code="C0202" href="../accessibility/accessibility_02.html">웹접근성 WAI-ARIA</a>\
+        <a class="menu__link" data-code="C0203" href="../accessibility/accessibility_03.html">역할별 체크리스트</a>\
+        <a class="menu__link" data-code="C0204" href="../accessibility/accessibility_04.html">개선작업 프로세스</a>\
+        <p class="menu__text">Components</p>\
+        <a class="menu__link" data-code="C0301" href="../components/collapse.html">Collapse</a>\
+      </nav>'
+    );
 
-    $('.main').prepend(html[code]);
+    $('.menu__link').filter(function(){
+      if (code == $(this).data('code')) return this;
+    }).addClass('menu__link--active').append('<i class="fas fa-chevron-right fa-xs"></i>');
   }
 
   // 코드 탭 버튼 클릭 이벤트
-  $('.guide__tab .tab__button').on('click', function(event){
-    var _this = this;
+  if ($('.guide-viewer__tab').length) {
+    $('.guide-viewer__tab .tab__button').on('click', function(event){
+      var _this = this;
 
-    $(this).addClass('tab__button--active').siblings().removeClass('tab__button--active');
+      $(this).addClass('tab__button--active').siblings().removeClass('tab__button--active');
 
-    $(this).parent().siblings('.guide__code').find('.highlight').filter(function(){
-      if ($(_this).data('lang') === $(this).data('lang')) return this;
-    }).show().siblings().hide();
-  });
+      $(this).parent().siblings('.guide-viewer__code').find('.highlight').filter(function(){
+        if ($(_this).data('lang') === $(this).data('lang')) return this;
+      }).show().siblings().hide();
+    });
+  }
 
   // highlight.js html 태그 변환
-  $('.language-html').html($('.language-html').html().replace(/</g,"&lt;").replace(/>/g,"&gt;"));
+  if ($('.language-html').length) {
+    $('.language-html').html($('.language-html').html().replace(/</g,"&lt;").replace(/>/g,"&gt;"));
+  }
 
   guide.include = include;
 }(window[namespace]));

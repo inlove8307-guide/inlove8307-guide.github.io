@@ -5,5 +5,9 @@
 @import './font.css';
 @import './guide.css';
 
+/* LIBRARY */
+@import '../lib/highlight/atom-one-dark.css';
+@import '../lib/fontawesome/css/all.min.css';
+
 /* COMPONENTS */
 @import './components/collapse.css';

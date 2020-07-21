@@ -1,29 +1,28 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ko">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>UI GUIDE</title>
 
-  <link rel="stylesheet" href="../../lib/highlight/atom-one-dark.css">
   <link rel="stylesheet" href="../../css/style.css">
 
   <script src="../../lib/jquery/jquery-3.5.1.min.js"></script>
   <script src="../../lib/gsap/gsap.min.js"></script>
 </head>
 <body>
-  <div class="container">
-    <main class="main">
-      <section class="main__content">
-        <h2 class="content__title">Collapse</h2>
+  <div class="guide-container">
+    <main class="guide-main">
+      <section class="guide-main__content">
+        <h2 class="guide-content__title">Collapse</h2>
 
-        <article class="guide">
+        <article class="guide-viewer">
           <!-- GUIDE TITLE -->
-          <h3 class="guide__title">Collapse</h3>
+          <h3 class="guide-viewer__title">Collapse</h3>
           <!-- [S] GUIDE -->
-          <div class="guide__content">
+          <div class="guide-viewer__content">
             <!-- [S] VIEW -->
-            <div class="guide__view">
+            <div class="guide-viewer__view">
               <ul class="collapse-default">
                 <li class="collapse-default__item">
                   <button type="button" class="collapse-default__button">Collapse Button</button>
@@ -47,19 +46,19 @@
             </div>
             <!-- [E] VIEW -->
             <!-- [S] COMMENT -->
-            <ul class="guide__comment">
+            <ul class="guide-viewer__comment">
               <li class="comment__text"># 2020.07.14 수정 : 내용</li>
             </ul>
             <!-- [E] COMMENT -->
             <!-- [S] BUTTON -->
-            <div class="guide__tab">
+            <div class="guide-viewer__tab">
               <button class="tab__button tab__button--active" data-lang="html">html</button>
               <button class="tab__button" data-lang="css">css</button>
               <button class="tab__button" data-lang="js">script</button>
             </div>
             <!-- [E] BUTTON -->
 <!-- [S] CODE -->
-<div class="guide__code">
+<div class="guide-viewer__code">
   <pre class="highlight" data-lang="html" style="display:block"><code class="language-html">
     <ul class="collapse-default">
       <li class="collapse-default__item">
@@ -133,7 +132,7 @@
   <script>
     hljs.initHighlightingOnLoad();
     GUIDE.include.header();
-    GUIDE.include.menu('C01');
+    GUIDE.include.menu('C0301');
   </script>
 </body>
 </html>

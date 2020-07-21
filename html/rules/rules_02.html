@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>UI GUIDE</title>
+
+  <link rel="stylesheet" href="../../css/style.css">
+
+  <script src="../../lib/jquery/jquery-3.5.1.min.js"></script>
+  <script src="../../lib/gsap/gsap.min.js"></script>
+</head>
+<body>
+  <div class="guide-container">
+    <main class="guide-main">
+      <section class="guide-main__content">
+        <h2 class="guide-content__title">표준규칙</h2>
+
+        <article class="guide-viewer">
+
+        </article>
+
+      </section>
+    </main>
+  </div>
+
+  <script src="../../lib/highlight/highlight.min.js"></script>
+  <script src="../../js/guide.js"></script>
+  <script>
+    hljs.initHighlightingOnLoad();
+    GUIDE.include.header();
+    GUIDE.include.menu('C0102');
+  </script>
+</body>
+</html>
