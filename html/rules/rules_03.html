@@ -17,7 +17,209 @@
         <h2 class="guide-content__title">코드규칙</h2>
 
         <article class="guide-viewer">
+          <h3 class="guide-viewer__title">공백</h3>
+          <ul class="guide-viewer__list">
+            <li class="list__item list__item--dash">들여쓰기는 탭 으로 설정한다. (공백 4칸 사이즈)</li>
+            <li class="list__item list__item--dash">빈줄은 1줄을 초과하지 않는다.</li>
+          </ul>
 
+          <h3 class="guide-viewer__title">주석</h3>
+          <h4 class="guide-viewer__title guide-viewer__title--bullet">HTML</h4>
+<!-- [S] CODE -->
+<div class="guide-viewer__code">
+  <pre class="highlight" data-lang="html" style="display:block"><code class="language-html">
+    [기본 주석]
+    <!-- Header -->
+    <!-- // Header -->
+
+    [조건부 주석]
+    <!-- case 로그인전 -->
+    <!-- // case 로그인후 -->
+
+    [변경사항 주석]
+    <!-- 수정 200801 디자인변경 라인추가 -->
+  </code></pre>
+</div>
+<!-- [E] CODE -->
+
+          <h4 class="guide-viewer__title guide-viewer__title--bullet">CSS</h4>
+<!-- [S] CODE -->
+<div class="guide-viewer__code">
+  <pre class="highlight" data-lang="css" style="display:block"><code class="language-css">
+    /*-------------------------------------------------------------------
+    파일정의 :
+    ...
+    (생략)
+    -------------------------------------------------------------------*/
+
+    [분류 주석]
+    /*-------------------------------------------------------------------
+        @Fonts
+    -------------------------------------------------------------------*/
+
+    [구분 주석]
+    /* Default */
+  </code></pre>
+</div>
+<!-- [E] CODE -->
+
+          <h4 class="guide-viewer__title guide-viewer__title--bullet">SCRIPT</h4>
+<!-- [S] CODE -->
+<div class="guide-viewer__code">
+  <pre class="highlight" data-lang="js" style="display:block"><code class="language-js">
+    [파일 주석]
+    /*-------------------------------------------------------------------
+        분류순서
+        ...
+        (생략)
+    -------------------------------------------------------------------*/
+
+    [분류 주석]
+    /*-------------------------------------------------------------------
+        @Variables
+    -------------------------------------------------------------------*/
+
+    [구분 주석]
+    /* 엘리먼트 설정 */
+
+    [설명 주석]
+    // 스와이프 적용클래스
+  </code></pre>
+</div>
+<!-- [E] CODE -->
+          <ul class="guide-viewer__list" style="margin-top:2rem">
+            <li class="list__item list__item--dash">목적에 맞게 주석표기 방법을 구분한다.</li>
+            <li class="list__item list__item--dash">범위에 맞게 주석표기 크기를 구분한다.</li>
+            <li class="list__item list__item--dash">분류순서와 분류별 주석표기 '@'로 찾기 쉬워야 한다.</li>
+          </ul>
+
+          <h3 class="guide-viewer__title">순서</h3>
+          <h4 class="guide-viewer__title guide-viewer__title--bullet">HTML</h4>
+          <table class="guide-viewer__table">
+            <caption>HTML 속성선언순서</caption>
+            <colgroup>
+              <col style="width:20%;">
+              <col style="width:20%;">
+              <col>
+            </colgroup>
+            <thead>
+              <tr>
+                <th>분류</th>
+                <th>구분</th>
+                <th>속성</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>1. 필수</td>
+                <td>기능</td>
+                <td>href, src, type</td>
+              </tr>
+              <tr>
+                <td rowspan="3">2. 일반</td>
+                <td>이름</td>
+                <td>name, id</td>
+              </tr>
+              <tr>
+                <td>정보</td>
+                <td>value, title, alt</td>
+              </tr>
+              <tr>
+                <td>옵션</td>
+                <td>target, tabindex</td>
+              </tr>
+              <tr>
+                <td>3. 표현</td>
+                <td>스타일</td>
+                <td>class, style</td>
+              </tr>
+              <tr>
+                <td rowspan="4">4. 기타</td>
+                <td>role</td>
+                <td>role</td>
+              </tr>
+              <tr>
+                <td>aria-</td>
+                <td>aria-controls, aria-describedby, aria-labelledby, aria-popup, aria-modal 등</td>
+              </tr>
+              <tr>
+                <td>data-</td>
+                <td>data-id, data-target 등</td>
+              </tr>
+              <tr>
+                <td>상태</td>
+                <td>checked, disabled, selected, required, hidden 등</td>
+              </tr>
+            </tbody>
+          </table>
+
+          <h4 class="guide-viewer__title guide-viewer__title--bullet">CSS</h4>
+          <table class="guide-viewer__table">
+            <caption>CSS 속성선언순서</caption>
+            <colgroup>
+              <col style="width:20%;">
+              <col style="width:20%;">
+              <col>
+            </colgroup>
+            <thead>
+              <tr>
+                <th>분류</th>
+                <th>구분</th>
+                <th>속성</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td rowspan="3">1. 레이아웃</td>
+                <td>표시</td>
+                <td>display, visible</td>
+              </tr>
+              <tr>
+                <td>위치</td>
+                <td>position, z-index, top, right, bottom, left</td>
+              </tr>
+              <tr>
+                <td>흐름/넘침</td>
+                <td>float, clear, overflow</td>
+              </tr>
+              <tr>
+                <td rowspan="2">2. 크기/간격</td>
+                <td>크기</td>
+                <td>width, *-width, height, *-height</td>
+              </tr>
+              <tr>
+                <td>간격</td>
+                <td>padding, margin</td>
+              </tr>
+              <tr>
+                <td rowspan="2">3. 박스모양</td>
+                <td>선</td>
+                <td>border-*</td>
+              </tr>
+              <tr>
+                <td>배경</td>
+                <td>background-*</td>
+              </tr>
+              <tr>
+                <td rowspan="3">4. 폰트/정렬</td>
+                <td>폰트</td>
+                <td>font-* (body와 동일한 폰트사이즈는 생략한다.)</td>
+              </tr>
+              <tr>
+                <td>컬러</td>
+                <td>color</td>
+              </tr>
+              <tr>
+                <td>정렬</td>
+                <td>text-align, vertical-align</td>
+              </tr>
+              <tr>
+                <td>5. 기타</td>
+                <td></td>
+                <td>언급되지 않은 속성들은 후순위로 적용한다.</td>
+              </tr>
+            </tbody>
+          </table>
         </article>
 
       </section>

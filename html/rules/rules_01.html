@@ -17,7 +17,179 @@
         <h2 class="guide-content__title">기본정책</h2>
 
         <article class="guide-viewer">
+          <h3 class="guide-viewer__title">프로젝트 환경</h3>
+          <table class="guide-viewer__table">
+            <caption>환경정의</caption>
+            <colgroup>
+              <col style="width:20%">
+              <col>
+            </colgroup>
+            <tbody>
+              <tr>
+                <th scope="row">문서 및 버전</th>
+                <td>HTML5, CSS3</td>
+              </tr>
+              <tr>
+                <th scope="row">인코딩</th>
+                <td>UTF-8</td>
+              </tr>
+              <tr>
+                <th scope="row">웹 유형</th>
+                <td>PC Web, Mobile Web, Responcive Web</td>
+                <!-- PC Web | Mobile Web | Responsive Web | Mobile Hybrid Web -->
+              </tr>
+              <tr>
+                <th scope="row">PC 웹 호환성</th>
+                <td>
+                </td>
+              </tr>
+              <tr>
+                <th scope="row">Mobile 웹 호환성</th>
+                <td>
+                    안드로이드 6.x 이상, IOS 10.x 이상
+                </td>
+              </tr>
+              <tr>
+                <th scope="row">해상도 범위</th>
+                <td>
+                  <ul>
+                    <li>Mobile : 360 ~ 767</li>
+                    <li>Tablet : 768 ~ 1023</li>
+                    <li>Desctop : 1024 ~ 1920</li>
+                  </ul>
+                </td>
+              </tr>
+              <tr>
+                <th scope="row">최적화 기준</th>
+                <td>
+                  <ul>
+                    <li>Mobile : 375</li>
+                    <li>Tablet : 960</li>
+                    <li>Desctop : 1024</li>
+                  </ul>
+                </td>
+              </tr>
+            </tbody>
+          </table>
 
+          <h3 class="guide-viewer__title">파일/폴더 구조</h3>
+          <table class="guide-viewer__table">
+            <caption>파일구조</caption>
+            <colgroup>
+              <col style="width:20%">
+              <col style="width:20%">
+              <col style="width:30%">
+              <col>
+            </colgroup>
+            <thead>
+              <tr>
+                <th>분류 폴더</th>
+                <th>서브 폴더</th>
+                <th>파일 이름</th>
+                <th>파일 설명</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>fonts</td>
+                <td></td>
+                <td></td>
+                <td>
+                  웹폰트
+                </td>
+              </tr>
+              <tr>
+                <td>css</td>
+                <td>libs</td>
+                <td>
+                  animate.css<br>
+                  librarys.min.css
+                </td>
+                <td>
+                  스타일 - 에니메이트<br>
+                  스타일 - 플러그인
+                </td>
+              </tr>
+              <tr>
+                <td></td>
+                <td>ui</td>
+                <td>
+                  import.css<br>
+                  base.css<br>
+                  utilites.css<br>
+                  layout.css<br>
+                  components.css<br>
+                  content.css<br>
+                  main.css
+                </td>
+                <td>
+                  스타일 - CSS 가져오기<br>
+                  스타일 - 초기화<br>
+                  스타일 - 유틸리티<br>
+                  스타일 - 레이아웃<br>
+                  스타일 - 컴포넌트<br>
+                  스타일 - 서브컨텐츠<br>
+                  스타일 - 메인컨텐츠
+                </td>
+              </tr>
+              <tr>
+                <td>js</td>
+                <td>libs</td>
+                <td>
+                  jquery.min.js<br>
+                  librarys.min.js<br>
+                  html5shiv-printshiv.js
+                </td>
+                <td>
+                  스크립트 - Jquery<br>
+                  스크립트 - 라이브러리<br>
+                  스크립트 - HTML5
+                </td>
+              </tr>
+              <tr>
+                <td></td>
+                <td>ui</td>
+                <td>
+                  ui_common.js<br>
+                  ui_publish.js
+                </td>
+                <td>
+                  스크립트 - UI 공통<br>
+                  스크립트 - 퍼블리싱용
+                </td>
+              </tr>
+              <tr>
+                <td>images</td>
+                <td>
+                  common<br>
+                  [menus]<br>
+                  @temp
+                </td>
+                <td></td>
+                <td>
+                  이미지 - 공통<br>
+                  이미지 - 서브<br>
+                  이미지 - 더미
+                </td>
+              </tr>
+              <tr>
+                <td>html</td>
+                <td>
+                  _guide<br>
+                  _layout<br>
+                  _includes<br>
+                  [menus]
+                </td>
+                <td></td>
+                <td>
+                  HTML - 가이드<br>
+                  HTML - 레이아웃<br>
+                  HTML - 인클루드<br>
+                  HTML - 서브페이지
+                </td>
+              </tr>
+            </tbody>
+          </table>
         </article>
 
       </section>
