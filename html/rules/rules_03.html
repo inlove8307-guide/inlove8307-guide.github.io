@@ -6,6 +6,7 @@
   <title>UI GUIDE</title>
 
   <link rel="stylesheet" href="../../css/style.css">
+  <link rel="stylesheet" href="../../lib/prism/prism.okaidia.css">
 
   <script src="../../lib/jquery/jquery-3.5.1.min.js"></script>
   <script src="../../lib/gsap/gsap.min.js"></script>
@@ -25,68 +26,74 @@
 
           <h3 class="guide-viewer__title">주석</h3>
           <h4 class="guide-viewer__title guide-viewer__title--bullet">HTML</h4>
-<!-- [S] CODE -->
-<div class="guide-viewer__code">
-  <pre class="highlight" data-lang="html" style="display:block"><code class="language-html">
-    [기본 주석]
-    <!-- Header -->
-    <!-- // Header -->
+          <!-- [S] CODE -->
+          <div class="guide-viewer__code">
+            <pre class="line-numbers" data-lang="html" style="display:block">
+              <code class="language-html">
+                [기본 주석]
+                <!-- Header -->
+                <!-- // Header -->
 
-    [조건부 주석]
-    <!-- case 로그인전 -->
-    <!-- // case 로그인후 -->
+                [조건부 주석]
+                <!-- case 로그인전 -->
+                <!-- // case 로그인후 -->
 
-    [변경사항 주석]
-    <!-- 수정 200801 디자인변경 라인추가 -->
-  </code></pre>
-</div>
-<!-- [E] CODE -->
+                [변경사항 주석]
+                <!-- 수정 200801 디자인변경 라인추가 -->
+              </code>
+          </pre>
+          </div>
+          <!-- [E] CODE -->
 
           <h4 class="guide-viewer__title guide-viewer__title--bullet">CSS</h4>
-<!-- [S] CODE -->
-<div class="guide-viewer__code">
-  <pre class="highlight" data-lang="css" style="display:block"><code class="language-css">
-    /*-------------------------------------------------------------------
-    파일정의 :
-    ...
-    (생략)
-    -------------------------------------------------------------------*/
+          <!-- [S] CODE -->
+          <div class="guide-viewer__code">
+            <pre class="line-numbers" data-lang="css" style="display:block">
+              <code class="language-css">
+                /*-------------------------------------------------------------------
+                파일정의 :
+                ...
+                (생략)
+                -------------------------------------------------------------------*/
 
-    [분류 주석]
-    /*-------------------------------------------------------------------
-        @Fonts
-    -------------------------------------------------------------------*/
+                [분류 주석]
+                /*-------------------------------------------------------------------
+                    @Fonts
+                -------------------------------------------------------------------*/
 
-    [구분 주석]
-    /* Default */
-  </code></pre>
-</div>
-<!-- [E] CODE -->
+                [구분 주석]
+                /* Default */
+              </code>
+            </pre>
+          </div>
+          <!-- [E] CODE -->
 
           <h4 class="guide-viewer__title guide-viewer__title--bullet">SCRIPT</h4>
-<!-- [S] CODE -->
-<div class="guide-viewer__code">
-  <pre class="highlight" data-lang="js" style="display:block"><code class="language-js">
-    [파일 주석]
-    /*-------------------------------------------------------------------
-        분류순서
-        ...
-        (생략)
-    -------------------------------------------------------------------*/
+          <!-- [S] CODE -->
+          <div class="guide-viewer__code">
+            <pre class="line-numbers" data-lang="js" style="display:block">
+              <code class="language-js">
+                [파일 주석]
+                /*-------------------------------------------------------------------
+                    분류순서
+                    ...
+                    (생략)
+                -------------------------------------------------------------------*/
 
-    [분류 주석]
-    /*-------------------------------------------------------------------
-        @Variables
-    -------------------------------------------------------------------*/
+                [분류 주석]
+                /*-------------------------------------------------------------------
+                    @Variables
+                -------------------------------------------------------------------*/
 
-    [구분 주석]
-    /* 엘리먼트 설정 */
+                [구분 주석]
+                /* 엘리먼트 설정 */
 
-    [설명 주석]
-    // 스와이프 적용클래스
-  </code></pre>
-</div>
-<!-- [E] CODE -->
+                [설명 주석]
+                // 스와이프 적용클래스
+              </code>
+            </pre>
+          </div>
+          <!-- [E] CODE -->
           <ul class="guide-viewer__list" style="margin-top:2rem">
             <li class="list__item list__item--dash">목적에 맞게 주석표기 방법을 구분한다.</li>
             <li class="list__item list__item--dash">범위에 맞게 주석표기 크기를 구분한다.</li>
@@ -226,10 +233,9 @@
     </main>
   </div>
 
-  <script src="../../lib/highlight/highlight.min.js"></script>
   <script src="../../js/guide.js"></script>
+  <script src="../../lib/prism/prism.js"></script>
   <script>
-    hljs.initHighlightingOnLoad();
     GUIDE.include.header();
     GUIDE.include.menu('C0103');
   </script>

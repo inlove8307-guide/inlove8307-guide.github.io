@@ -47,18 +47,28 @@ window[namespace] = window[namespace] || {};
   if ($('.guide-viewer__tab').length) {
     $('.guide-viewer__tab .tab__button').on('click', function(event){
       var _this = this;
-
-      $(this).addClass('tab__button--active').siblings().removeClass('tab__button--active');
-
-      $(this).parent().siblings('.guide-viewer__code').find('.highlight').filter(function(){
+      var $parent = $(this).closest('.guide-viewer__tab');
+      var $target = $parent.siblings('.guide-viewer__code').find('pre').filter(function(){
         if ($(_this).data('lang') === $(this).data('lang')) return this;
-      }).show().siblings().hide();
+      });
+
+      if ($(this).hasClass('tab__button--active')) {
+        $(this).removeClass('tab__button--active');
+        $target.hide();
+      }
+      else {
+        $(this).addClass('tab__button--active');
+        $(this).siblings().removeClass('tab__button--active');
+        $target.show().siblings().hide();
+      }
     });
   }
 
   // highlight.js html 태그 변환
   if ($('.language-html').length) {
-    $('.language-html').html($('.language-html').html().replace(/</g,"&lt;").replace(/>/g,"&gt;"));
+    $('.language-html').each(function(){
+      $(this).html($(this).html().replace(/</g,"&lt;").replace(/>/g,"&gt;"));
+    });
   }
 
   guide.include = include;
