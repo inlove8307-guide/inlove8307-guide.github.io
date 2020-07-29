@@ -9,9 +9,14 @@
     var $target = $($(this).data('target'));
 
     if ($target.length) {
-      $target.is(':hidden')
-        ? $(this).attr('aria-expanded', false)
-        : $(this).attr('aria-expanded', true);
+      if ($target.is(':hidden')) {
+        $(this).attr('aria-expanded', false);
+        $(this).removeClass(COLLAPSE_ACTIVE);
+      }
+      else {
+        $(this).attr('aria-expanded', true);
+        $(this).addClass(COLLAPSE_ACTIVE);
+      }
 
       $(this).attr('aria-controls', $(this).data('target'));
       $target.attr('aria-labelledby', $(this).attr('id'));
@@ -41,4 +46,35 @@
       $(this).removeClass(COLLAPSE_ACTIVE);
     }
   });
+}());
+
+;(function(){
+  'use strict';
+
+  var MODAL = '[data-toggle="modal"]'
+    , MODAL_CONTENT = '.modal__content'
+    , MODAL_SPEED = 100;
+
+  $(MODAL).on('click', function(event){
+    var $target = $($(this).data('target'));
+
+    if ($target.is(':hidden')) {
+      gsap.fromTo($target, { display: 'block', backgroundColor: 'rgba(0, 0, 0, 0)' }, { backgroundColor: 'rgba(0, 0, 0, 0.5)', duration: MODAL_SPEED * 0.001 });
+
+      switch($target.data('align')){
+        case 'top': gsap.fromTo(MODAL_CONTENT, { transform: 'translateY(-100%)' }, { transform: 'translateY(0)', duration: MODAL_SPEED * 0.001 }); break;
+        case 'bottom': gsap.fromTo(MODAL_CONTENT, { transform: 'translateY(100%)' }, { transform: 'translateY(0)', duration: MODAL_SPEED * 0.001 }); break;
+        default: gsap.fromTo(MODAL_CONTENT, { opacity: 0 }, { opacity: 1, duration:  MODAL_SPEED * 0.001 }); break;
+      }
+    }
+    else {
+      $target.hide();
+    }
+  });
+}());
+
+;(function(){
+  'use strict';
+
+
 }());

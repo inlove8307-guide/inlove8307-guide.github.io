@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>UI GUIDE</title>
+
+  <link rel="stylesheet" href="../../css/style.css">
+  <link rel="stylesheet" href="../../lib/prism/prism.okaidia.css">
+
+  <script src="../../lib/jquery/jquery-3.5.1.min.js"></script>
+  <script src="../../lib/lodash.min.js"></script>
+  <script src="../../lib/moment/moment.min.js"></script>
+  <script src="../../lib/anime.js/anime.min.js"></script>
+  <script src="../../lib/gsap/gsap.min.js"></script>
+  <script src="../../lib/prism/prism.js"></script>
+</head>
+<body>
+  <div class="guide-container">
+    <main class="guide-main">
+      <section class="guide-main__content">
+        <h2 class="guide-content__title">Modal</h2>
+
+        <article class="guide-viewer">
+          <!-- GUIDE TITLE -->
+          <h3 class="guide-viewer__title">Modal - Center</h3>
+          <!-- [S] GUIDE -->
+          <div class="guide-viewer__content">
+            <!-- [S] VIEW -->
+            <div class="guide-viewer__view">
+              <button class="button--primary" data-toggle="modal" data-target="#POPUP_CENTER"><span>popup</span></button>
+              <div id="POPUP_CENTER" class="modal" data-align="center">
+                <div class="modal__inner">
+                  <div class="modal__content">
+                    <div class="modal__header">header</div>
+                    <div class="modal__body">body</div>
+                    <div class="modal__footer">
+                      <div class="button-group">
+                        <button class="button-flex--secondary" data-toggle="modal" data-target="#POPUP_CENTER">닫기</button>
+                        <button class="button-flex--primary">확인</button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- [E] VIEW -->
+            <!-- [S] COMMENT -->
+            <!-- <ul class="guide-viewer__comment">
+              <li class="comment__text"># 코멘트</li>
+            </ul> -->
+            <!-- [E] COMMENT -->
+            <!-- [S] BUTTON -->
+            <div class="guide-viewer__tab">
+              <button class="tab__button" data-lang="html">html</button>
+              <button class="tab__button" data-lang="css">css</button>
+              <button class="tab__button" data-lang="script">script</button>
+            </div>
+            <!-- [E] BUTTON -->
+            <!-- [S] CODE -->
+            <div class="guide-viewer__code">
+              <pre class="line-numbers" data-lang="html">
+                <code class="language-html">
+                  <button class="button--primary" data-toggle="modal" data-target="#POPUP_CENTER"><span>popup</span></button>
+                  <div id="POPUP_CENTER" class="modal" data-align="center">
+                    <div class="modal__inner">
+                      <div class="modal__content">
+                        <div class="modal__header">header</div>
+                        <div class="modal__body">body</div>
+                        <div class="modal__footer">
+                          <div class="button-group">
+                            <button class="button-flex--secondary" data-toggle="modal" data-target="#POPUP_CENTER">닫기</button>
+                            <button class="button-flex--primary">확인</button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </code>
+              </pre>
+              <pre class="line-numbers" data-lang="css">
+                <code class="language-css">
+                  /* style */
+                </code>
+              </pre>
+              <pre class="line-numbers" data-lang="script">
+                <code class="language-js">
+                  // script
+                </code>
+              </pre>
+            </div>
+            <!-- [E] CODE -->
+          </div>
+          <!-- [E] GUIDE -->
+        </article>
+
+        <article class="guide-viewer">
+          <!-- GUIDE TITLE -->
+          <h3 class="guide-viewer__title">Modal - Bottom</h3>
+          <!-- [S] GUIDE -->
+          <div class="guide-viewer__content">
+            <!-- [S] VIEW -->
+            <div class="guide-viewer__view">
+              <button class="button--primary" data-toggle="modal" data-target="#POPUP_TOP"><span>popup</span></button>
+              <div id="POPUP_TOP" class="modal" data-align="bottom">
+                <div class="modal__inner">
+                  <div class="modal__content">
+                    <div class="modal__header">header</div>
+                    <div class="modal__body">body</div>
+                    <div class="modal__footer">
+                      <div class="button-group">
+                        <button class="button-flex--secondary" data-toggle="modal" data-target="#POPUP_TOP">닫기</button>
+                        <button class="button-flex--primary">확인</button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- [E] VIEW -->
+            <!-- [S] COMMENT -->
+            <!-- <ul class="guide-viewer__comment">
+              <li class="comment__text"># 코멘트</li>
+            </ul> -->
+            <!-- [E] COMMENT -->
+            <!-- [S] BUTTON -->
+            <div class="guide-viewer__tab">
+              <button class="tab__button" data-lang="html">html</button>
+              <button class="tab__button" data-lang="css">css</button>
+              <button class="tab__button" data-lang="script">script</button>
+            </div>
+            <!-- [E] BUTTON -->
+            <!-- [S] CODE -->
+            <div class="guide-viewer__code">
+              <pre class="line-numbers" data-lang="html">
+                <code class="language-html">
+                  <button class="button--primary" data-toggle="modal" data-target="#POPUP_TOP"><span>popup</span></button>
+                  <div id="POPUP_TOP" class="modal" data-align="bottom">
+                    <div class="modal__inner">
+                      <div class="modal__content">
+                        <div class="modal__header">header</div>
+                        <div class="modal__body">body</div>
+                        <div class="modal__footer">
+                          <div class="button-group">
+                            <button class="button-flex--secondary" data-toggle="modal" data-target="#POPUP_TOP">닫기</button>
+                            <button class="button-flex--primary">확인</button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </code>
+              </pre>
+              <pre class="line-numbers" data-lang="css">
+                <code class="language-css">
+                  /* style */
+                </code>
+              </pre>
+              <pre class="line-numbers" data-lang="script">
+                <code class="language-js">
+                  // script
+                </code>
+              </pre>
+            </div>
+            <!-- [E] CODE -->
+          </div>
+          <!-- [E] GUIDE -->
+        </article>
+
+        <article class="guide-viewer">
+          <!-- GUIDE TITLE -->
+          <h3 class="guide-viewer__title">Modal - Top</h3>
+          <!-- [S] GUIDE -->
+          <div class="guide-viewer__content">
+            <!-- [S] VIEW -->
+            <div class="guide-viewer__view">
+              <button class="button--primary" data-toggle="modal" data-target="#POPUP_BOTTOM"><span>popup</span></button>
+              <div id="POPUP_BOTTOM" class="modal" data-align="top">
+                <div class="modal__inner">
+                  <div class="modal__content">
+                    <div class="modal__header">header</div>
+                    <div class="modal__body">body</div>
+                    <div class="modal__footer">
+                      <div class="button-group">
+                        <button class="button-flex--secondary" data-toggle="modal" data-target="#POPUP_BOTTOM">닫기</button>
+                        <button class="button-flex--primary">확인</button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- [E] VIEW -->
+            <!-- [S] COMMENT -->
+            <!-- <ul class="guide-viewer__comment">
+              <li class="comment__text"># 코멘트</li>
+            </ul> -->
+            <!-- [E] COMMENT -->
+            <!-- [S] BUTTON -->
+            <div class="guide-viewer__tab">
+              <button class="tab__button" data-lang="html">html</button>
+              <button class="tab__button" data-lang="css">css</button>
+              <button class="tab__button" data-lang="script">script</button>
+            </div>
+            <!-- [E] BUTTON -->
+            <!-- [S] CODE -->
+            <div class="guide-viewer__code">
+              <pre class="line-numbers" data-lang="html">
+                <code class="language-html">
+                  <button class="button--primary" data-toggle="modal" data-target="#POPUP_BOTTOM"><span>popup</span></button>
+                  <div id="POPUP_BOTTOM" class="modal" data-align="top">
+                    <div class="modal__inner">
+                      <div class="modal__content">
+                        <div class="modal__header">header</div>
+                        <div class="modal__body">body</div>
+                        <div class="modal__footer">
+                          <div class="button-group">
+                            <button class="button-flex--secondary" data-toggle="modal" data-target="#POPUP_BOTTOM">닫기</button>
+                            <button class="button-flex--primary">확인</button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </code>
+              </pre>
+              <pre class="line-numbers" data-lang="css">
+                <code class="language-css">
+                  /* style */
+                </code>
+              </pre>
+              <pre class="line-numbers" data-lang="script">
+                <code class="language-js">
+                  // script
+                </code>
+              </pre>
+            </div>
+            <!-- [E] CODE -->
+          </div>
+          <!-- [E] GUIDE -->
+        </article>
+
+        <article class="guide-viewer">
+          <!-- GUIDE TITLE -->
+          <h3 class="guide-viewer__title">Modal - Full</h3>
+          <!-- [S] GUIDE -->
+          <div class="guide-viewer__content">
+            <!-- [S] VIEW -->
+            <div class="guide-viewer__view">
+              <button class="button--primary" data-toggle="modal" data-target="#POPUP_FULL"><span>popup</span></button>
+              <div id="POPUP_FULL" class="modal" data-align="full">
+                <div class="modal__inner">
+                  <div class="modal__content">
+                    <div class="modal__header">header</div>
+                    <div class="modal__body">body</div>
+                    <div class="modal__footer">
+                      <div class="button-group">
+                        <button class="button-flex--secondary" data-toggle="modal" data-target="#POPUP_FULL">닫기</button>
+                        <button class="button-flex--primary">확인</button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- [E] VIEW -->
+            <!-- [S] COMMENT -->
+            <!-- <ul class="guide-viewer__comment">
+              <li class="comment__text"># 코멘트</li>
+            </ul> -->
+            <!-- [E] COMMENT -->
+            <!-- [S] BUTTON -->
+            <div class="guide-viewer__tab">
+              <button class="tab__button" data-lang="html">html</button>
+              <button class="tab__button" data-lang="css">css</button>
+              <button class="tab__button" data-lang="script">script</button>
+            </div>
+            <!-- [E] BUTTON -->
+            <!-- [S] CODE -->
+            <div class="guide-viewer__code">
+              <pre class="line-numbers" data-lang="html">
+                <code class="language-html">
+                  <button class="button--primary" data-toggle="modal" data-target="#POPUP_FULL"><span>popup</span></button>
+                  <div id="POPUP_FULL" class="modal" data-align="full">
+                    <div class="modal__inner">
+                      <div class="modal__content">
+                        <div class="modal__header">header</div>
+                        <div class="modal__body">body</div>
+                        <div class="modal__footer">
+                          <div class="button-group">
+                            <button class="button-flex--secondary" data-toggle="modal" data-target="#POPUP_FULL">닫기</button>
+                            <button class="button-flex--primary">확인</button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </code>
+              </pre>
+              <pre class="line-numbers" data-lang="css">
+                <code class="language-css">
+                  /* style */
+                </code>
+              </pre>
+              <pre class="line-numbers" data-lang="script">
+                <code class="language-js">
+                  // script
+                </code>
+              </pre>
+            </div>
+            <!-- [E] CODE -->
+          </div>
+          <!-- [E] GUIDE -->
+        </article>
+
+      </section>
+    </main>
+  </div>
+
+  <script src="../../js/guide.js"></script>
+  <script src="../../js/components.js"></script>
+  <script>
+    GUIDE.include.header();
+    GUIDE.include.menu('C0303');
+  </script>
+</body>
+</html>

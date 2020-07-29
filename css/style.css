@@ -9,4 +9,6 @@
 @import '../lib/fontawesome/css/all.min.css';
 
 /* COMPONENTS */
+@import './components/button.css';
 @import './components/collapse.css';
+@import './components/modal.css';

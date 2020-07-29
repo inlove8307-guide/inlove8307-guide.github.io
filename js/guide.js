@@ -44,7 +44,9 @@ window[namespace] = window[namespace] || {};
         <div class="guide-main__menu-group">\
           <button class="guide-main__menu-button">Components<i class="fas fa-angle-down fa-sm"></i></button>\
           <div class="guide-main__menu-links">\
-            <a class="guide-main__menu-link" data-code="C0301" href="../components/collapse.html">Collapse</a>\
+          <a class="guide-main__menu-link" data-code="C0301" href="../components/button.html">Button</a>\
+            <a class="guide-main__menu-link" data-code="C0302" href="../components/collapse.html">Collapse</a>\
+            <a class="guide-main__menu-link" data-code="C0303" href="../components/modal.html">Modal</a>\
           </div>\
         </div>\
       </nav>'
