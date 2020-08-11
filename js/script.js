@@ -35,7 +35,7 @@ javascript: window.load = function(){
         anchors = document.createElement('span');
         anchors.setAttribute('class', 'anchors');
         parent.appendChild(anchors);
-        url = ['https://www.flickr.com', event.target.href.match(/\/photos\/[\w-_@]+\/[\d]+\//g)[0], 'sizes/'].join('');
+        url = [location.origin, event.target.href.match(/\/photos\/[\w-_@]+\/[\d]+\//g)[0], 'sizes/'].join('');
 
         requestData(url, 'text', function(text){
           var array = text.match(/\/photos\/[\w-_@]+\/[\d]+\/sizes\/[\w]+\//g)
@@ -84,14 +84,6 @@ javascript: window.load = function(){
   }
 
   function wallhaven(){
-    var style = document.createElement('style');
-
-    style.textContent = '\
-    .iframe-hidden {overflow:hidden;position:fixed;top:0;left:0;z-index:-1;width:0;height:0;}\
-    .anchor {position:fixed;top:0;left:0;z-index:-1;width:0;height:0;}'.replace(/ /g, '');
-
-    document.querySelector('body').appendChild(style);
-
     document.addEventListener('click', function(event){
       if (event.target.classList.contains('preview')) {
         requestData(event.target.href, 'text', function(text){
