@@ -42,7 +42,7 @@ javascript: window.load = function(){
             , anchor;
 
           while(array.length){
-            anchor = document.createElement('button');
+            anchor = document.createElement('a');
             anchor.setAttribute('class', 'anchor');
             anchor.setAttribute('href', array[0]);
             anchor.setAttribute('target', '_blank');
