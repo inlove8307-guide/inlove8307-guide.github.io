@@ -60,7 +60,7 @@ javascript: window.load = function(){
     document.addEventListener('click', function(event){
       if (event.target.classList.contains('anchor')) {
         requestData(event.target.getAttribute('href'), 'text', function(text){
-          var array = text.match(/live.staticflickr.com\/[\d]+\/[\w-_@]+.[\D]{3}/g)
+          var array = text.match(/live.staticflickr.com\/[\d]+\/[\w-_@]+\.[\D]{3}/g)
             , url = ['https://', array[array.length-1]].join('');
 
           requestData(url, 'blob', function(blob){
@@ -95,7 +95,7 @@ javascript: window.load = function(){
     document.addEventListener('click', function(event){
       if (event.target.classList.contains('preview')) {
         requestData(event.target.href, 'text', function(text){
-          var array = text.match(/https:\/\/w.wallhaven.cc\/full\/[\w]+\/wallhaven-[\w]+.[\D]{3}/g);
+          var array = text.match(/https:\/\/w.wallhaven.cc\/full\/[\w]+\/wallhaven-[\w]+\.[\D]{3}/g);
           var url = array[0];
 
           requestData(url, 'blob', function(blob){
