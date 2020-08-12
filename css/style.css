@@ -11,4 +11,7 @@
 /* COMPONENTS */
 @import './components/button.css';
 @import './components/collapse.css';
+@import './components/list.css';
+@import './components/form.css';
+@import './components/tooltip.css';
 @import './components/modal.css';
