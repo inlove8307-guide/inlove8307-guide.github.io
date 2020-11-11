@@ -52,6 +52,14 @@ window[namespace] = window[namespace] || {};
             <a class="guide-main__menu-link" data-code="C0310" href="../components/modal.html">Modal</a>\
           </div>\
         </div>\
+        <div class="guide-main__menu-group">\
+          <button class="guide-main__menu-button">Example<i class="fas fa-angle-down fa-sm"></i></button>\
+          <div class="guide-main__menu-links">\
+            <a class="guide-main__menu-link" data-code="C0401" href="../example/map.html">Map</a>\
+            <a class="guide-main__menu-link" data-code="C0402" href="../example/navigation.html">Navigation</a>\
+            <a class="guide-main__menu-link" data-code="C0403" href="../example/datepicker.html">DatePicker</a>\
+          </div>\
+        </div>\
       </nav>'
     );
 

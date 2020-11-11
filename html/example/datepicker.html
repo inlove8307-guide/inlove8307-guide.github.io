@@ -1,0 +1,498 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>UI GUIDE</title>
+
+  <link rel="stylesheet" href="../../css/style.css">
+  <link rel="stylesheet" href="../../lib/prism/prism.okaidia.css">
+
+  <script src="../../lib/jquery/jquery-3.5.1.min.js"></script>
+  <script src="../../lib/lodash.min.js"></script>
+  <script src="../../lib/moment/moment.min.js"></script>
+  <script src="../../lib/anime.js/anime.min.js"></script>
+  <script src="../../lib/gsap/gsap.min.js"></script>
+  <script src="../../lib/prism/prism.js"></script>
+</head>
+<body>
+  <div class="guide-container">
+    <main class="guide-main">
+      <section class="guide-main__content">
+        <h2 class="guide-content__title">Date Picker</h2>
+
+        <article class="guide-viewer">
+          <!-- GUIDE TITLE -->
+          <h3 class="guide-viewer__title">Date Picker</h3>
+          <!-- [S] GUIDE -->
+          <div class="guide-viewer__content">
+            <!-- [S] VIEW -->
+            <div class="guide-viewer__view">
+              <div class="calender">
+                <div class="calender-controller">
+                  <button>&lt;&lt;</button>
+                  <button>&lt;</button>
+                  <button>&gt;</button>
+                  <button>&gt;&gt;</button>
+                </div>
+              </div>
+              <style>
+                .calender {position:relative;width:21rem;}
+                .calender-controller button{position:absolute;box-sizing:border-box;padding:0;width:3rem;height:3rem;border:0;background-color:transparent;}
+                .calender-controller button:nth-child(1){top:0;left:0;}
+                .calender-controller button:nth-child(2){top:0;left:3rem;}
+                .calender-controller button:nth-child(3){top:0;right:3rem;}
+                .calender-controller button:nth-child(4){top:0;right:0;}
+                .calender-table {border-collapse:collapse;border:0.1rem solid rgb(225, 225, 225);}
+                .calender-table caption {height:3rem;background-color:rgb(245, 245, 245);line-height:3rem;}
+                .calender-table th {box-sizing:border-box;padding:0;width:3rem;height:3rem;}
+                .calender-table th:first-child,
+                .calender-table th:last-child {color:rgb(255, 0, 0);}
+                .calender-table td {box-sizing:border-box;padding:0;width:3rem;height:3rem;border:0.1rem solid rgb(225, 225, 225);}
+                .calender-table td:first-child button,
+                .calender-table td:last-child button {color:rgb(255, 0, 0);}
+                .calender-table td button {display:inline-block;box-sizing:border-box;padding:0;width:100%;height:100%;border:0;background-color:transparent;font-size:1.6rem;}
+              </style>
+              <script>
+                (function(){
+                  var calender = function(){
+                    var _year, _month, _data, _table, _button, _target;
+                    var callback = ['select', 'change'];
+
+                    function getData(year, month){
+                      var array = []
+                        , date;
+
+                      do {
+                        date = new Date([year, month, array.length+1].join());
+                        array.push({
+                          year: year,
+                          month: month,
+                          date: date.getDate(),
+                          week: date.getDay()
+                        });
+                      }
+                      while(month == date.getMonth()+1);
+
+                      array.pop();
+
+                      while(array[0].week != 0){
+                        array.unshift({
+                          year: year,
+                          month: month,
+                          date: null,
+                          week: array[0].week-1
+                        });
+                      }
+
+                      while(array[array.length-1].week != 6){
+                        array.push({
+                          year: year,
+                          month: month,
+                          date: null,
+                          week: array[array.length-1].week+1
+                        });
+                      }
+
+                      return array;
+                    };
+
+                    function getTable(data){
+                      var weeks = ['일', '월', '화', '수', '목', '금', '토'];
+                      var table = document.createElement('table')
+                        , caption = document.createElement('caption')
+                        , thead = document.createElement('thead')
+                        , tbody = document.createElement('tbody')
+                        , row , col, button;
+
+                      _button = [];
+
+                      table.setAttribute('class', 'calender-table');
+                      table.appendChild(caption);
+                      table.appendChild(thead);
+                      table.appendChild(tbody);
+
+                      caption.innerText = [data[0].year, data[0].month].join('-');
+
+                      row = document.createElement('tr');
+                      thead.appendChild(row);
+
+                      while(weeks.length){
+                        col = document.createElement('th');
+                        col.setAttribute('scope', 'col');
+                        col.innerText = weeks[0];
+                        row.appendChild(col);
+                        weeks.shift();
+                      }
+
+                      while(data.length){
+                        if (data[0].week == 0) {
+                          row = document.createElement('tr');
+                          tbody.appendChild(row);
+                        }
+
+                        col = document.createElement('td');
+                        row.appendChild(col);
+
+                        if (data[0].date) {
+                          button = document.createElement('button');
+                          button.dataset.date = [data[0].year, data[0].month, data[0].date].join('-');
+                          button.dataset.week = data[0].week;
+                          button.innerText = data[0].date;
+                          button.addEventListener('click', function(event){ callback.select.call(this, event) });
+                          _button.push(button);
+                          col.appendChild(button);
+                        }
+
+                        data.shift();
+                      }
+
+                      return table;
+                    }
+
+                    function setMonth(number){
+                      _month += number;
+
+                      if (_month >= 13) {
+                        _year++;
+                        _month = 1;
+                      }
+
+                      if (_month <= 0) {
+                        _year--;
+                        _month = 12;
+                      }
+                    }
+
+                    callback = function(array){
+                      var result = {};
+
+                      while (array.length) {
+                        result[array.shift()] = function(){};
+                      }
+
+                      return result;
+                    }(callback);
+
+                    return {
+                      create: function(year, month){
+                        _year = year || new Date().getFullYear();
+                        _month = month || new Date().getMonth()+1;
+                        _data = getData(_year, _month);
+                        _table = getTable(_data.slice());
+                      },
+                      append: function(target){
+                        _target = target || document.querySelector('body');
+                        _target.append(_table);
+                      },
+                      next: function(string){
+                        string == 'year' ? _year++ : setMonth(1);
+                        _table.remove();
+                        this.create(_year, _month);
+                        this.append(_target);
+                        callback.change.call(_table, _data);
+                      },
+                      prev: function(string){
+                        string == 'year' ? _year-- : setMonth(-1);
+                        _table.remove();
+                        this.create(_year, _month);
+                        this.append(_target);
+                        callback.change.call(_table, _data);
+                      },
+                      get: function(property, date){
+                        switch(property){
+                          case 'data': return _data;
+                          case 'table': return _table;
+                          case 'button': return _button;
+                          default: return this;
+                        }
+                      },
+                      on: function(property, fn){
+                        callback[property] = fn;
+                      }
+                    };
+                  }();
+
+                  calender.create();
+                  calender.append(document.querySelector('.calender'));
+
+                  calender.on('select', function(event){
+                    console.log(this, event);
+                  });
+
+                  calender.on('change', function(data){
+                    console.log(this, data);
+                  });
+
+                  document.querySelectorAll('.calender-controller button')[0].addEventListener('click', function(event){
+                    calender.prev('year');
+                  });
+
+                  document.querySelectorAll('.calender-controller button')[1].addEventListener('click', function(event){
+                    calender.prev('month');
+                  });
+
+                  document.querySelectorAll('.calender-controller button')[2].addEventListener('click', function(event){
+                    calender.next('month');
+                  });
+
+                  document.querySelectorAll('.calender-controller button')[3].addEventListener('click', function(event){
+                    calender.next('year');
+                  });
+                }());
+              </script>
+            </div>
+            <!-- [E] VIEW -->
+            <!-- [S] COMMENT -->
+            <!-- <ul class="guide-viewer__comment">
+              <li class="comment__text"># 코멘트</li>
+            </ul> -->
+            <!-- [E] COMMENT -->
+            <!-- [S] BUTTON -->
+            <div class="guide-viewer__tab">
+              <button class="tab__button" data-lang="html">html</button>
+              <button class="tab__button" data-lang="css">css</button>
+              <button class="tab__button" data-lang="script">script</button>
+            </div>
+            <!-- [E] BUTTON -->
+            <!-- [S] CODE -->
+            <div class="guide-viewer__code">
+              <pre class="line-numbers" data-lang="html">
+                <code class="language-html">
+                  <div class="calender">
+                    <div class="calender-controller">
+                      <button>&lt;&lt;</button>
+                      <button>&lt;</button>
+                      <button>&gt;</button>
+                      <button>&gt;&gt;</button>
+                    </div>
+                  </div>
+                </code>
+              </pre>
+              <pre class="line-numbers" data-lang="css">
+                <code class="language-css">
+                  .calender {position:relative;width:21rem;}
+                  .calender-controller button{position:absolute;box-sizing:border-box;padding:0;width:3rem;height:3rem;border:0;background-color:transparent;}
+                  .calender-controller button:nth-child(1){top:0;left:0;}
+                  .calender-controller button:nth-child(2){top:0;left:3rem;}
+                  .calender-controller button:nth-child(3){top:0;right:3rem;}
+                  .calender-controller button:nth-child(4){top:0;right:0;}
+                  .calender-table {border-collapse:collapse;border:0.1rem solid rgb(225, 225, 225);}
+                  .calender-table caption {height:3rem;background-color:rgb(245, 245, 245);line-height:3rem;}
+                  .calender-table th {box-sizing:border-box;padding:0;width:3rem;height:3rem;}
+                  .calender-table th:first-child,
+                  .calender-table th:last-child {color:rgb(255, 0, 0);}
+                  .calender-table td {box-sizing:border-box;padding:0;width:3rem;height:3rem;border:0.1rem solid rgb(225, 225, 225);}
+                  .calender-table td:first-child button,
+                  .calender-table td:last-child button {color:rgb(255, 0, 0);}
+                  .calender-table td button {display:inline-block;box-sizing:border-box;padding:0;width:100%;height:100%;border:0;background-color:transparent;font-size:1.6rem;}
+                </code>
+              </pre>
+              <pre class="line-numbers" data-lang="script">
+                <code class="language-js">
+                  ;(function(){
+                    var calender = function(){
+                      var _year, _month, _data, _table, _button, _target;
+                      var callback = ['select', 'change'];
+
+                      function getData(year, month){
+                        var array = []
+                          , date;
+
+                        do {
+                          date = new Date([year, month, array.length+1].join());
+                          array.push({
+                            year: year,
+                            month: month,
+                            date: date.getDate(),
+                            week: date.getDay()
+                          });
+                        }
+                        while(month == date.getMonth()+1);
+
+                        array.pop();
+
+                        while(array[0].week != 0){
+                          array.unshift({
+                            year: year,
+                            month: month,
+                            date: null,
+                            week: array[0].week-1
+                          });
+                        }
+
+                        while(array[array.length-1].week != 6){
+                          array.push({
+                            year: year,
+                            month: month,
+                            date: null,
+                            week: array[array.length-1].week+1
+                          });
+                        }
+
+                        return array;
+                      };
+
+                      function getTable(data){
+                        var weeks = ['일', '월', '화', '수', '목', '금', '토'];
+                        var table = document.createElement('table')
+                          , caption = document.createElement('caption')
+                          , thead = document.createElement('thead')
+                          , tbody = document.createElement('tbody')
+                          , row , col, button;
+
+                        _button = [];
+
+                        table.setAttribute('class', 'calender-table');
+                        table.appendChild(caption);
+                        table.appendChild(thead);
+                        table.appendChild(tbody);
+
+                        caption.innerText = [data[0].year, data[0].month].join('-');
+
+                        row = document.createElement('tr');
+                        thead.appendChild(row);
+
+                        while(weeks.length){
+                          col = document.createElement('th');
+                          col.setAttribute('scope', 'col');
+                          col.innerText = weeks[0];
+                          row.appendChild(col);
+                          weeks.shift();
+                        }
+
+                        while(data.length){
+                          if (data[0].week == 0) {
+                            row = document.createElement('tr');
+                            tbody.appendChild(row);
+                          }
+
+                          col = document.createElement('td');
+                          row.appendChild(col);
+
+                          if (data[0].date) {
+                            button = document.createElement('button');
+                            button.dataset.date = [data[0].year, data[0].month, data[0].date].join('-');
+                            button.dataset.week = data[0].week;
+                            button.innerText = data[0].date;
+                            button.addEventListener('click', function(event){ callback.select.call(this, event) });
+                            _button.push(button);
+                            col.appendChild(button);
+                          }
+
+                          data.shift();
+                        }
+
+                        return table;
+                      }
+
+                      function setMonth(number){
+                        _month += number;
+
+                        if (_month >= 13) {
+                          _year++;
+                          _month = 1;
+                        }
+
+                        if (_month <= 0) {
+                          _year--;
+                          _month = 12;
+                        }
+                      }
+
+                      callback = function(array){
+                        var result = {};
+
+                        while (array.length) {
+                          result[array.shift()] = function(){};
+                        }
+
+                        return result;
+                      }(callback);
+
+                      return {
+                        create: function(year, month){
+                          _year = year || new Date().getFullYear();
+                          _month = month || new Date().getMonth()+1;
+                          _data = getData(_year, _month);
+                          _table = getTable(_data.slice());
+                        },
+                        append: function(target){
+                          _target = target || document.querySelector('body');
+                          _target.append(_table);
+                        },
+                        next: function(string){
+                          string == 'year' ? _year++ : setMonth(1);
+                          _table.remove();
+                          this.create(_year, _month);
+                          this.append(_target);
+                          callback.change.call(_table, _data);
+                        },
+                        prev: function(string){
+                          string == 'year' ? _year-- : setMonth(-1);
+                          _table.remove();
+                          this.create(_year, _month);
+                          this.append(_target);
+                          callback.change.call(_table, _data);
+                        },
+                        get: function(property, date){
+                          switch(property){
+                            case 'data': return _data;
+                            case 'table': return _table;
+                            case 'button': return _button;
+                            default: return this;
+                          }
+                        },
+                        on: function(property, fn){
+                          callback[property] = fn;
+                        }
+                      };
+                    }();
+
+                    calender.create();
+                    calender.append(document.querySelector('.calender'));
+
+                    calender.on('select', function(event){
+                      console.log(this, event);
+                    });
+
+                    calender.on('change', function(data){
+                      console.log(this, data);
+                    });
+
+                    document.querySelectorAll('.calender-controller button')[0].addEventListener('click', function(event){
+                      calender.prev('year');
+                    });
+
+                    document.querySelectorAll('.calender-controller button')[1].addEventListener('click', function(event){
+                      calender.prev('month');
+                    });
+
+                    document.querySelectorAll('.calender-controller button')[2].addEventListener('click', function(event){
+                      calender.next('month');
+                    });
+
+                    document.querySelectorAll('.calender-controller button')[3].addEventListener('click', function(event){
+                      calender.next('year');
+                    });
+                  }());
+                </code>
+              </pre>
+            </div>
+            <!-- [E] CODE -->
+          </div>
+          <!-- [E] GUIDE -->
+        </article>
+
+      </section>
+    </main>
+  </div>
+
+  <script src="../../js/guide.js"></script>
+  <script src="../../js/components.js"></script>
+  <script>
+    GUIDE.include.header();
+    GUIDE.include.menu('C0403');
+  </script>
+</body>
+</html>

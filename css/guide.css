@@ -184,7 +184,7 @@
   border-left: 0;
 }
 .guide-viewer__content {
-  overflow: hidden;
+  /* overflow: hidden; */
   position: relative;
   border: 0.1rem solid rgb(235, 235, 235);
   border-radius: 0.5rem;
