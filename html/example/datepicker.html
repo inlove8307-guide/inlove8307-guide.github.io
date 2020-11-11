@@ -28,58 +28,50 @@
           <div class="guide-viewer__content">
             <!-- [S] VIEW -->
             <div class="guide-viewer__view">
-              <div class="calender">
-                <div class="calender-controller">
-                  <button>&lt;&lt;</button>
-                  <button>&lt;</button>
-                  <button>&gt;</button>
-                  <button>&gt;&gt;</button>
-                </div>
-              </div>
+              <div class="calender"></div>
               <style>
                 .calender {position:relative;width:21rem;}
-                .calender-controller button{position:absolute;box-sizing:border-box;padding:0;width:3rem;height:3rem;border:0;background-color:transparent;}
-                .calender-controller button:nth-child(1){top:0;left:0;}
-                .calender-controller button:nth-child(2){top:0;left:3rem;}
-                .calender-controller button:nth-child(3){top:0;right:3rem;}
-                .calender-controller button:nth-child(4){top:0;right:0;}
+                .calender-ctlr button{position:absolute;box-sizing:border-box;padding:0;width:3rem;height:3rem;border:0;background-color:transparent;}
+                .calender-ctlr button:nth-child(1){top:0;left:0;}
+                .calender-ctlr button:nth-child(2){top:0;left:3rem;}
+                .calender-ctlr button:nth-child(3){top:0;right:3rem;}
+                .calender-ctlr button:nth-child(4){top:0;right:0;}
                 .calender-table {border-collapse:collapse;border:0.1rem solid rgb(225, 225, 225);}
-                .calender-table caption {height:3rem;background-color:rgb(245, 245, 245);line-height:3rem;}
-                .calender-table th {box-sizing:border-box;padding:0;width:3rem;height:3rem;}
-                .calender-table th:first-child,
-                .calender-table th:last-child {color:rgb(255, 0, 0);}
-                .calender-table td {box-sizing:border-box;padding:0;width:3rem;height:3rem;border:0.1rem solid rgb(225, 225, 225);}
-                .calender-table td:first-child button,
-                .calender-table td:last-child button {color:rgb(255, 0, 0);}
-                .calender-table td button {display:inline-block;box-sizing:border-box;padding:0;width:100%;height:100%;border:0;background-color:transparent;font-size:1.6rem;}
+                .calender-caption {height:3rem;background-color:rgb(245, 245, 245);line-height:3rem;}
+                .calender-week {box-sizing:border-box;padding:0;width:3rem;height:3rem;}
+                .calender-week:first-child,
+                .calender-week:last-child {color:rgb(255, 0, 0);}
+                .calender-date {box-sizing:border-box;padding:0;width:3rem;height:3rem;border:0.1rem solid rgb(225, 225, 225);}
+                .calender-date:first-child button,
+                .calender-date:last-child button {color:rgb(255, 0, 0);}
+                .calender-button {display:inline-block;box-sizing:border-box;padding:0;width:100%;height:100%;border:0;background-color:transparent;font-size:1.6rem;}
               </style>
               <script>
-                (function(){
+                ;(function(){
                   var calender = function(){
-                    var _year, _month, _data, _table, _button, _target;
-                    var callback = ['select', 'change'];
+                    var callback = ['select', 'update'];
 
-                    function getData(year, month){
+                    function getData(context){
                       var array = []
                         , date;
 
                       do {
-                        date = new Date([year, month, array.length+1].join());
+                        date = new Date([context.year, context.month, array.length+1].join());
                         array.push({
-                          year: year,
-                          month: month,
+                          year: context.year,
+                          month: context.month,
                           date: date.getDate(),
                           week: date.getDay()
                         });
                       }
-                      while(month == date.getMonth()+1);
+                      while(context.month == date.getMonth()+1);
 
                       array.pop();
 
                       while(array[0].week != 0){
                         array.unshift({
-                          year: year,
-                          month: month,
+                          year: context.year,
+                          month: context.month,
                           date: null,
                           week: array[0].week-1
                         });
@@ -87,8 +79,8 @@
 
                       while(array[array.length-1].week != 6){
                         array.push({
-                          year: year,
-                          month: month,
+                          year: context.year,
+                          month: context.month,
                           date: null,
                           week: array[array.length-1].week+1
                         });
@@ -97,147 +89,163 @@
                       return array;
                     };
 
-                    function getTable(data){
+                    function getHead(){
                       var weeks = ['일', '월', '화', '수', '목', '금', '토'];
-                      var table = document.createElement('table')
-                        , caption = document.createElement('caption')
-                        , thead = document.createElement('thead')
-                        , tbody = document.createElement('tbody')
-                        , row , col, button;
-
-                      _button = [];
-
-                      table.setAttribute('class', 'calender-table');
-                      table.appendChild(caption);
-                      table.appendChild(thead);
-                      table.appendChild(tbody);
-
-                      caption.innerText = [data[0].year, data[0].month].join('-');
-
-                      row = document.createElement('tr');
-                      thead.appendChild(row);
+                      var thead = document.createElement('thead');
+                      var row = document.createElement('tr');
+                      var col;
 
                       while(weeks.length){
                         col = document.createElement('th');
+                        col.setAttribute('class', 'calender-week');
                         col.setAttribute('scope', 'col');
                         col.innerText = weeks[0];
-                        row.appendChild(col);
+                        row.append(col);
                         weeks.shift();
                       }
+
+                      thead.append(row)
+
+                      return thead;
+                    }
+
+                    function getBody(context){
+                      var data = context.data.slice();
+                      var tbody = document.createElement('tbody');
+                      var row, col, button;
 
                       while(data.length){
                         if (data[0].week == 0) {
                           row = document.createElement('tr');
-                          tbody.appendChild(row);
+                          tbody.append(row);
                         }
 
                         col = document.createElement('td');
-                        row.appendChild(col);
+                        col.setAttribute('class', 'calender-date');
+                        row.append(col);
 
                         if (data[0].date) {
                           button = document.createElement('button');
+                          button.setAttribute('class', 'calender-button');
                           button.dataset.date = [data[0].year, data[0].month, data[0].date].join('-');
                           button.dataset.week = data[0].week;
                           button.innerText = data[0].date;
-                          button.addEventListener('click', function(event){ callback.select.call(this, event) });
-                          _button.push(button);
-                          col.appendChild(button);
+                          button.addEventListener('click', function(event){
+                            context.callback.select.call(context, event);
+                          });
+
+                          col.append(button);
                         }
 
                         data.shift();
                       }
 
+                      return tbody;
+                    }
+
+                    function getTable(context){
+                      var table = document.createElement('table');
+                      var caption = document.createElement('caption');
+
+                      caption.setAttribute('class', 'calender-caption');
+                      caption.innerText = [context.year, context.month].join('.');
+
+                      table.setAttribute('class', 'calender-table');
+                      table.append(caption);
+                      table.append(getHead());
+                      table.append(getBody(context));
+
                       return table;
                     }
 
-                    function setMonth(number){
-                      _month += number;
+                    function getCtlr(context){
+                      var result = document.createElement('div');
+                      var button;
+                      var array = [
+                        { text: '<<', func: function(event){ setDate(context, 'year', -1) } },
+                        { text: '<', func: function(event){ setDate(context, 'month', -1) } },
+                        { text: '>', func: function(event){ setDate(context, 'month', 1) } },
+                        { text: '>>', func: function(event){ setDate(context, 'year', 1) } }
+                      ];
 
-                      if (_month >= 13) {
-                        _year++;
-                        _month = 1;
-                      }
+                      result.setAttribute('class', 'calender-ctlr');
 
-                      if (_month <= 0) {
-                        _year--;
-                        _month = 12;
-                      }
-                    }
-
-                    callback = function(array){
-                      var result = {};
-
-                      while (array.length) {
-                        result[array.shift()] = function(){};
+                      while(array.length){
+                        button = document.createElement('button');
+                        button.innerText = array[0].text;
+                        button.addEventListener('click', array[0].func);
+                        result.append(button);
+                        array.shift();
                       }
 
                       return result;
-                    }(callback);
+                    }
 
-                    return {
-                      create: function(year, month){
-                        _year = year || new Date().getFullYear();
-                        _month = month || new Date().getMonth()+1;
-                        _data = getData(_year, _month);
-                        _table = getTable(_data.slice());
-                      },
-                      append: function(target){
-                        _target = target || document.querySelector('body');
-                        _target.append(_table);
-                      },
-                      next: function(string){
-                        string == 'year' ? _year++ : setMonth(1);
-                        _table.remove();
-                        this.create(_year, _month);
-                        this.append(_target);
-                        callback.change.call(_table, _data);
-                      },
-                      prev: function(string){
-                        string == 'year' ? _year-- : setMonth(-1);
-                        _table.remove();
-                        this.create(_year, _month);
-                        this.append(_target);
-                        callback.change.call(_table, _data);
-                      },
-                      get: function(property, date){
-                        switch(property){
-                          case 'data': return _data;
-                          case 'table': return _table;
-                          case 'button': return _button;
-                          default: return this;
+                    function setDate(context, string, number){
+                      context[string] += number;
+
+                      if (context.month >= 13) {
+                        context.year++;
+                        context.month = 1;
+                      }
+
+                      if (context.month <= 0) {
+                        context.year--;
+                        context.month = 12;
+                      }
+
+                      context.update();
+                    }
+
+                    function Calender(target){
+                      this.target = target;
+                      this.year = new Date().getFullYear();
+                      this.month = new Date().getMonth()+1;
+                      this.data = getData(this);
+                      this.table = getTable(this);
+                      this.button;
+
+                      this.callback = function(array){
+                        var result = {};
+
+                        while (array.length) {
+                          result[array.shift()] = function(){};
                         }
+
+                        return result;
+                      }(callback.slice());
+
+                      this.target.append(this.table);
+                      this.target.append(getCtlr(this));
+                    }
+
+                    Calender.prototype = {
+                      update: function(){
+                        this.data = getData(this);
+                        this.table.querySelector('caption').innerText = [this.year, this.month].join('.');
+                        this.table.querySelector('tbody').replaceWith(getBody(this));
+                        this.callback.update.call(this, this.table);
                       },
                       on: function(property, fn){
-                        callback[property] = fn;
+                        this.callback[property] = fn;
                       }
                     };
+
+                    return {
+                      create: function(target){
+                        return new Calender(target);
+                      }
+                    }
                   }();
 
-                  calender.create();
-                  calender.append(document.querySelector('.calender'));
+                  var calender = calender.create(document.querySelector('.calender'));
 
                   calender.on('select', function(event){
-                    console.log(this, event);
+                    console.log(event.target, this);
                   });
 
-                  calender.on('change', function(data){
-                    console.log(this, data);
-                  });
-
-                  document.querySelectorAll('.calender-controller button')[0].addEventListener('click', function(event){
-                    calender.prev('year');
-                  });
-
-                  document.querySelectorAll('.calender-controller button')[1].addEventListener('click', function(event){
-                    calender.prev('month');
-                  });
-
-                  document.querySelectorAll('.calender-controller button')[2].addEventListener('click', function(event){
-                    calender.next('month');
-                  });
-
-                  document.querySelectorAll('.calender-controller button')[3].addEventListener('click', function(event){
-                    calender.next('year');
+                  calender.on('update', function(table){
+                    console.log(table, this);
                   });
                 }());
               </script>
@@ -259,63 +267,55 @@
             <div class="guide-viewer__code">
               <pre class="line-numbers" data-lang="html">
                 <code class="language-html">
-                  <div class="calender">
-                    <div class="calender-controller">
-                      <button>&lt;&lt;</button>
-                      <button>&lt;</button>
-                      <button>&gt;</button>
-                      <button>&gt;&gt;</button>
-                    </div>
-                  </div>
+                  <div class="calender"></div>
                 </code>
               </pre>
               <pre class="line-numbers" data-lang="css">
                 <code class="language-css">
                   .calender {position:relative;width:21rem;}
-                  .calender-controller button{position:absolute;box-sizing:border-box;padding:0;width:3rem;height:3rem;border:0;background-color:transparent;}
-                  .calender-controller button:nth-child(1){top:0;left:0;}
-                  .calender-controller button:nth-child(2){top:0;left:3rem;}
-                  .calender-controller button:nth-child(3){top:0;right:3rem;}
-                  .calender-controller button:nth-child(4){top:0;right:0;}
+                  .calender-ctlr button{position:absolute;box-sizing:border-box;padding:0;width:3rem;height:3rem;border:0;background-color:transparent;}
+                  .calender-ctlr button:nth-child(1){top:0;left:0;}
+                  .calender-ctlr button:nth-child(2){top:0;left:3rem;}
+                  .calender-ctlr button:nth-child(3){top:0;right:3rem;}
+                  .calender-ctlr button:nth-child(4){top:0;right:0;}
                   .calender-table {border-collapse:collapse;border:0.1rem solid rgb(225, 225, 225);}
-                  .calender-table caption {height:3rem;background-color:rgb(245, 245, 245);line-height:3rem;}
-                  .calender-table th {box-sizing:border-box;padding:0;width:3rem;height:3rem;}
-                  .calender-table th:first-child,
-                  .calender-table th:last-child {color:rgb(255, 0, 0);}
-                  .calender-table td {box-sizing:border-box;padding:0;width:3rem;height:3rem;border:0.1rem solid rgb(225, 225, 225);}
-                  .calender-table td:first-child button,
-                  .calender-table td:last-child button {color:rgb(255, 0, 0);}
-                  .calender-table td button {display:inline-block;box-sizing:border-box;padding:0;width:100%;height:100%;border:0;background-color:transparent;font-size:1.6rem;}
+                  .calender-caption {height:3rem;background-color:rgb(245, 245, 245);line-height:3rem;}
+                  .calender-week {box-sizing:border-box;padding:0;width:3rem;height:3rem;}
+                  .calender-week:first-child,
+                  .calender-week:last-child {color:rgb(255, 0, 0);}
+                  .calender-date {box-sizing:border-box;padding:0;width:3rem;height:3rem;border:0.1rem solid rgb(225, 225, 225);}
+                  .calender-date:first-child button,
+                  .calender-date:last-child button {color:rgb(255, 0, 0);}
+                  .calender-button {display:inline-block;box-sizing:border-box;padding:0;width:100%;height:100%;border:0;background-color:transparent;font-size:1.6rem;}
                 </code>
               </pre>
               <pre class="line-numbers" data-lang="script">
                 <code class="language-js">
                   ;(function(){
                     var calender = function(){
-                      var _year, _month, _data, _table, _button, _target;
-                      var callback = ['select', 'change'];
+                      var callback = ['select', 'update'];
 
-                      function getData(year, month){
+                      function getData(context){
                         var array = []
                           , date;
 
                         do {
-                          date = new Date([year, month, array.length+1].join());
+                          date = new Date([context.year, context.month, array.length+1].join());
                           array.push({
-                            year: year,
-                            month: month,
+                            year: context.year,
+                            month: context.month,
                             date: date.getDate(),
                             week: date.getDay()
                           });
                         }
-                        while(month == date.getMonth()+1);
+                        while(context.month == date.getMonth()+1);
 
                         array.pop();
 
                         while(array[0].week != 0){
                           array.unshift({
-                            year: year,
-                            month: month,
+                            year: context.year,
+                            month: context.month,
                             date: null,
                             week: array[0].week-1
                           });
@@ -323,8 +323,8 @@
 
                         while(array[array.length-1].week != 6){
                           array.push({
-                            year: year,
-                            month: month,
+                            year: context.year,
+                            month: context.month,
                             date: null,
                             week: array[array.length-1].week+1
                           });
@@ -333,147 +333,163 @@
                         return array;
                       };
 
-                      function getTable(data){
+                      function getHead(){
                         var weeks = ['일', '월', '화', '수', '목', '금', '토'];
-                        var table = document.createElement('table')
-                          , caption = document.createElement('caption')
-                          , thead = document.createElement('thead')
-                          , tbody = document.createElement('tbody')
-                          , row , col, button;
-
-                        _button = [];
-
-                        table.setAttribute('class', 'calender-table');
-                        table.appendChild(caption);
-                        table.appendChild(thead);
-                        table.appendChild(tbody);
-
-                        caption.innerText = [data[0].year, data[0].month].join('-');
-
-                        row = document.createElement('tr');
-                        thead.appendChild(row);
+                        var thead = document.createElement('thead');
+                        var row = document.createElement('tr');
+                        var col;
 
                         while(weeks.length){
                           col = document.createElement('th');
+                          col.setAttribute('class', 'calender-week');
                           col.setAttribute('scope', 'col');
                           col.innerText = weeks[0];
-                          row.appendChild(col);
+                          row.append(col);
                           weeks.shift();
                         }
+
+                        thead.append(row)
+
+                        return thead;
+                      }
+
+                      function getBody(context){
+                        var data = context.data.slice();
+                        var tbody = document.createElement('tbody');
+                        var row, col, button;
 
                         while(data.length){
                           if (data[0].week == 0) {
                             row = document.createElement('tr');
-                            tbody.appendChild(row);
+                            tbody.append(row);
                           }
 
                           col = document.createElement('td');
-                          row.appendChild(col);
+                          col.setAttribute('class', 'calender-date');
+                          row.append(col);
 
                           if (data[0].date) {
                             button = document.createElement('button');
+                            button.setAttribute('class', 'calender-button');
                             button.dataset.date = [data[0].year, data[0].month, data[0].date].join('-');
                             button.dataset.week = data[0].week;
                             button.innerText = data[0].date;
-                            button.addEventListener('click', function(event){ callback.select.call(this, event) });
-                            _button.push(button);
-                            col.appendChild(button);
+                            button.addEventListener('click', function(event){
+                              context.callback.select.call(context, event);
+                            });
+
+                            col.append(button);
                           }
 
                           data.shift();
                         }
 
+                        return tbody;
+                      }
+
+                      function getTable(context){
+                        var table = document.createElement('table');
+                        var caption = document.createElement('caption');
+
+                        caption.setAttribute('class', 'calender-caption');
+                        caption.innerText = [context.year, context.month].join('.');
+
+                        table.setAttribute('class', 'calender-table');
+                        table.append(caption);
+                        table.append(getHead());
+                        table.append(getBody(context));
+
                         return table;
                       }
 
-                      function setMonth(number){
-                        _month += number;
+                      function getCtlr(context){
+                        var result = document.createElement('div');
+                        var button;
+                        var array = [
+                          { text: '<<', func: function(event){ setDate(context, 'year', -1) } },
+                          { text: '<', func: function(event){ setDate(context, 'month', -1) } },
+                          { text: '>', func: function(event){ setDate(context, 'month', 1) } },
+                          { text: '>>', func: function(event){ setDate(context, 'year', 1) } }
+                        ];
 
-                        if (_month >= 13) {
-                          _year++;
-                          _month = 1;
-                        }
+                        result.setAttribute('class', 'calender-ctlr');
 
-                        if (_month <= 0) {
-                          _year--;
-                          _month = 12;
-                        }
-                      }
-
-                      callback = function(array){
-                        var result = {};
-
-                        while (array.length) {
-                          result[array.shift()] = function(){};
+                        while(array.length){
+                          button = document.createElement('button');
+                          button.innerText = array[0].text;
+                          button.addEventListener('click', array[0].func);
+                          result.append(button);
+                          array.shift();
                         }
 
                         return result;
-                      }(callback);
+                      }
 
-                      return {
-                        create: function(year, month){
-                          _year = year || new Date().getFullYear();
-                          _month = month || new Date().getMonth()+1;
-                          _data = getData(_year, _month);
-                          _table = getTable(_data.slice());
-                        },
-                        append: function(target){
-                          _target = target || document.querySelector('body');
-                          _target.append(_table);
-                        },
-                        next: function(string){
-                          string == 'year' ? _year++ : setMonth(1);
-                          _table.remove();
-                          this.create(_year, _month);
-                          this.append(_target);
-                          callback.change.call(_table, _data);
-                        },
-                        prev: function(string){
-                          string == 'year' ? _year-- : setMonth(-1);
-                          _table.remove();
-                          this.create(_year, _month);
-                          this.append(_target);
-                          callback.change.call(_table, _data);
-                        },
-                        get: function(property, date){
-                          switch(property){
-                            case 'data': return _data;
-                            case 'table': return _table;
-                            case 'button': return _button;
-                            default: return this;
+                      function setDate(context, string, number){
+                        context[string] += number;
+
+                        if (context.month >= 13) {
+                          context.year++;
+                          context.month = 1;
+                        }
+
+                        if (context.month <= 0) {
+                          context.year--;
+                          context.month = 12;
+                        }
+
+                        context.update();
+                      }
+
+                      function Calender(target){
+                        this.target = target;
+                        this.year = new Date().getFullYear();
+                        this.month = new Date().getMonth()+1;
+                        this.data = getData(this);
+                        this.table = getTable(this);
+                        this.button;
+
+                        this.callback = function(array){
+                          var result = {};
+
+                          while (array.length) {
+                            result[array.shift()] = function(){};
                           }
+
+                          return result;
+                        }(callback.slice());
+
+                        this.target.append(this.table);
+                        this.target.append(getCtlr(this));
+                      }
+
+                      Calender.prototype = {
+                        update: function(){
+                          this.data = getData(this);
+                          this.table.querySelector('caption').innerText = [this.year, this.month].join('.');
+                          this.table.querySelector('tbody').replaceWith(getBody(this));
+                          this.callback.update.call(this, this.table);
                         },
                         on: function(property, fn){
-                          callback[property] = fn;
+                          this.callback[property] = fn;
                         }
                       };
+
+                      return {
+                        create: function(target){
+                          return new Calender(target);
+                        }
+                      }
                     }();
 
-                    calender.create();
-                    calender.append(document.querySelector('.calender'));
+                    var calender = calender.create(document.querySelector('.calender'));
 
                     calender.on('select', function(event){
-                      console.log(this, event);
+                      console.log(event.target, this);
                     });
 
-                    calender.on('change', function(data){
-                      console.log(this, data);
-                    });
-
-                    document.querySelectorAll('.calender-controller button')[0].addEventListener('click', function(event){
-                      calender.prev('year');
-                    });
-
-                    document.querySelectorAll('.calender-controller button')[1].addEventListener('click', function(event){
-                      calender.prev('month');
-                    });
-
-                    document.querySelectorAll('.calender-controller button')[2].addEventListener('click', function(event){
-                      calender.next('month');
-                    });
-
-                    document.querySelectorAll('.calender-controller button')[3].addEventListener('click', function(event){
-                      calender.next('year');
+                    calender.on('update', function(table){
+                      console.log(table, this);
                     });
                   }());
                 </code>
