@@ -162,10 +162,10 @@
                       var result = document.createElement('div');
                       var button;
                       var array = [
-                        { text: '<<', func: function(event){ setDate(context, 'year', -1) } },
-                        { text: '<', func: function(event){ setDate(context, 'month', -1) } },
-                        { text: '>', func: function(event){ setDate(context, 'month', 1) } },
-                        { text: '>>', func: function(event){ setDate(context, 'year', 1) } }
+                        { text: '<<', func: function(event){ update(context, 'year', -1) } },
+                        { text: '<', func: function(event){ update(context, 'month', -1) } },
+                        { text: '>', func: function(event){ update(context, 'month', 1) } },
+                        { text: '>>', func: function(event){ update(context, 'year', 1) } }
                       ];
 
                       result.setAttribute('class', 'calender-ctlr');
@@ -181,7 +181,7 @@
                       return result;
                     }
 
-                    function setDate(context, string, number){
+                    function update(context, string, number){
                       context[string] += number;
 
                       if (context.month >= 13) {
@@ -194,7 +194,10 @@
                         context.month = 12;
                       }
 
-                      context.update();
+                      context.data = getData(context);
+                      context.table.querySelector('caption').innerText = [context.year, context.month].join('.');
+                      context.table.querySelector('tbody').replaceWith(getBody(context));
+                      context.callback.update.call(context, context.table);
                     }
 
                     function Calender(target){
@@ -220,12 +223,6 @@
                     }
 
                     Calender.prototype = {
-                      update: function(){
-                        this.data = getData(this);
-                        this.table.querySelector('caption').innerText = [this.year, this.month].join('.');
-                        this.table.querySelector('tbody').replaceWith(getBody(this));
-                        this.callback.update.call(this, this.table);
-                      },
                       on: function(property, fn){
                         this.callback[property] = fn;
                       }
@@ -406,10 +403,10 @@
                         var result = document.createElement('div');
                         var button;
                         var array = [
-                          { text: '<<', func: function(event){ setDate(context, 'year', -1) } },
-                          { text: '<', func: function(event){ setDate(context, 'month', -1) } },
-                          { text: '>', func: function(event){ setDate(context, 'month', 1) } },
-                          { text: '>>', func: function(event){ setDate(context, 'year', 1) } }
+                          { text: '<<', func: function(event){ update(context, 'year', -1) } },
+                          { text: '<', func: function(event){ update(context, 'month', -1) } },
+                          { text: '>', func: function(event){ update(context, 'month', 1) } },
+                          { text: '>>', func: function(event){ update(context, 'year', 1) } }
                         ];
 
                         result.setAttribute('class', 'calender-ctlr');
@@ -425,7 +422,7 @@
                         return result;
                       }
 
-                      function setDate(context, string, number){
+                      function update(context, string, number){
                         context[string] += number;
 
                         if (context.month >= 13) {
@@ -438,7 +435,10 @@
                           context.month = 12;
                         }
 
-                        context.update();
+                        context.data = getData(context);
+                        context.table.querySelector('caption').innerText = [context.year, context.month].join('.');
+                        context.table.querySelector('tbody').replaceWith(getBody(context));
+                        context.callback.update.call(context, context.table);
                       }
 
                       function Calender(target){
@@ -464,12 +464,6 @@
                       }
 
                       Calender.prototype = {
-                        update: function(){
-                          this.data = getData(this);
-                          this.table.querySelector('caption').innerText = [this.year, this.month].join('.');
-                          this.table.querySelector('tbody').replaceWith(getBody(this));
-                          this.callback.update.call(this, this.table);
-                        },
                         on: function(property, fn){
                           this.callback[property] = fn;
                         }
