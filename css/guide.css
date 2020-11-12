@@ -252,6 +252,10 @@ code[class*="language-"] {
   line-height: 2rem!important;
   letter-spacing: 0!important;
 }
+pre[class*="language-"] {
+  overflow-y: auto;
+  max-height: 40rem;
+}
 pre[class*="language-"].line-numbers {
   /* padding-left: 5rem!important; */
 }
