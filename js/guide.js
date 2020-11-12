@@ -36,7 +36,7 @@ window[namespace] = window[namespace] || {};
           <button class="guide-main__menu-button">Accessibility<i class="fas fa-angle-down fa-sm"></i></button>\
           <div class="guide-main__menu-links">\
             <a class="guide-main__menu-link" data-code="C0201" href="../accessibility/accessibility_01.html">웹 접근성 개요</a>\
-            <a class="guide-main__menu-link" data-code="C0202" href="../accessibility/accessibility_02.html">웹접근성 WAI-ARIA</a>\
+            <a class="guide-main__menu-link" data-code="C0202" href="../accessibility/accessibility_02.html">WAI-ARIA 가이드라인</a>\
             <a class="guide-main__menu-link" data-code="C0203" href="../accessibility/accessibility_03.html">역할별 체크리스트</a>\
             <a class="guide-main__menu-link" data-code="C0204" href="../accessibility/accessibility_04.html">개선작업 프로세스</a>\
           </div>\
@@ -58,6 +58,7 @@ window[namespace] = window[namespace] || {};
             <a class="guide-main__menu-link" data-code="C0401" href="../example/map.html">Map</a>\
             <a class="guide-main__menu-link" data-code="C0402" href="../example/navigation.html">Navigation</a>\
             <a class="guide-main__menu-link" data-code="C0403" href="../example/datepicker.html">DatePicker</a>\
+            <a class="guide-main__menu-link" data-code="C0499" href="../worklist/worklist.html" target="_blank">Worklist</a>\
           </div>\
         </div>\
       </nav>'

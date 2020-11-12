@@ -1,0 +1,240 @@
+<!DOCTYPE HTML>
+<html lang="ko">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta http-equiv="Cache-Control" content="no-cache; no-store; no-save"/>
+<!--[if lte IE 8]><html class="no-js ie8" lang="ko"> <![endif]-->
+<!--[if IE 9]><html class="no-js ie9" lang="ko"> <![endif]-->
+<!--[if gte IE 9]><html class="no-js" lang="ko"> <![endif]-->
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no" />
+<title>Guide:2018</title>
+
+<link rel="stylesheet" href="./resource/css/worklist.css" />
+<link rel="stylesheet" href="./resource/plugins/highlight/styles/atom-one-dark.css" />
+<script type="text/javascript" src="./resource/plugins/jquery/jquery-1.12.3.min.js"></script>
+<script type="text/javascript" src="./resource/plugins/clipboard/clipboard.min.js"></script>
+<script type="text/javascript" src="./resource/plugins/highlight/highlight.pack.js"></script>
+<script type="text/javascript" src="./resource/js/codeSinppet.js"></script>
+
+<!-- 
+atom-one-dark-reasonable
+atom-one-dark
+atom-one-light 
+-->
+
+<style>
+	body #wrap #content{visibility: visible}
+	.guideWrap{position:relative;display:block;border:1px solid #000;}
+
+	.codePanel{padding:10px;border:1px solid #dedede;}
+	.parseWrap {position:relative;margin-top:35px;padding:10px 15px 0;border-radius: 4px;background-color:#282c34;}
+
+	.parseWrap pre{position:relative;margin:0 -15px;font-size:12px;tab-size:16px;}
+	.parseWrap code{padding:15px 15px 10px;border-radius: 4px;white-space:pre;}
+
+	.parseWrap.on pre{height:0px; font-size:12px;white-space: pre;}
+	.parseWrap.on pre code{padding:15px 15px 10px;}
+
+	.parseWrap.init{background-color:#fff;}
+	.parseWrap.init pre{height:0px;font-size:0;white-space : initial;}
+	.parseWrap.init pre code{padding:1px; background-color:#fff;}
+
+	.parseWrap .optionBox{z-index:99;position:absolute;top:-20px; right:0px;}
+	.parseWrap .optionBox a.btn{display:inline-block; min-width:50px;margin-left:2px; padding:4px 10px;background-color:#282c34; color:#fff;text-align:center;text-decoration:none; border-radius:4px;line-height:14px;vertical-align:middle;}
+	.parseWrap .optionBox a.btn:hover{color:#00ffff;}
+	.parseWrap .optionBox a.fold_btn{min-width:20px;}
+</style>
+</head>
+
+<body>
+	<div id="wrap">
+		<h1>Guide<small> : 2018</small> </h1>
+
+		<!-- header -->
+		<div class="header">
+			<!-- 1Depth : IA 탭 네비게이션 -->
+			<div class="tab_nav" >
+				<h2>IA.</h2>
+				<ul>
+					<li><a href="javascript:void(0);"><span>Code Sinppet</span></a></li>
+					<li><a href="javascript:void(0);"><span>전체보기</span></a></li>
+					<li><a href="javascript:void(0);"><span>Guide</span></a></li>
+				</ul>
+			</div>
+		</div>
+		<!-- //header -->
+
+		<!-- content -->
+		<div id="content">
+
+		<!-- **************************************************
+		* Start of Guide
+		************************************************** -->
+
+		<div class="tab_contents_wrap">
+			<div class="clearfix" style="margin-bottom:30px;">
+				<h2 style="margin-bottom:5px;">Enter/paste text to HTML Escape:</h2>
+				<div style="width:560px;height:210px;float:left;margin-right:50px;margin-bottom:10px;">
+					<textarea onkeyup="codeSinppet.escapeHTML();" placeholder="Enter/Insert text" id="from_text" name="from_text" style="width:550px;height:200px;resize:none;border:4px solid #8f8f8f"></textarea>
+				</div>
+
+				<div style="width:350px;float:left;">
+					<input onclick="codeSinppet.escapeHTML();" type="checkbox" id="br" checked="checked" />Replace newline with &lt;br/&gt;<br/>
+					<input onclick="codeSinppet.escapeHTML();" type="checkbox" id="tag" checked="checked" />Replace &lt; &gt; &quot;<br/>
+					<input onclick="codeSinppet.escapeHTML();" type="checkbox" id="nbsp" />Replace space with &amp;nbsp;<br/>
+					<input onclick="codeSinppet.escapeHTML();" type="checkbox" id="other" checked="checked" />Escape special characters (&amp; and non latin chars)<br/>
+				</div>
+			</div>
+
+			<!-- Result -->
+			<div>
+				<h2 style="margin-bottom:5px;">Escaped result with HTML entities:</h2>
+				<textarea id="to_text" placeholder="Safe HTML escaped text" onclick="this.focus();this.select();" name="to_text" style="width:950px;height:200px;resize:none;border:4px solid #8f8f8f"></textarea>
+			</div>
+			<!-- //Result -->
+
+			<!-- **************************************************
+			* // Example1 : 자동입력
+			************************************************** -->
+			<!-- codePanel -->
+			<h2 style="margin:40px 0 5px;">Example</h2>
+			<div class="codePanel">
+				<div class="codeWrap" data-style="html"><!-- default : html, js, css -->
+<!-- Start of Code -->
+<script>
+	$(document).ready(function() {
+		console.log('test')
+	});
+</script>
+<div class="header">
+	<div class="tab_nav" >
+		<ul>
+			<li><a href="javascript:void(0);"><span>공통</span></a></li><li><a href="javascript:void(0);"><span>공통</span></a></li>
+			<li><a href="javascript:void(0);"><span>WEB</span></a></li>
+			<li><a href="javascript:void(0);"><span>APP</span></a></li>
+			<li><a href="javascript:void(0);"><span>전체보기</span></a></li>
+			<li><a href="javascript:void(0);"><span>Guide</span></a></li>
+		</ul>
+	</div>
+</div>
+<!-- //End of Code -->
+				</div>
+			</div>
+			<!-- //codePanel -->
+
+
+
+			<!-- **************************************************
+			* // Example2 : 직접입력
+			************************************************** -->
+			<!-- codePanel -->
+			<h2 style="margin:40px 0 5px;">Example : Direct</h2>
+			<div class="codePanel direct"><!-- .direct -->
+				<div class="codeWrap" data-style="html">
+					<!-- Start of Code -->
+					<div class="header">
+						<div class="tab_nav" >
+							<ul>
+								<li><a href="javascript:void(0);"><span>WEB</span></a></li>
+								<li><a href="javascript:void(0);"><span>APP</span></a></li>
+								<li><a href="javascript:void(0);"><span>전체보기</span></a></li>
+							</ul>
+						</div>
+					</div>
+					<!-- //End of Code -->
+
+					<!-- parseWrap -->
+					<div class="parseWrap">
+						<pre><code class="html">&lt;li&gt;&lt;a href=&quot;javascript:void(0);&quot;&gt;&lt;span&gt;&#xacf5;&#xd1b5;&lt;/span&gt;&lt;/a&gt;&lt;/li&gt;<br/>			&lt;li&gt;&lt;a href=&quot;javascript:void(0);&quot;&gt;&lt;span&gt;WEB&lt;/span&gt;&lt;/a&gt;&lt;/li&gt;<br/>			&lt;li&gt;&lt;a href=&quot;javascript:void(0);&quot;&gt;&lt;span&gt;APP&lt;/span&gt;&lt;/a&gt;&lt;/li&gt;<br/>			&lt;li&gt;&lt;a href=&quot;javascript:void(0);&quot;&gt;&lt;span&gt;&#xc804;&#xccb4;&#xbcf4;&#xae30;&lt;/span&gt;&lt;/a&gt;&lt;/li&gt;<br/>			&lt;li&gt;&lt;a href=&quot;javascript:void(0);&quot;&gt;&lt;span&gt;Guide&lt;/span&gt;&lt;/a&gt;&lt;/li&gt;<br/>		&lt;/ul&gt;<br/>	&lt;/div&gt;<br/>&lt;/div&gt;	</code></pre>
+					</div>
+					<!-- //parseWrap -->
+				</div>
+			</div>
+			<!-- //codePanel -->
+
+
+			<!-- **************************************************
+			* // Example3 : 직접입력 : JS
+			************************************************** -->
+			<!-- codePanel  -->
+			<h2 style="margin:40px 0 5px;">Example : Direct : js</h2>
+			<div class="codePanel direct"><!-- .direct -->
+				<div class="codeWrap">
+					<!-- Start of Code -->
+					<div class="header">
+						<div class="tab_nav" >
+							<ul>
+								<li><a href="javascript:void(0);"><span>공통</span></a></li><li><a href="javascript:void(0);"><span>공통</span></a></li>
+								<li><a href="javascript:void(0);"><span>WEB</span></a></li>
+								<li><a href="javascript:void(0);"><span>APP</span></a></li>
+								<li><a href="javascript:void(0);"><span>전체보기</span></a></li>
+								<li><a href="javascript:void(0);"><span>Guide</span></a></li>
+							</ul>
+						</div>
+					</div>
+					<!-- //End of Code -->
+					<!-- parseWrap -->
+					<div class="parseWrap">
+<pre><code class="js">
+//-------------------------
+// Highlight
+//-------------------------
+var setHighlight = function(){
+	jMap.codePanel.find('pre code').each(function(i, block) {
+		hljs.highlightBlock(block);
+	});
+}
+</code></pre>
+					</div>
+					<!-- //parseWrap -->
+				</div>
+			</div>
+			<!-- //codePanel -->
+
+
+			<!-- **************************************************
+			* // Example4 : 직접입력 : CSS
+			************************************************** -->>
+			<!-- codePanel  -->
+			<h2 style="margin:40px 0 5px;">Example : Direct : css</h2>
+			<div class="codePanel direct"><!-- .direct -->
+				<div class="codeWrap">
+					<!-- Start of Code -->
+					<div class="header">
+						<div class="tab_nav" >
+							<ul>
+								<li><a href="javascript:void(0);"><span>공통</span></a></li><li><a href="javascript:void(0);"><span>공통</span></a></li>
+								<li><a href="javascript:void(0);"><span>WEB</span></a></li>
+								<li><a href="javascript:void(0);"><span>APP</span></a></li>
+								<li><a href="javascript:void(0);"><span>전체보기</span></a></li>
+								<li><a href="javascript:void(0);"><span>Guide</span></a></li>
+							</ul>
+						</div>
+					</div>
+					<!-- //End of Code -->
+					<!-- parseWrap -->
+					<div class="parseWrap">
+<pre><code class="css">
+body #wrap #content{visibility: visible}
+.guideWrap{position:relative;display:block;border:1px solid #000;}
+.codePanel{padding:10px;border:1px solid #dedede;}
+.parseWrap {position:relative;margin-top:35px;padding:10px 15px 0;border-radius: 4px;background-color:#282c34;}
+</code></pre>
+					</div>
+					<!-- //parseWrap -->
+				</div>
+			</div>
+			<!-- //codePanel -->
+
+
+
+		</div><!--//tab_contents_wrap -->
+	</div>
+
+
+
+		</div><!-- //content -->
+	</div><!-- //wrap -->
+</body>
+</html>

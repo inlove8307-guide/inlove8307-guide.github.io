@@ -1,0 +1,114 @@
+@charset "utf-8";
+
+/*!
+ * StyleSheet for JQuery splitter Plugin version 0.27.1
+ * Copyright (C) 2010-2018 Jakub Jankiewicz <http://jcubic.pl/me>
+ *
+ * This program is free software:you can redistribute it and/or modify
+ * it under the terms of the GNU Lesser General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU Lesser General Public License for more details.
+ *
+ * You should have received a copy of the GNU Lesser General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
+.splitter_panel {position:relative}
+.splitter_panel .vsplitter {background-color:#000; cursor:col-resize; z-index:900; width:6px}
+.splitter_panel .hsplitter {background-color:#5F5F5F; cursor:row-resize; z-index:800; height:7px}
+.splitter_panel .vsplitter.splitter-invisible,
+.splitter_panel .hsplitter.splitter-invisible {background:none}
+.splitter_panel .vsplitter, .splitter_panel .left_panel, .splitter_panel .right_panel,
+.splitter_panel .hsplitter, .splitter_panel .top_panel, .splitter_panel .bottom_panel {position:absolute; overflow:auto}
+.splitter_panel .vsplitter, .splitter_panel .left_panel, .splitter_panel .right_panel {height:100%}
+.splitter_panel .hsplitter, .splitter_panel .top_panel, .splitter_panel .bottom_panel {width:100%}
+.splitter_panel .top_panel, .splitter_panel .left_panel, .splitter_panel .vsplitter {top:0}
+.splitter_panel .top_panel, .splitter_panel .bottom_panel, .splitter_panel .left_panel, .splitter_panel .hsplitter {left:0}
+.splitter_panel .bottom_panel {bottom:0}
+.splitter_panel .right_panel {right:0}
+.splitterMask {position:absolute; left:0; top:0; right:0; bottom:0; z-index:1000}
+
+
+
+/*
+Copyright (c) 2010, Yahoo! Inc. All rights reserved.
+Code licensed under the BSD License:
+http://developer.yahoo.com/yui/license.html
+version:3.1.2
+build:56
+*/
+html{color:#000;background:#FFF}body,div,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,pre,code,form,fieldset,legend,input,textarea,p,blockquote,th,td{margin:0;padding:0}table{border-collapse:collapse;border-spacing:0}fieldset,img{border:0}address,caption,cite,code,dfn,em,strong,th,var{font-style:normal;font-weight:normal}li{list-style:none}caption,th{text-align:left}h1,h2,h3,h4,h5,h6{font-size:100%;font-weight:normal}q:before,q:after{content:''}abbr,acronym{border:0;font-variant:normal}sup{vertical-align:text-top}sub{vertical-align:text-bottom}input,textarea,select{font-family:inherit;font-size:inherit;font-weight:inherit}input,textarea,select{*font-size:100%}legend{color:#000}
+
+html{font-family:Helvetica, Arial; background:#141414}
+body{overflow:hidden}
+#base{ position:relative}
+
+/*header*/
+#header{z-index:999;position:fixed;left:0;bottom:-170px;width:100%;height:150px;padding:15px;color:#FFF; background-color:#000;transition:all 0.36s ease}
+.option_on #header{bottom:0;transition:all 0.36s ease}
+
+#header a{color:#99FFFF;}
+#header p{color:#CCC}
+#description p{margin-bottom:18px}
+#header h3{font-size:12px; margin:15px 0 10px 0; padding:15px 0 0 0; border-top:solid 1px #CCC; text-transform:uppercase}
+
+h1{color:#DEDEDE; font-family:palatino, Georgia; font-size:16px; line-height:20px; font-weight:bold; margin-bottom:5px; text-shadow:1px 1px 3px #000}
+p{font-size:15px; line-height:22px}
+
+.toggle_btn{position:absolute;display:block;width:80px; height:23px;padding:5px 10px;left:10px; top:-23px; border:1px solid #000;text-align:center; background-color:#000;box-sizing:border-box; font-size:12px;border-top-left-radius:5px;border-top-right-radius:5px; text-decoration:none}
+
+/*settings*/
+#settings{}
+#settings h5{font-size:13px; line-height:24px}
+#settings p{font-size:13px; line-height:24px}
+#settings .settingsGroup p{padding-left:20px}
+#settingsForm{float:left;margin-right:50px}
+#settings .fl{float:left;margin-right:50px}
+
+/*converter*/
+#converter {width:100%}
+#converter{position:relative;top:initial;left:initial}
+#converter .wrap{float:left;width:33.3333%}
+.textInputs{width:100%;padding:10px 10px 30px;background-color:#333;color:#c4c4c4;border:none; font-family:monospace; font-size:12px;line-height:16px;-webkit-box-shadow:#333 1px 1px 10px inset; -moz-box-shadow:#333 1px 1px 10px inset; box-sizing:border-box;transition:all 0.36s ease}
+.textInputs{height:calc(100vh - 60px)}
+.textInputs:focus{outline-color:#59efff; background-color:#2b2b2b}
+
+.textInputs::-moz-selection {background:#000; text-shadow:none; color:#99FFFF}
+.textInputs::selection {background:#000; text-shadow:none; color:#99FFFF}
+
+/*option bar animation*/
+.option_on #converter{height:calc(100vh - 180px);transition:all 0.36s ease}
+.option_on .textInputs{height:calc(100vh - 230px);transition:all 0.36s ease}
+
+.groupHeader{width:100%; color:#99FFFF; height:45px; background-color:#000}
+p.dataHeaders{height:30px; padding:15px 15px 10px}
+p.groupHeadline{padding:10px}
+.groupHeader span.subhead{opacity:0.7; font-size:12px}
+.groupHeader a{color:#59efff}
+
+#outputGroup{}
+#dataInput{}
+#dataOutput{}
+#dataSelector{width:150px;  padding:4px 0px; color:#ccc; background-color:#000; border:none; border:1px solid #000; border-bottom:1px solid #ccc;line-height:16px;font-size:12px;float:right;display:none}
+#dataSelector:focus{ outline:none;  outline-color:#59efff; color:#59efff; border:1px solid #59efff}
+#dataSelector option{color:#ccc;}
+
+/*html viewer*/
+.htmlWrap .groupHeadline{height:25px}
+.htmlWrap table{border-collapse:collapse;border-spacing:0;width:100%;font-size:12px;}
+.htmlWrap .textInputs{background-color:#edecec;overflow:auto}
+.htmlWrap .textInputs{color:#666}
+caption{visibility:hidden;width:0;height:0;font-size:0}
+th{text-align:center;background:#333;color:#fff}
+td{background-color:#fff;}
+th, td{padding:3px 5px;border:1px solid #d1d1d1;}
+
+
+
+
+
+

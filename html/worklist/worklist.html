@@ -1,0 +1,292 @@
+<!DOCTYPE HTML>
+<html lang="ko-KR" class="no-js">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+	<meta http-equiv="Cache-Control" content="no-cache; no-store; no-save"/>
+	<!--[if lte IE 8]><html class="no-js ie8" lang="ko"> <![endif]-->
+	<!--[if IE 9]><html class="no-js ie9" lang="ko"> <![endif]-->
+	<!--[if gte IE 9]><html class="no-js" lang="ko"> <![endif]-->
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no" />
+	<title>Worklist</title>
+	<link rel="shortcut icon" href="../../assets/img/favicon_32x32.png?v=1507137376" type="image/png">
+	<link rel="stylesheet" href="./resource/css/worklist.css" />
+	<link rel="stylesheet" href="./resource/plugins/fontawesome/css/all.min.css" />
+	<script type="text/javascript" src="./resource/plugins/modernizr/modernizr.js"></script>
+	<script type="text/javascript" src="./resource/plugins/detectizr/detectizr.min.js"></script>
+	<script type="text/javascript" src="./resource/js/jquery-1.12.0.min.js"></script>
+	<script type="text/javascript" src="./resource/js/jquery.colorbox-min.js"></script>
+	<script type="text/javascript" src="./resource/js/jquery.quicksearch.js"></script>
+	<script type="text/javascript" src="./resource/js/worklist.util.js"></script>
+	<script type="text/javascript" src="./resource/js/worklist.include.js"></script>
+	<script type="text/javascript" src="./resource/js/worklist.js"></script>
+</head>
+<script>
+	$(document).ready(function() {
+		//a 링크 text 생성
+		$('table .path > a').each(function () {
+			$(this).text($(this).attr('href'));
+		});
+	});
+</script>
+<body data-resize="1024">
+	<div id="wrap">
+		<h1>프로젝트 타이틀<small></small> </h1>
+
+		<!-- header -->
+		<div class="header">
+			<!-- 1Depth : Tab Navigation -->
+			<div class="tab_nav" >
+				<h2>IA.</h2>
+				<ul>
+					<li><a href="javascript:void(0);"><span>F/O PC</span></a></li>
+					<li><a href="javascript:void(0);"><span>F/O MOB</span></a></li>
+					<li><a href="javascript:void(0);"><span>P/O PC</span></a></li>
+					<li><a href="javascript:void(0);"><span>P/O MOB</span></a></li>
+					<li><a href="javascript:void(0);"><span>B/O PC</span></a></li>
+					<!-- <li><a href="javascript:void(0);"><span>B/O MOB</span></a></li> -->
+					<li><a href="javascript:void(0);"><span>View All</span></a></li>
+					<li><a href="javascript:void(0);" onclick="location.href='worklist.guide.html'"><span>Guide</span></a></li>
+				</ul>
+			</div>
+			<!-- //1Depth : IA Tab Navigation -->
+			<!-- info_section -->
+			<div class="info_section">
+				<div class="info_box ">
+				<!-- <div class="info_box hide"> -->
+					<h2>Publishing info.</h2>
+					<table>
+						<caption>Encoding, Cross Browsing, History Infomation</caption>
+						<colgroup><col width="140px" /><col width="110px" /><col width="150px" /><col width="200px" /></colgroup>
+						<tbody>
+							<tr>
+								<th scope="row">Encoding</th>
+								<td>UTF-8</td>
+								<th scope="row">DTD</th>
+								<td>HTML5 </td>
+							</tr>
+							<tr>
+								<th scope="row">Cross Browsing</th>
+								<td colspan="3">IE10, Chrome, Android 4.5</td>
+							</tr>
+							<tr>
+								<th scope="row">History</th>
+								<td colspan="3">
+									프로젝트_WBS_v1.1_200303_수행사.xlsx
+									<textarea class="history_area">
+
+									</textarea>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+				<div class="link_box ">
+					<script>inc_linkInfo();</script>
+				</div>
+				<div class="filter_box">
+					<script>inc_filter();</script>
+				</div>
+			</div>
+			<!-- //info_section -->
+		</div>
+		<!-- //header -->
+
+		<!-- content -->
+		<div id="content">
+
+<!-- **************************************************
+* Start of Worklist
+************************************************** -->
+	<!-- --------------------------------------------------
+	// [F/O PC]
+	-------------------------------------------------- -->
+	<div class="tab_contents_wrap">
+		<h3>F/O PC</h3>
+		<table width="100%;">
+			<script> inc_IAHead();</script>
+			<tbody>
+				<tr>
+					<td class="depth2">GNB</td>
+					<td class="depth3">2</td>
+					<td class="depth4">3</td>
+					<td class="page">pop</td>
+					<td class="path"><a href="../pc/main.html" target="_blank"></a></td>
+					<td class="rdate">xxxx</td>
+					<td class="mdate">xxxx</td>
+					<td class="info">a</td>
+					<td class="etc">v</td>
+				</tr>
+
+
+
+			</tbody>
+		</table>
+	</div>
+
+	<!-- --------------------------------------------------
+	// [F/O MOB]
+	-------------------------------------------------- -->
+	<div class="tab_contents_wrap">
+		<h3>F/O MOB</h3>
+		<table width="100%;">
+			<script> inc_IAHead();</script>
+			<tbody>
+				<tr>
+					<td class="depth2">GNB</td>
+					<td class="depth3"></td>
+					<td class="depth4"></td>
+					<td class="page"></td>
+					<td class="path"><a href="#" target="_blank">#</a></td>
+					<td class="rdate"></td>
+					<td class="mdate"></td>
+					<td class="info"></td>
+					<td class="etc"></td>
+				</tr>
+				<tr>
+					<td class="depth2">(Drawer menu)전체 메뉴</td>
+					<td class="depth3"></td>
+					<td class="depth4"></td>
+					<td class="page">M-FDM</td>
+					<td class="path"><a href="../mob/M-FDM.html" target="_blank"></a></td>
+					<td class="rdate"></td>
+					<td class="mdate"></td>
+					<td class="info"></td>
+					<td class="etc"></td>
+				</tr>
+
+			</tbody>
+		</table>
+	</div>
+
+	<!-- --------------------------------------------------
+	// [P/O PC]
+	-------------------------------------------------- -->
+	<div class="tab_contents_wrap">
+		<h3>P/O PC</h3>
+		<table width="100%;">
+			<script> inc_IAHead();</script>
+			<tbody>
+				<tr>
+					<td class="depth2">파트너등록</td>
+					<td class="depth3">PM사 등록</td>
+					<td class="depth4"></td>
+					<td class="page">P-PMR</td>
+					<td class="path"><a href="../admin/P-PMR.html" target="_blank"></a></td>
+					<td class="rdate">20200429</td>
+					<td class="mdate"></td>
+					<td class="info"></td>
+					<td class="etc"></td>
+				</tr>
+				<tr>
+					<td class="depth2">파트너등록</td>
+					<td class="depth3">PM사 등록</td>
+					<td class="depth4">회사정보/가입여부확인(사업자번호)</td>
+					<td class="page"></td>
+					<td class="path"><a href="#" target="_blank">#</a></td>
+					<td class="rdate"></td>
+					<td class="mdate"></td>
+					<td class="info"></td>
+					<td class="etc"></td>
+				</tr>
+
+			</tbody>
+		</table>
+	</div>
+
+	<!-- --------------------------------------------------
+	// [P/O MOB]
+	-------------------------------------------------- -->
+	<div class="tab_contents_wrap">
+		<h3>P/O MOB</h3>
+		<table width="100%;">
+			<script> inc_IAHead();</script>
+			<tbody>
+				<tr>
+					<td class="depth2">로그인</td>
+					<td class="depth3"></td>
+					<td class="depth4"></td>
+					<td class="page">M-PLI</td>
+					<td class="path"><a href="../mob/M-PLI.html" target="_blank"></a></td>
+					<td class="rdate"></td>
+					<td class="mdate"></td>
+					<td class="info"></td>
+					<td class="etc"></td>
+				</tr>
+				<tr>
+					<td class="depth2">로그인</td>
+					<td class="depth3"></td>
+					<td class="depth4">아이디 저장하기</td>
+					<td class="page">M-PLI</td>
+					<td class="path"><a href="#" target="_blank">#</a></td>
+					<td class="rdate"></td>
+					<td class="mdate"></td>
+					<td class="info"></td>
+					<td class="etc"></td>
+				</tr>
+
+			</tbody>
+		</table>
+	</div>
+
+	<!-- --------------------------------------------------
+	// [B/O PC]
+	-------------------------------------------------- -->
+	<div class="tab_contents_wrap">
+		<h3>B/O PC</h3>
+		<table width="100%;">
+			<script> inc_IAHead();</script>
+			<tbody>
+				<tr>
+					<td class="depth2">로그인</td>
+					<td class="depth3"></td>
+					<td class="depth4"></td>
+					<td class="page"></td>
+					<td class="path"><a href="../admin/P-BLI.html" target="_blank"></a></td>
+					<td class="rdate">20200416</td>
+					<td class="mdate">20200427</td>
+					<td class="info"></td>
+					<td class="etc"></td>
+				</tr>
+				<tr>
+					<td class="depth2">로그인</td>
+					<td class="depth3"></td>
+					<td class="depth4">아이디 저장하기</td>
+					<td class="page"></td>
+					<td class="path"><a href="../admin/P-BLI.html" target="_blank"></a></td>
+					<td class="rdate">20200416</td>
+					<td class="mdate">20200427</td>
+					<td class="info"></td>
+					<td class="etc"></td>
+				</tr>
+				<tr class="new">
+					<td class="depth2">로그인</td>
+					<td class="depth3"></td>
+					<td class="depth4">아이디찾기/임시비밀번호발급/아이디 찾기/결과</td>
+					<td class="page">P-BFI</td>
+					<td class="path"><a href="../admin/P-BFI.html" target="_blank"></a></td>
+					<td class="rdate">20200318</td>
+					<td class="mdate">20200427</td>
+					<td class="info"></td>
+					<td class="etc"></td>
+				</tr>
+				<tr class="new">
+					<td class="depth2">로그인</td>
+					<td class="depth3"></td>
+					<td class="depth4">아이디 찾기/임시 비밀번호 발급/아이디 찾기/이메일로 받기</td>
+					<td class="page">P-BFI</td>
+					<td class="path"><a href="../admin/P-BFI.html" target="_blank"></a></td>
+					<td class="rdate">20200318</td>
+					<td class="mdate">20200427</td>
+					<td class="info"></td>
+					<td class="etc"></td>
+				</tr>
+
+			</tbody>
+		</table>
+	</div>
+
+</div><!-- //content -->
+</div><!-- //wrap -->
+</body>
+</html>
