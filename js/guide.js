@@ -109,5 +109,11 @@ window[namespace] = window[namespace] || {};
     });
   }
 
+  if ($('.language-js').length) {
+    $('.language-js').each(function(){
+      $(this).html($(this).html().replace(/</g,"&lt;").replace(/>/g,"&gt;"));
+    });
+  }
+
   guide.include = include;
 }(window[namespace]));

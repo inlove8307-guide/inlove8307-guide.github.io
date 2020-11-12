@@ -28,9 +28,18 @@
           <div class="guide-viewer__content">
             <!-- [S] VIEW -->
             <div class="guide-viewer__view">
-              <div class="datepicker"></div>
+              <div class="datepicker-wrap">
+                <input type="text" id="DATE_01" class="datepicker-input" placeholder="YYYY.MM.DD">
+                <div class="datepicker"></div>
+              </div>
+              <div class="datepicker-wrap">
+                <input type="text" id="DATE_02" class="datepicker-input" placeholder="YYYY.MM.DD">
+                <div class="datepicker"></div>
+              </div>
               <style>
-                .datepicker {position:relative;width:21rem;}
+                .datepicker-wrap {display:inline-block;position:relative;}
+                .datepicker-input {box-sizing:border-box;padding:0 0.4rem;width:21rem;height:3rem;border:1px solid rgb(200, 200, 200);border-radius:0.5rem;}
+                .datepicker {overflow:hidden;position:absolute;z-index:1;top:3rem;left:0;width:21rem;height:0;background-color:rgb(255, 255, 255);}
                 .datepicker-ctlr button{position:absolute;box-sizing:border-box;padding:0;width:3rem;height:3rem;border:0;background-color:transparent;}
                 .datepicker-ctlr button:nth-child(1){top:0;left:0;}
                 .datepicker-ctlr button:nth-child(2){top:0;left:3rem;}
@@ -139,7 +148,7 @@
                         if (data[0].date) {
                           button = document.createElement('button');
                           button.setAttribute('class', 'datepicker-button');
-                          button.dataset.date = [data[0].year, getDigit(data[0].month, 0, 2), getDigit(data[0].date, 0, 2)].join('-');
+                          button.dataset.date = [data[0].year, getDigit(data[0].month, 0, 2), getDigit(data[0].date, 0, 2)].join('.');
                           button.dataset.week = data[0].week;
                           button.innerText = data[0].date;
                           button.addEventListener('click', function(event){
@@ -237,6 +246,12 @@
                     datepicker.prototype = {
                       on: function(property, fn){
                         this.callback[property] = fn;
+                      },
+                      show: function(){
+                        this.target.style.height = this.target.scrollHeight + 'px';
+                      },
+                      hide: function(){
+                        this.target.style.height = 0;
                       }
                     };
 
@@ -247,14 +262,25 @@
                     }
                   }();
 
-                  var calender = datepicker.create(document.querySelector('.datepicker'));
+                  var date01 = datepicker.create(document.querySelector('#DATE_01 + .datepicker'));
+                  var date02 = datepicker.create(document.querySelector('#DATE_02 + .datepicker'));
 
-                  calender.on('select', function(event){
-                    console.log(event.target);
+                  date01.on('select', function(event){
+                    document.querySelector('#DATE_01').value = event.target.dataset.date;
+                    date01.hide();
                   });
 
-                  calender.on('update', function(table){
-                    console.log(table);
+                  document.querySelector('#DATE_01').addEventListener('focusin', function(event){
+                    date01.show();
+                  });
+
+                  date02.on('select', function(event){
+                    document.querySelector('#DATE_02').value = event.target.dataset.date;
+                    date02.hide();
+                  });
+
+                  document.querySelector('#DATE_02').addEventListener('focusin', function(event){
+                    date02.show();
                   });
                 }());
               </script>
@@ -392,7 +418,7 @@
                           if (data[0].date) {
                             button = document.createElement('button');
                             button.setAttribute('class', 'datepicker-button');
-                            button.dataset.date = [data[0].year, getDigit(data[0].month, 0, 2), getDigit(data[0].date, 0, 2)].join('-');
+                            button.dataset.date = [data[0].year, getDigit(data[0].month, 0, 2), getDigit(data[0].date, 0, 2)].join('.');
                             button.dataset.week = data[0].week;
                             button.innerText = data[0].date;
                             button.addEventListener('click', function(event){
@@ -425,13 +451,13 @@
 
                       function getCtlr(context){
                         var result = document.createElement('div');
-                        var array = [
-                          { html: '&lt;i class="fas fa-angle-double-left fa-sm"&gt;</i>', func: function(event){ update(context, 'year', -1) } },
-                          { html: '&lt;i class="fas fa-angle-left fa-sm"&gt;</i>', func: function(event){ update(context, 'month', -1) } },
-                          { html: '&lt;i class="fas fa-angle-right fa-sm"&gt;</i>', func: function(event){ update(context, 'month', 1) } },
-                          { html: '&lt;i class="fas fa-angle-double-right fa-sm"&gt;</i>', func: function(event){ update(context, 'year', 1) } }
-                        ];
                         var button;
+                        var array = [
+                          { html: '<i class="fas fa-angle-double-left fa-sm"></i>', func: function(event){ update(context, 'year', -1) } },
+                          { html: '<i class="fas fa-angle-left fa-sm"></i>', func: function(event){ update(context, 'month', -1) } },
+                          { html: '<i class="fas fa-angle-right fa-sm"></i>', func: function(event){ update(context, 'month', 1) } },
+                          { html: '<i class="fas fa-angle-double-right fa-sm"></i>', func: function(event){ update(context, 'year', 1) } }
+                        ];
 
                         result.setAttribute('class', 'datepicker-ctlr');
 
@@ -490,6 +516,12 @@
                       datepicker.prototype = {
                         on: function(property, fn){
                           this.callback[property] = fn;
+                        },
+                        show: function(){
+                          this.target.style.height = this.target.scrollHeight + 'px';
+                        },
+                        hide: function(){
+                          this.target.style.height = 0;
                         }
                       };
 
@@ -500,14 +532,25 @@
                       }
                     }();
 
-                    var calender = datepicker.create(document.querySelector('.datepicker'));
+                    var date01 = datepicker.create(document.querySelector('#DATE_01 + .datepicker'));
+                    var date02 = datepicker.create(document.querySelector('#DATE_02 + .datepicker'));
 
-                    calender.on('select', function(event){
-                      console.log(event.target);
+                    date01.on('select', function(event){
+                      document.querySelector('#DATE_01').value = event.target.dataset.date;
+                      date01.hide();
                     });
 
-                    calender.on('update', function(table){
-                      console.log(table);
+                    document.querySelector('#DATE_01').addEventListener('focusin', function(event){
+                      date01.show();
+                    });
+
+                    date02.on('select', function(event){
+                      document.querySelector('#DATE_02').value = event.target.dataset.date;
+                      date02.hide();
+                    });
+
+                    document.querySelector('#DATE_02').addEventListener('focusin', function(event){
+                      date02.show();
                     });
                   }());
                 </code>
