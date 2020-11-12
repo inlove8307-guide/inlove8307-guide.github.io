@@ -28,32 +28,44 @@
           <div class="guide-viewer__content">
             <!-- [S] VIEW -->
             <div class="guide-viewer__view">
-              <div class="calender"></div>
+              <div class="datepicker"></div>
               <style>
-                .calender {position:relative;width:21rem;}
-                .calender-ctlr button{position:absolute;box-sizing:border-box;padding:0;width:3rem;height:3rem;border:0;background-color:transparent;}
-                .calender-ctlr button:nth-child(1){top:0;left:0;}
-                .calender-ctlr button:nth-child(2){top:0;left:3rem;}
-                .calender-ctlr button:nth-child(3){top:0;right:3rem;}
-                .calender-ctlr button:nth-child(4){top:0;right:0;}
-                .calender-table {border-collapse:collapse;border:0.1rem solid rgb(225, 225, 225);}
-                .calender-caption {height:3rem;background-color:rgb(245, 245, 245);line-height:3rem;}
-                .calender-week {box-sizing:border-box;padding:0;width:3rem;height:3rem;}
-                .calender-week:first-child,
-                .calender-week:last-child {color:rgb(255, 0, 0);}
-                .calender-date {box-sizing:border-box;padding:0;width:3rem;height:3rem;border:0.1rem solid rgb(225, 225, 225);}
-                .calender-date:first-child button,
-                .calender-date:last-child button {color:rgb(255, 0, 0);}
-                .calender-button {display:inline-block;box-sizing:border-box;padding:0;width:100%;height:100%;border:0;background-color:transparent;font-size:1.6rem;}
+                .datepicker {position:relative;width:21rem;}
+                .datepicker-ctlr button{position:absolute;box-sizing:border-box;padding:0;width:3rem;height:3rem;border:0;background-color:transparent;}
+                .datepicker-ctlr button:nth-child(1){top:0;left:0;}
+                .datepicker-ctlr button:nth-child(2){top:0;left:3rem;}
+                .datepicker-ctlr button:nth-child(3){top:0;right:3rem;}
+                .datepicker-ctlr button:nth-child(4){top:0;right:0;}
+                .datepicker-table {border-collapse:collapse;border:0.1rem solid rgb(225, 225, 225);}
+                .datepicker-caption {height:3rem;background-color:rgb(245, 245, 245);line-height:3rem;}
+                .datepicker-week {box-sizing:border-box;padding:0;width:3rem;height:3rem;}
+                .datepicker-week:first-child,
+                .datepicker-week:last-child {color:rgb(255, 0, 0);}
+                .datepicker-date {box-sizing:border-box;padding:0;width:3rem;height:3rem;border:0.1rem solid rgb(225, 225, 225);}
+                .datepicker-date:first-child button,
+                .datepicker-date:last-child button {color:rgb(255, 0, 0);}
+                .datepicker-button {display:inline-block;box-sizing:border-box;padding:0;width:100%;height:100%;border:0;background-color:transparent;font-size:1.6rem;}
               </style>
               <script>
                 ;(function(){
-                  var calender = function(){
+                  var datepicker = function(){
                     var callback = ['select', 'update'];
 
+                    function getDigit(value, char, length, after){
+                      var result = String(value);
+
+                      while (result.length < length) {
+                        result = after
+                          ? result + String(char)
+                          : String(char) + result;
+                      }
+
+                      return result;
+                    };
+
                     function getData(context){
-                      var array = []
-                        , date;
+                      var array = [];
+                      var date;
 
                       do {
                         date = new Date([context.year, context.month, array.length+1].join());
@@ -97,7 +109,7 @@
 
                       while(weeks.length){
                         col = document.createElement('th');
-                        col.setAttribute('class', 'calender-week');
+                        col.setAttribute('class', 'datepicker-week');
                         col.setAttribute('scope', 'col');
                         col.innerText = weeks[0];
                         row.append(col);
@@ -121,13 +133,13 @@
                         }
 
                         col = document.createElement('td');
-                        col.setAttribute('class', 'calender-date');
+                        col.setAttribute('class', 'datepicker-date');
                         row.append(col);
 
                         if (data[0].date) {
                           button = document.createElement('button');
-                          button.setAttribute('class', 'calender-button');
-                          button.dataset.date = [data[0].year, data[0].month, data[0].date].join('-');
+                          button.setAttribute('class', 'datepicker-button');
+                          button.dataset.date = [data[0].year, getDigit(data[0].month, 0, 2), getDigit(data[0].date, 0, 2)].join('-');
                           button.dataset.week = data[0].week;
                           button.innerText = data[0].date;
                           button.addEventListener('click', function(event){
@@ -147,10 +159,10 @@
                       var table = document.createElement('table');
                       var caption = document.createElement('caption');
 
-                      caption.setAttribute('class', 'calender-caption');
-                      caption.innerText = [context.year, context.month].join('.');
+                      caption.setAttribute('class', 'datepicker-caption');
+                      caption.innerText = [context.year, getDigit(context.month, 0, 2)].join('.');
 
-                      table.setAttribute('class', 'calender-table');
+                      table.setAttribute('class', 'datepicker-table');
                       table.append(caption);
                       table.append(getHead());
                       table.append(getBody(context));
@@ -162,17 +174,17 @@
                       var result = document.createElement('div');
                       var button;
                       var array = [
-                        { text: '<<', func: function(event){ update(context, 'year', -1) } },
-                        { text: '<', func: function(event){ update(context, 'month', -1) } },
-                        { text: '>', func: function(event){ update(context, 'month', 1) } },
-                        { text: '>>', func: function(event){ update(context, 'year', 1) } }
+                        { html: '<i class="fas fa-angle-double-left fa-sm"></i>', func: function(event){ update(context, 'year', -1) } },
+                        { html: '<i class="fas fa-angle-left fa-sm"></i>', func: function(event){ update(context, 'month', -1) } },
+                        { html: '<i class="fas fa-angle-right fa-sm"></i>', func: function(event){ update(context, 'month', 1) } },
+                        { html: '<i class="fas fa-angle-double-right fa-sm"></i>', func: function(event){ update(context, 'year', 1) } }
                       ];
 
-                      result.setAttribute('class', 'calender-ctlr');
+                      result.setAttribute('class', 'datepicker-ctlr');
 
                       while(array.length){
                         button = document.createElement('button');
-                        button.innerText = array[0].text;
+                        button.innerHTML = array[0].html;
                         button.addEventListener('click', array[0].func);
                         result.append(button);
                         array.shift();
@@ -195,12 +207,12 @@
                       }
 
                       context.data = getData(context);
-                      context.table.querySelector('caption').innerText = [context.year, context.month].join('.');
+                      context.table.querySelector('caption').innerText = [context.year, getDigit(context.month, 0, 2)].join('.');
                       context.table.querySelector('tbody').replaceWith(getBody(context));
                       context.callback.update.call(context, context.table);
                     }
 
-                    function Calender(target){
+                    function datepicker(target){
                       this.target = target;
                       this.year = new Date().getFullYear();
                       this.month = new Date().getMonth()+1;
@@ -222,7 +234,7 @@
                       this.target.append(getCtlr(this));
                     }
 
-                    Calender.prototype = {
+                    datepicker.prototype = {
                       on: function(property, fn){
                         this.callback[property] = fn;
                       }
@@ -230,19 +242,19 @@
 
                     return {
                       create: function(target){
-                        return new Calender(target);
+                        return new datepicker(target);
                       }
                     }
                   }();
 
-                  var calender = calender.create(document.querySelector('.calender'));
+                  var calender = datepicker.create(document.querySelector('.datepicker'));
 
                   calender.on('select', function(event){
-                    console.log(event.target, this);
+                    console.log(event.target);
                   });
 
                   calender.on('update', function(table){
-                    console.log(table, this);
+                    console.log(table);
                   });
                 }());
               </script>
@@ -264,37 +276,49 @@
             <div class="guide-viewer__code">
               <pre class="line-numbers" data-lang="html">
                 <code class="language-html">
-                  <div class="calender"></div>
+                  <div class="datepicker"></div>
                 </code>
               </pre>
               <pre class="line-numbers" data-lang="css">
                 <code class="language-css">
-                  .calender {position:relative;width:21rem;}
-                  .calender-ctlr button{position:absolute;box-sizing:border-box;padding:0;width:3rem;height:3rem;border:0;background-color:transparent;}
-                  .calender-ctlr button:nth-child(1){top:0;left:0;}
-                  .calender-ctlr button:nth-child(2){top:0;left:3rem;}
-                  .calender-ctlr button:nth-child(3){top:0;right:3rem;}
-                  .calender-ctlr button:nth-child(4){top:0;right:0;}
-                  .calender-table {border-collapse:collapse;border:0.1rem solid rgb(225, 225, 225);}
-                  .calender-caption {height:3rem;background-color:rgb(245, 245, 245);line-height:3rem;}
-                  .calender-week {box-sizing:border-box;padding:0;width:3rem;height:3rem;}
-                  .calender-week:first-child,
-                  .calender-week:last-child {color:rgb(255, 0, 0);}
-                  .calender-date {box-sizing:border-box;padding:0;width:3rem;height:3rem;border:0.1rem solid rgb(225, 225, 225);}
-                  .calender-date:first-child button,
-                  .calender-date:last-child button {color:rgb(255, 0, 0);}
-                  .calender-button {display:inline-block;box-sizing:border-box;padding:0;width:100%;height:100%;border:0;background-color:transparent;font-size:1.6rem;}
+                  .datepicker {position:relative;width:21rem;}
+                  .datepicker-ctlr button{position:absolute;box-sizing:border-box;padding:0;width:3rem;height:3rem;border:0;background-color:transparent;}
+                  .datepicker-ctlr button:nth-child(1){top:0;left:0;}
+                  .datepicker-ctlr button:nth-child(2){top:0;left:3rem;}
+                  .datepicker-ctlr button:nth-child(3){top:0;right:3rem;}
+                  .datepicker-ctlr button:nth-child(4){top:0;right:0;}
+                  .datepicker-table {border-collapse:collapse;border:0.1rem solid rgb(225, 225, 225);}
+                  .datepicker-caption {height:3rem;background-color:rgb(245, 245, 245);line-height:3rem;}
+                  .datepicker-week {box-sizing:border-box;padding:0;width:3rem;height:3rem;}
+                  .datepicker-week:first-child,
+                  .datepicker-week:last-child {color:rgb(255, 0, 0);}
+                  .datepicker-date {box-sizing:border-box;padding:0;width:3rem;height:3rem;border:0.1rem solid rgb(225, 225, 225);}
+                  .datepicker-date:first-child button,
+                  .datepicker-date:last-child button {color:rgb(255, 0, 0);}
+                  .datepicker-button {display:inline-block;box-sizing:border-box;padding:0;width:100%;height:100%;border:0;background-color:transparent;font-size:1.6rem;}
                 </code>
               </pre>
               <pre class="line-numbers" data-lang="script">
                 <code class="language-js">
                   ;(function(){
-                    var calender = function(){
+                    var datepicker = function(){
                       var callback = ['select', 'update'];
 
+                      function getDigit(value, char, length, after){
+                        var result = String(value);
+
+                        while (result.length < length) {
+                          result = after
+                            ? result + String(char)
+                            : String(char) + result;
+                        }
+
+                        return result;
+                      };
+
                       function getData(context){
-                        var array = []
-                          , date;
+                        var array = [];
+                        var date;
 
                         do {
                           date = new Date([context.year, context.month, array.length+1].join());
@@ -338,7 +362,7 @@
 
                         while(weeks.length){
                           col = document.createElement('th');
-                          col.setAttribute('class', 'calender-week');
+                          col.setAttribute('class', 'datepicker-week');
                           col.setAttribute('scope', 'col');
                           col.innerText = weeks[0];
                           row.append(col);
@@ -362,13 +386,13 @@
                           }
 
                           col = document.createElement('td');
-                          col.setAttribute('class', 'calender-date');
+                          col.setAttribute('class', 'datepicker-date');
                           row.append(col);
 
                           if (data[0].date) {
                             button = document.createElement('button');
-                            button.setAttribute('class', 'calender-button');
-                            button.dataset.date = [data[0].year, data[0].month, data[0].date].join('-');
+                            button.setAttribute('class', 'datepicker-button');
+                            button.dataset.date = [data[0].year, getDigit(data[0].month, 0, 2), getDigit(data[0].date, 0, 2)].join('-');
                             button.dataset.week = data[0].week;
                             button.innerText = data[0].date;
                             button.addEventListener('click', function(event){
@@ -388,10 +412,10 @@
                         var table = document.createElement('table');
                         var caption = document.createElement('caption');
 
-                        caption.setAttribute('class', 'calender-caption');
-                        caption.innerText = [context.year, context.month].join('.');
+                        caption.setAttribute('class', 'datepicker-caption');
+                        caption.innerText = [context.year, getDigit(context.month, 0, 2)].join('.');
 
-                        table.setAttribute('class', 'calender-table');
+                        table.setAttribute('class', 'datepicker-table');
                         table.append(caption);
                         table.append(getHead());
                         table.append(getBody(context));
@@ -401,19 +425,19 @@
 
                       function getCtlr(context){
                         var result = document.createElement('div');
-                        var button;
                         var array = [
-                          { text: '<<', func: function(event){ update(context, 'year', -1) } },
-                          { text: '<', func: function(event){ update(context, 'month', -1) } },
-                          { text: '>', func: function(event){ update(context, 'month', 1) } },
-                          { text: '>>', func: function(event){ update(context, 'year', 1) } }
+                          { html: '&lt;i class="fas fa-angle-double-left fa-sm"&gt;</i>', func: function(event){ update(context, 'year', -1) } },
+                          { html: '&lt;i class="fas fa-angle-left fa-sm"&gt;</i>', func: function(event){ update(context, 'month', -1) } },
+                          { html: '&lt;i class="fas fa-angle-right fa-sm"&gt;</i>', func: function(event){ update(context, 'month', 1) } },
+                          { html: '&lt;i class="fas fa-angle-double-right fa-sm"&gt;</i>', func: function(event){ update(context, 'year', 1) } }
                         ];
+                        var button;
 
-                        result.setAttribute('class', 'calender-ctlr');
+                        result.setAttribute('class', 'datepicker-ctlr');
 
                         while(array.length){
                           button = document.createElement('button');
-                          button.innerText = array[0].text;
+                          button.innerHTML = array[0].html;
                           button.addEventListener('click', array[0].func);
                           result.append(button);
                           array.shift();
@@ -436,12 +460,12 @@
                         }
 
                         context.data = getData(context);
-                        context.table.querySelector('caption').innerText = [context.year, context.month].join('.');
+                        context.table.querySelector('caption').innerText = [context.year, getDigit(context.month, 0, 2)].join('.');
                         context.table.querySelector('tbody').replaceWith(getBody(context));
                         context.callback.update.call(context, context.table);
                       }
 
-                      function Calender(target){
+                      function datepicker(target){
                         this.target = target;
                         this.year = new Date().getFullYear();
                         this.month = new Date().getMonth()+1;
@@ -463,7 +487,7 @@
                         this.target.append(getCtlr(this));
                       }
 
-                      Calender.prototype = {
+                      datepicker.prototype = {
                         on: function(property, fn){
                           this.callback[property] = fn;
                         }
@@ -471,19 +495,19 @@
 
                       return {
                         create: function(target){
-                          return new Calender(target);
+                          return new datepicker(target);
                         }
                       }
                     }();
 
-                    var calender = calender.create(document.querySelector('.calender'));
+                    var calender = datepicker.create(document.querySelector('.datepicker'));
 
                     calender.on('select', function(event){
-                      console.log(event.target, this);
+                      console.log(event.target);
                     });
 
                     calender.on('update', function(table){
-                      console.log(table, this);
+                      console.log(table);
                     });
                   }());
                 </code>
@@ -492,6 +516,11 @@
             <!-- [E] CODE -->
           </div>
           <!-- [E] GUIDE -->
+          <!-- GUIDE TITLE -->
+          <h3 class="guide-viewer__title">참조</h3>
+          <ul class="guide-viewer__list">
+            <li class="list__item list__item--dash"><a href="https://fontawesome.com/icons?d=gallery&c=arrows&m=free" target="_blank">아이콘 (https://fontawesome.com/)</a></li>
+          </ul>
         </article>
 
       </section>
