@@ -58,7 +58,7 @@ window[namespace] = window[namespace] || {};
             <a class="guide-main__menu-link" data-code="C0401" href="../example/map.html">Map</a>\
             <a class="guide-main__menu-link" data-code="C0402" href="../example/navigation.html">Navigation</a>\
             <a class="guide-main__menu-link" data-code="C0403" href="../example/datepicker.html">DatePicker</a>\
-            <a class="guide-main__menu-link" data-code="C0499" href="../worklist/worklist.html" target="_blank">Worklist</a>\
+            <a class="guide-main__menu-link" data-code="C0499" href="../worklist/worklist.html" target="_blank">WorkList <i class="fas fa-external-link-square-alt"></i></a>\
           </div>\
         </div>\
       </nav>'
