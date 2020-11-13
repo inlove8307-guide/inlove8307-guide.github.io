@@ -29,17 +29,19 @@
             <!-- [S] VIEW -->
             <div class="guide-viewer__view">
               <div class="datepicker-wrap">
+                <label for="DATE_01">시작일</label>
                 <input type="text" id="DATE_01" class="datepicker-input" placeholder="YYYY.MM.DD">
                 <div class="datepicker"></div>
               </div>
               <div class="datepicker-wrap">
+                <label for="DATE_02">종료일</label>
                 <input type="text" id="DATE_02" class="datepicker-input" placeholder="YYYY.MM.DD">
                 <div class="datepicker"></div>
               </div>
               <style>
                 .datepicker-wrap {display:inline-block;position:relative;}
                 .datepicker-input {box-sizing:border-box;padding:0 0.4rem;width:21rem;height:3rem;border:1px solid rgb(200, 200, 200);border-radius:0.5rem;}
-                .datepicker {overflow:hidden;position:absolute;z-index:1;top:3rem;left:0;width:21rem;height:0;background-color:rgb(255, 255, 255);}
+                .datepicker {overflow:hidden;position:absolute;z-index:1;top:3rem;right:0;width:21rem;height:0;background-color:rgb(255, 255, 255);}
                 .datepicker-ctlr button{position:absolute;box-sizing:border-box;padding:0;width:3rem;height:3rem;border:0;background-color:transparent;}
                 .datepicker-ctlr button:nth-child(1){top:0;left:0;}
                 .datepicker-ctlr button:nth-child(2){top:0;left:3rem;}
@@ -303,10 +305,12 @@
               <pre class="line-numbers" data-lang="html">
                 <code class="language-html">
                   <div class="datepicker-wrap">
+                    <label for="DATE_01">시작일</label>
                     <input type="text" id="DATE_01" class="datepicker-input" placeholder="YYYY.MM.DD">
                     <div class="datepicker"></div>
                   </div>
                   <div class="datepicker-wrap">
+                    <label for="DATE_02">종료일</label>
                     <input type="text" id="DATE_02" class="datepicker-input" placeholder="YYYY.MM.DD">
                     <div class="datepicker"></div>
                   </div>
@@ -316,7 +320,7 @@
                 <code class="language-css">
                   .datepicker-wrap {display:inline-block;position:relative;}
                   .datepicker-input {box-sizing:border-box;padding:0 0.4rem;width:21rem;height:3rem;border:1px solid rgb(200, 200, 200);border-radius:0.5rem;}
-                  .datepicker {overflow:hidden;position:absolute;z-index:1;top:3rem;left:0;width:21rem;height:0;background-color:rgb(255, 255, 255);}
+                  .datepicker {overflow:hidden;position:absolute;z-index:1;top:3rem;right:0;width:21rem;height:0;background-color:rgb(255, 255, 255);}
                   .datepicker-ctlr button{position:absolute;box-sizing:border-box;padding:0;width:3rem;height:3rem;border:0;background-color:transparent;}
                   .datepicker-ctlr button:nth-child(1){top:0;left:0;}
                   .datepicker-ctlr button:nth-child(2){top:0;left:3rem;}
