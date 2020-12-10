@@ -2,48 +2,35 @@
   'use strict';
 
   var COLLAPSE = '[data-toggle="collapse"]'
-    , COLLAPSE_ACTIVE = 'collapse-default__button--active'
     , COLLAPSE_SPEED = 100;
 
-  $(COLLAPSE).each(function(index){
-    var $target = $($(this).data('target'));
-
-    if ($target.length) {
-      if ($target.is(':hidden')) {
-        $(this).attr('aria-expanded', false);
-        $(this).removeClass(COLLAPSE_ACTIVE);
-      }
-      else {
-        $(this).attr('aria-expanded', true);
-        $(this).addClass(COLLAPSE_ACTIVE);
-      }
-
-      $(this).attr('aria-controls', $(this).data('target'));
-      $target.attr('aria-labelledby', $(this).attr('id'));
-    }
-  });
-
   $(COLLAPSE).on('click', function(event){
-    var $target = $($(this).data('target'));
+    var $target = $('#' + $(this).attr('aria-controls'));
+    var group = $target.data('group');
 
-    if ($target.data('parent')) {
-      $($target.data('parent')).find('[data-parent]').each(function(){
-        if ($target.data('parent') == $(this).data('parent')) {
-          $(this).slideUp(COLLAPSE_SPEED);
-          $('#' + $(this).attr('aria-labelledby')).removeClass(COLLAPSE_ACTIVE);
+    if (group) {
+      $(group).find('[data-group="' + group + '"]').each(function(){
+        if ($target.attr('id') != $(this).attr('id')) {
+          $(this).animate({ height: 0 }, { duration: COLLAPSE_SPEED, complete: callback });
+          $(this).attr('aria-hidden', true);
+          $('#' + $(this).attr('aria-labelledby')).attr('aria-expanded', false);
         }
       });
     }
 
-    if ($target.is(':hidden')) {
-      $target.slideDown(COLLAPSE_SPEED);
-      $(this).attr('aria-expanded', true);
-      $(this).addClass(COLLAPSE_ACTIVE);
+    if ($(this).attr('aria-expanded') == 'true') {
+      $target.animate({ height: 0 }, { duration: COLLAPSE_SPEED, complete: callback });
+      $target.attr('aria-hidden', true);
+      $(this).attr('aria-expanded', false);
     }
     else {
-      $target.slideUp(COLLAPSE_SPEED);
-      $(this).attr('aria-expanded', false);
-      $(this).removeClass(COLLAPSE_ACTIVE);
+      $target.animate({ height: $target.prop('scrollHeight') }, { duration: COLLAPSE_SPEED, complete: callback });
+      $target.attr('aria-hidden', false);
+      $(this).attr('aria-expanded', true);
+    }
+
+    function callback(){
+      $(this).removeAttr('style');
     }
   });
 }());

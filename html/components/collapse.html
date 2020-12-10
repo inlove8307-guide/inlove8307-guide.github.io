@@ -30,30 +30,36 @@
             <div class="guide-viewer__view">
               <ul class="collapse-default">
                 <li class="collapse-default__item">
-                  <button type="button" id="COLLAPSE_01_BUTTON" class="collapse-default__button" data-toggle="collapse" data-target="#COLLAPSE_01">
+                  <button type="button" id="COLLAPSE_01_BUTTON" class="collapse-default__button" data-toggle="collapse" aria-controls="COLLAPSE_01_CONTENT" aria-expanded="true">
                     <span>Collapse Button</span>
                     <i class="fas fa-angle-down"></i>
                   </button>
-                  <div id="COLLAPSE_01" class="collapse-default__content">
-                    Collapse Content
+                  <div id="COLLAPSE_01_CONTENT" class="collapse-default__content" aria-labelledby="COLLAPSE_01_BUTTON" aria-hidden="false">
+                    <div style="padding:10px;">
+                      Collapse Content
+                    </div>
                   </div>
                 </li>
                 <li class="collapse-default__item">
-                  <button type="button" id="COLLAPSE_02_BUTTON" class="collapse-default__button" data-toggle="collapse" data-target="#COLLAPSE_02">
+                  <button type="button" id="COLLAPSE_02_BUTTON" class="collapse-default__button" data-toggle="collapse" aria-controls="COLLAPSE_02_CONTENT" aria-expanded="false">
                     <span>Collapse Button</span>
                     <i class="fas fa-angle-down"></i>
                   </button>
-                  <div id="COLLAPSE_02" class="collapse-default__content">
-                    Collapse Content
+                  <div id="COLLAPSE_02_CONTENT" class="collapse-default__content" aria-labelledby="COLLAPSE_02_BUTTON" aria-hidden="true">
+                    <div style="padding:10px;">
+                      Collapse Content
+                    </div>
                   </div>
                 </li>
                 <li class="collapse-default__item">
-                  <button type="button" id="COLLAPSE_03_BUTTON" class="collapse-default__button" data-toggle="collapse" data-target="#COLLAPSE_03">
+                  <button type="button" id="COLLAPSE_03_BUTTON" class="collapse-default__button" data-toggle="collapse" aria-controls="COLLAPSE_03_CONTENT" aria-expanded="false">
                     <span>Collapse Button</span>
                     <i class="fas fa-angle-down"></i>
                   </button>
-                  <div id="COLLAPSE_03" class="collapse-default__content">
-                    Collapse Content
+                  <div id="COLLAPSE_03_CONTENT" class="collapse-default__content" aria-labelledby="COLLAPSE_03_BUTTON" aria-hidden="true">
+                    <div style="padding:10px;">
+                      Collapse Content
+                    </div>
                   </div>
                 </li>
               </ul>
@@ -77,30 +83,36 @@
                 <code class="language-html">
                   <ul class="collapse-default">
                     <li class="collapse-default__item">
-                      <button type="button" id="COLLAPSE_01_BUTTON" class="collapse-default__button" data-toggle="collapse" data-target="#COLLAPSE_01">
+                      <button type="button" id="COLLAPSE_01_BUTTON" class="collapse-default__button" data-toggle="collapse" aria-controls="COLLAPSE_01_CONTENT" aria-expanded="true">
                         <span>Collapse Button</span>
                         <i class="fas fa-angle-down"></i>
                       </button>
-                      <div id="COLLAPSE_01" class="collapse-default__content">
-                        Collapse Content
+                      <div id="COLLAPSE_01_CONTENT" class="collapse-default__content" aria-labelledby="COLLAPSE_01_BUTTON" aria-hidden="false">
+                        <div style="padding:10px;">
+                          Collapse Content
+                        </div>
                       </div>
                     </li>
                     <li class="collapse-default__item">
-                      <button type="button" id="COLLAPSE_02_BUTTON" class="collapse-default__button" data-toggle="collapse" data-target="#COLLAPSE_02">
+                      <button type="button" id="COLLAPSE_02_BUTTON" class="collapse-default__button" data-toggle="collapse" aria-controls="COLLAPSE_02_CONTENT" aria-expanded="false">
                         <span>Collapse Button</span>
                         <i class="fas fa-angle-down"></i>
                       </button>
-                      <div id="COLLAPSE_02" class="collapse-default__content">
-                        Collapse Content
+                      <div id="COLLAPSE_02_CONTENT" class="collapse-default__content" aria-labelledby="COLLAPSE_02_BUTTON" aria-hidden="true">
+                        <div style="padding:10px;">
+                          Collapse Content
+                        </div>
                       </div>
                     </li>
                     <li class="collapse-default__item">
-                      <button type="button" id="COLLAPSE_03_BUTTON" class="collapse-default__button" data-toggle="collapse" data-target="#COLLAPSE_03">
+                      <button type="button" id="COLLAPSE_03_BUTTON" class="collapse-default__button" data-toggle="collapse" aria-controls="COLLAPSE_03_CONTENT" aria-expanded="false">
                         <span>Collapse Button</span>
                         <i class="fas fa-angle-down"></i>
                       </button>
-                      <div id="COLLAPSE_03" class="collapse-default__content">
-                        Collapse Content
+                      <div id="COLLAPSE_03_CONTENT" class="collapse-default__content" aria-labelledby="COLLAPSE_03_BUTTON" aria-hidden="true">
+                        <div style="padding:10px;">
+                          Collapse Content
+                        </div>
                       </div>
                     </li>
                   </ul>
@@ -129,32 +141,38 @@
           <div class="guide-viewer__content">
             <!-- [S] VIEW -->
             <div class="guide-viewer__view">
-              <ul id="COLLAPSE_GROUP" class="collapse-default">
+              <ul id="COLLAPSE_GROUP_01" class="collapse-default">
                 <li class="collapse-default__item">
-                  <button type="button" id="COLLAPSE_GROUP_01_BUTTON" class="collapse-default__button" data-toggle="collapse" data-target="#COLLAPSE_GROUP_01">
+                  <button type="button" id="COLLAPSE_04_BUTTON" class="collapse-default__button" data-toggle="collapse" aria-controls="COLLAPSE_04_CONTENT" aria-expanded="true">
                     <span>Collapse Button</span>
                     <i class="fas fa-angle-down"></i>
                   </button>
-                  <div id="COLLAPSE_GROUP_01" class="collapse-default__content" data-parent="#COLLAPSE_GROUP">
-                    Collapse Content
+                  <div id="COLLAPSE_04_CONTENT" class="collapse-default__content" data-group="#COLLAPSE_GROUP_01" aria-labelledby="COLLAPSE_04_BUTTON" aria-hidden="false">
+                    <div style="padding:10px;">
+                      Collapse Content
+                    </div>
                   </div>
                 </li>
                 <li class="collapse-default__item">
-                  <button type="button" id="COLLAPSE_GROUP_02_BUTTON" class="collapse-default__button" data-toggle="collapse" data-target="#COLLAPSE_GROUP_02">
+                  <button type="button" id="COLLAPSE_05_BUTTON" class="collapse-default__button" data-toggle="collapse" aria-controls="COLLAPSE_05_CONTENT" aria-expanded="false">
                     <span>Collapse Button</span>
                     <i class="fas fa-angle-down"></i>
                   </button>
-                  <div id="COLLAPSE_GROUP_02" class="collapse-default__content" data-parent="#COLLAPSE_GROUP">
-                    Collapse Content
+                  <div id="COLLAPSE_05_CONTENT" class="collapse-default__content" data-group="#COLLAPSE_GROUP_01" aria-labelledby="COLLAPSE_05_BUTTON" aria-hidden="true">
+                    <div style="padding:10px;">
+                      Collapse Content
+                    </div>
                   </div>
                 </li>
                 <li class="collapse-default__item">
-                  <button type="button" id="COLLAPSE_GROUP_03_BUTTON" class="collapse-default__button" data-toggle="collapse" data-target="#COLLAPSE_GROUP_03">
+                  <button type="button" id="COLLAPSE_06_BUTTON" class="collapse-default__button" data-toggle="collapse" aria-controls="COLLAPSE_06_CONTENT" aria-expanded="false">
                     <span>Collapse Button</span>
                     <i class="fas fa-angle-down"></i>
                   </button>
-                  <div id="COLLAPSE_GROUP_03" class="collapse-default__content" data-parent="#COLLAPSE_GROUP">
-                    Collapse Content
+                  <div id="COLLAPSE_06_CONTENT" class="collapse-default__content" data-group="#COLLAPSE_GROUP_01" aria-labelledby="COLLAPSE_06_BUTTON" aria-hidden="true">
+                    <div style="padding:10px;">
+                      Collapse Content
+                    </div>
                   </div>
                 </li>
               </ul>
@@ -176,32 +194,38 @@
             <div class="guide-viewer__code">
               <pre class="line-numbers" data-lang="html">
                 <code class="language-html">
-                  <ul id="COLLAPSE_GROUP" class="collapse-default">
+                  <ul id="COLLAPSE_GROUP_01" class="collapse-default">
                     <li class="collapse-default__item">
-                      <button type="button" id="COLLAPSE_GROUP_01_BUTTON" class="collapse-default__button" data-toggle="collapse" data-target="#COLLAPSE_GROUP_01">
+                      <button type="button" id="COLLAPSE_04_BUTTON" class="collapse-default__button" data-toggle="collapse" aria-controls="COLLAPSE_04_CONTENT" aria-expanded="true">
                         <span>Collapse Button</span>
                         <i class="fas fa-angle-down"></i>
                       </button>
-                      <div id="COLLAPSE_GROUP_01" class="collapse-default__content" data-parent="#COLLAPSE_GROUP">
-                        Collapse Content
+                      <div id="COLLAPSE_04_CONTENT" class="collapse-default__content" data-group="#COLLAPSE_GROUP_01" aria-labelledby="COLLAPSE_04_BUTTON" aria-hidden="false">
+                        <div style="padding:10px;">
+                          Collapse Content
+                        </div>
                       </div>
                     </li>
                     <li class="collapse-default__item">
-                      <button type="button" id="COLLAPSE_GROUP_02_BUTTON" class="collapse-default__button" data-toggle="collapse" data-target="#COLLAPSE_GROUP_02">
+                      <button type="button" id="COLLAPSE_05_BUTTON" class="collapse-default__button" data-toggle="collapse" aria-controls="COLLAPSE_05_CONTENT" aria-expanded="false">
                         <span>Collapse Button</span>
                         <i class="fas fa-angle-down"></i>
                       </button>
-                      <div id="COLLAPSE_GROUP_02" class="collapse-default__content" data-parent="#COLLAPSE_GROUP">
-                        Collapse Content
+                      <div id="COLLAPSE_05_CONTENT" class="collapse-default__content" data-group="#COLLAPSE_GROUP_01" aria-labelledby="COLLAPSE_05_BUTTON" aria-hidden="true">
+                        <div style="padding:10px;">
+                          Collapse Content
+                        </div>
                       </div>
                     </li>
                     <li class="collapse-default__item">
-                      <button type="button" id="COLLAPSE_GROUP_03_BUTTON" class="collapse-default__button" data-toggle="collapse" data-target="#COLLAPSE_GROUP_03">
+                      <button type="button" id="COLLAPSE_06_BUTTON" class="collapse-default__button" data-toggle="collapse" aria-controls="COLLAPSE_06_CONTENT" aria-expanded="false">
                         <span>Collapse Button</span>
                         <i class="fas fa-angle-down"></i>
                       </button>
-                      <div id="COLLAPSE_GROUP_03" class="collapse-default__content" data-parent="#COLLAPSE_GROUP">
-                        Collapse Content
+                      <div id="COLLAPSE_06_CONTENT" class="collapse-default__content" data-group="#COLLAPSE_GROUP_01" aria-labelledby="COLLAPSE_06_BUTTON" aria-hidden="true">
+                        <div style="padding:10px;">
+                          Collapse Content
+                        </div>
                       </div>
                     </li>
                   </ul>
