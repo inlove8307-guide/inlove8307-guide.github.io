@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>UI GUIDE</title>
+
+  <link rel="stylesheet" href="../../css/style.css">
+  <link rel="stylesheet" href="../../lib/prism/prism.okaidia.css">
+
+  <script src="../../lib/jquery/jquery-3.5.1.min.js"></script>
+  <script src="../../lib/lodash.min.js"></script>
+  <script src="../../lib/moment/moment.min.js"></script>
+  <script src="../../lib/anime.js/anime.min.js"></script>
+  <script src="../../lib/gsap/gsap.min.js"></script>
+  <script src="../../lib/prism/prism.js"></script>
+</head>
+<body>
+  <div class="guide-container">
+    <main class="guide-main">
+      <section class="guide-main__content">
+        <h2 class="guide-content__title">Graph</h2>
+
+        <article class="guide-viewer">
+          <!-- GUIDE TITLE -->
+          <h3 class="guide-viewer__title">SVG Circle Progress</h3>
+          <!-- [S] GUIDE -->
+          <div class="guide-viewer__content">
+            <!-- [S] VIEW -->
+            <div class="guide-viewer__view">
+              <svg class="svg" width="200" height="110">
+                <circle class="svg__circle" r="90" cx="100" cy="10" stroke="rgb(225, 225, 225)" stroke-width="20" fill="transparent"/>
+                <circle class="svg__gauge" r="90" cx="100" cy="10" stroke="rgb(100, 100, 100)" stroke-width="20" fill="transparent" />
+              </svg>
+              <style>
+                .svg circle {
+                  stroke-linecap: round;
+                  transform: rotate(-180deg);
+                  transform-origin: 50% 50%;
+                }
+                .svg__gauge {
+                  transition: stroke-dashoffset 1s ease-in-out;
+                }
+              </style>
+              <script>
+                (function(){
+                  'use strict';
+
+                  var circle = document.querySelector('.svg__circle');
+                  var gauge = document.querySelector('.svg__gauge');
+                  var dasharray = circle.r.baseVal.value * 2 * Math.PI;
+
+                  circle.style.strokeDasharray = `${dasharray} ${dasharray}`;
+                  circle.style.strokeDashoffset = `${dasharray - 180 / 360 * dasharray}`;
+                  gauge.style.strokeDasharray = `${dasharray} ${dasharray}`;
+                  gauge.style.strokeDashoffset = `${dasharray}`;
+
+                  setTimeout(function(){
+                    gauge.style.strokeDashoffset = `${dasharray - 120 / 360 * dasharray}`;
+                  }, 100);
+                }());
+              </script>
+            </div>
+            <!-- [E] VIEW -->
+            <!-- [S] COMMENT -->
+            <ul class="guide-viewer__comment">
+              <li class="comment__text"># 코멘트</li>
+            </ul>
+            <!-- [E] COMMENT -->
+            <!-- [S] BUTTON -->
+            <div class="guide-viewer__tab">
+              <button class="tab__button" data-lang="html">html</button>
+              <button class="tab__button" data-lang="css">css</button>
+              <button class="tab__button" data-lang="script">script</button>
+            </div>
+            <!-- [E] BUTTON -->
+            <!-- [S] CODE -->
+            <div class="guide-viewer__code">
+              <pre class="line-numbers" data-lang="html">
+                <code class="language-html">
+                  <svg class="svg" width="200" height="110">
+                    <circle class="svg__circle" r="90" cx="100" cy="10" stroke="rgb(225, 225, 225)" stroke-width="20" fill="transparent"/>
+                    <circle class="svg__gauge" r="90" cx="100" cy="10" stroke="rgb(100, 100, 100)" stroke-width="20" fill="transparent" />
+                  </svg>
+                </code>
+              </pre>
+              <pre class="line-numbers" data-lang="css">
+                <code class="language-css">
+                  .svg circle {
+                    stroke-linecap: round;
+                    transform: rotate(-180deg);
+                    transform-origin: 50% 50%;
+                  }
+                  .svg__gauge {
+                    transition: stroke-dashoffset 1s;
+                  }
+                </code>
+              </pre>
+              <pre class="line-numbers" data-lang="script">
+                <code class="language-js">
+                  (function(){
+                    'use strict';
+
+                    var circle = document.querySelector('.svg__circle');
+                    var gauge = document.querySelector('.svg__gauge');
+                    var dasharray = circle.r.baseVal.value * 2 * Math.PI;
+
+                    circle.style.strokeDasharray = `${dasharray} ${dasharray}`;
+                    circle.style.strokeDashoffset = `${dasharray - 180 / 360 * dasharray}`;
+                    gauge.style.strokeDasharray = `${dasharray} ${dasharray}`;
+                    gauge.style.strokeDashoffset = `${dasharray}`;
+
+                    setTimeout(function(){
+                      gauge.style.strokeDashoffset = `${dasharray - 120 / 360 * dasharray}`;
+                    }, 100);
+                  }());
+                </code>
+              </pre>
+            </div>
+            <!-- [E] CODE -->
+          </div>
+          <!-- [E] GUIDE -->
+          <!-- GUIDE TITLE -->
+          <h3 class="guide-viewer__title">참조</h3>
+          <ul class="guide-viewer__list">
+
+          </ul>
+        </article>
+
+      </section>
+    </main>
+  </div>
+
+  <script src="../../js/guide.js"></script>
+  <script src="../../js/components.js"></script>
+  <script>
+    GUIDE.include.header();
+    GUIDE.include.menu('C0404');
+  </script>
+</body>
+</html>
