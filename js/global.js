@@ -1,8 +1,8 @@
-var namespace = 'ROOT';
+var namespace = 'UI';
 
 window[namespace] = window[namespace] || {};
 
-(function(global){
+;(function(global){
   'use strict';
 
   var string = {};
@@ -39,7 +39,7 @@ window[namespace] = window[namespace] || {};
   global.string = string;
 }(window[namespace]));
 
-(function(global){
+;(function(global){
   'use strict';
 
   var location = (function(location){
@@ -79,7 +79,7 @@ window[namespace] = window[namespace] || {};
   global.json = json;
 }(window[namespace]));
 
-(function(global){
+;(function(global){
   'use strict';
 
   var observer = (function(){
@@ -123,7 +123,7 @@ window[namespace] = window[namespace] || {};
   global.observer = observer;
 }(window[namespace]));
 
-(function(global){
+;(function(global){
   'use strict';
 
   var console = (function(console){

@@ -1,0 +1,705 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>UI GUIDE</title>
+
+  <link rel="stylesheet" href="../../css/style.css">
+  <link rel="stylesheet" href="../../lib/prism/prism.okaidia.css">
+
+  <script src="../../lib/jquery/jquery-3.5.1.min.js"></script>
+  <script src="../../lib/lodash.min.js"></script>
+  <script src="../../lib/moment/moment.min.js"></script>
+  <script src="../../lib/anime.js/anime.min.js"></script>
+  <script src="../../lib/gsap/gsap.min.js"></script>
+  <script src="../../lib/prism/prism.js"></script>
+</head>
+<body>
+  <div class="guide-container">
+    <main class="guide-main">
+      <section class="guide-main__content">
+        <h2 class="guide-content__title">Popover</h2>
+
+        <article class="guide-viewer">
+          <!-- GUIDE TITLE -->
+          <h3 class="guide-viewer__title">Popover - Top</h3>
+          <!-- [S] GUIDE -->
+          <div class="guide-viewer__content">
+            <!-- [S] VIEW -->
+            <div class="guide-viewer__view">
+              <button class="button--primary" data-toggle="popover" data-target="#POPOVER_01">popover top</button>
+              <div id="POPOVER_01" class="popover" data-placement="top" aria-hidden="true">
+                Popover Top
+              </div>
+            </div>
+            <!-- [E] VIEW -->
+            <!-- [S] COMMENT -->
+            <!-- <ul class="guide-viewer__comment">
+              <li class="comment__text"># 코멘트</li>
+            </ul> -->
+            <!-- [E] COMMENT -->
+            <!-- [S] BUTTON -->
+            <div class="guide-viewer__tab">
+              <button class="guide-tab__button" data-lang="html">html</button>
+              <button class="guide-tab__button" data-lang="css">css</button>
+              <button class="guide-tab__button" data-lang="script">script</button>
+            </div>
+            <!-- [E] BUTTON -->
+            <!-- [S] CODE -->
+            <div class="guide-viewer__syntax">
+              <pre class="guide-viewer__pre line-numbers" data-lang="html">
+                <code class="guide-viewer__code language-html">
+                  <button class="button--primary" data-toggle="popover" data-target="#POPOVER_TOP">popover top</button>
+                  <div id="POPOVER_TOP" class="popover" data-placement="top" aria-hidden="true">
+                    Popover Top
+                  </div>
+                </code>
+              </pre>
+              <pre class="guide-viewer__pre line-numbers" data-lang="css">
+                <code class="guide-viewer__code language-css">
+                  [data-toggle=popover] {
+                    overflow: initial;
+                    position: relative;
+                  }
+                  .popover {
+                    position: absolute;
+                    z-index: 1;
+                    line-height: initial;
+                    white-space: nowrap;
+                  }
+                  .popover[aria-hidden=true] {
+                    display: none;
+                  }
+                  .popover[data-placement=top] {
+                    top: -1rem;
+                    left: 50%;
+                    transform: translate(-50%, -100%);
+                  }
+                  .popover[data-placement=right] {
+                    top: 50%;
+                    right: -1rem;
+                    transform: translate(100%, -50%);
+                  }
+                  .popover[data-placement=bottom] {
+                    bottom: -1rem;
+                    left: 50%;
+                    transform: translate(-50%, 100%);
+                  }
+                  .popover[data-placement=left] {
+                    top: 50%;
+                    left: -1rem;
+                    transform: translate(-100%, -50%);
+                  }
+                  .popover[data-placement=full] {
+                    bottom: -1rem;
+                    left: 0;
+                    width: 100%;
+                    transform: translate(0, 100%);
+                  }
+                </code>
+              </pre>
+              <pre class="guide-viewer__pre line-numbers" data-lang="script">
+                <code class="guide-viewer__code language-js">
+                  // # bind
+
+                  UI.popover.options({
+                    selector: [String] // default '[data-toggle="popover"]'
+                  }).bind(); // required
+
+                  // or
+
+                  UI.popover.bind('[data-toggle="popover"]'); // required
+
+                  // or
+
+                  UI.popover.bind(); // required
+
+                  // # callback
+
+                  UI.popover.callback('before', function($button, $target){
+                    console.log('before', $button, $target);
+                  });
+
+                  UI.popover.callback('after', function($button, $target){
+                    console.log('after', $button, $target);
+                  });
+                </code>
+              </pre>
+            </div>
+            <!-- [E] CODE -->
+          </div>
+          <!-- [E] GUIDE -->
+        </article>
+
+        <article class="guide-viewer">
+          <!-- GUIDE TITLE -->
+          <h3 class="guide-viewer__title">Popover - Right</h3>
+          <!-- [S] GUIDE -->
+          <div class="guide-viewer__content">
+            <!-- [S] VIEW -->
+            <div class="guide-viewer__view">
+              <button class="button--primary" data-toggle="popover" data-target="#POPOVER_02">popover right</button>
+              <div id="POPOVER_02" class="popover" data-placement="right" aria-hidden="true">
+                Popover Right
+              </div>
+            </div>
+            <!-- [E] VIEW -->
+            <!-- [S] COMMENT -->
+            <!-- <ul class="guide-viewer__comment">
+              <li class="comment__text"># 코멘트</li>
+            </ul> -->
+            <!-- [E] COMMENT -->
+            <!-- [S] BUTTON -->
+            <div class="guide-viewer__tab">
+              <button class="guide-tab__button" data-lang="html">html</button>
+              <button class="guide-tab__button" data-lang="css">css</button>
+              <button class="guide-tab__button" data-lang="script">script</button>
+            </div>
+            <!-- [E] BUTTON -->
+            <!-- [S] CODE -->
+            <div class="guide-viewer__syntax">
+              <pre class="guide-viewer__pre line-numbers" data-lang="html">
+                <code class="guide-viewer__code language-html">
+                  <button class="button--primary" data-toggle="popover" data-target="#POPOVER_RIGHT">popover right</button>
+                  <div id="POPOVER_RIGHT" class="popover" data-placement="right" aria-hidden="true">
+                    Popover Right
+                  </div>
+                </code>
+              </pre>
+              <pre class="guide-viewer__pre line-numbers" data-lang="css">
+                <code class="guide-viewer__code language-css">
+                  [data-toggle=popover] {
+                    overflow: initial;
+                    position: relative;
+                  }
+                  .popover {
+                    position: absolute;
+                    z-index: 1;
+                    line-height: initial;
+                    white-space: nowrap;
+                  }
+                  .popover[aria-hidden=true] {
+                    display: none;
+                  }
+                  .popover[data-placement=top] {
+                    top: -1rem;
+                    left: 50%;
+                    transform: translate(-50%, -100%);
+                  }
+                  .popover[data-placement=right] {
+                    top: 50%;
+                    right: -1rem;
+                    transform: translate(100%, -50%);
+                  }
+                  .popover[data-placement=bottom] {
+                    bottom: -1rem;
+                    left: 50%;
+                    transform: translate(-50%, 100%);
+                  }
+                  .popover[data-placement=left] {
+                    top: 50%;
+                    left: -1rem;
+                    transform: translate(-100%, -50%);
+                  }
+                  .popover[data-placement=full] {
+                    bottom: -1rem;
+                    left: 0;
+                    width: 100%;
+                    transform: translate(0, 100%);
+                  }
+                </code>
+              </pre>
+              <pre class="guide-viewer__pre line-numbers" data-lang="script">
+                <code class="guide-viewer__code language-js">
+                  // # bind
+
+                  UI.popover.options({
+                    selector: [String] // default '[data-toggle="popover"]'
+                  }).bind(); // required
+
+                  // or
+
+                  UI.popover.bind('[data-toggle="popover"]'); // required
+
+                  // or
+
+                  UI.popover.bind(); // required
+
+                  // # callback
+
+                  UI.popover.callback('before', function($button, $target){
+                    console.log('before', $button, $target);
+                  });
+
+                  UI.popover.callback('after', function($button, $target){
+                    console.log('after', $button, $target);
+                  });
+                </code>
+              </pre>
+            </div>
+            <!-- [E] CODE -->
+          </div>
+          <!-- [E] GUIDE -->
+        </article>
+
+        <article class="guide-viewer">
+          <!-- GUIDE TITLE -->
+          <h3 class="guide-viewer__title">Popover - Bottom</h3>
+          <!-- [S] GUIDE -->
+          <div class="guide-viewer__content">
+            <!-- [S] VIEW -->
+            <div class="guide-viewer__view">
+              <button class="button--primary" data-toggle="popover" data-target="#POPOVER_03">popover bottom</button>
+              <div id="POPOVER_03" class="popover" data-placement="bottom" aria-hidden="true">
+                Popover Bottom
+              </div>
+            </div>
+            <!-- [E] VIEW -->
+            <!-- [S] COMMENT -->
+            <!-- <ul class="guide-viewer__comment">
+              <li class="comment__text"># 코멘트</li>
+            </ul> -->
+            <!-- [E] COMMENT -->
+            <!-- [S] BUTTON -->
+            <div class="guide-viewer__tab">
+              <button class="guide-tab__button" data-lang="html">html</button>
+              <button class="guide-tab__button" data-lang="css">css</button>
+              <button class="guide-tab__button" data-lang="script">script</button>
+            </div>
+            <!-- [E] BUTTON -->
+            <!-- [S] CODE -->
+            <div class="guide-viewer__syntax">
+              <pre class="guide-viewer__pre line-numbers" data-lang="html">
+                <code class="guide-viewer__code language-html">
+                  <button class="button--primary" data-toggle="popover" data-target="#POPOVER_BOTTOM">popover bottom</button>
+                  <div id="POPOVER_BOTTOM" class="popover" data-placement="bottom" aria-hidden="true">
+                    Popover Bottom
+                  </div>
+                </code>
+              </pre>
+              <pre class="guide-viewer__pre line-numbers" data-lang="css">
+                <code class="guide-viewer__code language-css">
+                  [data-toggle=popover] {
+                    overflow: initial;
+                    position: relative;
+                  }
+                  .popover {
+                    position: absolute;
+                    z-index: 1;
+                    line-height: initial;
+                    white-space: nowrap;
+                  }
+                  .popover[aria-hidden=true] {
+                    display: none;
+                  }
+                  .popover[data-placement=top] {
+                    top: -1rem;
+                    left: 50%;
+                    transform: translate(-50%, -100%);
+                  }
+                  .popover[data-placement=right] {
+                    top: 50%;
+                    right: -1rem;
+                    transform: translate(100%, -50%);
+                  }
+                  .popover[data-placement=bottom] {
+                    bottom: -1rem;
+                    left: 50%;
+                    transform: translate(-50%, 100%);
+                  }
+                  .popover[data-placement=left] {
+                    top: 50%;
+                    left: -1rem;
+                    transform: translate(-100%, -50%);
+                  }
+                  .popover[data-placement=full] {
+                    bottom: -1rem;
+                    left: 0;
+                    width: 100%;
+                    transform: translate(0, 100%);
+                  }
+                </code>
+              </pre>
+              <pre class="guide-viewer__pre line-numbers" data-lang="script">
+                <code class="guide-viewer__code language-js">
+                  // # bind
+
+                  UI.popover.options({
+                    selector: [String] // default '[data-toggle="popover"]'
+                  }).bind(); // required
+
+                  // or
+
+                  UI.popover.bind('[data-toggle="popover"]'); // required
+
+                  // or
+
+                  UI.popover.bind(); // required
+
+                  // # callback
+
+                  UI.popover.callback('before', function($button, $target){
+                    console.log('before', $button, $target);
+                  });
+
+                  UI.popover.callback('after', function($button, $target){
+                    console.log('after', $button, $target);
+                  });
+                </code>
+              </pre>
+            </div>
+            <!-- [E] CODE -->
+          </div>
+          <!-- [E] GUIDE -->
+        </article>
+
+        <article class="guide-viewer">
+          <!-- GUIDE TITLE -->
+          <h3 class="guide-viewer__title">Popover - Left</h3>
+          <!-- [S] GUIDE -->
+          <div class="guide-viewer__content">
+            <!-- [S] VIEW -->
+            <div class="guide-viewer__view">
+              <button class="button--primary" data-toggle="popover" data-target="#POPOVER_04">popover left</button>
+              <div id="POPOVER_04" class="popover" data-placement="left" aria-hidden="true">
+                Popover Left
+              </div>
+            </div>
+            <!-- [E] VIEW -->
+            <!-- [S] COMMENT -->
+            <!-- <ul class="guide-viewer__comment">
+              <li class="comment__text"># 코멘트</li>
+            </ul> -->
+            <!-- [E] COMMENT -->
+            <!-- [S] BUTTON -->
+            <div class="guide-viewer__tab">
+              <button class="guide-tab__button" data-lang="html">html</button>
+              <button class="guide-tab__button" data-lang="css">css</button>
+              <button class="guide-tab__button" data-lang="script">script</button>
+            </div>
+            <!-- [E] BUTTON -->
+            <!-- [S] CODE -->
+            <div class="guide-viewer__syntax">
+              <pre class="guide-viewer__pre line-numbers" data-lang="html">
+                <code class="guide-viewer__code language-html">
+                  <button class="button--primary" data-toggle="popover" data-target="#POPOVER_LEFT">popover left</button>
+                  <div id="POPOVER_LEFT" class="popover" data-placement="left" aria-hidden="true">
+                    Popover Left
+                  </div>
+                </code>
+              </pre>
+              <pre class="guide-viewer__pre line-numbers" data-lang="css">
+                <code class="guide-viewer__code language-css">
+                  [data-toggle=popover] {
+                    overflow: initial;
+                    position: relative;
+                  }
+                  .popover {
+                    position: absolute;
+                    z-index: 1;
+                    line-height: initial;
+                    white-space: nowrap;
+                  }
+                  .popover[aria-hidden=true] {
+                    display: none;
+                  }
+                  .popover[data-placement=top] {
+                    top: -1rem;
+                    left: 50%;
+                    transform: translate(-50%, -100%);
+                  }
+                  .popover[data-placement=right] {
+                    top: 50%;
+                    right: -1rem;
+                    transform: translate(100%, -50%);
+                  }
+                  .popover[data-placement=bottom] {
+                    bottom: -1rem;
+                    left: 50%;
+                    transform: translate(-50%, 100%);
+                  }
+                  .popover[data-placement=left] {
+                    top: 50%;
+                    left: -1rem;
+                    transform: translate(-100%, -50%);
+                  }
+                  .popover[data-placement=full] {
+                    bottom: -1rem;
+                    left: 0;
+                    width: 100%;
+                    transform: translate(0, 100%);
+                  }
+                </code>
+              </pre>
+              <pre class="guide-viewer__pre line-numbers" data-lang="script">
+                <code class="guide-viewer__code language-js">
+                  // # bind
+
+                  UI.popover.options({
+                    selector: [String] // default '[data-toggle="popover"]'
+                  }).bind(); // required
+
+                  // or
+
+                  UI.popover.bind('[data-toggle="popover"]'); // required
+
+                  // or
+
+                  UI.popover.bind(); // required
+
+                  // # callback
+
+                  UI.popover.callback('before', function($button, $target){
+                    console.log('before', $button, $target);
+                  });
+
+                  UI.popover.callback('after', function($button, $target){
+                    console.log('after', $button, $target);
+                  });
+                </code>
+              </pre>
+            </div>
+            <!-- [E] CODE -->
+          </div>
+          <!-- [E] GUIDE -->
+        </article>
+
+        <article class="guide-viewer">
+          <!-- GUIDE TITLE -->
+          <h3 class="guide-viewer__title">Popover - Role</h3>
+          <!-- [S] GUIDE -->
+          <div class="guide-viewer__content">
+            <!-- [S] VIEW -->
+            <div class="guide-viewer__view">
+              <button class="button--primary" data-toggle="popover" data-target="#POPOVER_05" data-role="show">popover left</button>
+              <div id="POPOVER_05" class="popover" data-placement="right" aria-hidden="true">
+                Popover Role
+              </div>
+            </div>
+            <!-- [E] VIEW -->
+            <!-- [S] COMMENT -->
+            <!-- <ul class="guide-viewer__comment">
+              <li class="comment__text"># 코멘트</li>
+            </ul> -->
+            <!-- [E] COMMENT -->
+            <!-- [S] BUTTON -->
+            <div class="guide-viewer__tab">
+              <button class="guide-tab__button" data-lang="html">html</button>
+              <button class="guide-tab__button" data-lang="css">css</button>
+              <button class="guide-tab__button" data-lang="script">script</button>
+            </div>
+            <!-- [E] BUTTON -->
+            <!-- [S] CODE -->
+            <div class="guide-viewer__syntax">
+              <pre class="guide-viewer__pre line-numbers" data-lang="html">
+                <code class="guide-viewer__code language-html">
+                  <button class="button--primary" data-toggle="popover" data-target="#POPOVER_ROLE" data-role="show">popover left</button>
+                  <div id="POPOVER_ROLE" class="popover" data-placement="right" aria-hidden="true">
+                    Popover Role
+                  </div>
+                </code>
+              </pre>
+              <pre class="guide-viewer__pre line-numbers" data-lang="css">
+                <code class="guide-viewer__code language-css">
+                  [data-toggle=popover] {
+                    overflow: initial;
+                    position: relative;
+                  }
+                  .popover {
+                    position: absolute;
+                    z-index: 1;
+                    line-height: initial;
+                    white-space: nowrap;
+                  }
+                  .popover[aria-hidden=true] {
+                    display: none;
+                  }
+                  .popover[data-placement=top] {
+                    top: -1rem;
+                    left: 50%;
+                    transform: translate(-50%, -100%);
+                  }
+                  .popover[data-placement=right] {
+                    top: 50%;
+                    right: -1rem;
+                    transform: translate(100%, -50%);
+                  }
+                  .popover[data-placement=bottom] {
+                    bottom: -1rem;
+                    left: 50%;
+                    transform: translate(-50%, 100%);
+                  }
+                  .popover[data-placement=left] {
+                    top: 50%;
+                    left: -1rem;
+                    transform: translate(-100%, -50%);
+                  }
+                  .popover[data-placement=full] {
+                    bottom: -1rem;
+                    left: 0;
+                    width: 100%;
+                    transform: translate(0, 100%);
+                  }
+                </code>
+              </pre>
+              <pre class="guide-viewer__pre line-numbers" data-lang="script">
+                <code class="guide-viewer__code language-js">
+                  // # bind
+
+                  UI.popover.options({
+                    selector: [String] // default '[data-toggle="popover"]'
+                  }).bind(); // required
+
+                  // or
+
+                  UI.popover.bind('[data-toggle="popover"]'); // required
+
+                  // or
+
+                  UI.popover.bind(); // required
+
+                  // # callback
+
+                  UI.popover.callback('before', function($button, $target){
+                    console.log('before', $button, $target);
+                  });
+
+                  UI.popover.callback('after', function($button, $target){
+                    console.log('after', $button, $target);
+                  });
+                </code>
+              </pre>
+            </div>
+            <!-- [E] CODE -->
+          </div>
+          <!-- [E] GUIDE -->
+        </article>
+
+        <article class="guide-viewer">
+          <!-- GUIDE TITLE -->
+          <h3 class="guide-viewer__title">Popover - Full</h3>
+          <!-- [S] GUIDE -->
+          <div class="guide-viewer__content">
+            <!-- [S] VIEW -->
+            <div class="guide-viewer__view">
+              <div id="POPOVER_FULL_PARENT">
+                <button class="button--primary" data-toggle="popover" data-target="#POPOVER_06" data-role="show">popover full</button>
+                <div id="POPOVER_06" class="popover" data-placement="full" data-parent="#POPOVER_FULL_PARENT" aria-hidden="true">
+                  Popover Full
+                  <button class="button-icon--dark" data-toggle="popover" data-target="#POPOVER_06" data-role="hide"><i class="fas fa-times"></i></button>
+                </div>
+              </div>
+            </div>
+            <!-- [E] VIEW -->
+            <!-- [S] COMMENT -->
+            <!-- <ul class="guide-viewer__comment">
+              <li class="comment__text"># 코멘트</li>
+            </ul> -->
+            <!-- [E] COMMENT -->
+            <!-- [S] BUTTON -->
+            <div class="guide-viewer__tab">
+              <button class="guide-tab__button" data-lang="html">html</button>
+              <button class="guide-tab__button" data-lang="css">css</button>
+              <button class="guide-tab__button" data-lang="script">script</button>
+            </div>
+            <!-- [E] BUTTON -->
+            <!-- [S] CODE -->
+            <div class="guide-viewer__syntax">
+              <pre class="guide-viewer__pre line-numbers" data-lang="html">
+                <code class="guide-viewer__code language-html">
+                  <button class="button--primary" data-toggle="popover" data-target="#POPOVER_FULL" data-role="show">popover full</button>
+                  <div id="POPOVER_FULL" class="popover" data-placement="full" data-parent="#POPOVER_FULL_PARENT" aria-hidden="true">
+                    Popover Full
+                    <button class="button-icon--dark" data-toggle="popover" data-target="#POPOVER_FULL" data-role="hide"><i class="fas fa-times"></i></button>
+                  </div>
+                </code>
+              </pre>
+              <pre class="guide-viewer__pre line-numbers" data-lang="css">
+                <code class="guide-viewer__code language-css">
+                  [data-toggle=popover] {
+                    overflow: initial;
+                    position: relative;
+                  }
+                  .popover {
+                    position: absolute;
+                    z-index: 1;
+                    line-height: initial;
+                    white-space: nowrap;
+                  }
+                  .popover[aria-hidden=true] {
+                    display: none;
+                  }
+                  .popover[data-placement=top] {
+                    top: -1rem;
+                    left: 50%;
+                    transform: translate(-50%, -100%);
+                  }
+                  .popover[data-placement=right] {
+                    top: 50%;
+                    right: -1rem;
+                    transform: translate(100%, -50%);
+                  }
+                  .popover[data-placement=bottom] {
+                    bottom: -1rem;
+                    left: 50%;
+                    transform: translate(-50%, 100%);
+                  }
+                  .popover[data-placement=left] {
+                    top: 50%;
+                    left: -1rem;
+                    transform: translate(-100%, -50%);
+                  }
+                  .popover[data-placement=full] {
+                    bottom: -1rem;
+                    left: 0;
+                    width: 100%;
+                    transform: translate(0, 100%);
+                  }
+                </code>
+              </pre>
+              <pre class="guide-viewer__pre line-numbers" data-lang="script">
+                <code class="guide-viewer__code language-js">
+                  // # bind
+
+                  UI.popover.options({
+                    selector: [String] // default '[data-toggle="popover"]'
+                  }).bind(); // required
+
+                  // or
+
+                  UI.popover.bind('[data-toggle="popover"]'); // required
+
+                  // or
+
+                  UI.popover.bind(); // required
+
+                  // # callback
+
+                  UI.popover.callback('before', function($button, $target){
+                    console.log('before', $button, $target);
+                  });
+
+                  UI.popover.callback('after', function($button, $target){
+                    console.log('after', $button, $target);
+                  });
+                </code>
+              </pre>
+            </div>
+            <!-- [E] CODE -->
+          </div>
+          <!-- [E] GUIDE -->
+        </article>
+
+      </section>
+    </main>
+  </div>
+
+  <script src="../../js/guide.js"></script>
+  <script src="../../js/components.js"></script>
+  <script>
+    GUIDE.include.header();
+    GUIDE.include.menu('C0309');
+  </script>
+</body>
+</html>

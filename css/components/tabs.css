@@ -1,0 +1,33 @@
+/* TABS */
+.tab {
+  overflow: hidden;
+  border: 1px solid rgba(0, 0, 0, 0.5);
+}
+.tab__buttons {
+  display: flex;
+  position: relative;
+  background-color: rgba(0, 0, 0, 0.05);
+}
+.tab__button {
+  position: relative;
+  padding: 0 20px;
+  height: 40px;
+  white-space: nowrap;
+}
+.tab__button[aria-selected=true] {
+
+}
+.tab__button[aria-selected=true]::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  width: 100%;
+  border-bottom: 3px solid rgba(0, 0, 0, 0.5);
+  transform: translateX(-50%);
+}
+.tab__panels {}
+.tab__panel {
+  display: none;
+  padding: 10px;
+}

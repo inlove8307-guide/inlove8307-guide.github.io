@@ -295,15 +295,15 @@
             <!-- [E] COMMENT -->
             <!-- [S] BUTTON -->
             <div class="guide-viewer__tab">
-              <button class="tab__button" data-lang="html">html</button>
-              <button class="tab__button" data-lang="css">css</button>
-              <button class="tab__button" data-lang="script">script</button>
+              <button class="guide-tab__button" data-lang="html">html</button>
+              <button class="guide-tab__button" data-lang="css">css</button>
+              <button class="guide-tab__button" data-lang="script">script</button>
             </div>
             <!-- [E] BUTTON -->
             <!-- [S] CODE -->
-            <div class="guide-viewer__code">
-              <pre class="line-numbers" data-lang="html">
-                <code class="language-html">
+            <div class="guide-viewer__syntax">
+              <pre class="guide-viewer__pre line-numbers" data-lang="html">
+                <code class="guide-viewer__code language-html">
                   <div class="datepicker-wrap">
                     <label for="DATE_01">시작일</label>
                     <input type="text" id="DATE_01" class="datepicker-input" placeholder="YYYY.MM.DD">
@@ -316,8 +316,8 @@
                   </div>
                 </code>
               </pre>
-              <pre class="line-numbers" data-lang="css">
-                <code class="language-css">
+              <pre class="guide-viewer__pre line-numbers" data-lang="css">
+                <code class="guide-viewer__code language-css">
                   .datepicker-wrap {display:inline-block;position:relative;}
                   .datepicker-input {box-sizing:border-box;padding:0 0.4rem;width:21rem;height:3rem;border:1px solid rgb(200, 200, 200);border-radius:0.5rem;}
                   .datepicker {overflow:hidden;position:absolute;z-index:1;top:3rem;right:0;width:21rem;height:0;background-color:rgb(255, 255, 255);}
@@ -337,8 +337,8 @@
                   .datepicker-button {display:inline-block;box-sizing:border-box;padding:0;width:100%;height:100%;border:0;background-color:transparent;font-size:1.6rem;}
                 </code>
               </pre>
-              <pre class="line-numbers" data-lang="script">
-                <code class="language-js">
+              <pre class="guide-viewer__pre line-numbers" data-lang="script">
+                <code class="guide-viewer__code language-js">
                   ;(function(){
                     var datepicker = function(){
                       var callback = ['select', 'update'];
