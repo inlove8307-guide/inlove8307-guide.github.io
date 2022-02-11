@@ -268,8 +268,12 @@
                     }
                   }();
 
+                  alert(1);
+
                   var date01 = datepicker.create(document.querySelector('#DATE_01 + .datepicker'));
                   var date02 = datepicker.create(document.querySelector('#DATE_02 + .datepicker'));
+
+                  alert(2);
 
                   date01.on('select', function(event){
                     document.querySelector('#DATE_01').value = event.target.dataset.date;
@@ -293,6 +297,8 @@
                     alert('click');
                     date01.show();
                   });
+
+                  alert(3);
                 }());
               </script>
             </div>
