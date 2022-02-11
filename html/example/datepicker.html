@@ -33,13 +33,9 @@
                 <input type="text" id="DATE_01" class="datepicker-input" placeholder="YYYY.MM.DD">
                 <div class="datepicker"></div>
               </div>
-              <div class="datepicker-wrap">
-                <label for="DATE_02">종료일</label>
-                <input type="text" id="DATE_02" class="datepicker-input" placeholder="YYYY.MM.DD">
-                <div class="datepicker"></div>
-              </div>
 
               <button id="test-open">calendar</button>
+
               <style>
                 .datepicker-wrap {display:inline-block;position:relative;}
                 .datepicker-input {box-sizing:border-box;padding:0 0.4rem;width:21rem;height:3rem;border:1px solid rgb(200, 200, 200);border-radius:0.5rem;}
@@ -64,6 +60,8 @@
                   var datepicker = function(){
                     var callback = ['select', 'update'];
 
+                    alert(1);
+
                     function getDigit(value, char, length, after){
                       var result = String(value);
 
@@ -75,6 +73,8 @@
 
                       return result;
                     };
+
+                    alert(2);
 
                     function getData(context){
                       var array = [];
@@ -134,6 +134,8 @@
                       return thead;
                     }
 
+                    alert(3);
+
                     function getBody(context){
                       var data = context.data.slice();
                       var tbody = document.createElement('tbody');
@@ -168,6 +170,8 @@
                       return tbody;
                     }
 
+                    alert(4);
+
                     function getTable(context){
                       var table = document.createElement('table');
                       var caption = document.createElement('caption');
@@ -182,6 +186,8 @@
 
                       return table;
                     }
+
+                    alert(5);
 
                     function getCtlr(context){
                       var result = document.createElement('div');
@@ -206,6 +212,8 @@
                       return result;
                     }
 
+                    alert(6);
+
                     function update(context, string, number){
                       context[string] += number;
 
@@ -224,6 +232,8 @@
                       context.table.querySelector('tbody').replaceWith(getBody(context));
                       context.callback.update.call(context, context.table);
                     }
+
+                    alert(7);
 
                     function datepicker(target){
                       this.target = target;
@@ -247,33 +257,31 @@
                       this.target.append(getCtlr(this));
                     }
 
+                    alert(8);
+
                     datepicker.prototype = {
                       on: function(property, fn){
                         this.callback[property] = fn;
                       },
                       show: function(){
-                        // this.target.style.height = this.target.scrollHeight + 'px';
-                        alert(this.target.scrollHeight);
-                        this.target.style.height = 211 + 'px';
+                        this.target.style.height = this.target.scrollHeight + 'px';
                       },
                       hide: function(){
                         this.target.style.height = 0;
                       }
                     };
 
+                    alert(9);
+
                     return {
                       create: function(target){
+                        alert(10);
                         return new datepicker(target);
                       }
                     }
                   }();
 
-                  alert(1);
-
                   var date01 = datepicker.create(document.querySelector('#DATE_01 + .datepicker'));
-                  var date02 = datepicker.create(document.querySelector('#DATE_02 + .datepicker'));
-
-                  alert(2);
 
                   date01.on('select', function(event){
                     document.querySelector('#DATE_01').value = event.target.dataset.date;
@@ -284,21 +292,10 @@
                     date01.show();
                   });
 
-                  date02.on('select', function(event){
-                    document.querySelector('#DATE_02').value = event.target.dataset.date;
-                    date02.hide();
-                  });
-
-                  document.querySelector('#DATE_02').addEventListener('focus', function(event){
-                    date02.show();
-                  });
-
                   document.querySelector('#test-open').addEventListener('click', function(event){
                     alert('click');
                     date01.show();
                   });
-
-                  alert(3);
                 }());
               </script>
             </div>
