@@ -252,7 +252,9 @@
                         this.callback[property] = fn;
                       },
                       show: function(){
-                        this.target.style.height = this.target.scrollHeight + 'px';
+                        // this.target.style.height = this.target.scrollHeight + 'px';
+                        alert(this.target.scrollHeight);
+                        this.target.style.height = 211 + 'px';
                       },
                       hide: function(){
                         this.target.style.height = 0;
