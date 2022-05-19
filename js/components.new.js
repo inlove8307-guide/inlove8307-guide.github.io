@@ -119,6 +119,7 @@
       $(this.prop('container')).append(style.call(this));
       this.callback.init && this.callback.init();
       this.change.observe(this);
+      this.scroll.observe(this);
     }
 
     function style(){
@@ -240,6 +241,7 @@
 
       this.callback.init && this.callback.init();
       this.change.observe(this);
+      this.scroll.observe(this);
     }
 
     function style(){
@@ -496,61 +498,7 @@ $(function(global){
     this.collapse.bind();
     this.tabs.bind();
     this.alert.bind();
-
-    // this.collapse.bind({
-    //   on: {
-    //     change: function(){
-    //       console.log('collapse change');
-    //     }
-    //   }
-    // });
-    // this.tabs.bind({
-    //   on: {
-    //     change: function(){
-    //       console.log('tabs change');
-    //     }
-    //   }
-    // });
-    // this.alert.bind({
-    //   on: {
-    //     change: function(){
-    //       console.log('alert change');
-    //     }
-    //   }
-    // });
   };
 
   global.init();
-
-  // UI.collapse.on({
-  //   show: function(){
-  //     console.log('collapse show');
-  //   }
-  // });
-  // UI.tabs.on({
-  //   show: function(){
-  //     console.log('tabs show');
-  //   }
-  // });
-  // UI.alert.on({
-  //   show: function(){
-  //     console.log('alert show');
-  //   },
-  //   hide: function(){
-  //     console.log('alert hide');
-  //   }
-  // });
-
-  // UI.collapse.on('show', function(){
-  //   console.log('collapse show');
-  // });
-  // UI.tabs.on('show', function(){
-  //   console.log('tabs show');
-  // });
-  // UI.alert.on('show', function(){
-  //   console.log('alert show');
-  // });
-  // UI.alert.on('hide', function(){
-  //   console.log('alert hide');
-  // });
 }(window[namespace]));
