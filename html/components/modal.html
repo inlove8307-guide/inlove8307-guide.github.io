@@ -9,6 +9,7 @@
   <link rel="stylesheet" href="../../lib/prism/prism.okaidia.css">
 
   <script src="../../lib/jquery/jquery-3.5.1.min.js"></script>
+  <script src="../../lib/jquery/jquery-ui-1.12.1.min.js"></script>
   <script src="../../lib/lodash.min.js"></script>
   <script src="../../lib/moment/moment.min.js"></script>
   <script src="../../lib/anime.js/anime.min.js"></script>
@@ -28,15 +29,15 @@
           <div class="guide-viewer__content">
             <!-- [S] VIEW -->
             <div class="guide-viewer__view">
-              <button class="button--primary" data-toggle="modal" data-target="#POPUP_CENTER"><span>popup open</span></button>
-              <div id="POPUP_CENTER" class="modal" data-align="center">
+              <button class="button--primary" data-toggle="modal" data-target="#MODAL_01"><span>modal center</span></button>
+              <div id="MODAL_01" class="modal" data-placement="center" aria-hidden="true">
                 <div class="modal__inner">
                   <div class="modal__content">
                     <div class="modal__header">header</div>
                     <div class="modal__body">Modal - Center</div>
                     <div class="modal__footer">
                       <div class="button-group">
-                        <button class="button-flex--secondary" data-toggle="modal" data-target="#POPUP_CENTER">닫기</button>
+                        <button class="button-flex--secondary" data-toggle="modal" data-target="#MODAL_01">닫기</button>
                         <button class="button-flex--primary">확인</button>
                       </div>
                     </div>
@@ -52,24 +53,25 @@
             <!-- [E] COMMENT -->
             <!-- [S] BUTTON -->
             <div class="guide-viewer__tab">
-              <button class="tab__button" data-lang="html">html</button>
-              <button class="tab__button" data-lang="css">css</button>
-              <button class="tab__button" data-lang="script">script</button>
+              <button class="guide-tab__button" data-lang="html">html</button>
+              <button class="guide-tab__button" data-lang="css">css</button>
+              <button class="guide-tab__button" data-lang="script">script</button>
             </div>
             <!-- [E] BUTTON -->
             <!-- [S] CODE -->
-            <div class="guide-viewer__code">
-              <pre class="line-numbers" data-lang="html">
-                <code class="language-html">
-                  <button class="button--primary" data-toggle="modal" data-target="#POPUP_CENTER"><span>popup open</span></button>
-                  <div id="POPUP_CENTER" class="modal" data-align="center">
+            <div class="guide-viewer__syntax">
+              <pre class="guide-viewer__pre line-numbers" data-lang="html">
+                <code class="guide-viewer__code language-html">
+                  <button class="button--primary" data-toggle="modal" data-target="#MODAL_CENTER"><span>modal center</span></button>
+                  <div id="MODAL_CENTER" class="modal" data-placement="center" aria-hidden="true">
                     <div class="modal__inner">
                       <div class="modal__content">
                         <div class="modal__header">header</div>
-                        <div class="modal__body">Modal - Center</div>
+                        <div class="modal__body">Modal - Center
+                        </div>
                         <div class="modal__footer">
                           <div class="button-group">
-                            <button class="button-flex--secondary" data-toggle="modal" data-target="#POPUP_CENTER">닫기</button>
+                            <button class="button-flex--secondary" data-toggle="modal" data-target="#MODAL_CENTER">닫기</button>
                             <button class="button-flex--primary">확인</button>
                           </div>
                         </div>
@@ -78,14 +80,88 @@
                   </div>
                 </code>
               </pre>
-              <pre class="line-numbers" data-lang="css">
-                <code class="language-css">
-                  /* style */
+              <pre class="guide-viewer__pre line-numbers" data-lang="css">
+                <code class="guide-viewer__code language-css">
+                  /* default */
+                  .modal {
+                    position: fixed;
+                    z-index: 999;
+                    top: 0;
+                    left: 0;
+                    width: 100%;
+                    height: 100%;
+                    background-color: rgba(0, 0, 0, 0);
+                  }
+                  .modal[aria-hidden=true] {
+                    display: none;
+                  }
+                  .modal__inner {
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    position: relative;
+                    width: 100%;
+                    height: 100%;
+                  }
+                  .modal__content {
+                    min-width: 50%;
+                    background-color: rgb(255, 255, 255);
+                    box-shadow: 0 0 0.5rem rgba(0, 0, 0, 0.25);
+                  }
+                  .modal[data-placement='top'] .modal__content {
+                    position: absolute;
+                    top: -100%;
+                    left: 0;
+                    width: 100%;
+                  }
+                  .modal[data-placement='bottom'] .modal__content {
+                    position: absolute;
+                    bottom: -100%;
+                    left: 0;
+                    width: 100%;
+                  }
+                  .modal[data-placement='center'] .modal__content {
+                    opacity: 0;
+                  }
+                  .modal[data-placement='full'] .modal__content {
+                    display: flex;
+                    flex-direction: column;
+                    width: 100%;
+                    height: 100%;
+                    opacity: 0;
+                  }
+                  .modal[data-placement='full'] .modal__body {
+                    flex: 1;
+                  }
                 </code>
               </pre>
-              <pre class="line-numbers" data-lang="script">
-                <code class="language-js">
-                  // script
+              <pre class="guide-viewer__pre line-numbers" data-lang="script">
+                <code class="guide-viewer__code language-js">
+                  // # bind
+
+                  UI.modal.options({
+                    selector: [String], // default '[data-toggle="modal"]'
+                    contents: [String], // default '.modal__content'
+                    duration: [Number] // default 250
+                  }).bind(); // required
+
+                  // or
+
+                  UI.modal.bind('[data-toggle="modal"]'); // required
+
+                  // or
+
+                  UI.modal.bind(); // required
+
+                  // # callback
+
+                  UI.modal.callback('before', function($button, $target){
+                    console.log('callback before', $button, $target);
+                  });
+
+                  UI.modal.callback('after', function($button, $target){
+                    console.log('callback after', $button, $target);
+                  });
                 </code>
               </pre>
             </div>
@@ -101,15 +177,15 @@
           <div class="guide-viewer__content">
             <!-- [S] VIEW -->
             <div class="guide-viewer__view">
-              <button class="button--primary" data-toggle="modal" data-target="#POPUP_TOP"><span>popup open</span></button>
-              <div id="POPUP_TOP" class="modal" data-align="bottom">
+              <button class="button--primary" data-toggle="modal" data-target="#MODAL_02"><span>modal bottom</span></button>
+              <div id="MODAL_02" class="modal" data-placement="bottom" aria-hidden="true">
                 <div class="modal__inner">
                   <div class="modal__content">
                     <div class="modal__header">header</div>
                     <div class="modal__body">Modal - Bottom</div>
                     <div class="modal__footer">
                       <div class="button-group">
-                        <button class="button-flex--secondary" data-toggle="modal" data-target="#POPUP_TOP">닫기</button>
+                        <button class="button-flex--secondary" data-toggle="modal" data-target="#MODAL_02">닫기</button>
                         <button class="button-flex--primary">확인</button>
                       </div>
                     </div>
@@ -125,24 +201,24 @@
             <!-- [E] COMMENT -->
             <!-- [S] BUTTON -->
             <div class="guide-viewer__tab">
-              <button class="tab__button" data-lang="html">html</button>
-              <button class="tab__button" data-lang="css">css</button>
-              <button class="tab__button" data-lang="script">script</button>
+              <button class="guide-tab__button" data-lang="html">html</button>
+              <button class="guide-tab__button" data-lang="css">css</button>
+              <button class="guide-tab__button" data-lang="script">script</button>
             </div>
             <!-- [E] BUTTON -->
             <!-- [S] CODE -->
-            <div class="guide-viewer__code">
-              <pre class="line-numbers" data-lang="html">
-                <code class="language-html">
-                  <button class="button--primary" data-toggle="modal" data-target="#POPUP_TOP"><span>popup open</span></button>
-                  <div id="POPUP_TOP" class="modal" data-align="bottom">
+            <div class="guide-viewer__syntax">
+              <pre class="guide-viewer__pre line-numbers" data-lang="html">
+                <code class="guide-viewer__code language-html">
+                  <button class="button--primary" data-toggle="modal" data-target="#MODAL_TOP"><span>modal bottom</span></button>
+                  <div id="MODAL_TOP" class="modal" data-placement="bottom" aria-hidden="true">
                     <div class="modal__inner">
                       <div class="modal__content">
                         <div class="modal__header">header</div>
                         <div class="modal__body">Modal - Bottom</div>
                         <div class="modal__footer">
                           <div class="button-group">
-                            <button class="button-flex--secondary" data-toggle="modal" data-target="#POPUP_TOP">닫기</button>
+                            <button class="button-flex--secondary" data-toggle="modal" data-target="#MODAL_TOP">닫기</button>
                             <button class="button-flex--primary">확인</button>
                           </div>
                         </div>
@@ -151,14 +227,88 @@
                   </div>
                 </code>
               </pre>
-              <pre class="line-numbers" data-lang="css">
-                <code class="language-css">
-                  /* style */
+              <pre class="guide-viewer__pre line-numbers" data-lang="css">
+                <code class="guide-viewer__code language-css">
+                  /* default */
+                  .modal {
+                    position: fixed;
+                    z-index: 999;
+                    top: 0;
+                    left: 0;
+                    width: 100%;
+                    height: 100%;
+                    background-color: rgba(0, 0, 0, 0);
+                  }
+                  .modal[aria-hidden=true] {
+                    display: none;
+                  }
+                  .modal__inner {
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    position: relative;
+                    width: 100%;
+                    height: 100%;
+                  }
+                  .modal__content {
+                    min-width: 50%;
+                    background-color: rgb(255, 255, 255);
+                    box-shadow: 0 0 0.5rem rgba(0, 0, 0, 0.25);
+                  }
+                  .modal[data-placement='top'] .modal__content {
+                    position: absolute;
+                    top: -100%;
+                    left: 0;
+                    width: 100%;
+                  }
+                  .modal[data-placement='bottom'] .modal__content {
+                    position: absolute;
+                    bottom: -100%;
+                    left: 0;
+                    width: 100%;
+                  }
+                  .modal[data-placement='center'] .modal__content {
+                    opacity: 0;
+                  }
+                  .modal[data-placement='full'] .modal__content {
+                    display: flex;
+                    flex-direction: column;
+                    width: 100%;
+                    height: 100%;
+                    opacity: 0;
+                  }
+                  .modal[data-placement='full'] .modal__body {
+                    flex: 1;
+                  }
                 </code>
               </pre>
-              <pre class="line-numbers" data-lang="script">
-                <code class="language-js">
-                  // script
+              <pre class="guide-viewer__pre line-numbers" data-lang="script">
+                <code class="guide-viewer__code language-js">
+                  // # bind
+
+                  UI.modal.options({
+                    selector: [String], // default '[data-toggle="modal"]'
+                    contents: [String], // default '.modal__content'
+                    duration: [Number] // default 250
+                  }).bind(); // required
+
+                  // or
+
+                  UI.modal.bind('[data-toggle="modal"]'); // required
+
+                  // or
+
+                  UI.modal.bind(); // required
+
+                  // # callback
+
+                  UI.modal.callback('before', function($button, $target){
+                    console.log('callback before', $button, $target);
+                  });
+
+                  UI.modal.callback('after', function($button, $target){
+                    console.log('callback after', $button, $target);
+                  });
                 </code>
               </pre>
             </div>
@@ -174,15 +324,15 @@
           <div class="guide-viewer__content">
             <!-- [S] VIEW -->
             <div class="guide-viewer__view">
-              <button class="button--primary" data-toggle="modal" data-target="#POPUP_BOTTOM"><span>popup open</span></button>
-              <div id="POPUP_BOTTOM" class="modal" data-align="top">
+              <button class="button--primary" data-toggle="modal" data-target="#MODAL_03"><span>modal top</span></button>
+              <div id="MODAL_03" class="modal" data-placement="top" aria-hidden="true">
                 <div class="modal__inner">
                   <div class="modal__content">
                     <div class="modal__header">header</div>
                     <div class="modal__body">Modal - Top</div>
                     <div class="modal__footer">
                       <div class="button-group">
-                        <button class="button-flex--secondary" data-toggle="modal" data-target="#POPUP_BOTTOM">닫기</button>
+                        <button class="button-flex--secondary" data-toggle="modal" data-target="#MODAL_03">닫기</button>
                         <button class="button-flex--primary">확인</button>
                       </div>
                     </div>
@@ -198,24 +348,24 @@
             <!-- [E] COMMENT -->
             <!-- [S] BUTTON -->
             <div class="guide-viewer__tab">
-              <button class="tab__button" data-lang="html">html</button>
-              <button class="tab__button" data-lang="css">css</button>
-              <button class="tab__button" data-lang="script">script</button>
+              <button class="guide-tab__button" data-lang="html">html</button>
+              <button class="guide-tab__button" data-lang="css">css</button>
+              <button class="guide-tab__button" data-lang="script">script</button>
             </div>
             <!-- [E] BUTTON -->
             <!-- [S] CODE -->
-            <div class="guide-viewer__code">
-              <pre class="line-numbers" data-lang="html">
-                <code class="language-html">
-                  <button class="button--primary" data-toggle="modal" data-target="#POPUP_BOTTOM"><span>popup open</span></button>
-                  <div id="POPUP_BOTTOM" class="modal" data-align="top">
+            <div class="guide-viewer__syntax">
+              <pre class="guide-viewer__pre line-numbers" data-lang="html">
+                <code class="guide-viewer__code language-html">
+                  <button class="button--primary" data-toggle="modal" data-target="#MODAL_BOTTOM"><span>modal top</span></button>
+                  <div id="MODAL_BOTTOM" class="modal" data-placement="top" aria-hidden="true">
                     <div class="modal__inner">
                       <div class="modal__content">
                         <div class="modal__header">header</div>
                         <div class="modal__body">Modal - Top</div>
                         <div class="modal__footer">
                           <div class="button-group">
-                            <button class="button-flex--secondary" data-toggle="modal" data-target="#POPUP_BOTTOM">닫기</button>
+                            <button class="button-flex--secondary" data-toggle="modal" data-target="#MODAL_BOTTOM">닫기</button>
                             <button class="button-flex--primary">확인</button>
                           </div>
                         </div>
@@ -224,14 +374,382 @@
                   </div>
                 </code>
               </pre>
-              <pre class="line-numbers" data-lang="css">
-                <code class="language-css">
-                  /* style */
+              <pre class="guide-viewer__pre line-numbers" data-lang="css">
+                <code class="guide-viewer__code language-css">
+                  /* default */
+                  .modal {
+                    position: fixed;
+                    z-index: 999;
+                    top: 0;
+                    left: 0;
+                    width: 100%;
+                    height: 100%;
+                    background-color: rgba(0, 0, 0, 0);
+                  }
+                  .modal[aria-hidden=true] {
+                    display: none;
+                  }
+                  .modal__inner {
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    position: relative;
+                    width: 100%;
+                    height: 100%;
+                  }
+                  .modal__content {
+                    min-width: 50%;
+                    background-color: rgb(255, 255, 255);
+                    box-shadow: 0 0 0.5rem rgba(0, 0, 0, 0.25);
+                  }
+                  .modal[data-placement='top'] .modal__content {
+                    position: absolute;
+                    top: -100%;
+                    left: 0;
+                    width: 100%;
+                  }
+                  .modal[data-placement='bottom'] .modal__content {
+                    position: absolute;
+                    bottom: -100%;
+                    left: 0;
+                    width: 100%;
+                  }
+                  .modal[data-placement='center'] .modal__content {
+                    opacity: 0;
+                  }
+                  .modal[data-placement='full'] .modal__content {
+                    display: flex;
+                    flex-direction: column;
+                    width: 100%;
+                    height: 100%;
+                    opacity: 0;
+                  }
+                  .modal[data-placement='full'] .modal__body {
+                    flex: 1;
+                  }
                 </code>
               </pre>
-              <pre class="line-numbers" data-lang="script">
-                <code class="language-js">
-                  // script
+              <pre class="guide-viewer__pre line-numbers" data-lang="script">
+                <code class="guide-viewer__code language-js">
+                  // # bind
+
+                  UI.modal.options({
+                    selector: [String], // default '[data-toggle="modal"]'
+                    contents: [String], // default '.modal__content'
+                    duration: [Number] // default 250
+                  }).bind(); // required
+
+                  // or
+
+                  UI.modal.bind('[data-toggle="modal"]'); // required
+
+                  // or
+
+                  UI.modal.bind(); // required
+
+                  // # callback
+
+                  UI.modal.callback('before', function($button, $target){
+                    console.log('callback before', $button, $target);
+                  });
+
+                  UI.modal.callback('after', function($button, $target){
+                    console.log('callback after', $button, $target);
+                  });
+                </code>
+              </pre>
+            </div>
+            <!-- [E] CODE -->
+          </div>
+          <!-- [E] GUIDE -->
+        </article>
+
+        <article class="guide-viewer">
+          <!-- GUIDE TITLE -->
+          <h3 class="guide-viewer__title">Modal - Left</h3>
+          <!-- [S] GUIDE -->
+          <div class="guide-viewer__content">
+            <!-- [S] VIEW -->
+            <div class="guide-viewer__view">
+              <button class="button--primary" data-toggle="modal" data-target="#MODAL_04"><span>modal left</span></button>
+              <div id="MODAL_04" class="modal" data-placement="left" aria-hidden="true">
+                <div class="modal__inner">
+                  <div class="modal__content">
+                    <div class="modal__header">header</div>
+                    <div class="modal__body">Modal - Left</div>
+                    <div class="modal__footer">
+                      <div class="button-group">
+                        <button class="button-flex--secondary" data-toggle="modal" data-target="#MODAL_04">닫기</button>
+                        <button class="button-flex--primary">확인</button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- [E] VIEW -->
+            <!-- [S] COMMENT -->
+            <!-- <ul class="guide-viewer__comment">
+              <li class="comment__text"># 코멘트</li>
+            </ul> -->
+            <!-- [E] COMMENT -->
+            <!-- [S] BUTTON -->
+            <div class="guide-viewer__tab">
+              <button class="guide-tab__button" data-lang="html">html</button>
+              <button class="guide-tab__button" data-lang="css">css</button>
+              <button class="guide-tab__button" data-lang="script">script</button>
+            </div>
+            <!-- [E] BUTTON -->
+            <!-- [S] CODE -->
+            <div class="guide-viewer__syntax">
+              <pre class="guide-viewer__pre line-numbers" data-lang="html">
+                <code class="guide-viewer__code language-html">
+                  <button class="button--primary" data-toggle="modal" data-target="#MODAL_LEFT"><span>modal left</span></button>
+                  <div id="MODAL_LEFT" class="modal" data-placement="left" aria-hidden="true">
+                    <div class="modal__inner">
+                      <div class="modal__content">
+                        <div class="modal__header">header</div>
+                        <div class="modal__body">Modal - Left</div>
+                        <div class="modal__footer">
+                          <div class="button-group">
+                            <button class="button-flex--secondary" data-toggle="modal" data-target="#MODAL_LEFT">닫기</button>
+                            <button class="button-flex--primary">확인</button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </code>
+              </pre>
+              <pre class="guide-viewer__pre line-numbers" data-lang="css">
+                <code class="guide-viewer__code language-css">
+                  /* default */
+                  .modal {
+                    position: fixed;
+                    z-index: 999;
+                    top: 0;
+                    left: 0;
+                    width: 100%;
+                    height: 100%;
+                    background-color: rgba(0, 0, 0, 0);
+                  }
+                  .modal[aria-hidden=true] {
+                    display: none;
+                  }
+                  .modal__inner {
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    position: relative;
+                    width: 100%;
+                    height: 100%;
+                  }
+                  .modal__content {
+                    min-width: 50%;
+                    background-color: rgb(255, 255, 255);
+                    box-shadow: 0 0 0.5rem rgba(0, 0, 0, 0.25);
+                  }
+                  .modal[data-placement='top'] .modal__content {
+                    position: absolute;
+                    top: -100%;
+                    left: 0;
+                    width: 100%;
+                  }
+                  .modal[data-placement='bottom'] .modal__content {
+                    position: absolute;
+                    bottom: -100%;
+                    left: 0;
+                    width: 100%;
+                  }
+                  .modal[data-placement='center'] .modal__content {
+                    opacity: 0;
+                  }
+                  .modal[data-placement='full'] .modal__content {
+                    display: flex;
+                    flex-direction: column;
+                    width: 100%;
+                    height: 100%;
+                    opacity: 0;
+                  }
+                  .modal[data-placement='full'] .modal__body {
+                    flex: 1;
+                  }
+                </code>
+              </pre>
+              <pre class="guide-viewer__pre line-numbers" data-lang="script">
+                <code class="guide-viewer__code language-js">
+                  // # bind
+
+                  UI.modal.options({
+                    selector: [String], // default '[data-toggle="modal"]'
+                    contents: [String], // default '.modal__content'
+                    duration: [Number] // default 250
+                  }).bind(); // required
+
+                  // or
+
+                  UI.modal.bind('[data-toggle="modal"]'); // required
+
+                  // or
+
+                  UI.modal.bind(); // required
+
+                  // # callback
+
+                  UI.modal.callback('before', function($button, $target){
+                    console.log('callback before', $button, $target);
+                  });
+
+                  UI.modal.callback('after', function($button, $target){
+                    console.log('callback after', $button, $target);
+                  });
+                </code>
+              </pre>
+            </div>
+            <!-- [E] CODE -->
+          </div>
+          <!-- [E] GUIDE -->
+        </article>
+
+        <article class="guide-viewer">
+          <!-- GUIDE TITLE -->
+          <h3 class="guide-viewer__title">Modal - Right</h3>
+          <!-- [S] GUIDE -->
+          <div class="guide-viewer__content">
+            <!-- [S] VIEW -->
+            <div class="guide-viewer__view">
+              <button class="button--primary" data-toggle="modal" data-target="#MODAL_05"><span>modal right</span></button>
+              <div id="MODAL_05" class="modal" data-placement="right" aria-hidden="true">
+                <div class="modal__inner">
+                  <div class="modal__content">
+                    <div class="modal__header">header</div>
+                    <div class="modal__body">Modal - Right</div>
+                    <div class="modal__footer">
+                      <div class="button-group">
+                        <button class="button-flex--secondary" data-toggle="modal" data-target="#MODAL_05">닫기</button>
+                        <button class="button-flex--primary">확인</button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- [E] VIEW -->
+            <!-- [S] COMMENT -->
+            <!-- <ul class="guide-viewer__comment">
+              <li class="comment__text"># 코멘트</li>
+            </ul> -->
+            <!-- [E] COMMENT -->
+            <!-- [S] BUTTON -->
+            <div class="guide-viewer__tab">
+              <button class="guide-tab__button" data-lang="html">html</button>
+              <button class="guide-tab__button" data-lang="css">css</button>
+              <button class="guide-tab__button" data-lang="script">script</button>
+            </div>
+            <!-- [E] BUTTON -->
+            <!-- [S] CODE -->
+            <div class="guide-viewer__syntax">
+              <pre class="guide-viewer__pre line-numbers" data-lang="html">
+                <code class="guide-viewer__code language-html">
+                  <button class="button--primary" data-toggle="modal" data-target="#MODAL_RIGHT"><span>modal right</span></button>
+                  <div id="MODAL_RIGHT" class="modal" data-placement="right" aria-hidden="true">
+                    <div class="modal__inner">
+                      <div class="modal__content">
+                        <div class="modal__header">header</div>
+                        <div class="modal__body">Modal - Top</div>
+                        <div class="modal__footer">
+                          <div class="button-group">
+                            <button class="button-flex--secondary" data-toggle="modal" data-target="#MODAL_RIGHT">닫기</button>
+                            <button class="button-flex--primary">확인</button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </code>
+              </pre>
+              <pre class="guide-viewer__pre line-numbers" data-lang="css">
+                <code class="guide-viewer__code language-css">
+                  /* default */
+                  .modal {
+                    position: fixed;
+                    z-index: 999;
+                    top: 0;
+                    left: 0;
+                    width: 100%;
+                    height: 100%;
+                    background-color: rgba(0, 0, 0, 0);
+                  }
+                  .modal[aria-hidden=true] {
+                    display: none;
+                  }
+                  .modal__inner {
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    position: relative;
+                    width: 100%;
+                    height: 100%;
+                  }
+                  .modal__content {
+                    min-width: 50%;
+                    background-color: rgb(255, 255, 255);
+                    box-shadow: 0 0 0.5rem rgba(0, 0, 0, 0.25);
+                  }
+                  .modal[data-placement='top'] .modal__content {
+                    position: absolute;
+                    top: -100%;
+                    left: 0;
+                    width: 100%;
+                  }
+                  .modal[data-placement='bottom'] .modal__content {
+                    position: absolute;
+                    bottom: -100%;
+                    left: 0;
+                    width: 100%;
+                  }
+                  .modal[data-placement='center'] .modal__content {
+                    opacity: 0;
+                  }
+                  .modal[data-placement='full'] .modal__content {
+                    display: flex;
+                    flex-direction: column;
+                    width: 100%;
+                    height: 100%;
+                    opacity: 0;
+                  }
+                  .modal[data-placement='full'] .modal__body {
+                    flex: 1;
+                  }
+                </code>
+              </pre>
+              <pre class="guide-viewer__pre line-numbers" data-lang="script">
+                <code class="guide-viewer__code language-js">
+                  // # bind
+
+                  UI.modal.options({
+                    selector: [String], // default '[data-toggle="modal"]'
+                    contents: [String], // default '.modal__content'
+                    duration: [Number] // default 250
+                  }).bind(); // required
+
+                  // or
+
+                  UI.modal.bind('[data-toggle="modal"]'); // required
+
+                  // or
+
+                  UI.modal.bind(); // required
+
+                  // # callback
+
+                  UI.modal.callback('before', function($button, $target){
+                    console.log('callback before', $button, $target);
+                  });
+
+                  UI.modal.callback('after', function($button, $target){
+                    console.log('callback after', $button, $target);
+                  });
                 </code>
               </pre>
             </div>
@@ -247,15 +765,15 @@
           <div class="guide-viewer__content">
             <!-- [S] VIEW -->
             <div class="guide-viewer__view">
-              <button class="button--primary" data-toggle="modal" data-target="#POPUP_FULL"><span>popup open</span></button>
-              <div id="POPUP_FULL" class="modal" data-align="full">
+              <button class="button--primary" data-toggle="modal" data-target="#MODAL_06"><span>modal full</span></button>
+              <div id="MODAL_06" class="modal" data-placement="full" aria-hidden="true">
                 <div class="modal__inner">
                   <div class="modal__content">
                     <div class="modal__header">header</div>
                     <div class="modal__body">Modal - Full</div>
                     <div class="modal__footer">
                       <div class="button-group">
-                        <button class="button-flex--secondary" data-toggle="modal" data-target="#POPUP_FULL">닫기</button>
+                        <button class="button-flex--secondary" data-toggle="modal" data-target="#MODAL_06">닫기</button>
                         <button class="button-flex--primary">확인</button>
                       </div>
                     </div>
@@ -271,24 +789,24 @@
             <!-- [E] COMMENT -->
             <!-- [S] BUTTON -->
             <div class="guide-viewer__tab">
-              <button class="tab__button" data-lang="html">html</button>
-              <button class="tab__button" data-lang="css">css</button>
-              <button class="tab__button" data-lang="script">script</button>
+              <button class="guide-tab__button" data-lang="html">html</button>
+              <button class="guide-tab__button" data-lang="css">css</button>
+              <button class="guide-tab__button" data-lang="script">script</button>
             </div>
             <!-- [E] BUTTON -->
             <!-- [S] CODE -->
-            <div class="guide-viewer__code">
-              <pre class="line-numbers" data-lang="html">
-                <code class="language-html">
-                  <button class="button--primary" data-toggle="modal" data-target="#POPUP_FULL"><span>popup open</span></button>
-                  <div id="POPUP_FULL" class="modal" data-align="full">
+            <div class="guide-viewer__syntax">
+              <pre class="guide-viewer__pre line-numbers" data-lang="html">
+                <code class="guide-viewer__code language-html">
+                  <button class="button--primary" data-toggle="modal" data-target="#MODAL_FULL"><span>modal full</span></button>
+                  <div id="MODAL_FULL" class="modal" data-placement="full" aria-hidden="true">
                     <div class="modal__inner">
                       <div class="modal__content">
                         <div class="modal__header">header</div>
                         <div class="modal__body">Modal - Full</div>
                         <div class="modal__footer">
                           <div class="button-group">
-                            <button class="button-flex--secondary" data-toggle="modal" data-target="#POPUP_FULL">닫기</button>
+                            <button class="button-flex--secondary" data-toggle="modal" data-target="#MODAL_FULL">닫기</button>
                             <button class="button-flex--primary">확인</button>
                           </div>
                         </div>
@@ -297,14 +815,88 @@
                   </div>
                 </code>
               </pre>
-              <pre class="line-numbers" data-lang="css">
-                <code class="language-css">
-                  /* style */
+              <pre class="guide-viewer__pre line-numbers" data-lang="css">
+                <code class="guide-viewer__code language-css">
+                  /* default */
+                  .modal {
+                    position: fixed;
+                    z-index: 999;
+                    top: 0;
+                    left: 0;
+                    width: 100%;
+                    height: 100%;
+                    background-color: rgba(0, 0, 0, 0);
+                  }
+                  .modal[aria-hidden=true] {
+                    display: none;
+                  }
+                  .modal__inner {
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    position: relative;
+                    width: 100%;
+                    height: 100%;
+                  }
+                  .modal__content {
+                    min-width: 50%;
+                    background-color: rgb(255, 255, 255);
+                    box-shadow: 0 0 0.5rem rgba(0, 0, 0, 0.25);
+                  }
+                  .modal[data-placement='top'] .modal__content {
+                    position: absolute;
+                    top: -100%;
+                    left: 0;
+                    width: 100%;
+                  }
+                  .modal[data-placement='bottom'] .modal__content {
+                    position: absolute;
+                    bottom: -100%;
+                    left: 0;
+                    width: 100%;
+                  }
+                  .modal[data-placement='center'] .modal__content {
+                    opacity: 0;
+                  }
+                  .modal[data-placement='full'] .modal__content {
+                    display: flex;
+                    flex-direction: column;
+                    width: 100%;
+                    height: 100%;
+                    opacity: 0;
+                  }
+                  .modal[data-placement='full'] .modal__body {
+                    flex: 1;
+                  }
                 </code>
               </pre>
-              <pre class="line-numbers" data-lang="script">
-                <code class="language-js">
-                  // script
+              <pre class="guide-viewer__pre line-numbers" data-lang="script">
+                <code class="guide-viewer__code language-js">
+                  // # bind
+
+                  UI.modal.options({
+                    selector: [String], // default '[data-toggle="modal"]'
+                    contents: [String], // default '.modal__content'
+                    duration: [Number] // default 250
+                  }).bind(); // required
+
+                  // or
+
+                  UI.modal.bind('[data-toggle="modal"]'); // required
+
+                  // or
+
+                  UI.modal.bind(); // required
+
+                  // # callback
+
+                  UI.modal.callback('before', function($button, $target){
+                    console.log('callback before', $button, $target);
+                  });
+
+                  UI.modal.callback('after', function($button, $target){
+                    console.log('callback after', $button, $target);
+                  });
                 </code>
               </pre>
             </div>

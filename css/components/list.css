@@ -1,9 +1,1 @@
-.tab {}
-.tab__link {}
-.tab__link[aria-selected=true] {
-  font-weight: 500;
-}
-.tab__content {}
-.tab__panel {
-  display: none;
-}
+/* LIST */

@@ -21,13 +21,67 @@
       <section class="guide-main__content">
         <h2 class="guide-content__title">Form</h2>
 
+        <!-- TODO INPUT DEFAULT -->
         <article class="guide-viewer">
           <!-- GUIDE TITLE -->
-          <h3 class="guide-viewer__title">Form</h3>
+          <h3 class="guide-viewer__title">Form - Input Status</h3>
           <!-- [S] GUIDE -->
           <div class="guide-viewer__content">
             <!-- [S] VIEW -->
             <div class="guide-viewer__view">
+
+              <div class="form">
+                <div class="form__group">
+                  <input type="text" class="form__input" aria-label="label" placeholder="placeholder">
+                  <button type="button" class="form__button"><i class="icon-002" aria-hidden="true"></i></button>
+                  <span class="form__outline" aria-hidden="true"></span>
+                </div>
+                <div class="form__message">message</div>
+              </div>
+
+              <hr class="guide-viewer__divide" aria-hidden="true">
+
+              <div class="form valid">
+                <div class="form__group">
+                  <input class="form__input" type="text" aria-label="label" placeholder="placeholder">
+                  <button type="button" class="form__button"><i class="icon-002" aria-hidden="true"></i></button>
+                  <span class="form__outline" aria-hidden="true"></span>
+                </div>
+                <div class="form__message">message - valid</div>
+              </div>
+
+              <hr class="guide-viewer__divide" aria-hidden="true">
+
+              <div class="form invalid">
+                <div class="form__group">
+                  <input class="form__input" type="text" aria-label="label" placeholder="placeholder">
+                  <button type="button" class="form__button"><i class="icon-002" aria-hidden="true"></i></button>
+                  <span class="form__outline" aria-hidden="true"></span>
+                </div>
+                <div class="form__message">message - invalid</div>
+              </div>
+
+              <hr class="guide-viewer__divide" aria-hidden="true">
+
+              <div class="form">
+                <div class="form__group">
+                  <input class="form__input" type="text" aria-label="label" placeholder="placeholder" value="disabled" disabled>
+                  <button type="button" class="form__button"><i class="icon-002" aria-hidden="true"></i></button>
+                  <span class="form__outline" aria-hidden="true"></span>
+                </div>
+                <div class="form__message">message</div>
+              </div>
+
+              <hr class="guide-viewer__divide" aria-hidden="true">
+
+              <div class="form">
+                <div class="form__group">
+                  <input class="form__input" type="text" aria-label="label" placeholder="placeholder" value="readonly" readonly>
+                  <button type="button" class="form__button"><i class="icon-002" aria-hidden="true"></i></button>
+                  <span class="form__outline" aria-hidden="true"></span>
+                </div>
+                <div class="form__message">message</div>
+              </div>
 
             </div>
             <!-- [E] VIEW -->
@@ -38,26 +92,873 @@
             <!-- [E] COMMENT -->
             <!-- [S] BUTTON -->
             <div class="guide-viewer__tab">
-              <button class="tab__button" data-lang="html">html</button>
-              <button class="tab__button" data-lang="css">css</button>
-              <button class="tab__button" data-lang="script">script</button>
+              <button class="guide-tab__button" data-lang="html">html</button>
+              <button class="guide-tab__button" data-lang="css">css</button>
+              <button class="guide-tab__button" data-lang="script">script</button>
             </div>
             <!-- [E] BUTTON -->
             <!-- [S] CODE -->
-            <div class="guide-viewer__code">
-              <pre class="line-numbers" data-lang="html">
-                <code class="language-html">
+            <div class="guide-viewer__syntax">
+              <pre class="guide-viewer__pre line-numbers" data-lang="html">
+                <code class="guide-viewer__code language-html">
+                  <!-- input - default -->
+                  <div class="form">
+                    <div class="form__group">
+                      <input type="text" class="form__input" aria-label="label" placeholder="placeholder">
+                      <button type="button" class="form__button"><i class="icon-002" aria-hidden="true"></i></button>
+                      <span class="form__outline" aria-hidden="true"></span>
+                    </div>
+                    <div class="form__message">message</div>
+                  </div>
 
+                  <!-- input - valid -->
+                  <div class="form valid">
+                    <div class="form__group">
+                      <input class="form__input" type="text" aria-label="label" placeholder="placeholder">
+                      <button type="button" class="form__button"><i class="icon-002" aria-hidden="true"></i></button>
+                      <span class="form__outline" aria-hidden="true"></span>
+                    </div>
+                    <div class="form__message">message - valid</div>
+                  </div>
+
+                  <!-- input - invalid -->
+                  <div class="form invalid">
+                    <div class="form__group">
+                      <input class="form__input" type="text" aria-label="label" placeholder="placeholder">
+                      <button type="button" class="form__button"><i class="icon-002" aria-hidden="true"></i></button>
+                      <span class="form__outline" aria-hidden="true"></span>
+                    </div>
+                    <div class="form__message">message - invalid</div>
+                  </div>
+
+                  <!-- input - disabled -->
+                  <div class="form">
+                    <div class="form__group">
+                      <input class="form__input" type="text" aria-label="label" placeholder="placeholder" value="disabled" disabled>
+                      <button type="button" class="form__button"><i class="icon-002" aria-hidden="true"></i></button>
+                      <span class="form__outline" aria-hidden="true"></span>
+                    </div>
+                    <div class="form__message">message</div>
+                  </div>
+
+                  <!-- input - readonly -->
+                  <div class="form">
+                    <div class="form__group">
+                      <input class="form__input" type="text" aria-label="label" placeholder="placeholder" value="readonly" readonly>
+                      <button type="button" class="form__button"><i class="icon-002" aria-hidden="true"></i></button>
+                      <span class="form__outline" aria-hidden="true"></span>
+                    </div>
+                    <div class="form__message">message</div>
+                  </div>
                 </code>
               </pre>
-              <pre class="line-numbers" data-lang="css">
-                <code class="language-css">
+              <pre class="guide-viewer__pre line-numbers" data-lang="css">
+                <code class="guide-viewer__code language-css">
                   /* style */
                 </code>
               </pre>
-              <pre class="line-numbers" data-lang="script">
-                <code class="language-js">
+              <pre class="guide-viewer__pre line-numbers" data-lang="script">
+                <code class="guide-viewer__code language-js">
                   // script
+                </code>
+              </pre>
+            </div>
+            <!-- [E] CODE -->
+          </div>
+          <!-- [E] GUIDE -->
+        </article>
+
+        <!-- TODO INPUT GROUP -->
+        <article class="guide-viewer">
+          <!-- GUIDE TITLE -->
+          <h3 class="guide-viewer__title">Form - Input Group</h3>
+          <!-- [S] GUIDE -->
+          <div class="guide-viewer__content">
+            <!-- [S] VIEW -->
+            <div class="guide-viewer__view">
+
+              <div class="form">
+                <div class="form__group">
+                  <span class="form__text">$</span>
+                  <input class="form__input left" type="number" aria-label="label" placeholder="placeholder">
+                  <button type="button" class="form__button"><i class="icon-002" aria-hidden="true"></i></button>
+                  <span class="form__outline" aria-hidden="true"></span>
+                </div>
+                <div class="form__message">message</div>
+              </div>
+
+              <hr class="guide-viewer__divide" aria-hidden="true">
+
+              <div class="form">
+                <div class="form__group">
+                  <span class="form__text">email</span>
+                  <input class="form__input left" type="text" aria-label="label" placeholder="placeholder">
+                  <span class="form__text">@</span>
+                  <input class="form__input left" type="text" aria-label="label" placeholder="placeholder">
+                  <span class="form__outline" aria-hidden="true"></span>
+                </div>
+                <div class="form__message">message</div>
+              </div>
+
+              <hr class="guide-viewer__divide" aria-hidden="true">
+
+              <div class="form">
+                <div class="form__group">
+                  <input class="form__input right" type="number" aria-label="label" placeholder="placeholder">
+                  <span class="form__text">원</span>
+                  <button type="button" class="form__button"><i class="icon-002" aria-hidden="true"></i></button>
+                  <span class="form__outline" aria-hidden="true"></span>
+                </div>
+                <div class="form__message">message</div>
+              </div>
+
+              <hr class="guide-viewer__divide" aria-hidden="true">
+
+              <div class="form">
+                <div class="form__group">
+                  <input class="form__input center" type="text" aria-label="label" placeholder="placeholder">
+                  <button type="button" class="form__button"><i class="icon-002" aria-hidden="true"></i></button>
+                  <button type="button" class="form__button"><i class="icon-003" aria-hidden="true"></i></button>
+                  <span class="form__outline" aria-hidden="true"></span>
+                </div>
+                <div class="form__message">message</div>
+              </div>
+
+              <hr class="guide-viewer__divide" aria-hidden="true">
+
+              <div class="form">
+                <div class="form__group">
+                  <button class="form__button" style="width: 100px"><span class="text-ellipsis">SELECT</span><i class="icon-001" aria-hidden="true"></i></button>
+                  <input class="form__input" type="text" aria-label="label" placeholder="placeholder">
+                  <button type="button" class="form__button"><i class="icon-002" aria-hidden="true"></i></button>
+                  <span class="form__outline" aria-hidden="true"></span>
+                </div>
+                <div class="form__message">message</div>
+              </div>
+
+              <hr class="guide-viewer__divide" aria-hidden="true">
+
+              <div class="form">
+                <div class="form__group">
+                  <input class="form__input" type="text" aria-label="label" placeholder="placeholder">
+                  <span class="form__text">@</span>
+                  <button class="form__button" style="width: 100px"><span class="text-ellipsis">SELECT</span><i class="icon-001" aria-hidden="true"></i></button>
+                  <span class="form__outline" aria-hidden="true"></span>
+                </div>
+                <div class="form__message">message</div>
+              </div>
+
+              <hr class="guide-viewer__divide" aria-hidden="true">
+
+              <div class="form">
+                <div class="form__group">
+                  <input class="form__input" type="text" aria-label="label" placeholder="placeholder">
+                  <button class="form__button"><i class="icon-008" aria-hidden="true"></i></button>
+                  <span class="form__text">~</span>
+                  <input class="form__input" type="text" aria-label="label" placeholder="placeholder">
+                  <button class="form__button"><i class="icon-008" aria-hidden="true"></i></button>
+                  <span class="form__outline" aria-hidden="true"></span>
+                </div>
+                <div class="form__message">message</div>
+              </div>
+
+            </div>
+            <!-- [E] VIEW -->
+            <!-- [S] COMMENT -->
+            <!-- <ul class="guide-viewer__comment">
+              <li class="comment__text"># 코멘트</li>
+            </ul> -->
+            <!-- [E] COMMENT -->
+            <!-- [S] BUTTON -->
+            <div class="guide-viewer__tab">
+              <button class="guide-tab__button" data-lang="html">html</button>
+              <button class="guide-tab__button" data-lang="css">css</button>
+              <button class="guide-tab__button" data-lang="script">script</button>
+            </div>
+            <!-- [E] BUTTON -->
+            <!-- [S] CODE -->
+            <div class="guide-viewer__syntax">
+              <pre class="guide-viewer__pre line-numbers" data-lang="html">
+                <code class="guide-viewer__code language-html">
+                  <!-- input - group -->
+                  <div class="form">
+                    <div class="form__group">
+                      <span class="form__text">$</span>
+                      <input class="form__input left" type="number" aria-label="label" placeholder="placeholder">
+                      <button type="button" class="form__button"><i class="icon-002" aria-hidden="true"></i></button>
+                      <span class="form__outline" aria-hidden="true"></span>
+                    </div>
+                    <div class="form__message">message</div>
+                  </div>
+
+                  <!-- input - group -->
+                  <div class="form">
+                    <div class="form__group">
+                      <span class="form__text">email</span>
+                      <input class="form__input left" type="text" aria-label="label" placeholder="placeholder">
+                      <span class="form__text">@</span>
+                      <input class="form__input left" type="text" aria-label="label" placeholder="placeholder">
+                      <span class="form__outline" aria-hidden="true"></span>
+                    </div>
+                    <div class="form__message">message</div>
+                  </div>
+
+                  <!-- input - group -->
+                  <div class="form">
+                    <div class="form__group">
+                      <input class="form__input right" type="number" aria-label="label" placeholder="placeholder">
+                      <span class="form__text">원</span>
+                      <button type="button" class="form__button"><i class="icon-002" aria-hidden="true"></i></button>
+                      <span class="form__outline" aria-hidden="true"></span>
+                    </div>
+                    <div class="form__message">message</div>
+                  </div>
+
+                  <!-- input - group -->
+                  <div class="form">
+                    <div class="form__group">
+                      <input class="form__input center" type="text" aria-label="label" placeholder="placeholder">
+                      <button type="button" class="form__button"><i class="icon-002" aria-hidden="true"></i></button>
+                      <button type="button" class="form__button"><i class="icon-003" aria-hidden="true"></i></button>
+                      <span class="form__outline" aria-hidden="true"></span>
+                    </div>
+                    <div class="form__message">message</div>
+                  </div>
+
+                  <!-- input - group -->
+                  <div class="form">
+                    <div class="form__group">
+                      <button class="form__button" style="width: 100px"><span class="text-ellipsis">SELECT</span><i class="icon-001" aria-hidden="true"></i></button>
+                      <input class="form__input" type="text" aria-label="label" placeholder="placeholder">
+                      <button type="button" class="form__button"><i class="icon-002" aria-hidden="true"></i></button>
+                      <span class="form__outline" aria-hidden="true"></span>
+                    </div>
+                    <div class="form__message">message</div>
+                  </div>
+
+                  <!-- input - group -->
+                  <div class="form">
+                    <div class="form__group">
+                      <input class="form__input" type="text" aria-label="label" placeholder="placeholder">
+                      <span class="form__text">@</span>
+                      <button class="form__button" style="width: 100px"><span class="text-ellipsis">SELECT</span><i class="icon-001" aria-hidden="true"></i></button>
+                      <span class="form__outline" aria-hidden="true"></span>
+                    </div>
+                    <div class="form__message">message</div>
+                  </div>
+
+                  <!-- input - group -->
+                  <div class="form">
+                    <div class="form__group">
+                      <input class="form__input" type="text" aria-label="label" placeholder="placeholder">
+                      <button class="form__button"><i class="icon-008" aria-hidden="true"></i></button>
+                      <span class="form__text">~</span>
+                      <input class="form__input" type="text" aria-label="label" placeholder="placeholder">
+                      <button class="form__button"><i class="icon-008" aria-hidden="true"></i></button>
+                      <span class="form__outline" aria-hidden="true"></span>
+                    </div>
+                    <div class="form__message">message</div>
+                  </div>
+                </code>
+              </pre>
+              <pre class="guide-viewer__pre line-numbers" data-lang="css">
+                <code class="guide-viewer__code language-css">
+                  /* style */
+                </code>
+              </pre>
+              <pre class="guide-viewer__pre line-numbers" data-lang="script">
+                <code class="guide-viewer__code language-js">
+                  // script
+                </code>
+              </pre>
+            </div>
+            <!-- [E] CODE -->
+          </div>
+          <!-- [E] GUIDE -->
+        </article>
+
+        <!-- TODO TEXTAREA -->
+        <article class="guide-viewer">
+          <!-- GUIDE TITLE -->
+          <h3 class="guide-viewer__title">Form - Textarea</h3>
+          <!-- [S] GUIDE -->
+          <div class="guide-viewer__content">
+            <!-- [S] VIEW -->
+            <div class="guide-viewer__view">
+
+              <div class="form">
+                <div class="form__group">
+                  <textarea class="form__textarea" type="text" aria-label="label" placeholder="placeholder"></textarea>
+                  <span class="form__text">0/100</span>
+                  <span class="form__outline" aria-hidden="true"></span>
+                </div>
+                <div class="form__message">message</div>
+              </div>
+
+              <hr class="guide-viewer__divide" aria-hidden="true">
+
+              <div class="form">
+                <div class="form__group">
+                  <textarea class="form__textarea" type="text" aria-label="label" placeholder="placeholder" disabled>disabled</textarea>
+                  <span class="form__text">0/100</span>
+                  <span class="form__outline" aria-hidden="true"></span>
+                </div>
+                <div class="form__message">message</div>
+              </div>
+
+              <hr class="guide-viewer__divide" aria-hidden="true">
+
+              <div class="form">
+                <div class="form__group">
+                  <textarea class="form__textarea" type="text" aria-label="label" placeholder="placeholder" readonly>readonly</textarea>
+                  <span class="form__text">0/100</span>
+                  <span class="form__outline" aria-hidden="true"></span>
+                </div>
+                <div class="form__message">message</div>
+              </div>
+
+            </div>
+            <!-- [E] VIEW -->
+            <!-- [S] COMMENT -->
+            <!-- <ul class="guide-viewer__comment">
+              <li class="comment__text"># 코멘트</li>
+            </ul> -->
+            <!-- [E] COMMENT -->
+            <!-- [S] BUTTON -->
+            <div class="guide-viewer__tab">
+              <button class="guide-tab__button" data-lang="html">html</button>
+              <button class="guide-tab__button" data-lang="css">css</button>
+              <button class="guide-tab__button" data-lang="script">script</button>
+            </div>
+            <!-- [E] BUTTON -->
+            <!-- [S] CODE -->
+            <div class="guide-viewer__syntax">
+              <pre class="guide-viewer__pre line-numbers" data-lang="html">
+                <code class="guide-viewer__code language-html">
+                  <!-- textarea - default -->
+                  <div class="form">
+                    <div class="form__group">
+                      <textarea class="form__textarea" type="text" aria-label="label" placeholder="placeholder"></textarea>
+                      <span class="form__text">0/100</span>
+                      <span class="form__outline" aria-hidden="true"></span>
+                    </div>
+                    <div class="form__message">message</div>
+                  </div>
+
+                  <!-- textarea - disabled -->
+                  <div class="form">
+                    <div class="form__group">
+                      <textarea class="form__textarea" type="text" aria-label="label" placeholder="placeholder" disabled></textarea>
+                      <span class="form__text">0/100</span>
+                      <span class="form__outline" aria-hidden="true"></span>
+                    </div>
+                    <div class="form__message">message</div>
+                  </div>
+
+                  <!-- textarea - readonly -->
+                  <div class="form">
+                    <div class="form__group">
+                      <textarea class="form__textarea" type="text" aria-label="label" placeholder="placeholder" readonly>readonly</textarea>
+                      <span class="form__text">0/100</span>
+                      <span class="form__outline" aria-hidden="true"></span>
+                    </div>
+                    <div class="form__message">message</div>
+                  </div>
+                </code>
+              </pre>
+              <pre class="guide-viewer__pre line-numbers" data-lang="css">
+                <code class="guide-viewer__code language-css">
+                  /* style */
+                </code>
+              </pre>
+              <pre class="guide-viewer__pre line-numbers" data-lang="script">
+                <code class="guide-viewer__code language-js">
+                  // script
+                </code>
+              </pre>
+            </div>
+            <!-- [E] CODE -->
+          </div>
+          <!-- [E] GUIDE -->
+        </article>
+
+        <!-- TODO CHECKBOX -->
+        <article class="guide-viewer">
+          <!-- GUIDE TITLE -->
+          <h3 class="guide-viewer__title">Form - Checkbox</h3>
+          <!-- [S] GUIDE -->
+          <div class="guide-viewer__content">
+            <!-- [S] VIEW -->
+            <div class="guide-viewer__view">
+
+              <div class="form">
+                <div class="form__group">
+                  <input class="form__checkbox" type="checkbox" id="_CHECKBOX_01">
+                  <label class="form__label" for="_CHECKBOX_01">label</label>
+                </div>
+              </div>
+
+              <hr class="guide-viewer__divide" aria-hidden="true">
+
+              <div class="form">
+                <div class="form__group">
+                  <input class="form__checkbox" type="checkbox" id="_CHECKBOX_02" checked>
+                  <label class="form__label" for="_CHECKBOX_02">label</label>
+                </div>
+              </div>
+
+              <hr class="guide-viewer__divide" aria-hidden="true">
+
+              <div class="form">
+                <div class="form__block">
+                  <div class="form__group">
+                    <input class="form__checkbox" type="checkbox" id="_CHECKBOX_03">
+                    <label class="form__label" for="_CHECKBOX_03">label</label>
+                  </div>
+                  <div class="form__group">
+                    <input class="form__checkbox" type="checkbox" id="_CHECKBOX_04" checked>
+                    <label class="form__label" for="_CHECKBOX_04">label</label>
+                  </div>
+                </div>
+              </div>
+
+              <hr class="guide-viewer__divide" aria-hidden="true">
+
+              <div class="form">
+                <div class="form__group">
+                  <input class="form__checkbox" type="checkbox" id="_CHECKBOX_05">
+                  <label class="form__label01" for="_CHECKBOX_05">label</label>
+                </div>
+              </div>
+
+            </div>
+            <!-- [E] VIEW -->
+            <!-- [S] COMMENT -->
+            <!-- <ul class="guide-viewer__comment">
+              <li class="comment__text"># 코멘트</li>
+            </ul> -->
+            <!-- [E] COMMENT -->
+            <!-- [S] BUTTON -->
+            <div class="guide-viewer__tab">
+              <button class="guide-tab__button" data-lang="html">html</button>
+              <button class="guide-tab__button" data-lang="css">css</button>
+              <button class="guide-tab__button" data-lang="script">script</button>
+            </div>
+            <!-- [E] BUTTON -->
+            <!-- [S] CODE -->
+            <div class="guide-viewer__syntax">
+              <pre class="guide-viewer__pre line-numbers" data-lang="html">
+                <code class="guide-viewer__code language-html">
+                  <!-- checkbox(block) - default -->
+                  <div class="form">
+                    <div class="form__group">
+                      <input class="form__checkbox" type="checkbox" id="CHECKBOX_01">
+                      <label class="form__label" for="CHECKBOX_01">label</label>
+                    </div>
+                  </div>
+
+                  <!-- checkbox(block) - checked -->
+                  <div class="form">
+                    <div class="form__group">
+                      <input class="form__checkbox" type="checkbox" id="CHECKBOX_02" checked>
+                      <label class="form__label" for="CHECKBOX_02">label</label>
+                    </div>
+                  </div>
+
+                  <!-- checkbox(inline) -->
+                  <div class="form">
+                    <div class="form__block">
+                      <div class="form__group">
+                        <input class="form__checkbox" type="checkbox" id="CHECKBOX_03">
+                        <label class="form__label" for="CHECKBOX_03">label</label>
+                      </div>
+                      <div class="form__group">
+                        <input class="form__checkbox" type="checkbox" id="CHECKBOX_04" checked>
+                        <label class="form__label" for="CHECKBOX_04">label</label>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- checkbox - toggle -->
+                  <div class="form">
+                    <div class="form__group">
+                      <input class="form__checkbox" type="checkbox" id="CHECKBOX_05">
+                      <label class="form__label01" for="CHECKBOX_05">label</label>
+                    </div>
+                  </div>
+                </code>
+              </pre>
+              <pre class="guide-viewer__pre line-numbers" data-lang="css">
+                <code class="guide-viewer__code language-css">
+                  /* style */
+                </code>
+              </pre>
+              <pre class="guide-viewer__pre line-numbers" data-lang="script">
+                <code class="guide-viewer__code language-js">
+                  // script
+                </code>
+              </pre>
+            </div>
+            <!-- [E] CODE -->
+          </div>
+          <!-- [E] GUIDE -->
+        </article>
+
+        <!-- TODO RADIO -->
+        <article class="guide-viewer">
+          <!-- GUIDE TITLE -->
+          <h3 class="guide-viewer__title">Form - Radio</h3>
+          <!-- [S] GUIDE -->
+          <div class="guide-viewer__content">
+            <!-- [S] VIEW -->
+            <div class="guide-viewer__view">
+
+              <div class="form">
+                <div class="form__group">
+                  <input class="form__radio" type="radio" name="_RADIO_01" id="_RADIO_01_01">
+                  <label class="form__label" for="_RADIO_01_01">label</label>
+                </div>
+              </div>
+
+              <hr class="guide-viewer__divide" aria-hidden="true">
+
+              <div class="form">
+                <div class="form__group">
+                  <input class="form__radio" type="radio" name="_RADIO_01" id="_RADIO_01_02" checked>
+                  <label class="form__label" for="_RADIO_01_02">label</label>
+                </div>
+              </div>
+
+              <hr class="guide-viewer__divide" aria-hidden="true">
+
+              <div class="form">
+                <div class="form__block">
+                  <div class="form__group">
+                    <input class="form__radio" type="radio" name="_RADIO_02" id="_RADIO_02_01">
+                    <label class="form__label" for="_RADIO_02_01">label</label>
+                  </div>
+                  <div class="form__group">
+                    <input class="form__radio" type="radio" name="_RADIO_02" id="_RADIO_02_02" checked>
+                    <label class="form__label" for="_RADIO_02_02">label</label>
+                  </div>
+                </div>
+              </div>
+
+              <hr class="guide-viewer__divide" aria-hidden="true">
+
+              <div class="form">
+                <div class="form__block">
+                  <div class="form__group">
+                    <input class="form__radio" type="radio" name="_RADIO_03" id="_RADIO_03_01" checked>
+                    <label class="form__label01" for="_RADIO_03_01">label</label>
+                  </div>
+                  <div class="form__group">
+                    <input class="form__radio" type="radio" name="_RADIO_03" id="_RADIO_03_02">
+                    <label class="form__label01" for="_RADIO_03_02">label</label>
+                  </div>
+                  <div class="form__group">
+                    <input class="form__radio" type="radio" name="_RADIO_03" id="_RADIO_03_03">
+                    <label class="form__label01" for="_RADIO_03_03">label</label>
+                  </div>
+                </div>
+              </div>
+
+              <hr class="guide-viewer__divide" aria-hidden="true">
+
+              <div class="form">
+                <div class="form__block">
+                  <div class="form__group grow">
+                    <input class="form__radio" type="radio" name="_RADIO_04" id="_RADIO_04_01" checked>
+                    <label class="form__label01" for="_RADIO_04_01">label</label>
+                  </div>
+                  <div class="form__group grow">
+                    <input class="form__radio" type="radio" name="_RADIO_04" id="_RADIO_04_02">
+                    <label class="form__label01" for="_RADIO_04_02">label</label>
+                  </div>
+                  <div class="form__group grow">
+                    <input class="form__radio" type="radio" name="_RADIO_04" id="_RADIO_04_03">
+                    <label class="form__label01" for="_RADIO_04_03">label</label>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+            <!-- [E] VIEW -->
+            <!-- [S] COMMENT -->
+            <!-- <ul class="guide-viewer__comment">
+              <li class="comment__text"># 코멘트</li>
+            </ul> -->
+            <!-- [E] COMMENT -->
+            <!-- [S] BUTTON -->
+            <div class="guide-viewer__tab">
+              <button class="guide-tab__button" data-lang="html">html</button>
+              <button class="guide-tab__button" data-lang="css">css</button>
+              <button class="guide-tab__button" data-lang="script">script</button>
+            </div>
+            <!-- [E] BUTTON -->
+            <!-- [S] CODE -->
+            <div class="guide-viewer__syntax">
+              <pre class="guide-viewer__pre line-numbers" data-lang="html">
+                <code class="guide-viewer__code language-html">
+                  <!-- radio(block) - default -->
+                  <div class="form">
+                    <div class="form__group">
+                      <input class="form__radio" type="radio" name="RADIO_01" id="RADIO_01_01">
+                      <label class="form__label" for="RADIO_01_01">label</label>
+                    </div>
+                  </div>
+
+                  <!-- radio(block) checked -->
+                  <div class="form">
+                    <div class="form__group">
+                      <input class="form__radio" type="radio" name="RADIO_01" id="RADIO_01_02" checked>
+                      <label class="form__label" for="RADIO_01_02">label</label>
+                    </div>
+                  </div>
+
+                  <!-- radio(inline) -->
+                  <div class="form">
+                    <div class="form__block">
+                      <div class="form__group">
+                        <input class="form__radio" type="radio" name="RADIO_02" id="RADIO_02_01">
+                        <label class="form__label" for="RADIO_02_01">label</label>
+                      </div>
+                      <div class="form__group">
+                        <input class="form__radio" type="radio" name="RADIO_02" id="RADIO_02_02" checked>
+                        <label class="form__label" for="RADIO_02_02">label</label>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- radio(inline) - button -->
+                  <div class="form">
+                    <div class="form__block">
+                      <div class="form__group">
+                        <input class="form__radio" type="radio" name="RADIO_03" id="RADIO_03_01" checked>
+                        <label class="form__label01" for="RADIO_03_01">label</label>
+                      </div>
+                      <div class="form__group">
+                        <input class="form__radio" type="radio" name="RADIO_03" id="RADIO_03_02">
+                        <label class="form__label01" for="RADIO_03_02">label</label>
+                      </div>
+                      <div class="form__group">
+                        <input class="form__radio" type="radio" name="RADIO_03" id="RADIO_03_03">
+                        <label class="form__label01" for="RADIO_03_03">label</label>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- radio(block) - button -->
+                  <div class="form">
+                    <div class="form__block">
+                      <div class="form__group grow">
+                        <input class="form__radio" type="radio" name="RADIO_04" id="RADIO_04_01" checked>
+                        <label class="form__label01" for="RADIO_04_01">label</label>
+                      </div>
+                      <div class="form__group grow">
+                        <input class="form__radio" type="radio" name="RADIO_04" id="RADIO_04_02">
+                        <label class="form__label01" for="RADIO_04_02">label</label>
+                      </div>
+                      <div class="form__group grow">
+                        <input class="form__radio" type="radio" name="RADIO_04" id="RADIO_04_03">
+                        <label class="form__label01" for="RADIO_04_03">label</label>
+                      </div>
+                    </div>
+                  </div>
+                </code>
+              </pre>
+              <pre class="guide-viewer__pre line-numbers" data-lang="css">
+                <code class="guide-viewer__code language-css">
+                  /* style */
+                </code>
+              </pre>
+              <pre class="guide-viewer__pre line-numbers" data-lang="script">
+                <code class="guide-viewer__code language-js">
+                  // script
+                </code>
+              </pre>
+            </div>
+            <!-- [E] CODE -->
+          </div>
+          <!-- [E] GUIDE -->
+        </article>
+
+        <!-- TODO SELECT -->
+        <article class="guide-viewer">
+          <!-- GUIDE TITLE -->
+          <h3 class="guide-viewer__title">Form - Select</h3>
+          <!-- [S] GUIDE -->
+          <div class="guide-viewer__content">
+            <!-- [S] VIEW -->
+            <div class="guide-viewer__view">
+
+              <div class="form">
+                <div class="form__group">
+                  <select class="form__select" aria-label="label">
+                    <option class="form_option" value="OPTION_01">OPTION_01</option>
+                    <option class="form_option" value="OPTION_02">OPTION_02</option>
+                    <option class="form_option" value="OPTION_03">OPTION_03</option>
+                  </select>
+                  <span class="form__outline" aria-hidden="true"></span>
+                </div>
+              </div>
+
+              <hr class="guide-viewer__divide" aria-hidden="true">
+
+              <div class="form">
+                <div class="form__group">
+                  <select class="form__select" aria-label="label" disabled>
+                    <option class="form_option" value="OPTION_01">OPTION_01</option>
+                    <option class="form_option" value="OPTION_02">OPTION_02</option>
+                    <option class="form_option" value="OPTION_03">OPTION_03</option>
+                  </select>
+                  <span class="form__outline" aria-hidden="true"></span>
+                </div>
+              </div>
+
+            </div>
+            <!-- [E] VIEW -->
+            <!-- [S] COMMENT -->
+            <!-- <ul class="guide-viewer__comment">
+              <li class="comment__text"># 코멘트</li>
+            </ul> -->
+            <!-- [E] COMMENT -->
+            <!-- [S] BUTTON -->
+            <div class="guide-viewer__tab">
+              <button class="guide-tab__button" data-lang="html">html</button>
+              <button class="guide-tab__button" data-lang="css">css</button>
+              <button class="guide-tab__button" data-lang="script">script</button>
+            </div>
+            <!-- [E] BUTTON -->
+            <!-- [S] CODE -->
+            <div class="guide-viewer__syntax">
+              <pre class="guide-viewer__pre line-numbers" data-lang="html">
+                <code class="guide-viewer__code language-html">
+                  <!-- select - default -->
+                  <div class="form">
+                    <div class="form__group">
+                      <select class="form__select" aria-label="label">
+                        <option class="form_option" value="OPTION_01">OPTION_01</option>
+                        <option class="form_option" value="OPTION_02">OPTION_02</option>
+                        <option class="form_option" value="OPTION_03">OPTION_03</option>
+                      </select>
+                      <span class="form__outline" aria-hidden="true"></span>
+                    </div>
+                  </div>
+
+                  <!-- select - disabled -->
+                  <div class="form">
+                    <div class="form__group">
+                      <select class="form__select" aria-label="label" disabled>
+                        <option class="form_option" value="OPTION_01">OPTION_01</option>
+                        <option class="form_option" value="OPTION_02">OPTION_02</option>
+                        <option class="form_option" value="OPTION_03">OPTION_03</option>
+                      </select>
+                      <span class="form__outline" aria-hidden="true"></span>
+                    </div>
+                  </div>
+                </code>
+              </pre>
+              <pre class="guide-viewer__pre line-numbers" data-lang="css">
+                <code class="guide-viewer__code language-css">
+                  /* style */
+                </code>
+              </pre>
+              <pre class="guide-viewer__pre line-numbers" data-lang="script">
+                <code class="guide-viewer__code language-js">
+                  // script
+                </code>
+              </pre>
+            </div>
+            <!-- [E] CODE -->
+          </div>
+          <!-- [E] GUIDE -->
+        </article>
+
+        <!-- TODO DROPDOWN -->
+        <article class="guide-viewer">
+          <!-- GUIDE TITLE -->
+          <h3 class="guide-viewer__title">Form - Dropdown</h3>
+          <!-- [S] GUIDE -->
+          <div class="guide-viewer__content">
+            <!-- [S] VIEW -->
+            <div class="guide-viewer__view">
+
+              <div class="form">
+                <div class="form__group">
+                  <div class="dropdown" style="width: 100%">
+                    <button class="dropdown__button" data-toggle="dropdown" aria-haspopup="listbox" aria-controls="_DROPDOWN_01" aria-expanded="false">SELECT</button>
+                    <ul id="_DROPDOWN_01" class="dropdown__menu" role="listbox" aria-label="label" aria-hidden="true">
+                      <li id="_DROPDOWN_01_ITEM_01" class="dropdown__item" role="option" tabindex="0"><span class="text-ellipsis">OPTION_01</span></li>
+                      <li id="_DROPDOWN_01_ITEM_02" class="dropdown__item" role="option" tabindex="0"><span class="text-ellipsis">OPTION_02</span></li>
+                      <li id="_DROPDOWN_01_ITEM_03" class="dropdown__item" role="option" tabindex="0"><span class="text-ellipsis">OPTION_03</span></li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+            <!-- [E] VIEW -->
+            <!-- [S] COMMENT -->
+            <!-- <ul class="guide-viewer__comment">
+              <li class="comment__text"># 코멘트</li>
+            </ul> -->
+            <!-- [E] COMMENT -->
+            <!-- [S] BUTTON -->
+            <div class="guide-viewer__tab">
+              <button class="guide-tab__button" data-lang="html">html</button>
+              <button class="guide-tab__button" data-lang="css">css</button>
+              <button class="guide-tab__button" data-lang="script">script</button>
+            </div>
+            <!-- [E] BUTTON -->
+            <!-- [S] CODE -->
+            <div class="guide-viewer__syntax">
+              <pre class="guide-viewer__pre line-numbers" data-lang="html">
+                <code class="guide-viewer__code language-html">
+                  <div class="form">
+                    <div class="form__group">
+                      <div class="dropdown" style="width: 100%">
+                        <button class="dropdown__button" data-toggle="dropdown" aria-haspopup="listbox" aria-controls="DROPDOWN_01" aria-expanded="false">SELECT</button>
+                        <ul id="DROPDOWN_01" class="dropdown__menu" role="listbox" aria-label="label" aria-hidden="true">
+                          <li id="DROPDOWN_01_ITEM_01" class="dropdown__item" role="option" tabindex="0"><span class="text-ellipsis">OPTION_01</span></li>
+                          <li id="DROPDOWN_01_ITEM_02" class="dropdown__item" role="option" tabindex="0"><span class="text-ellipsis">OPTION_02</span></li>
+                          <li id="DROPDOWN_01_ITEM_03" class="dropdown__item" role="option" tabindex="0"><span class="text-ellipsis">OPTION_03</span></li>
+                        </ul>
+                      </div>
+                    </div>
+                  </div>
+                </code>
+              </pre>
+              <pre class="guide-viewer__pre line-numbers" data-lang="css">
+                <code class="guide-viewer__code language-css">
+                  /* style */
+                </code>
+              </pre>
+              <pre class="guide-viewer__pre line-numbers" data-lang="script">
+                <code class="guide-viewer__code language-js">
+                  // # bind
+
+                  UI.dropdown.options({
+                    selector: [String] // default : '[data-toggle="dropdown"]'
+                  }).bind(); // required
+
+                  //or
+
+                  UI.dropdown.bind('[data-toggle="dropdown"]'); // required
+
+                  //or
+
+                  UI.dropdown.bind(); // required
+
+                  // # callback
+
+                  UI.dropdown.callback('before', function($button, $target){
+                    console.log('callback before', $button, $target);
+                  });
+
+                  UI.dropdown.callback('after', function($button, $target){
+                    console.log('callback after', $button, $target);
+                  });
                 </code>
               </pre>
             </div>

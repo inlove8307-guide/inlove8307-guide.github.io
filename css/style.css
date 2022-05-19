@@ -3,6 +3,7 @@
 /* DEFAULT */
 @import './base.css';
 @import './font.css';
+@import './icon.css';
 @import './guide.css';
 
 /* LIBRARY */
@@ -11,7 +12,9 @@
 /* COMPONENTS */
 @import './components/button.css';
 @import './components/collapse.css';
-@import './components/list.css';
+@import './components/tabs.css';
 @import './components/form.css';
-@import './components/tooltip.css';
+@import './components/popover.css';
 @import './components/modal.css';
+@import './components/list.css';
+@import './components/dropdown.css';

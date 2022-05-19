@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>UI GUIDE</title>
+
+  <link rel="stylesheet" href="../../css/style.css">
+  <link rel="stylesheet" href="../../lib/prism/prism.okaidia.css">
+
+  <script src="../../lib/jquery/jquery-3.5.1.min.js"></script>
+  <script src="../../lib/lodash.min.js"></script>
+  <script src="../../lib/moment/moment.min.js"></script>
+  <script src="../../lib/anime.js/anime.min.js"></script>
+  <script src="../../lib/gsap/gsap.min.js"></script>
+  <script src="../../lib/prism/prism.js"></script>
+</head>
+<body>
+  <div class="guide-container">
+    <main class="guide-main">
+      <section class="guide-main__content">
+        <h2 class="guide-content__title">Tabs</h2>
+
+        <article class="guide-viewer">
+          <!-- GUIDE TITLE -->
+          <h3 class="guide-viewer__title">Tab</h3>
+          <!-- [S] GUIDE -->
+          <div class="guide-viewer__content">
+            <!-- [S] VIEW -->
+            <div class="guide-viewer__view">
+              <div class="tab">
+                <div class="tab__buttons" role="tablist">
+                  <button class="tab__button" id="TAB_BUTTON_01" data-toggle="tab" data-group="TAB_GROUP_01" role="tab" aria-controls="TAB_PANEL_01" aria-selected="true">MENU 1</button>
+                  <button class="tab__button" id="TAB_BUTTON_02" data-toggle="tab" data-group="TAB_GROUP_01" role="tab" aria-controls="TAB_PANEL_02" aria-selected="false">MENU 2</button>
+                  <button class="tab__button" id="TAB_BUTTON_03" data-toggle="tab" data-group="TAB_GROUP_01" role="tab" aria-controls="TAB_PANEL_03" aria-selected="false">MENU 3</button>
+                </div>
+                <div class="tab__panel" id="TAB_PANEL_01" role="tabpanel" aria-labelledby="TAB_BUTTON_01">
+                  CONTENTS 1
+                </div>
+                <div class="tab__panel" id="TAB_PANEL_02" role="tabpanel" aria-labelledby="TAB_BUTTON_02">
+                  CONTENTS 2
+                </div>
+                <div class="tab__panel" id="TAB_PANEL_03" role="tabpanel" aria-labelledby="TAB_BUTTON_03">
+                  CONTENTS 3
+                </div>
+              </div>
+            </div>
+            <!-- [E] VIEW -->
+            <!-- [S] COMMENT -->
+            <!-- <ul class="guide-viewer__comment">
+              <li class="comment__text"># 코멘트</li>
+            </ul> -->
+            <!-- [E] COMMENT -->
+            <!-- [S] BUTTON -->
+            <div class="guide-viewer__tab">
+              <button class="guide-tab__button" data-lang="html">html</button>
+              <button class="guide-tab__button" data-lang="css">css</button>
+              <button class="guide-tab__button" data-lang="script">script</button>
+            </div>
+            <!-- [E] BUTTON -->
+            <!-- [S] CODE -->
+            <div class="guide-viewer__syntax">
+              <pre class="guide-viewer__pre line-numbers" data-lang="html">
+                <code class="guide-viewer__code language-html">
+                  <div class="tab">
+                    <div class="tab__buttons" role="tablist">
+                      <button class="tab__button" id="TAB_BUTTON_01" data-toggle="tab" data-group="TAB_GROUP_01" role="tab" aria-controls="TAB_PANEL_01" aria-selected="true">MENU 1</button>
+                      <button class="tab__button" id="TAB_BUTTON_02" data-toggle="tab" data-group="TAB_GROUP_01" role="tab" aria-controls="TAB_PANEL_02" aria-selected="false">MENU 2</button>
+                      <button class="tab__button" id="TAB_BUTTON_03" data-toggle="tab" data-group="TAB_GROUP_01" role="tab" aria-controls="TAB_PANEL_03" aria-selected="false">MENU 3</button>
+                    </div>
+                    <div class="tab__panel" id="TAB_PANEL_01" role="tabpanel" aria-labelledby="TAB_BUTTON_01">
+                      CONTENTS 1
+                    </div>
+                    <div class="tab__panel" id="TAB_PANEL_02" role="tabpanel" aria-labelledby="TAB_BUTTON_02">
+                      CONTENTS 2
+                    </div>
+                    <div class="tab__panel" id="TAB_PANEL_03" role="tabpanel" aria-labelledby="TAB_BUTTON_03">
+                      CONTENTS 3
+                    </div>
+                  </div>
+                </code>
+              </pre>
+              <pre class="guide-viewer__pre line-numbers" data-lang="css">
+                <code class="guide-viewer__code language-css">
+                  /* default */
+                  .tab__panel {
+                    display: none;
+                  }
+                </code>
+              </pre>
+              <pre class="guide-viewer__pre line-numbers" data-lang="script">
+                <code class="guide-viewer__code language-js">
+                  // # bind
+
+                  UI.tab.options({
+                    selector: [String], // default : '[data-toggle="collapse"]'
+                  }).bind(); // required
+
+                  // or
+
+                  UI.tab.bind('[data-toggle="collapse"]'); // required
+
+                  // or
+
+                  UI.tab.bind(); // required
+
+                  // # callback
+
+                  UI.tab.callback('before', function($button, $target){
+                    console.log('callback before', $button, $target);
+                  });
+
+                  UI.tab.callback('after', function($button, $target){
+                    console.log('callback after', $button, $target);
+                  });
+                </code>
+              </pre>
+            </div>
+            <!-- [E] CODE -->
+          </div>
+          <!-- [E] GUIDE -->
+        </article>
+
+      </section>
+    </main>
+  </div>
+
+  <script src="../../js/guide.js"></script>
+  <script src="../../js/components.js"></script>
+  <script>
+    GUIDE.include.header();
+    GUIDE.include.menu('C0308');
+  </script>
+</body>
+</html>

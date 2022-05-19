@@ -4,7 +4,7 @@
   border: 0.1rem solid rgb(150, 150, 150);
 }
 .collapse-default__item {
-  position:relative;
+  position: relative;
 }
 .collapse-default__item::before {
   content: '';
@@ -23,14 +23,15 @@
   background-color: rgb(240, 240, 240);
   text-align: left;
 }
-.collapse-default__button i {
+.collapse-default__button [class^=icon-] {
   position: absolute;
   top: 50%;
   right: 1rem;
+  white-space: nowrap;
   transform: translateY(-50%);
   -webkit-transform: translateY(-50%);
 }
-.collapse-default__button[aria-expanded=true] i {
+.collapse-default__button[aria-expanded=true] [class^=icon-] {
   transform: translateY(-50%) rotate(180deg);
   -webkit-transform: translateY(-50%) rotate(180deg);
 }
@@ -38,7 +39,9 @@
   overflow: hidden;
   box-sizing: border-box;
   height: 0;
+  /* max-height: 100px; */
 }
 .collapse-default__content[aria-hidden=false] {
+  /* overflow-y: auto; */
   height: auto;
 }
