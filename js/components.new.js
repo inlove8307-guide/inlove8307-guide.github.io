@@ -104,12 +104,12 @@
   global.collapse = function(){
     var component = new global.component({
       container: 'body',
-      selector: 'data-collapse',
-      item: 'data-item',
-      button: 'data-button',
-      target: 'data-target',
-      active: 'data-active',
-      group: 'data-group',
+      selector: '_collapse',
+      item: '_collapse-item',
+      button: '_collapse-button',
+      target: '_collapse-target',
+      active: '_collapse-active',
+      group: '_collapse-group',
       duration: '250ms',
       easing: 'cubic-bezier(.65,.05,.36,1)'
     });
@@ -150,10 +150,10 @@
         ${this.class('selector')} > ${this.class('item')} > ${this.class('target')} > * {
           padding: 10px;
         }
-        ${this.class('selector')} > ${this.class('item')}${this.class('active')} > ${this.class('button')} {
+        ${this.class('selector')} > ${this.class('item')} > ${this.class('button')}${this.class('active')} {
           font-weight: bold;
         }
-        ${this.class('selector')} > ${this.class('item')}${this.class('active')} > ${this.class('target')} {
+        ${this.class('selector')} > ${this.class('item')} > ${this.class('target')}${this.class('active')} {
           box-shadow: inset 0 1px 0 rgba(0, 0, 0, 1);
           height: auto;
         }`
@@ -167,18 +167,19 @@
     function handlerClick(event){
       var context = this
         , $button = $(event.target).closest(this.class('button'))
-        , $item = $button.closest(this.class('item'));
+        , $item = $button.closest(this.class('item'))
+        , $target = $item.children(this.class('target'));
 
       if (!$button.length) return;
 
-      $item.hasClass(this.prop('active'))
-        ? hide.call(this, $item)
-        : show.call(this, $item);
+      $button.hasClass(this.prop('active'))
+        ? hide.call(this, $button, $target)
+        : show.call(this, $button, $target);
 
       if (!$item.closest(this.class('selector')).hasClass(this.prop('group'))) return;
 
       $item.siblings().each(function(){
-        hide.call(context, $(this));
+        hide.call(context, $(this).children(context.class('button')), $(this).children(context.class('target')));
       });
     }
 
@@ -186,22 +187,20 @@
       $(event.target).removeAttr('style');
     }
 
-    function show($item){
-      var $target = $item.find(this.class('target'));
-
+    function show($button, $target){
       $target.height(0);
       $target.height($target.prop('scrollHeight'));
-      $item.addClass(this.prop('active'));
+      $button.addClass(this.prop('active'));
+      $target.addClass(this.prop('active'));
 
       this.prop('on').show && this.prop('on').show($item);
     }
 
-    function hide($item){
-      var $target = $item.find(this.class('target'));
-
+    function hide($button, $target){
       $target.height($target.height());
       $target.height(0);
-      $item.removeClass(this.prop('active'));
+      $button.removeClass(this.prop('active'));
+      $target.removeClass(this.prop('active'));
     }
 
     component.bind = function(options){
@@ -225,12 +224,12 @@
   global.tabs = function(){
     var component = new global.component({
       container: 'body',
-      selector: 'data-tabs',
-      buttons: 'data-buttons',
-      button: 'data-button',
-      contents: 'data-targets',
-      target: 'data-target',
-      active: 'data-active',
+      selector: '_tabs',
+      buttons: '_tabs-buttons',
+      button: '_tabs-button',
+      contents: '_tabs-targets',
+      target: '_tabs-target',
+      active: '_tabs-active',
       duration: '250ms',
       easing: 'cubic-bezier(.65,.05,.36,1)'
     });
@@ -352,9 +351,9 @@
   global.alert = function(){
     var component = new global.component({
       container: 'body',
-      selector: 'data-alert',
-      active: 'data-active',
-      close: 'data-close',
+      selector: '_alert',
+      active: '_alert-active',
+      close: '_alert-close',
       duration: '250ms',
       easing: 'cubic-bezier(.86, 0, .07, 1)'
     });
