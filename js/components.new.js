@@ -227,7 +227,7 @@
       selector: '_tabs',
       buttons: '_tabs-buttons',
       button: '_tabs-button',
-      contents: '_tabs-targets',
+      targets: '_tabs-targets',
       target: '_tabs-target',
       active: '_tabs-active',
       duration: '250ms',
@@ -275,11 +275,11 @@
           transform: translateX(-50%);
           transition: width ${this.prop('duration')} ${this.prop('easing')};
         }
-        ${this.class('selector')} > ${this.class('contents')} {
+        ${this.class('selector')} > ${this.class('targets')} {
           position: relative;
           box-shadow: inset 0 1px 0 rgb(0, 0, 0);
         }
-        ${this.class('selector')} > ${this.class('contents')} > ${this.class('target')} {
+        ${this.class('selector')} > ${this.class('targets')} > ${this.class('target')} {
           overflow: hidden;
           position: absolute;
           top: 0;
@@ -288,7 +288,7 @@
           height: 0;
           transition: height ${this.prop('duration')} ${this.prop('easing')};
         }
-        ${this.class('selector')} > ${this.class('contents')} > ${this.class('target')} > * {
+        ${this.class('selector')} > ${this.class('targets')} > ${this.class('target')} > * {
           padding: 10px;
         }
         ${this.class('selector')} > ${this.class('buttons')} > ${this.class('button')}${this.class('active')} {
@@ -297,7 +297,7 @@
         ${this.class('selector')} > ${this.class('buttons')} > ${this.class('button')}${this.class('active')}::after {
           width: 100%;
         }
-        ${this.class('selector')} > ${this.class('contents')} > ${this.class('target')}${this.class('active')} {
+        ${this.class('selector')} > ${this.class('targets')} > ${this.class('target')}${this.class('active')} {
           position: relative;
           height: auto;
         }`
@@ -311,13 +311,13 @@
     function handlerClick(event){
       var $button = $(event.target).closest(this.class('button'))
         , $buttons = $button.closest(this.class('buttons'))
-        , $contents = $buttons.siblings(this.class('contents'))
-        , $target = $contents.children(this.class('target')).eq($button.index());
+        , $targets = $buttons.siblings(this.class('targets'))
+        , $target = $targets.children(this.class('target')).eq($button.index());
 
       if (!$button.length) return;
 
       $buttons.children(this.class('button')).removeClass(this.prop('active'));
-      $contents.children(this.class('target')).removeClass(this.prop('active'));
+      $targets.children(this.class('target')).removeClass(this.prop('active'));
 
       $target.height($target.prop('scrollHeight'));
       $button.addClass(this.prop('active'));
