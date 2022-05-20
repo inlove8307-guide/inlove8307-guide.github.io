@@ -144,16 +144,20 @@
 
       result = $(`<${tagname}>`, { text:
         `${this.class('selector')} {
+          overflow: hidden;
           border-radius: 5px;
-          box-shadow: inset 0 0 0 1px rgb(0, 0, 0);
+          border: 1px solid rgb(0, 0, 0);
         }
         ${this.class('selector')} ${this.class('item')} + ${this.class('item')} {
-          box-shadow: inset 0 1px 0 rgb(0, 0, 0);
+          border-top: 1px solid rgb(0, 0, 0);
         }
         ${this.class('selector')} ${this.class('button')} {
           padding: 10px;
           width: 100%;
+          background-color: rgb(255, 255, 255);
           text-align: left;
+          color: rgb(136, 136, 136);
+          transition: all ${this.prop('duration')} ${this.prop('easing')};
         }
         ${this.class('selector')}  ${this.class('target')} {
           overflow: hidden;
@@ -165,7 +169,8 @@
           padding: 10px;
         }
         ${this.class('selector')} ${this.class('button')}${this.class('active')} {
-          font-weight: bold;
+          background-color: rgb(238, 238, 238);
+          color: rgb(0, 0, 0);
         }
         ${this.class('selector')} ${this.class('target')}${this.class('active')} {
           box-shadow: inset 0 1px 0 rgba(0, 0, 0, 1);
@@ -271,8 +276,9 @@
 
       result = $(`<${tagname}>`, { text:
         `${this.class('selector')} {
+          overflow: hidden;
           border-radius: 5px;
-          box-shadow: inset 0 0 0 1px rgb(0, 0, 0);
+          border: 1px solid rgb(0, 0, 0);
         }
         ${this.class('selector')} ${this.class('buttons')} {
           display: flex;
@@ -283,6 +289,9 @@
           flex-basis: 0;
           position: relative;
           padding: 10px;
+          background-color: rgb(238, 238, 238);
+          color: rgb(136, 136, 136);
+          transition: all ${this.prop('duration')} ${this.prop('easing')};
         }
         ${this.class('selector')} ${this.class('button')}::after {
           content: '';
@@ -312,7 +321,7 @@
           padding: 10px;
         }
         ${this.class('selector')} ${this.class('button')}${this.class('active')} {
-          font-weight: bold;
+          color: rgb(0, 0, 0);
         }
         ${this.class('selector')} ${this.class('button')}${this.class('active')}::after {
           width: 100%;
