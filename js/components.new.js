@@ -193,7 +193,7 @@
       $button.addClass(this.prop('active'));
       $target.addClass(this.prop('active'));
 
-      this.prop('on').show && this.prop('on').show($item);
+      this.prop('on').show && this.prop('on').show($.merge($button, $target));
     }
 
     function hide($button, $target){
@@ -499,3 +499,141 @@ $(function(global){
 
   global.init();
 }(window[namespace]));
+
+/* COLLAPSE CALLBACK */
+UI.collapse.bind({
+  on: {
+    init: function(){
+      console.log('collapse bind init');
+    },
+    change: function(){
+      console.log('collapse bind change');
+    },
+    scroll: function(){
+      console.log('collapse bind scroll');
+    },
+    show: function(){
+      console.log('collapse bind show');
+    },
+  }
+});
+
+UI.collapse.on({
+  init: function(){
+    console.log('collapse on object init');
+  },
+  change: function(){
+    console.log('collapse on object change');
+  },
+  scroll: function(){
+    console.log('collapse on object scroll');
+  },
+  show: function(){
+    console.log('collapse on object show');
+  },
+});
+
+UI.collapse.on('init', function(){
+  console.log('collapse on string init');
+});
+UI.collapse.on('change', function(){
+  console.log('collapse on string change');
+});
+UI.collapse.on('scroll', function(){
+  console.log('collapse on string scroll');
+});
+UI.collapse.on('show', function(){
+  console.log('collapse on string show');
+});
+
+/* TABS CALLBACK */
+UI.tabs.bind({
+  on: {
+    init: function(){
+      console.log('tabs bind init');
+    },
+    change: function(){
+      console.log('tabs bind change');
+    },
+    scroll: function(){
+      console.log('tabs bind scroll');
+    },
+    show: function(){
+      console.log('tabs bind show');
+    },
+  }
+});
+
+UI.tabs.on({
+  init: function(){
+    console.log('tabs on object init');
+  },
+  change: function(){
+    console.log('tabs on object change');
+  },
+  scroll: function(){
+    console.log('tabs on object scroll');
+  },
+  show: function(){
+    console.log('tabs on object show');
+  },
+});
+
+UI.tabs.on('init', function(){
+  console.log('tabs on string init');
+});
+UI.tabs.on('change', function(){
+  console.log('tabs on string change');
+});
+UI.tabs.on('scroll', function(){
+  console.log('tabs on string scroll');
+});
+UI.tabs.on('show', function(){
+  console.log('tabs on string show');
+});
+
+/* ALERT CALLBACK */
+UI.alert.bind({
+  on: {
+    init: function(){
+      console.log('alert bind init');
+    },
+    change: function(){
+      console.log('alert bind change');
+    },
+    show: function(){
+      console.log('alert bind show');
+    },
+    hide: function(){
+      console.log('alert bind hide');
+    },
+  }
+});
+
+UI.alert.on({
+  init: function(){
+    console.log('alert on object init');
+  },
+  change: function(){
+    console.log('alert on object change');
+  },
+  show: function(){
+    console.log('alert on object show');
+  },
+  hide: function(){
+    console.log('alert on object hide');
+  },
+});
+
+UI.alert.on('init', function(){
+  console.log('alert on string init');
+});
+UI.alert.on('change', function(){
+  console.log('alert on string change');
+});
+UI.alert.on('show', function(){
+  console.log('alert on string show');
+});
+UI.alert.on('hide', function(){
+  console.log('alert on string hide');
+});
