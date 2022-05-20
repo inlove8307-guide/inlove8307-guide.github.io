@@ -130,7 +130,7 @@
 
     function init(){
       $(this.prop('container')).append(style.call(this));
-      this.prop('on').init && this.prop('on').init();
+      this.prop('on').init && this.prop('on').init($(this.class('selector')));
       this.change.observe(this);
       this.scroll.observe(this);
     }
@@ -262,7 +262,7 @@
     function init(){
       $(this.prop('container')).append(style.call(this));
 
-      this.prop('on').init && this.prop('on').init();
+      this.prop('on').init && this.prop('on').init($(this.class('selector')));
       this.change.observe(this);
       this.scroll.observe(this);
     }
@@ -309,13 +309,13 @@
           box-shadow: inset 0 1px 0 rgb(0, 0, 0);
         }
         ${this.class('selector')} ${this.class('target')} {
-          overflow: hidden;
+          visibility: hidden;
           position: absolute;
           top: 0;
           left: 0;
           width: 100%;
-          height: 0;
-          transition: height ${this.prop('duration')} ${this.prop('easing')};
+          opacity: 0;
+          transition: opacity ${this.prop('duration')} ${this.prop('easing')};
         }
         ${this.class('selector')} ${this.class('target')} > * {
           padding: 10px;
@@ -327,8 +327,9 @@
           width: 100%;
         }
         ${this.class('selector')} ${this.class('target')}${this.class('active')} {
+          visibility: visible;
           position: relative;
-          height: auto;
+          opacity: 1;
         }`
       });
 
@@ -348,8 +349,6 @@
 
       $buttons.removeClass(this.prop('active'));
       $targets.removeClass(this.prop('active'));
-
-      $target.height($target.prop('scrollHeight'));
 
       $button.addClass(this.prop('active'));
       $target.addClass(this.prop('active'));
@@ -395,7 +394,7 @@
 
     function init(){
       $(this.prop('container')).append(style.call(this));
-      this.prop('on').init && this.prop('on').init();
+      this.prop('on').init && this.prop('on').init($(this.class('selector')));
     }
 
     function style(){
