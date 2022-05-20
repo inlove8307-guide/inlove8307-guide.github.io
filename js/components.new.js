@@ -41,6 +41,18 @@
       return `.${this.prop(string)}`;
     };
 
+    this.nearest = function($current, selector){
+      var $current = $current.children()
+        , $filter = $();
+
+      while (!$filter.length) {
+        $filter = $current.filter(selector);
+        $current = $current.children();
+      }
+
+      return $filter;
+    };
+
     this.change = {
       observe: function(context, options){
         if (!context.prop('on').change) return;
@@ -101,6 +113,8 @@
 
 /* COLLAPSE */
 (function(global){
+  'use strict';
+
   global.collapse = function(){
     var component = new global.component({
       container: 'body',
@@ -133,27 +147,27 @@
           border-radius: 5px;
           box-shadow: inset 0 0 0 1px rgb(0, 0, 0);
         }
-        ${this.class('selector')} > ${this.class('item')} + ${this.class('item')} {
+        ${this.class('selector')} ${this.class('item')} + ${this.class('item')} {
           box-shadow: inset 0 1px 0 rgb(0, 0, 0);
         }
-        ${this.class('selector')} > ${this.class('item')} > ${this.class('button')} {
+        ${this.class('selector')} ${this.class('button')} {
           padding: 10px;
           width: 100%;
           text-align: left;
         }
-        ${this.class('selector')} > ${this.class('item')} > ${this.class('target')} {
+        ${this.class('selector')}  ${this.class('target')} {
           overflow: hidden;
           height: 0;
           box-shadow: inset 0 1px 0 rgba(0, 0, 0, 0);
           transition: all ${this.prop('duration')} ${this.prop('easing')};
         }
-        ${this.class('selector')} > ${this.class('item')} > ${this.class('target')} > * {
+        ${this.class('selector')} ${this.class('target')} > * {
           padding: 10px;
         }
-        ${this.class('selector')} > ${this.class('item')} > ${this.class('button')}${this.class('active')} {
+        ${this.class('selector')} ${this.class('button')}${this.class('active')} {
           font-weight: bold;
         }
-        ${this.class('selector')} > ${this.class('item')} > ${this.class('target')}${this.class('active')} {
+        ${this.class('selector')} ${this.class('target')}${this.class('active')} {
           box-shadow: inset 0 1px 0 rgba(0, 0, 0, 1);
           height: auto;
         }`
@@ -167,8 +181,9 @@
     function handlerClick(event){
       var context = this
         , $button = $(event.target).closest(this.class('button'))
+        , $selector = $button.closest(this.class('selector'))
         , $item = $button.closest(this.class('item'))
-        , $target = $item.children(this.class('target'));
+        , $target = this.nearest($item, this.class('target'));
 
       if (!$button.length) return;
 
@@ -176,14 +191,17 @@
         ? hide.call(this, $button, $target)
         : show.call(this, $button, $target);
 
-      if (!$item.closest(this.class('selector')).hasClass(this.prop('group'))) return;
+      if (!$selector.hasClass(this.prop('group'))) return;
 
-      $item.siblings().each(function(){
-        hide.call(context, $(this).children(context.class('button')), $(this).children(context.class('target')));
+      $item.siblings(this.class('item')).each(function(){
+        var $button = context.nearest($(this), context.class('button'))
+          , $target = context.nearest($(this), context.class('target'));
+
+        hide.call(context, $button, $target);
       });
     }
 
-    function handlerTransitionEnd(event){
+    function handlerEnd(event){
       $(event.target).removeAttr('style');
     }
 
@@ -193,7 +211,7 @@
       $button.addClass(this.prop('active'));
       $target.addClass(this.prop('active'));
 
-      this.prop('on').show && this.prop('on').show($.merge($button, $target));
+      this.prop('on').show && this.prop('on').show($button, $target);
     }
 
     function hide($button, $target){
@@ -204,13 +222,13 @@
     }
 
     component.bind = function(options){
-      $(this.prop('container')).off('TransitionEnd webkitTransitionEnd', `${this.class('selector')} > > ${this.class('target')}`);
-      $(this.prop('container')).off('click', `${this.class('selector')} > > ${this.class('button')}`);
+      $(this.prop('container')).off('TransitionEnd webkitTransitionEnd', `${this.class('selector')} ${this.class('target')}`);
+      $(this.prop('container')).off('click', `${this.class('selector')} ${this.class('button')}`);
 
       $.extend(this.options, options);
 
-      $(this.prop('container')).on('TransitionEnd webkitTransitionEnd', `${this.class('selector')} > > ${this.class('target')}`, handlerTransitionEnd.bind(this));
-      $(this.prop('container')).on('click', `${this.class('selector')} > > ${this.class('button')}`, handlerClick.bind(this));
+      $(this.prop('container')).on('TransitionEnd webkitTransitionEnd', `${this.class('selector')} ${this.class('target')}`, handlerEnd.bind(this));
+      $(this.prop('container')).on('click', `${this.class('selector')} ${this.class('button')}`, handlerClick.bind(this));
 
       init.call(this);
     };
@@ -221,6 +239,8 @@
 
 /* TABS */
 (function(global){
+  'use strict';
+
   global.tabs = function(){
     var component = new global.component({
       container: 'body',
@@ -254,17 +274,17 @@
           border-radius: 5px;
           box-shadow: inset 0 0 0 1px rgb(0, 0, 0);
         }
-        ${this.class('selector')} > ${this.class('buttons')} {
+        ${this.class('selector')} ${this.class('buttons')} {
           display: flex;
         }
-        ${this.class('selector')} > ${this.class('buttons')} > ${this.class('button')} {
+        ${this.class('selector')} ${this.class('button')} {
           flex-grow: 1;
           flex-shrink: 0;
           flex-basis: 0;
           position: relative;
           padding: 10px;
         }
-        ${this.class('selector')} > ${this.class('buttons')} > ${this.class('button')}::after {
+        ${this.class('selector')} ${this.class('button')}::after {
           content: '';
           position: absolute;
           bottom: 0;
@@ -275,11 +295,11 @@
           transform: translateX(-50%);
           transition: width ${this.prop('duration')} ${this.prop('easing')};
         }
-        ${this.class('selector')} > ${this.class('targets')} {
+        ${this.class('selector')} ${this.class('targets')} {
           position: relative;
           box-shadow: inset 0 1px 0 rgb(0, 0, 0);
         }
-        ${this.class('selector')} > ${this.class('targets')} > ${this.class('target')} {
+        ${this.class('selector')} ${this.class('target')} {
           overflow: hidden;
           position: absolute;
           top: 0;
@@ -288,16 +308,16 @@
           height: 0;
           transition: height ${this.prop('duration')} ${this.prop('easing')};
         }
-        ${this.class('selector')} > ${this.class('targets')} > ${this.class('target')} > * {
+        ${this.class('selector')} ${this.class('target')} > * {
           padding: 10px;
         }
-        ${this.class('selector')} > ${this.class('buttons')} > ${this.class('button')}${this.class('active')} {
+        ${this.class('selector')} ${this.class('button')}${this.class('active')} {
           font-weight: bold;
         }
-        ${this.class('selector')} > ${this.class('buttons')} > ${this.class('button')}${this.class('active')}::after {
+        ${this.class('selector')} ${this.class('button')}${this.class('active')}::after {
           width: 100%;
         }
-        ${this.class('selector')} > ${this.class('targets')} > ${this.class('target')}${this.class('active')} {
+        ${this.class('selector')} ${this.class('target')}${this.class('active')} {
           position: relative;
           height: auto;
         }`
@@ -310,34 +330,36 @@
 
     function handlerClick(event){
       var $button = $(event.target).closest(this.class('button'))
-        , $buttons = $button.closest(this.class('buttons'))
-        , $targets = $buttons.siblings(this.class('targets'))
-        , $target = $targets.children(this.class('target')).eq($button.index());
+        , $selector = $button.closest(this.class('selector'))
+        , $buttons = this.nearest($selector, this.class('button'))
+        , $targets = this.nearest($selector, this.class('target'))
+        , $target = $targets.eq($button.index());
 
       if (!$button.length) return;
 
-      $buttons.children(this.class('button')).removeClass(this.prop('active'));
-      $targets.children(this.class('target')).removeClass(this.prop('active'));
+      $buttons.removeClass(this.prop('active'));
+      $targets.removeClass(this.prop('active'));
 
       $target.height($target.prop('scrollHeight'));
+
       $button.addClass(this.prop('active'));
       $target.addClass(this.prop('active'));
 
-      this.prop('on').show && this.prop('on').show($.merge($button, $target));
+      this.prop('on').show && this.prop('on').show($button, $target);
     }
 
-    function handlerTransitionEnd(event){
+    function handlerEnd(event){
       $(event.target).removeAttr('style');
     }
 
     component.bind = function(options){
-      $(this.prop('container')).off('TransitionEnd webkitTransitionEnd', `${this.class('selector')} > > ${this.class('target')}`);
-      $(this.prop('container')).off('click', `${this.class('selector')} > > ${this.class('button')}`);
+      $(this.prop('container')).off('TransitionEnd webkitTransitionEnd', `${this.class('selector')} ${this.class('target')}`);
+      $(this.prop('container')).off('click', `${this.class('selector')} ${this.class('button')}`);
 
       $.extend(this.options, options);
 
-      $(this.prop('container')).on('TransitionEnd webkitTransitionEnd', `${this.class('selector')} > > ${this.class('target')}`, handlerTransitionEnd.bind(this));
-      $(this.prop('container')).on('click', `${this.class('selector')} > > ${this.class('button')}`, handlerClick.bind(this));
+      $(this.prop('container')).on('TransitionEnd webkitTransitionEnd', `${this.class('selector')} ${this.class('target')}`, handlerEnd.bind(this));
+      $(this.prop('container')).on('click', `${this.class('selector')} ${this.class('button')}`, handlerClick.bind(this));
 
       init.call(this);
     };
@@ -348,10 +370,14 @@
 
 /* ALERT */
 (function(global){
+  'use strict';
+
   global.alert = function(){
     var component = new global.component({
       container: 'body',
       selector: '_alert',
+      content: '_alert-content',
+      message: '_alert-message',
       active: '_alert-active',
       close: '_alert-close',
       duration: '250ms',
@@ -385,7 +411,7 @@
           pointer-events: none;
           transition: all ${this.prop('duration')} ${this.prop('easing')};
         }
-        ${this.class('selector')} > * {
+        ${this.class('selector')} ${this.class('content')} {
           display: flex;
           flex-direction: column;
           justify-content: center;
@@ -397,7 +423,7 @@
           background-color: rgb(255, 255, 255);
           box-shadow: 0 0 10px rgba(0, 0, 0, 0.25);
         }
-        ${this.class('selector')} > * > :not(${this.class('close')}) {
+        ${this.class('selector')} ${this.class('message')} {
           flex-grow: 1;
           flex-shrink: 0;
           flex-basis: 0;
@@ -431,8 +457,8 @@
     function html(options){
       var result =
         `<div class="${this.prop('selector')}">
-          <div>
-            <p>${options.message}</p>
+          <div class="${this.prop('content')}">
+            <div class="${this.prop('message')}">${options.message}</div>
             <button type="button" class="${this.prop('close')}">
               ${options.button}
             </button>
@@ -442,7 +468,7 @@
       return result;
     }
 
-    function handler(event){
+    function handlerEnd(event){
       if ($(event.target).hasClass(this.prop('active'))) {
         this.prop('on').show && this.prop('on').show($(event.target));
       }
@@ -479,7 +505,7 @@
 
       $.extend(this.options, options);
 
-      $(this.prop('container')).on('TransitionEnd webkitTransitionEnd', this.class('selector'), handler.bind(this));
+      $(this.prop('container')).on('TransitionEnd webkitTransitionEnd', this.class('selector'), handlerEnd.bind(this));
       $(this.prop('container')).on('click', `${this.class('selector')} ${this.class('close')}`, this.hide.bind(this));
 
       init.call(this);
@@ -499,141 +525,3 @@ $(function(global){
 
   global.init();
 }(window[namespace]));
-
-/* COLLAPSE CALLBACK */
-UI.collapse.bind({
-  on: {
-    init: function(){
-      console.log('collapse bind init');
-    },
-    change: function(){
-      console.log('collapse bind change');
-    },
-    scroll: function(){
-      console.log('collapse bind scroll');
-    },
-    show: function(){
-      console.log('collapse bind show');
-    },
-  }
-});
-
-UI.collapse.on({
-  init: function(){
-    console.log('collapse on object init');
-  },
-  change: function(){
-    console.log('collapse on object change');
-  },
-  scroll: function(){
-    console.log('collapse on object scroll');
-  },
-  show: function(){
-    console.log('collapse on object show');
-  },
-});
-
-UI.collapse.on('init', function(){
-  console.log('collapse on string init');
-});
-UI.collapse.on('change', function(){
-  console.log('collapse on string change');
-});
-UI.collapse.on('scroll', function(){
-  console.log('collapse on string scroll');
-});
-UI.collapse.on('show', function(){
-  console.log('collapse on string show');
-});
-
-/* TABS CALLBACK */
-UI.tabs.bind({
-  on: {
-    init: function(){
-      console.log('tabs bind init');
-    },
-    change: function(){
-      console.log('tabs bind change');
-    },
-    scroll: function(){
-      console.log('tabs bind scroll');
-    },
-    show: function(){
-      console.log('tabs bind show');
-    },
-  }
-});
-
-UI.tabs.on({
-  init: function(){
-    console.log('tabs on object init');
-  },
-  change: function(){
-    console.log('tabs on object change');
-  },
-  scroll: function(){
-    console.log('tabs on object scroll');
-  },
-  show: function(){
-    console.log('tabs on object show');
-  },
-});
-
-UI.tabs.on('init', function(){
-  console.log('tabs on string init');
-});
-UI.tabs.on('change', function(){
-  console.log('tabs on string change');
-});
-UI.tabs.on('scroll', function(){
-  console.log('tabs on string scroll');
-});
-UI.tabs.on('show', function(){
-  console.log('tabs on string show');
-});
-
-/* ALERT CALLBACK */
-UI.alert.bind({
-  on: {
-    init: function(){
-      console.log('alert bind init');
-    },
-    change: function(){
-      console.log('alert bind change');
-    },
-    show: function(){
-      console.log('alert bind show');
-    },
-    hide: function(){
-      console.log('alert bind hide');
-    },
-  }
-});
-
-UI.alert.on({
-  init: function(){
-    console.log('alert on object init');
-  },
-  change: function(){
-    console.log('alert on object change');
-  },
-  show: function(){
-    console.log('alert on object show');
-  },
-  hide: function(){
-    console.log('alert on object hide');
-  },
-});
-
-UI.alert.on('init', function(){
-  console.log('alert on string init');
-});
-UI.alert.on('change', function(){
-  console.log('alert on string change');
-});
-UI.alert.on('show', function(){
-  console.log('alert on string show');
-});
-UI.alert.on('hide', function(){
-  console.log('alert on string hide');
-});
