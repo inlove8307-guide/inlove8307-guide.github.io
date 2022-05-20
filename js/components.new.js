@@ -3,18 +3,33 @@
   'use strict';
 
   global.component = function(options){
-    this.options = $.extend({}, options);
-    this.callback = {};
+    this.options = $.extend({ on: {} }, options);
 
-    this.init = function(callback){
-      $.each(this.prop('on'), function(key, value){
-        this.callback[key] = value;
-      }.bind(this));
+    this.on = function(event, callback){
+      if (this.is('object', event)) {
+        $.each(event, function(key, value){
+          this.prop('on')[key] = value;
+        }.bind(this));
 
-      callback && callback.call(this);
+        this.bind && this.bind();
+      }
+
+      if (this.is('string', event) && callback) {
+        this.prop('on')[event] = callback;
+
+        switch(event){
+          case 'init': this.bind && this.bind(); break;
+          case 'change': this.change.observe(this); break;
+          case 'scroll': this.scroll.observe(this); break;
+        }
+      }
     };
 
-    this.prop = function(key, value){
+    this.is = function (type, target) {
+      return $.type(target) === type;
+    };
+
+    this.prop = function (key, value) {
       if (value) {
         this.options[key] = value;
         this.bind && this.bind();
@@ -22,31 +37,13 @@
       else return this.options[key];
     };
 
-    this.on = function(event, callback){
-      if (this.is('object', event)) {
-        $.each(event, function(key, value){
-          this.callback[key] = value;
-        }.bind(this));
-      }
-
-      if (this.is('string', event) && callback) {
-        this.callback[event] = callback;
-      }
-
-      this.bind && this.bind();
-    };
-
-    this.is = function(type, target){
-      return $.type(target) === type;
-    };
-
-    this.replace = function(string){
-      return string.replace(/[.#]/g, '');
+    this.class = function (string) {
+      return `.${this.prop(string)}`;
     };
 
     this.change = {
       observe: function(context, options){
-        if (!context.callback.change) return;
+        if (!context.prop('on').change) return;
 
         var config = $.extend({
           attributes: true,
@@ -57,9 +54,10 @@
           characterDataOldValue: true
         }, options);
 
-        this.observer = new MutationObserver(context.callback.change);
+        this.observer && this.disconnect();
+        this.observer = new MutationObserver(context.prop('on').change);
 
-        $.each($(context.options.selector), function(index, target){
+        $.each($(context.class('selector')), function(index, target){
           this.observer.observe(target, config);
         }.bind(this));
       },
@@ -73,7 +71,7 @@
 
     this.scroll = {
       observe: function(context, options){
-        if (!context.callback.scroll) return;
+        if (!context.prop('on').scroll) return;
 
         var config = $.extend({
           root: document,
@@ -81,9 +79,10 @@
           threshold: 0
         }, options);
 
-        this.observer = new IntersectionObserver(context.callback.scroll, config);
+        this.observer && this.disconnect();
+        this.observer = new IntersectionObserver(context.prop('on').scroll, config);
 
-        $.each($(context.options.selector), function(index, target){
+        $.each($(context.class('selector')), function(index, target){
           this.observer.observe(target);
         }.bind(this));
       },
@@ -105,19 +104,19 @@
   global.collapse = function(){
     var component = new global.component({
       container: 'body',
-      selector: '.data-collapse',
-      item: '.data-item',
-      button: '.data-button',
-      target: '.data-target',
-      active: '.data-active',
-      group: '.data-group',
+      selector: 'data-collapse',
+      item: 'data-item',
+      button: 'data-button',
+      target: 'data-target',
+      active: 'data-active',
+      group: 'data-group',
       duration: '250ms',
       easing: 'cubic-bezier(.65,.05,.36,1)'
     });
 
     function init(){
       $(this.prop('container')).append(style.call(this));
-      this.callback.init && this.callback.init();
+      this.prop('on').init && this.prop('on').init();
       this.change.observe(this);
       this.scroll.observe(this);
     }
@@ -127,56 +126,56 @@
         , tagname = 'style'
         , attribute = 'data-selector';
 
-      $(`${tagname}[${attribute}=${this.replace(this.prop('selector'))}]`).remove();
+      $(`${tagname}[${attribute}=${this.prop('selector')}]`).remove();
 
       result = $(`<${tagname}>`, { text:
-        `${this.prop('selector')} {
+        `${this.class('selector')} {
           border-radius: 5px;
           box-shadow: inset 0 0 0 1px rgb(0, 0, 0);
         }
-        ${this.prop('selector')} > ${this.prop('item')} + ${this.prop('item')} {
+        ${this.class('selector')} > ${this.class('item')} + ${this.class('item')} {
           box-shadow: inset 0 1px 0 rgb(0, 0, 0);
         }
-        ${this.prop('selector')} > ${this.prop('item')} > ${this.prop('button')} {
+        ${this.class('selector')} > ${this.class('item')} > ${this.class('button')} {
           padding: 10px;
           width: 100%;
           text-align: left;
         }
-        ${this.prop('selector')} > ${this.prop('item')} > ${this.prop('target')} {
+        ${this.class('selector')} > ${this.class('item')} > ${this.class('target')} {
           overflow: hidden;
           height: 0;
           box-shadow: inset 0 1px 0 rgba(0, 0, 0, 0);
           transition: all ${this.prop('duration')} ${this.prop('easing')};
         }
-        ${this.prop('selector')} > ${this.prop('item')} > ${this.prop('target')} > * {
+        ${this.class('selector')} > ${this.class('item')} > ${this.class('target')} > * {
           padding: 10px;
         }
-        ${this.prop('selector')} > ${this.prop('item')}${this.prop('active')} > ${this.prop('button')} {
+        ${this.class('selector')} > ${this.class('item')}${this.class('active')} > ${this.class('button')} {
           font-weight: bold;
         }
-        ${this.prop('selector')} > ${this.prop('item')}${this.prop('active')} > ${this.prop('target')} {
+        ${this.class('selector')} > ${this.class('item')}${this.class('active')} > ${this.class('target')} {
           box-shadow: inset 0 1px 0 rgba(0, 0, 0, 1);
           height: auto;
         }`
       });
 
-      result.attr(attribute, this.replace(this.prop('selector')));
+      result.attr(attribute, this.prop('selector'));
 
       return result;
     }
 
     function handlerClick(event){
       var context = this
-        , $button = $(event.target).closest(this.prop('button'))
-        , $item = $button.closest(this.prop('item'));
+        , $button = $(event.target).closest(this.class('button'))
+        , $item = $button.closest(this.class('item'));
 
       if (!$button.length) return;
 
-      $item.hasClass(this.replace(this.prop('active')))
+      $item.hasClass(this.prop('active'))
         ? hide.call(this, $item)
         : show.call(this, $item);
 
-      if (!$item.closest(this.prop('selector')).hasClass(this.replace(this.prop('group')))) return;
+      if (!$item.closest(this.class('selector')).hasClass(this.prop('group'))) return;
 
       $item.siblings().each(function(){
         hide.call(context, $(this));
@@ -188,33 +187,33 @@
     }
 
     function show($item){
-      var $target = $item.find(this.prop('target'));
+      var $target = $item.find(this.class('target'));
 
       $target.height(0);
       $target.height($target.prop('scrollHeight'));
-      $item.addClass(this.replace(this.prop('active')));
+      $item.addClass(this.prop('active'));
 
-      this.callback.show && this.callback.show($item);
+      this.prop('on').show && this.prop('on').show($item);
     }
 
     function hide($item){
-      var $target = $item.find(this.prop('target'));
+      var $target = $item.find(this.class('target'));
 
       $target.height($target.height());
       $target.height(0);
-      $item.removeClass(this.replace(this.prop('active')));
+      $item.removeClass(this.prop('active'));
     }
 
     component.bind = function(options){
-      $(this.prop('container')).off('TransitionEnd webkitTransitionEnd', `${this.prop('selector')} > > ${this.prop('target')}`);
-      $(this.prop('container')).off('click', `${this.prop('selector')} > > ${this.prop('button')}`);
+      $(this.prop('container')).off('TransitionEnd webkitTransitionEnd', `${this.class('selector')} > > ${this.class('target')}`);
+      $(this.prop('container')).off('click', `${this.class('selector')} > > ${this.class('button')}`);
 
       $.extend(this.options, options);
 
-      $(this.prop('container')).on('TransitionEnd webkitTransitionEnd', `${this.prop('selector')} > > ${this.prop('target')}`, handlerTransitionEnd.bind(this));
-      $(this.prop('container')).on('click', `${this.prop('selector')} > > ${this.prop('button')}`, handlerClick.bind(this));
+      $(this.prop('container')).on('TransitionEnd webkitTransitionEnd', `${this.class('selector')} > > ${this.class('target')}`, handlerTransitionEnd.bind(this));
+      $(this.prop('container')).on('click', `${this.class('selector')} > > ${this.class('button')}`, handlerClick.bind(this));
 
-      this.init(init);
+      init.call(this);
     };
 
     return component;
@@ -226,12 +225,12 @@
   global.tabs = function(){
     var component = new global.component({
       container: 'body',
-      selector: '.data-tabs',
-      buttons: '.data-buttons',
-      button: '.data-button',
-      contents: '.data-targets',
-      target: '.data-target',
-      active: '.data-active',
+      selector: 'data-tabs',
+      buttons: 'data-buttons',
+      button: 'data-button',
+      contents: 'data-targets',
+      target: 'data-target',
+      active: 'data-active',
       duration: '250ms',
       easing: 'cubic-bezier(.65,.05,.36,1)'
     });
@@ -239,7 +238,7 @@
     function init(){
       $(this.prop('container')).append(style.call(this));
 
-      this.callback.init && this.callback.init();
+      this.prop('on').init && this.prop('on').init();
       this.change.observe(this);
       this.scroll.observe(this);
     }
@@ -249,24 +248,24 @@
         , tagname = 'style'
         , attribute = 'data-selector';
 
-      $(`${tagname}[${attribute}=${this.replace(this.prop('selector'))}]`).remove();
+      $(`${tagname}[${attribute}=${this.prop('selector')}]`).remove();
 
       result = $(`<${tagname}>`, { text:
-        `${this.prop('selector')} {
+        `${this.class('selector')} {
           border-radius: 5px;
           box-shadow: inset 0 0 0 1px rgb(0, 0, 0);
         }
-        ${this.prop('selector')} > ${this.prop('buttons')} {
+        ${this.class('selector')} > ${this.class('buttons')} {
           display: flex;
         }
-        ${this.prop('selector')} > ${this.prop('buttons')} > ${this.prop('button')} {
+        ${this.class('selector')} > ${this.class('buttons')} > ${this.class('button')} {
           flex-grow: 1;
           flex-shrink: 0;
           flex-basis: 0;
           position: relative;
           padding: 10px;
         }
-        ${this.prop('selector')} > ${this.prop('buttons')} > ${this.prop('button')}::after {
+        ${this.class('selector')} > ${this.class('buttons')} > ${this.class('button')}::after {
           content: '';
           position: absolute;
           bottom: 0;
@@ -277,11 +276,11 @@
           transform: translateX(-50%);
           transition: width ${this.prop('duration')} ${this.prop('easing')};
         }
-        ${this.prop('selector')} > ${this.prop('contents')} {
+        ${this.class('selector')} > ${this.class('contents')} {
           position: relative;
           box-shadow: inset 0 1px 0 rgb(0, 0, 0);
         }
-        ${this.prop('selector')} > ${this.prop('contents')} > ${this.prop('target')} {
+        ${this.class('selector')} > ${this.class('contents')} > ${this.class('target')} {
           overflow: hidden;
           position: absolute;
           top: 0;
@@ -290,42 +289,42 @@
           height: 0;
           transition: height ${this.prop('duration')} ${this.prop('easing')};
         }
-        ${this.prop('selector')} > ${this.prop('contents')} > ${this.prop('target')} > * {
+        ${this.class('selector')} > ${this.class('contents')} > ${this.class('target')} > * {
           padding: 10px;
         }
-        ${this.prop('selector')} > ${this.prop('buttons')} > ${this.prop('button')}${this.prop('active')} {
+        ${this.class('selector')} > ${this.class('buttons')} > ${this.class('button')}${this.class('active')} {
           font-weight: bold;
         }
-        ${this.prop('selector')} > ${this.prop('buttons')} > ${this.prop('button')}${this.prop('active')}::after {
+        ${this.class('selector')} > ${this.class('buttons')} > ${this.class('button')}${this.class('active')}::after {
           width: 100%;
         }
-        ${this.prop('selector')} > ${this.prop('contents')} > ${this.prop('target')}${this.prop('active')} {
+        ${this.class('selector')} > ${this.class('contents')} > ${this.class('target')}${this.class('active')} {
           position: relative;
           height: auto;
         }`
       });
 
-      result.attr(attribute, this.replace(this.prop('selector')));
+      result.attr(attribute, this.prop('selector'));
 
       return result;
     }
 
     function handlerClick(event){
-      var $button = $(event.target).closest(this.prop('button'))
-        , $buttons = $button.closest(this.prop('buttons'))
-        , $contents = $buttons.next(this.prop('contents'))
-        , $target = $contents.children(this.prop('target')).eq($button.index());
+      var $button = $(event.target).closest(this.class('button'))
+        , $buttons = $button.closest(this.class('buttons'))
+        , $contents = $buttons.siblings(this.class('contents'))
+        , $target = $contents.children(this.class('target')).eq($button.index());
 
       if (!$button.length) return;
 
-      $buttons.children(this.prop('button')).removeClass(this.replace(this.prop('active')));
-      $contents.children(this.prop('target')).removeClass(this.replace(this.prop('active')));
+      $buttons.children(this.class('button')).removeClass(this.prop('active'));
+      $contents.children(this.class('target')).removeClass(this.prop('active'));
 
       $target.height($target.prop('scrollHeight'));
-      $button.addClass(this.replace(this.prop('active')));
-      $target.addClass(this.replace(this.prop('active')));
+      $button.addClass(this.prop('active'));
+      $target.addClass(this.prop('active'));
 
-      this.callback.show && this.callback.show($.merge($button, $target));
+      this.prop('on').show && this.prop('on').show($.merge($button, $target));
     }
 
     function handlerTransitionEnd(event){
@@ -333,15 +332,15 @@
     }
 
     component.bind = function(options){
-      $(this.prop('container')).off('TransitionEnd webkitTransitionEnd', `${this.prop('selector')} > > ${this.prop('target')}`);
-      $(this.prop('container')).off('click', `${this.prop('selector')} > > ${this.prop('button')}`);
+      $(this.prop('container')).off('TransitionEnd webkitTransitionEnd', `${this.class('selector')} > > ${this.class('target')}`);
+      $(this.prop('container')).off('click', `${this.class('selector')} > > ${this.class('button')}`);
 
       $.extend(this.options, options);
 
-      $(this.prop('container')).on('TransitionEnd webkitTransitionEnd', `${this.prop('selector')} > > ${this.prop('target')}`, handlerTransitionEnd.bind(this));
-      $(this.prop('container')).on('click', `${this.prop('selector')} > > ${this.prop('button')}`, handlerClick.bind(this));
+      $(this.prop('container')).on('TransitionEnd webkitTransitionEnd', `${this.class('selector')} > > ${this.class('target')}`, handlerTransitionEnd.bind(this));
+      $(this.prop('container')).on('click', `${this.class('selector')} > > ${this.class('button')}`, handlerClick.bind(this));
 
-      this.init(init);
+      init.call(this);
     };
 
     return component;
@@ -353,16 +352,16 @@
   global.alert = function(){
     var component = new global.component({
       container: 'body',
-      selector: '.data-alert',
-      active: '.data-active',
-      close: '.data-close',
+      selector: 'data-alert',
+      active: 'data-active',
+      close: 'data-close',
       duration: '250ms',
       easing: 'cubic-bezier(.86, 0, .07, 1)'
     });
 
     function init(){
       $(this.prop('container')).append(style.call(this));
-      this.callback.init && this.callback.init();
+      this.prop('on').init && this.prop('on').init();
     }
 
     function style(){
@@ -370,10 +369,10 @@
         , tagname = 'style'
         , attribute = 'data-selector';
 
-      $(`${tagname}[${attribute}=${this.replace(this.prop('selector'))}]`).remove();
+      $(`${tagname}[${attribute}=${this.prop('selector')}]`).remove();
 
       result = $(`<${tagname}>`, { text:
-        `${this.prop('selector')} {
+        `${this.class('selector')} {
           display: flex;
           justify-content: center;
           align-items: center;
@@ -387,7 +386,7 @@
           pointer-events: none;
           transition: all ${this.prop('duration')} ${this.prop('easing')};
         }
-        ${this.prop('selector')} > * {
+        ${this.class('selector')} > * {
           display: flex;
           flex-direction: column;
           justify-content: center;
@@ -399,7 +398,7 @@
           background-color: rgb(255, 255, 255);
           box-shadow: 0 0 10px rgba(0, 0, 0, 0.25);
         }
-        ${this.prop('selector')} > * > :not(${this.prop('close')}) {
+        ${this.class('selector')} > * > :not(${this.class('close')}) {
           flex-grow: 1;
           flex-shrink: 0;
           flex-basis: 0;
@@ -408,7 +407,7 @@
           align-items: center;
           width: 100%;
         }
-        ${this.prop('selector')} ${this.prop('close')} {
+        ${this.class('selector')} ${this.class('close')} {
           display: flex;
           justify-content: center;
           align-items: center;
@@ -419,23 +418,23 @@
           background-color: rgb(0, 0, 0);
           color: rgb(255, 255, 255);
         }
-        ${this.prop('selector')}${this.prop('active')} {
+        ${this.class('selector')}${this.class('active')} {
           pointer-events: initial;
           opacity: 1;
         }`
       });
 
-      result.attr(attribute, this.replace(this.prop('selector')));
+      result.attr(attribute, this.prop('selector'));
 
       return result;
     }
 
     function html(options){
       var result =
-        `<div class="${this.replace(this.prop('selector'))}">
+        `<div class="${this.prop('selector')}">
           <div>
             <p>${options.message}</p>
-            <button type="button" class="${this.replace(this.prop('close'))}">
+            <button type="button" class="${this.prop('close')}">
               ${options.button}
             </button>
           </div>
@@ -445,12 +444,11 @@
     }
 
     function handler(event){
-      if ($(event.target).hasClass(this.replace(this.prop('active')))) {
-        this.callback.show && this.callback.show($(event.target));
+      if ($(event.target).hasClass(this.prop('active'))) {
+        this.prop('on').show && this.prop('on').show($(event.target));
       }
       else {
-        this.callback.hide && this.callback.hide($(event.target));
-        this.change.disconnect();
+        this.prop('on').hide && this.prop('on').hide($(event.target));
         $(event.target).remove();
       }
     }
@@ -460,11 +458,11 @@
         , timeout;
 
       function active(){
-        $(this.prop('container')).find(this.prop('selector')).addClass(this.replace(this.prop('active')));
+        $(this.prop('container')).find(this.class('selector')).addClass(this.prop('active'));
         clearTimeout(timeout);
       }
 
-      $(this.prop('container')).find(this.prop('selector')).remove();
+      $(this.prop('container')).find(this.class('selector')).remove();
       $(this.prop('container')).append(html.call(this, options));
 
       timeout = setTimeout(active.bind(this), 1);
@@ -473,19 +471,19 @@
     };
 
     component.hide = function(options){
-      $(this.prop('container')).find(this.prop('selector')).removeClass(this.replace(this.prop('active')));
+      $(this.prop('container')).find(this.class('selector')).removeClass(this.prop('active'));
     };
 
     component.bind = function(options){
-      $(this.prop('container')).off('TransitionEnd webkitTransitionEnd', this.prop('selector'));
-      $(this.prop('container')).off('click', `${this.prop('selector')} ${this.prop('close')}`);
+      $(this.prop('container')).off('TransitionEnd webkitTransitionEnd', this.class('selector'));
+      $(this.prop('container')).off('click', `${this.class('selector')} ${this.class('close')}`);
 
       $.extend(this.options, options);
 
-      $(this.prop('container')).on('TransitionEnd webkitTransitionEnd', this.prop('selector'), handler.bind(this));
-      $(this.prop('container')).on('click', `${this.prop('selector')} ${this.prop('close')}`, this.hide.bind(this));
+      $(this.prop('container')).on('TransitionEnd webkitTransitionEnd', this.class('selector'), handler.bind(this));
+      $(this.prop('container')).on('click', `${this.class('selector')} ${this.class('close')}`, this.hide.bind(this));
 
-      this.init(init);
+      init.call(this);
     };
 
     return component;
