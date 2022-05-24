@@ -1,3 +1,7 @@
+var namespace = 'UI';
+
+window[namespace] = window[namespace] || {};
+
 /* COMPONENT */
 (function(global){
   'use strict';
@@ -77,7 +81,7 @@
         this.observer && this.observer.disconnect();
       },
       takeRecords: function(){
-        this.observer && this.observer.takeRecords();
+        return this.observer && this.observer.takeRecords();
       }
     };
 
@@ -102,7 +106,7 @@
         this.observer && this.observer.disconnect();
       },
       takeRecords: function(){
-        this.observer && this.observer.takeRecords();
+        return this.observer && this.observer.takeRecords();
       },
       unobserve: function(){
         this.observer && this.observer.unobserve();
@@ -526,9 +530,54 @@
 /* INITIAL */
 $(function(global){
   global.init = function(){
-    this.collapse.bind();
-    this.tabs.bind();
-    this.alert.bind();
+    this.collapse.bind({
+      on: {
+        init: function(){
+          console.log('collapse init', arguments);
+        },
+        change: function(){
+          console.log('collapse change', arguments);
+        },
+        scroll: function(){
+          console.log('collapse scroll', arguments);
+        },
+        show: function(){
+          console.log('collapse show', arguments);
+        },
+      }
+    });
+    this.tabs.bind({
+      on: {
+        init: function(){
+          console.log('tabs init', arguments);
+        },
+        change: function(){
+          console.log('tabs change', arguments);
+        },
+        scroll: function(){
+          console.log('tabs scroll', arguments);
+        },
+        show: function(){
+          console.log('tabs show', arguments);
+        },
+      }
+    });
+    this.alert.bind({
+      on: {
+        init: function(){
+          console.log('alert init', arguments);
+        },
+        change: function(){
+          console.log('alert change', arguments);
+        },
+        show: function(){
+          console.log('alert show', arguments);
+        },
+        hide: function(){
+          console.log('alert hide', arguments);
+        },
+      }
+    });
   };
 
   global.init();
