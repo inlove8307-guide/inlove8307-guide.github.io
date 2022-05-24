@@ -57,6 +57,18 @@ window[namespace] = window[namespace] || {};
       return $result;
     };
 
+    this.style = function(string){
+      var result
+        , tagname = 'style'
+        , attribute = 'data-selector';
+
+      $(`${tagname}[${attribute}=${this.prop('selector')}]`).remove();
+      result = $(`<${tagname}>`, { text: string });
+      result.attr(attribute, this.prop('selector'));
+
+      return result;
+    }
+
     this.change = {
       observe: function(context, options){
         if (!context.prop('on').change) return;
@@ -133,21 +145,15 @@ window[namespace] = window[namespace] || {};
     });
 
     function init(){
-      $(this.prop('container')).append(style.call(this));
+      $(this.prop('container')).append(this.style(style.call(this)));
       this.prop('on').init && this.prop('on').init($(this.class('selector')));
       this.change.observe(this);
       this.scroll.observe(this);
     }
 
     function style(){
-      var result
-        , tagname = 'style'
-        , attribute = 'data-selector';
-
-      $(`${tagname}[${attribute}=${this.prop('selector')}]`).remove();
-
-      result = $(`<${tagname}>`, { text:
-        `${this.class('selector')} {
+      return `
+        ${this.class('selector')} {
           overflow: hidden;
           border-radius: 5px;
           border: 1px solid rgb(0, 0, 0);
@@ -180,12 +186,7 @@ window[namespace] = window[namespace] || {};
         ${this.class('selector')} ${this.class('target')}${this.class('active')} {
           box-shadow: inset 0 1px 0 rgba(0, 0, 0, 1);
           height: auto;
-        }`
-      });
-
-      result.attr(attribute, this.prop('selector'));
-
-      return result;
+        }`;
     }
 
     function handlerClick(event){
@@ -263,22 +264,15 @@ window[namespace] = window[namespace] || {};
     });
 
     function init(){
-      $(this.prop('container')).append(style.call(this));
-
+      $(this.prop('container')).append(this.style(style.call(this)));
       this.prop('on').init && this.prop('on').init($(this.class('selector')));
       this.change.observe(this);
       this.scroll.observe(this);
     }
 
     function style(){
-      var result
-        , tagname = 'style'
-        , attribute = 'data-selector';
-
-      $(`${tagname}[${attribute}=${this.prop('selector')}]`).remove();
-
-      result = $(`<${tagname}>`, { text:
-        `${this.class('selector')} {
+      return `
+        ${this.class('selector')} {
           overflow: hidden;
           border-radius: 5px;
           border: 1px solid rgb(0, 0, 0);
@@ -336,12 +330,7 @@ window[namespace] = window[namespace] || {};
           position: relative;
           z-index: 0;
           opacity: 1;
-        }`
-      });
-
-      result.attr(attribute, this.prop('selector'));
-
-      return result;
+        }`;
     }
 
     function handlerClick(event){
@@ -397,19 +386,13 @@ window[namespace] = window[namespace] || {};
     });
 
     function init(){
-      $(this.prop('container')).append(style.call(this));
+      $(this.prop('container')).append(this.style(style.call(this)));
       this.prop('on').init && this.prop('on').init($(this.class('selector')));
     }
 
     function style(){
-      var result
-        , tagname = 'style'
-        , attribute = 'data-selector';
-
-      $(`${tagname}[${attribute}=${this.prop('selector')}]`).remove();
-
-      result = $(`<${tagname}>`, { text:
-        `${this.class('selector')} {
+      return `
+        ${this.class('selector')} {
           display: flex;
           justify-content: center;
           align-items: center;
@@ -458,17 +441,12 @@ window[namespace] = window[namespace] || {};
         ${this.class('selector')}${this.class('active')} {
           pointer-events: initial;
           opacity: 1;
-        }`
-      });
-
-      result.attr(attribute, this.prop('selector'));
-
-      return result;
+        }`;
     }
 
     function html(options){
-      var result =
-        `<div class="${this.prop('selector')}">
+      return `
+        <div class="${this.prop('selector')}">
           <div class="${this.prop('content')}">
             <div class="${this.prop('message')}">${options.message}</div>
             <button type="button" class="${this.prop('close')}">
@@ -476,8 +454,6 @@ window[namespace] = window[namespace] || {};
             </button>
           </div>
         </div>`;
-
-      return result;
     }
 
     function handlerEnd(event){
