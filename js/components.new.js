@@ -126,8 +126,8 @@ window[namespace] = window[namespace] || {};
       item: '_collapse-item',
       button: '_collapse-button',
       target: '_collapse-target',
-      active: '_collapse-active',
-      group: '_collapse-group',
+      active: '_active',
+      group: '_group',
       duration: '250ms',
       easing: 'cubic-bezier(.65,.05,.36,1)'
     });
@@ -257,7 +257,7 @@ window[namespace] = window[namespace] || {};
       button: '_tabs-button',
       targets: '_tabs-targets',
       target: '_tabs-target',
-      active: '_tabs-active',
+      active: '_active',
       duration: '250ms',
       easing: 'cubic-bezier(.65,.05,.36,1)'
     });
@@ -390,8 +390,8 @@ window[namespace] = window[namespace] || {};
       selector: '_alert',
       content: '_alert-content',
       message: '_alert-message',
-      active: '_alert-active',
       close: '_alert-close',
+      active: '_active',
       duration: '250ms',
       easing: 'cubic-bezier(.86, 0, .07, 1)'
     });
