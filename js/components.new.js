@@ -195,8 +195,6 @@ window[namespace] = window[namespace] || {};
         , $item = $button.closest(this.class('item'))
         , $target = this.nearest($item, this.class('target'));
 
-      if (!$button.length) return;
-
       $button.hasClass(this.prop('active'))
         ? hide.call(this, $button, $target)
         : show.call(this, $button, $target);
@@ -352,8 +350,6 @@ window[namespace] = window[namespace] || {};
         , $buttons = this.nearest($selector, this.class('button'))
         , $targets = this.nearest($selector, this.class('target'))
         , $target = $targets.eq($button.index());
-
-      if (!$button.length) return;
 
       $buttons.removeClass(this.prop('active'));
       $targets.removeClass(this.prop('active'));
