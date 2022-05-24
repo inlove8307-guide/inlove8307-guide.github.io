@@ -46,15 +46,15 @@ window[namespace] = window[namespace] || {};
     };
 
     this.nearest = function($current, selector){
-      var $current = $current.children()
-        , $filter = $();
+      var $result;
 
-      while (!$filter.length) {
-        $filter = $current.filter(selector);
+      do {
         $current = $current.children();
+        $result = $current.filter(selector);
       }
+      while (!$result.length)
 
-      return $filter;
+      return $result;
     };
 
     this.change = {
@@ -151,6 +151,7 @@ window[namespace] = window[namespace] || {};
           overflow: hidden;
           border-radius: 5px;
           border: 1px solid rgb(0, 0, 0);
+          background-color: rgb(255, 255, 255);
         }
         ${this.class('selector')} ${this.class('item')} + ${this.class('item')} {
           border-top: 1px solid rgb(0, 0, 0);
@@ -283,6 +284,7 @@ window[namespace] = window[namespace] || {};
           overflow: hidden;
           border-radius: 5px;
           border: 1px solid rgb(0, 0, 0);
+          background-color: rgb(255, 255, 255);
         }
         ${this.class('selector')} ${this.class('buttons')} {
           display: flex;
@@ -315,10 +317,11 @@ window[namespace] = window[namespace] || {};
         ${this.class('selector')} ${this.class('target')} {
           visibility: hidden;
           position: absolute;
+          z-index: -1;
           top: 0;
           left: 0;
           width: 100%;
-          opacity: 0;
+          opacity: 0.5;
           transition: opacity ${this.prop('duration')} ${this.prop('easing')};
         }
         ${this.class('selector')} ${this.class('target')} > * {
@@ -333,6 +336,7 @@ window[namespace] = window[namespace] || {};
         ${this.class('selector')} ${this.class('target')}${this.class('active')} {
           visibility: visible;
           position: relative;
+          z-index: 0;
           opacity: 1;
         }`
       });
