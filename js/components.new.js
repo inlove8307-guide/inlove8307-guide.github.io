@@ -63,6 +63,7 @@ window[namespace] = window[namespace] || {};
         , attribute = 'data-selector';
 
       $(`${tagname}[${attribute}=${this.prop('selector')}]`).remove();
+
       result = $(`<${tagname}>`, { text: string });
       result.attr(attribute, this.prop('selector'));
 
@@ -146,6 +147,7 @@ window[namespace] = window[namespace] || {};
 
     function init(){
       $(this.prop('container')).append(this.style(style.call(this)));
+
       this.prop('on').init && this.prop('on').init($(this.class('selector')));
       this.change.observe(this);
       this.scroll.observe(this);
@@ -265,6 +267,7 @@ window[namespace] = window[namespace] || {};
 
     function init(){
       $(this.prop('container')).append(this.style(style.call(this)));
+
       this.prop('on').init && this.prop('on').init($(this.class('selector')));
       this.change.observe(this);
       this.scroll.observe(this);
@@ -387,6 +390,7 @@ window[namespace] = window[namespace] || {};
 
     function init(){
       $(this.prop('container')).append(this.style(style.call(this)));
+
       this.prop('on').init && this.prop('on').init($(this.class('selector')));
     }
 
