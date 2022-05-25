@@ -461,13 +461,7 @@ window[namespace] = window[namespace] || {};
     }
 
     function handlerEnd(event){
-      if ($(event.target).hasClass(this.prop('active'))) {
-        this.prop('on').show && this.prop('on').show($(event.target));
-      }
-      else {
-        this.prop('on').hide && this.prop('on').hide($(event.target));
-        $(event.target).remove();
-      }
+      !$(event.target).hasClass(this.prop('active')) && $(event.target).remove();
     }
 
     component.show = function(options){
@@ -484,11 +478,21 @@ window[namespace] = window[namespace] || {};
 
       timeout = setTimeout(active.bind(this), 1);
 
+      this.prop('on').show && this.prop('on').show();
       this.change.observe(this);
+
+      options.confirm && this.on('confirm', options.confirm);
     };
 
-    component.hide = function(options){
+    component.hide = function(){
       $(this.prop('container')).find(this.class('selector')).removeClass(this.prop('active'));
+
+      this.prop('on').hide && this.prop('on').hide();
+
+      if (this.prop('on').confirm) {
+        this.prop('on').confirm();
+        delete this.prop('on').confirm;
+      }
     };
 
     component.bind = function(options){
