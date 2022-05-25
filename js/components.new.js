@@ -57,17 +57,12 @@ window[namespace] = window[namespace] || {};
       return $result;
     };
 
-    this.style = function(string){
-      var result
-        , tagname = 'style'
+    this.style = function(target, string){
+      var tagname = 'style'
         , attribute = 'data-selector';
 
       $(`${tagname}[${attribute}=${this.prop('selector')}]`).remove();
-
-      result = $(`<${tagname}>`, { text: string });
-      result.attr(attribute, this.prop('selector'));
-
-      return result;
+      $(target).append($(`<${tagname}>`, { text: string, attribute: this.prop('selector') }));
     }
 
     this.change = {
@@ -146,8 +141,7 @@ window[namespace] = window[namespace] || {};
     });
 
     function init(){
-      $(this.prop('container')).append(this.style(style.call(this)));
-
+      this.style(this.prop('container'), style.call(this));
       this.prop('on').init && this.prop('on').init($(this.class('selector')));
       this.change.observe(this);
       this.scroll.observe(this);
@@ -266,8 +260,7 @@ window[namespace] = window[namespace] || {};
     });
 
     function init(){
-      $(this.prop('container')).append(this.style(style.call(this)));
-
+      this.style(this.prop('container'), style.call(this));
       this.prop('on').init && this.prop('on').init($(this.class('selector')));
       this.change.observe(this);
       this.scroll.observe(this);
@@ -389,8 +382,7 @@ window[namespace] = window[namespace] || {};
     });
 
     function init(){
-      $(this.prop('container')).append(this.style(style.call(this)));
-
+      this.style(this.prop('container'), style.call(this));
       this.prop('on').init && this.prop('on').init($(this.class('selector')));
     }
 
