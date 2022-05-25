@@ -45,6 +45,14 @@ window[namespace] = window[namespace] || {};
       return `.${this.prop(string)}`;
     };
 
+    this.style = function(target, string){
+      var tagname = 'style'
+        , attribute = 'data-selector';
+
+      $(`${tagname}[${attribute}=${this.prop('selector')}]`).remove();
+      $(target).append($(`<${tagname}>`, { text: string, attribute: this.prop('selector') }));
+    };
+
     this.nearest = function($current, selector){
       var $result;
 
@@ -56,14 +64,6 @@ window[namespace] = window[namespace] || {};
 
       return $result;
     };
-
-    this.style = function(target, string){
-      var tagname = 'style'
-        , attribute = 'data-selector';
-
-      $(`${tagname}[${attribute}=${this.prop('selector')}]`).remove();
-      $(target).append($(`<${tagname}>`, { text: string, attribute: this.prop('selector') }));
-    }
 
     this.change = {
       observe: function(context, options){
