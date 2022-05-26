@@ -375,10 +375,14 @@ window[namespace] = window[namespace] || {};
       selector: '_alert',
       content: '_alert-content',
       message: '_alert-message',
-      close: '_alert-close',
+      buttons: '_alert-buttons',
+      confirm: '_alert-confirm',
+      cancel: '_alert-cancel',
       active: '_active',
+      disable: '_disable',
       duration: '250ms',
-      easing: 'cubic-bezier(.86, 0, .07, 1)'
+      easing: 'cubic-bezier(.86, 0, .07, 1)',
+      callback: {}
     });
 
     function init(){
@@ -423,16 +427,40 @@ window[namespace] = window[namespace] || {};
           align-items: center;
           width: 100%;
         }
-        ${this.class('selector')} ${this.class('close')} {
+        ${this.class('selector')} ${this.class('buttons')} {
+          display: flex;
+          margin-top: 16px;
+          width: 100%;
+        }
+        ${this.class('selector')} ${this.class('cancel')} {
+          flex-grow: 1;
+          flex-shrink: 0;
+          flex-basis: 0;
           display: flex;
           justify-content: center;
           align-items: center;
-          margin-top: 16px;
-          width: 100%;
+          height: 48px;
+          border-radius: 10px;
+          background-color: rgb(204, 204, 204);
+          color: rgb(0, 0, 0);
+        }
+        ${this.class('selector')} ${this.class('cancel')}${this.class('disable')} {
+          display: none;
+        }
+        ${this.class('selector')} ${this.class('confirm')} {
+          flex-grow: 1;
+          flex-shrink: 0;
+          flex-basis: 0;
+          display: flex;
+          justify-content: center;
+          align-items: center;
           height: 48px;
           border-radius: 10px;
           background-color: rgb(0, 0, 0);
           color: rgb(255, 255, 255);
+        }
+        ${this.class('selector')} ${this.class('cancel')} + ${this.class('confirm')} {
+          margin-left: 10px;
         }
         ${this.class('selector')}${this.class('active')} {
           pointer-events: initial;
@@ -442,14 +470,34 @@ window[namespace] = window[namespace] || {};
 
     function html(options){
       return `
-        <div class="${this.prop('selector')}">
+        <div class="${this.prop('selector')}" data-timestamp="${options.timestamp}">
           <div class="${this.prop('content')}">
             <div class="${this.prop('message')}">${options.message}</div>
-            <button type="button" class="${this.prop('close')}">
-              ${options.button}
-            </button>
+            <div class="${this.prop('buttons')}">
+              <button type="button" class="${this.prop('cancel')}">${options.cancel}</button>
+              <button type="button" class="${this.prop('confirm')}">${options.confirm}</button>
+            </div>
           </div>
         </div>`;
+    }
+
+    function handlerClick(event){
+      var $target = $(event.target)
+        , $selector = $target.closest(this.class('selector'))
+        , timestamp = $selector.data('timestamp');
+
+      if (this.prop('callback')[timestamp]) {
+        switch ($target.attr('class')) {
+          case this.prop('cancel'):
+            this.prop('callback')[timestamp].cancel && this.prop('callback')[timestamp].cancel();
+            break;
+          case this.prop('confirm'):
+            this.prop('callback')[timestamp].confirm && this.prop('callback')[timestamp].confirm();
+            break;
+        }
+      }
+
+      this.hide($selector, timestamp);
     }
 
     function handlerEnd(event){
@@ -457,44 +505,46 @@ window[namespace] = window[namespace] || {};
     }
 
     component.show = function(options){
-      var options = $.extend({ message: 'message', button: 'confirm' }, options)
+      var $selector = $(this.prop('container')).find(this.class('selector'))
+        , options = $.extend({ timestamp: +new Date(), message: 'message', confirm: 'confirm', cancel: null }, options)
         , timeout;
 
       function active(){
-        $(this.prop('container')).find(this.class('selector')).addClass(this.prop('active'));
+        $(this.class('selector')).addClass(this.prop('active'));
         clearTimeout(timeout);
       }
 
-      $(this.prop('container')).find(this.class('selector')).remove();
+      if ($selector.length) {
+        $selector.remove();
+        this.hide(null, $selector.data('timestamp'));
+      }
+
       $(this.prop('container')).append(html.call(this, options));
+      !options.cancel && $(this.class('selector')).find(this.class('cancel')).addClass(this.prop('disable'));
 
       timeout = setTimeout(active.bind(this), 1);
 
       this.prop('on').show && this.prop('on').show();
+      this.prop('callback')[options.timestamp] = options.on;
       this.change.observe(this);
-
-      options.confirm && this.on('confirm', options.confirm);
     };
 
-    component.hide = function(){
-      $(this.prop('container')).find(this.class('selector')).removeClass(this.prop('active'));
-
+    component.hide = function($selector, timestamp){
+      $selector && $selector.removeClass(this.prop('active'));
       this.prop('on').hide && this.prop('on').hide();
-
-      if (this.prop('on').confirm) {
-        this.prop('on').confirm();
-        delete this.prop('on').confirm;
-      }
+      delete this.prop('callback')[timestamp];
     };
 
     component.bind = function(options){
       $(this.prop('container')).off('TransitionEnd webkitTransitionEnd', this.class('selector'));
-      $(this.prop('container')).off('click', `${this.class('selector')} ${this.class('close')}`);
+      $(this.prop('container')).off('click', `${this.class('selector')} ${this.class('cancel')}`);
+      $(this.prop('container')).off('click', `${this.class('selector')} ${this.class('confirm')}`);
 
       $.extend(this.options, options);
 
       $(this.prop('container')).on('TransitionEnd webkitTransitionEnd', this.class('selector'), handlerEnd.bind(this));
-      $(this.prop('container')).on('click', `${this.class('selector')} ${this.class('close')}`, this.hide.bind(this));
+      $(this.prop('container')).on('click', `${this.class('selector')} ${this.class('cancel')}`, handlerClick.bind(this));
+      $(this.prop('container')).on('click', `${this.class('selector')} ${this.class('confirm')}`, handlerClick.bind(this));
 
       init.call(this);
     };
@@ -519,6 +569,20 @@ $(function(global){
         },
         show: function(){
           console.log('collapse show', arguments);
+
+          UI.alert.show({
+            message: 'collapse show',
+            confirm: 'confirm',
+            cancel: 'cancel',
+            on: {
+              confirm: function(){
+                console.log('callback confirm')
+              },
+              cancel: function(){
+                console.log('callback cancel')
+              }
+            }
+          });
         },
       }
     });
@@ -535,6 +599,20 @@ $(function(global){
         },
         show: function(){
           console.log('tabs show', arguments);
+
+          UI.alert.show({
+            message: 'tabs show',
+            confirm: '확인',
+            cancel: '취소',
+            on: {
+              confirm: function(){
+                console.log('callback confirm')
+              },
+              cancel: function(){
+                console.log('callback cancel')
+              }
+            }
+          });
         },
       }
     });
