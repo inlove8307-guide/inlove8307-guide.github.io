@@ -459,7 +459,7 @@ window[namespace] = window[namespace] || {};
           background-color: rgb(0, 0, 0);
           color: rgb(255, 255, 255);
         }
-        ${this.class('selector')} ${this.class('cancel')} + ${this.class('confirm')} {
+        ${this.class('selector')} ${this.class('cancel')}:not(${this.class('disable')}) + ${this.class('confirm')} {
           margin-left: 10px;
         }
         ${this.class('selector')}${this.class('active')} {
@@ -557,82 +557,70 @@ window[namespace] = window[namespace] || {};
 $(function(global){
   global.init = function(){
     this.collapse.bind({
-      on: {
-        init: function(){
-          console.log('collapse init', arguments);
-        },
-        change: function(){
-          console.log('collapse change', arguments);
-        },
-        scroll: function(){
-          console.log('collapse scroll', arguments);
-        },
-        show: function(){
-          console.log('collapse show', arguments);
-
-          UI.alert.show({
-            message: 'collapse show',
-            confirm: 'confirm',
-            cancel: 'cancel',
-            on: {
-              confirm: function(){
-                console.log('callback confirm')
-              },
-              cancel: function(){
-                console.log('callback cancel')
-              }
-            }
-          });
-        },
-      }
+      // on: {
+      //   init: function(){
+      //     console.log('collapse init', arguments);
+      //   },
+      //   change: function(){
+      //     console.log('collapse change', arguments);
+      //   },
+      //   scroll: function(){
+      //     console.log('collapse scroll', arguments);
+      //   },
+      //   show: function(){
+      //     console.log('collapse show', arguments);
+      //   },
+      // }
     });
+
     this.tabs.bind({
-      on: {
-        init: function(){
-          console.log('tabs init', arguments);
-        },
-        change: function(){
-          console.log('tabs change', arguments);
-        },
-        scroll: function(){
-          console.log('tabs scroll', arguments);
-        },
-        show: function(){
-          console.log('tabs show', arguments);
-
-          UI.alert.show({
-            message: 'tabs show',
-            confirm: '확인',
-            cancel: '취소',
-            on: {
-              confirm: function(){
-                console.log('callback confirm')
-              },
-              cancel: function(){
-                console.log('callback cancel')
-              }
-            }
-          });
-        },
-      }
+      // on: {
+      //   init: function(){
+      //     console.log('tabs init', arguments);
+      //   },
+      //   change: function(){
+      //     console.log('tabs change', arguments);
+      //   },
+      //   scroll: function(){
+      //     console.log('tabs scroll', arguments);
+      //   },
+      //   show: function(){
+      //     console.log('tabs show', arguments);
+      //   },
+      // }
     });
+
     this.alert.bind({
-      on: {
-        init: function(){
-          console.log('alert init', arguments);
-        },
-        change: function(){
-          console.log('alert change', arguments);
-        },
-        show: function(){
-          console.log('alert show', arguments);
-        },
-        hide: function(){
-          console.log('alert hide', arguments);
-        },
-      }
+      // on: {
+      //   init: function(){
+      //     console.log('alert init', arguments);
+      //   },
+      //   change: function(){
+      //     console.log('alert change', arguments);
+      //   },
+      //   show: function(){
+      //     console.log('alert show', arguments);
+      //   },
+      //   hide: function(){
+      //     console.log('alert hide', arguments);
+      //   },
+      // }
     });
   };
 
   global.init();
 }(window[namespace]));
+
+// UI.alert.show({
+//   message: 'message',
+//   confirm: 'confirm',
+//   cancel: 'cancel',
+//   on: {
+//     confirm: function(){
+//       console.log('collapse confirm');
+//     },
+//     cancel: function(){
+//       console.log('collapse cancel');
+//     }
+//   }
+// });
