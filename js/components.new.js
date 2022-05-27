@@ -381,8 +381,7 @@ window[namespace] = window[namespace] || {};
       active: '_active',
       disable: '_disable',
       duration: '250ms',
-      easing: 'cubic-bezier(.86, 0, .07, 1)',
-      callback: {}
+      easing: 'cubic-bezier(.86, 0, .07, 1)'
     });
 
     function init(){
@@ -444,9 +443,6 @@ window[namespace] = window[namespace] || {};
           background-color: rgb(204, 204, 204);
           color: rgb(0, 0, 0);
         }
-        ${this.class('selector')} ${this.class('cancel')}${this.class('disable')} {
-          display: none;
-        }
         ${this.class('selector')} ${this.class('confirm')} {
           flex-grow: 1;
           flex-shrink: 0;
@@ -459,7 +455,7 @@ window[namespace] = window[namespace] || {};
           background-color: rgb(0, 0, 0);
           color: rgb(255, 255, 255);
         }
-        ${this.class('selector')} ${this.class('cancel')}:not(${this.class('disable')}) + ${this.class('confirm')} {
+        ${this.class('selector')} ${this.class('cancel')} + ${this.class('confirm')} {
           margin-left: 10px;
         }
         ${this.class('selector')}${this.class('active')} {
@@ -470,7 +466,7 @@ window[namespace] = window[namespace] || {};
 
     function html(options){
       return `
-        <div class="${this.prop('selector')}" data-timestamp="${options.timestamp}">
+        <div class="${this.prop('selector')}">
           <div class="${this.prop('content')}">
             <div class="${this.prop('message')}">${options.message}</div>
             <div class="${this.prop('buttons')}">
@@ -482,22 +478,12 @@ window[namespace] = window[namespace] || {};
     }
 
     function handlerClick(event){
-      var $target = $(event.target)
-        , $selector = $target.closest(this.class('selector'))
-        , timestamp = $selector.data('timestamp');
+      var $target = $(event.target);
 
-      if (this.prop('callback')[timestamp]) {
-        switch ($target.attr('class')) {
-          case this.prop('cancel'):
-            this.prop('callback')[timestamp].cancel && this.prop('callback')[timestamp].cancel();
-            break;
-          case this.prop('confirm'):
-            this.prop('callback')[timestamp].confirm && this.prop('callback')[timestamp].confirm();
-            break;
-        }
-      }
+      $target.hasClass(this.prop('cancel')) && this.prop('on').cancel && this.prop('on').cancel();
+      $target.hasClass(this.prop('confirm')) && this.prop('on').confirm && this.prop('on').confirm();
 
-      this.hide($selector, timestamp);
+      this.hide();
     }
 
     function handlerEnd(event){
@@ -505,34 +491,39 @@ window[namespace] = window[namespace] || {};
     }
 
     component.show = function(options){
-      var $selector = $(this.prop('container')).find(this.class('selector'))
-        , options = $.extend({ timestamp: +new Date(), message: 'message', confirm: 'confirm', cancel: null }, options)
+      var $selector = $(this.class('selector'))
+        , options = $.extend({ message: 'message', confirm: 'confirm', cancel: null }, options)
         , timeout;
 
-      function active(){
-        $(this.class('selector')).addClass(this.prop('active'));
+      function active($selector){
+        $selector.addClass(this.prop('active'));
         clearTimeout(timeout);
       }
 
       if ($selector.length) {
         $selector.remove();
-        this.hide(null, $selector.data('timestamp'));
+        this.hide();
       }
 
       $(this.prop('container')).append(html.call(this, options));
-      !options.cancel && $(this.class('selector')).find(this.class('cancel')).addClass(this.prop('disable'));
+      $selector = $(this.class('selector'));
+      !options.cancel && $selector.find(this.class('cancel')).remove();
+      timeout = setTimeout(active.bind(this, $selector), 1);
 
-      timeout = setTimeout(active.bind(this), 1);
+      if (options.on) {
+        this.on('confirm', options.on.confirm);
+        this.on('cancel', options.on.cancel);
+      }
 
       this.prop('on').show && this.prop('on').show();
-      this.prop('callback')[options.timestamp] = options.on;
       this.change.observe(this);
     };
 
-    component.hide = function($selector, timestamp){
-      $selector && $selector.removeClass(this.prop('active'));
+    component.hide = function(){
+      $(this.class('selector')).removeClass(this.prop('active'));
       this.prop('on').hide && this.prop('on').hide();
-      delete this.prop('callback')[timestamp];
+      delete this.prop('on').confirm;
+      delete this.prop('on').cancel;
     };
 
     component.bind = function(options){
@@ -556,71 +547,10 @@ window[namespace] = window[namespace] || {};
 /* INITIAL */
 $(function(global){
   global.init = function(){
-    this.collapse.bind({
-      // on: {
-      //   init: function(){
-      //     console.log('collapse init', arguments);
-      //   },
-      //   change: function(){
-      //     console.log('collapse change', arguments);
-      //   },
-      //   scroll: function(){
-      //     console.log('collapse scroll', arguments);
-      //   },
-      //   show: function(){
-      //     console.log('collapse show', arguments);
-      //   },
-      // }
-    });
-
-    this.tabs.bind({
-      // on: {
-      //   init: function(){
-      //     console.log('tabs init', arguments);
-      //   },
-      //   change: function(){
-      //     console.log('tabs change', arguments);
-      //   },
-      //   scroll: function(){
-      //     console.log('tabs scroll', arguments);
-      //   },
-      //   show: function(){
-      //     console.log('tabs show', arguments);
-      //   },
-      // }
-    });
-
-    this.alert.bind({
-      // on: {
-      //   init: function(){
-      //     console.log('alert init', arguments);
-      //   },
-      //   change: function(){
-      //     console.log('alert change', arguments);
-      //   },
-      //   show: function(){
-      //     console.log('alert show', arguments);
-      //   },
-      //   hide: function(){
-      //     console.log('alert hide', arguments);
-      //   },
-      // }
-    });
+    this.collapse.bind();
+    this.tabs.bind();
+    this.alert.bind();
   };
 
   global.init();
 }(window[namespace]));
-
-// UI.alert.show({
-//   message: 'message',
-//   confirm: 'confirm',
-//   cancel: 'cancel',
-//   on: {
-//     confirm: function(){
-//       console.log('collapse confirm');
-//     },
-//     cancel: function(){
-//       console.log('collapse cancel');
-//     }
-//   }
-// });

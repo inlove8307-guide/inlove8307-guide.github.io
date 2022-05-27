@@ -9,10 +9,6 @@
   <link rel="stylesheet" href="../../lib/prism/prism.okaidia.css">
 
   <script src="../../lib/jquery/jquery-3.5.1.min.js"></script>
-  <script src="../../lib/lodash.min.js"></script>
-  <script src="../../lib/moment/moment.min.js"></script>
-  <script src="../../lib/anime.js/anime.min.js"></script>
-  <script src="../../lib/gsap/gsap.min.js"></script>
   <script src="../../lib/prism/prism.js"></script>
 </head>
 <body>
@@ -151,14 +147,70 @@
             <!-- [S] BUTTON -->
             <div class="guide-viewer__tab">
               <button class="guide-tab__button" data-lang="html">html</button>
-              <button class="guide-tab__button" data-lang="css">css</button>
+              <!-- <button class="guide-tab__button" data-lang="css">css</button> -->
               <button class="guide-tab__button" data-lang="script">script</button>
             </div>
             <!-- [E] BUTTON -->
             <!-- [S] CODE -->
             <div class="guide-viewer__syntax">
               <pre class="guide-viewer__pre line-numbers" data-lang="html">
-                <!-- html -->
+                <code class="guide-viewer__code language-html">
+                  <!-- [CASE 01] -->
+                  <div class="_collapse">
+                    <div class="_collapse-item">
+                      <button type="button" class="_collapse-button _active">
+                        <span>BUTTON 1</span>
+                      </button>
+                      <div class="_collapse-target _active">
+                        <div>CONTENT 1</div>
+                      </div>
+                    </div>
+                    <div class="_collapse-item">
+                      <button type="button" class="_collapse-button">
+                        <span>BUTTON 2</span>
+                      </button>
+                      <div class="_collapse-target">
+                        <div>CONTENT 2</div>
+                      </div>
+                    </div>
+                    <div class="_collapse-item">
+                      <button type="button" class="_collapse-button">
+                        <span>BUTTON 3</span>
+                      </button>
+                      <div class="_collapse-target">
+                        <div>CONTENT 3</div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- [CASE 02] -->
+                  <div class="_collapse _group">
+                    <div class="_collapse-item">
+                      <button type="button" class="_collapse-button _active">
+                        <span>BUTTON 1</span>
+                      </button>
+                      <div class="_collapse-target _active">
+                        <div>CONTENT 1</div>
+                      </div>
+                    </div>
+                    <div class="_collapse-item">
+                      <button type="button" class="_collapse-button">
+                        <span>BUTTON 2</span>
+                      </button>
+                      <div class="_collapse-target">
+                        <div>CONTENT 2</div>
+                      </div>
+                    </div>
+                    <div class="_collapse-item">
+                      <button type="button" class="_collapse-button">
+                        <span>BUTTON 3</span>
+                      </button>
+                      <div class="_collapse-target">
+                        <div>CONTENT 3</div>
+                      </div>
+                    </div>
+                  </div>
+                </code>
               </pre>
               <pre class="guide-viewer__pre line-numbers" data-lang="css">
                 <code class="guide-viewer__code language-css">
@@ -167,7 +219,35 @@
               </pre>
               <pre class="guide-viewer__pre line-numbers" data-lang="script">
                 <code class="guide-viewer__code language-js">
-                  // script
+                  UI.collapse.bind({
+                    container: 'body',
+                    selector: '_collapse',
+                    item: '_collapse-item',
+                    button: '_collapse-button',
+                    target: '_collapse-target',
+                    active: '_active',
+                    group: '_group',
+                    duration: '250ms',
+                    easing: 'cubic-bezier(.65,.05,.36,1)',
+                    on: {
+                      init: function(){ ... },
+                      change: function(){ ... },
+                      scroll: function(){ ... },
+                      show: function(){ ... }
+                    }
+                  });
+
+                  UI.collapse.on({
+                    init: function(){ ... },
+                    change: function(){ ... },
+                    scroll: function(){ ... },
+                    show: function(){ ... }
+                  });
+
+                  UI.collapse.on('init', function(){ ... });
+                  UI.collapse.on('change', function(){ ... });
+                  UI.collapse.on('scroll', function(){ ... });
+                  UI.collapse.on('show', function(){ ... });
                 </code>
               </pre>
             </div>
@@ -247,14 +327,39 @@
             <!-- [S] BUTTON -->
             <div class="guide-viewer__tab">
               <button class="guide-tab__button" data-lang="html">html</button>
-              <button class="guide-tab__button" data-lang="css">css</button>
+              <!-- <button class="guide-tab__button" data-lang="css">css</button> -->
               <button class="guide-tab__button" data-lang="script">script</button>
             </div>
             <!-- [E] BUTTON -->
             <!-- [S] CODE -->
             <div class="guide-viewer__syntax">
               <pre class="guide-viewer__pre line-numbers" data-lang="html">
-                <!-- html -->
+                <code class="guide-viewer__code language-html">
+                  <div class="_tabs">
+                    <div class="_tabs-buttons">
+                      <button type="button" class="_tabs-button _active">
+                        <span>BUTTON 1</span>
+                      </button>
+                      <button type="button" class="_tabs-button">
+                        <span>BUTTON 2</span>
+                      </button>
+                      <button type="button" class="_tabs-button">
+                        <span>BUTTON 3</span>
+                      </button>
+                    </div>
+                    <div class="_tabs-targets">
+                      <div class="_tabs-target _active">
+                        <div>CONTENTS 1</div>
+                      </div>
+                      <div class="_tabs-target">
+                        <div>CONTENTS 2</div>
+                      </div>
+                      <div class="_tabs-target">
+                        <div>CONTENTS 3</div>
+                      </div>
+                    </div>
+                  </div>
+                </code>
               </pre>
               <pre class="guide-viewer__pre line-numbers" data-lang="css">
                 <code class="guide-viewer__code language-css">
@@ -263,7 +368,125 @@
               </pre>
               <pre class="guide-viewer__pre line-numbers" data-lang="script">
                 <code class="guide-viewer__code language-js">
-                  // script
+                  UI.tabs.bind({
+                    container: 'body',
+                    selector: '_tabs',
+                    buttons: '_tabs-buttons',
+                    button: '_tabs-button',
+                    targets: '_tabs-targets',
+                    target: '_tabs-target',
+                    active: '_active',
+                    duration: '250ms',
+                    easing: 'cubic-bezier(.65,.05,.36,1)',
+                    on: {
+                      init: function(){ ... },
+                      change: function(){ ... },
+                      scroll: function(){ ... },
+                      show: function(){ ... }
+                    }
+                  });
+
+                  UI.tabs.on({
+                    init: function(){ ... },
+                    change: function(){ ... },
+                    scroll: function(){ ... },
+                    show: function(){ ... }
+                  });
+
+                  UI.tabs.on('init', function(){ ... });
+                  UI.tabs.on('change', function(){ ... });
+                  UI.tabs.on('scroll', function(){ ... });
+                  UI.tabs.on('show', function(){ ... });
+                </code>
+              </pre>
+            </div>
+            <!-- [E] CODE -->
+          </div>
+          <!-- [E] GUIDE -->
+        </article>
+
+        <article class="guide-viewer">
+          <!-- GUIDE TITLE -->
+          <h3 class="guide-viewer__title">Alert</h3>
+          <!-- [S] GUIDE -->
+          <div class="guide-viewer__content">
+            <!-- [S] VIEW -->
+            <div class="guide-viewer__view">
+
+              <button type="button" class="button--primary" onclick="UI.alert.show({message: 'Alert', confirm: 'confirm'})">alert</button>
+              <button type="button" class="button--primary" onclick="UI.alert.show({message: 'Confirm', confirm: 'confirm', cancel: 'cancel'})">confirm</button>
+
+            </div>
+            <!-- [E] VIEW -->
+            <!-- [S] COMMENT -->
+            <!-- <ul class="guide-viewer__comment">
+              <li class="comment__text"># 코멘트</li>
+            </ul> -->
+            <!-- [E] COMMENT -->
+            <!-- [S] BUTTON -->
+            <div class="guide-viewer__tab">
+              <!-- <button class="guide-tab__button" data-lang="html">html</button> -->
+              <!-- <button class="guide-tab__button" data-lang="css">css</button> -->
+              <button class="guide-tab__button" data-lang="script">script</button>
+            </div>
+            <!-- [E] BUTTON -->
+            <!-- [S] CODE -->
+            <div class="guide-viewer__syntax">
+              <pre class="guide-viewer__pre line-numbers" data-lang="html">
+                <code class="guide-viewer__code language-html">
+                  <!-- html -->
+                </code>
+              </pre>
+              <pre class="guide-viewer__pre line-numbers" data-lang="css">
+                <code class="guide-viewer__code language-css">
+                  /* css */
+                </code>
+              </pre>
+              <pre class="guide-viewer__pre line-numbers" data-lang="script">
+                <code class="guide-viewer__code language-js">
+                  UI.alert.bind({
+                    container: 'body',
+                    selector: '_alert',
+                    content: '_alert-content',
+                    message: '_alert-message',
+                    buttons: '_alert-buttons',
+                    confirm: '_alert-confirm',
+                    cancel: '_alert-cancel',
+                    active: '_active',
+                    disable: '_disable',
+                    duration: '250ms',
+                    easing: 'cubic-bezier(.86, 0, .07, 1)'
+                    on: {
+                      init: function(){ ... },
+                      change: function(){ ... },
+                      show: function(){ ... },
+                      hide: function(){ ... }
+                    }
+                  });
+
+                  UI.alert.on({
+                    init: function(){ ... },
+                    change: function(){ ... },
+                    show: function(){ ... },
+                    hide: function(){ ... }
+                  });
+
+                  UI.alert.on('init', function(){ ... });
+                  UI.alert.on('change', function(){ ... });
+                  UI.alert.on('show', function(){ ... });
+                  UI.alert.on('hide', function(){ ... });
+
+                  UI.alert.show({
+                    message: 'message',
+                    confirm: 'confirm',
+                    cancel: 'cancel',
+                    on: {
+                      confirm: function(){ ... },
+                      cancel: function(){ ... }
+                    }
+                  });
+
+                  UI.alert.hide();
                 </code>
               </pre>
             </div>
@@ -279,9 +502,5 @@
   <script src="../../js/guide.js"></script>
   <script src="../../js/global.js"></script>
   <script src="../../js/components.new.js"></script>
-  <script>
-    GUIDE.include.header();
-    GUIDE.include.menu('C0302');
-  </script>
 </body>
 </html>
