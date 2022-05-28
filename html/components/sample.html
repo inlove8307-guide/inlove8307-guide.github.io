@@ -18,6 +18,104 @@
 
         <article class="guide-viewer">
           <!-- GUIDE TITLE -->
+          <h3 class="guide-viewer__title">Button</h3>
+          <!-- [S] GUIDE -->
+          <div class="guide-viewer__content">
+            <!-- [S] VIEW -->
+            <div class="guide-viewer__view">
+
+              <div class="button-group">
+                <button type="button" class="button">
+                  <span class="button-label">button</span>
+                </button>
+                <button type="button" class="button dark">
+                  <span class="button-label">button</span>
+                </button>
+                <button type="button" class="button" disabled>
+                  <span class="button-label">disabled</span>
+                </button>
+                <button type="button" class="button dark" disabled>
+                  <span class="button-label">disabled</span>
+                </button>
+              </div>
+
+              <div class="button-group">
+                <a href="#" class="button">
+                  <span class="button-label">anchor</span>
+                </a>
+                <a href="#" class="button dark">
+                  <span class="button-label">anchor</span>
+                </a>
+                <a href="#" class="button disabled">
+                  <span class="button-label">disabled</span>
+                </a>
+                <a href="#" class="button dark disabled">
+                  <span class="button-label">disabled</span>
+                </a>
+              </div>
+
+              <div class="button-group">
+                <button type="button" class="button">
+                  <i class="button-icon icon-003"></i>
+                  <span class="button-label">icon</span>
+                </button>
+                <button type="button" class="button">
+                  <span class="button-label">icon</span>
+                  <i class="button-icon icon-003"></i>
+                </button>
+                <button type="button" class="button" disabled>
+                  <i class="button-icon icon-003"></i>
+                  <span class="button-label">icon</span>
+                </button>
+                <button type="button" class="button" disabled>
+                  <span class="button-label">icon</span>
+                  <i class="button-icon icon-003"></i>
+                </button>
+              </div>
+
+              <div class="button-group center">
+                <button type="button" class="button">
+                  <span class="button-label">center</span>
+                </button>
+                <button type="button" class="button">
+                  <span class="button-label">center</span>
+                </button>
+                <button type="button" class="button">
+                  <span class="button-label">center</span>
+                </button>
+              </div>
+
+              <div class="button-group column">
+                <button type="button" class="button grow">
+                  <span class="button-label">column</span>
+                </button>
+                <button type="button" class="button dark grow">
+                  <span class="button-label">column</span>
+                </button>
+              </div>
+
+              <div class="button-group">
+                <button type="button" class="button grow">
+                  <span class="button-label">grow</span>
+                </button>
+                <button type="button" class="button dark grow">
+                  <span class="button-label">grow</span>
+                </button>
+              </div>
+
+            </div>
+            <!-- [E] VIEW -->
+            <!-- [S] COMMENT -->
+            <!-- <ul class="guide-viewer__comment">
+              <li class="comment__text"># 코멘트</li>
+            </ul> -->
+            <!-- [E] COMMENT -->
+          </div>
+          <!-- [E] GUIDE -->
+        </article>
+
+        <article class="guide-viewer">
+          <!-- GUIDE TITLE -->
           <h3 class="guide-viewer__title">Collapse</h3>
           <!-- [S] GUIDE -->
           <div class="guide-viewer__content">
@@ -333,8 +431,16 @@
             <!-- [S] VIEW -->
             <div class="guide-viewer__view">
 
-              <button type="button" class="button--primary" onclick="UI.alert.show({message: 'Alert', confirm: 'confirm'})">alert</button>
-              <button type="button" class="button--primary" onclick="UI.alert.show({message: 'Confirm', confirm: 'confirm', cancel: 'cancel'})">confirm</button>
+              <div class="button-group">
+                <button type="button" class="button" onclick="UI.alert.show({message: 'Alert', confirm: 'confirm'})">
+                  <span class="button-label">Alert</span>
+                  <span class="button-icon icon-010"></span>
+                </button>
+                <button type="button" class="button" onclick="UI.alert.show({message: 'Confirm', confirm: 'confirm', cancel: 'cancel'})">
+                  <span class="button-label">Confirm</span>
+                  <span class="button-icon icon-010"></span>
+                </button>
+              </div>
 
             </div>
             <!-- [E] VIEW -->

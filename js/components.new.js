@@ -317,9 +317,9 @@ window[namespace] = window[namespace] || {};
         <div class="alert ${this.prop('selector')}">
           <div class="alert-content">
             <div class="alert-message">${options.message}</div>
-            <div class="alert-buttons">
-              <button type="button" class="alert-cancel ${this.prop('cancel')}">${options.cancel}</button>
-              <button type="button" class="alert-confirm ${this.prop('confirm')}">${options.confirm}</button>
+            <div class="button-group">
+              <button type="button" class="button grow ${this.prop('cancel')}">${options.cancel}</button>
+              <button type="button" class="button grow dark ${this.prop('confirm')}">${options.confirm}</button>
             </div>
           </div>
         </div>`;
@@ -335,7 +335,9 @@ window[namespace] = window[namespace] || {};
     }
 
     function handlerEnd(event){
-      !$(event.target).hasClass(this.prop('active')) && $(event.target).remove();
+      if ($(event.target).hasClass(this.prop('selector'))) {
+        !$(event.target).hasClass(this.prop('active')) && $(event.target).remove();
+      }
     }
 
     component.show = function(options){
