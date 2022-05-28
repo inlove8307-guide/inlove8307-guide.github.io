@@ -314,7 +314,7 @@ window[namespace] = window[namespace] || {};
 
     function html(options){
       return `
-        <div class="alert ${this.prop('selector')}">
+        <div class="alert ${this.prop('selector')}" tabindex="0">
           <div class="alert-content">
             <div class="alert-message">${options.message}</div>
             <div class="button-group">
@@ -335,8 +335,12 @@ window[namespace] = window[namespace] || {};
     }
 
     function handlerEnd(event){
-      if ($(event.target).hasClass(this.prop('selector'))) {
-        !$(event.target).hasClass(this.prop('active')) && $(event.target).remove();
+      var $selector = $(event.target).hasClass(this.prop('selector')) ? $(event.target) : null;
+
+      if ($selector) {
+        $selector.hasClass(this.prop('active'))
+          ? $selector.focusin()
+          : $selector.remove();
       }
     }
 
