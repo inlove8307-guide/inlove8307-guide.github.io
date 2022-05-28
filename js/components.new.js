@@ -149,39 +149,11 @@ window[namespace] = window[namespace] || {};
 
     function style(){
       return `
-        ${this.class('selector')} {
-          overflow: hidden;
-          border-radius: 5px;
-          border: 1px solid rgb(0, 0, 0);
-          background-color: rgb(255, 255, 255);
-        }
-        ${this.class('selector')} ${this.class('item')} + ${this.class('item')} {
-          border-top: 1px solid rgb(0, 0, 0);
-        }
         ${this.class('selector')} ${this.class('button')} {
-          padding: 10px;
-          width: 100%;
-          background-color: rgb(255, 255, 255);
-          text-align: left;
-          color: rgb(136, 136, 136);
           transition: all ${this.prop('duration')} ${this.prop('easing')};
         }
         ${this.class('selector')}  ${this.class('target')} {
-          overflow: hidden;
-          height: 0;
-          box-shadow: inset 0 1px 0 rgba(0, 0, 0, 0);
           transition: all ${this.prop('duration')} ${this.prop('easing')};
-        }
-        ${this.class('selector')} ${this.class('target')} > * {
-          padding: 10px;
-        }
-        ${this.class('selector')} ${this.class('button')}${this.class('active')} {
-          background-color: rgb(238, 238, 238);
-          color: rgb(0, 0, 0);
-        }
-        ${this.class('selector')} ${this.class('target')}${this.class('active')} {
-          box-shadow: inset 0 1px 0 rgba(0, 0, 0, 1);
-          height: auto;
         }`;
     }
 
@@ -250,9 +222,7 @@ window[namespace] = window[namespace] || {};
     var component = new global.component({
       container: 'body',
       selector: '_tabs',
-      buttons: '_tabs-buttons',
       button: '_tabs-button',
-      targets: '_tabs-targets',
       target: '_tabs-target',
       active: '_active',
       duration: '250ms',
@@ -268,64 +238,14 @@ window[namespace] = window[namespace] || {};
 
     function style(){
       return `
-        ${this.class('selector')} {
-          overflow: hidden;
-          border-radius: 5px;
-          border: 1px solid rgb(0, 0, 0);
-          background-color: rgb(255, 255, 255);
-        }
-        ${this.class('selector')} ${this.class('buttons')} {
-          display: flex;
-        }
         ${this.class('selector')} ${this.class('button')} {
-          flex-grow: 1;
-          flex-shrink: 0;
-          flex-basis: 0;
-          position: relative;
-          padding: 10px;
-          background-color: rgb(238, 238, 238);
-          color: rgb(136, 136, 136);
-          transition: all ${this.prop('duration')} ${this.prop('easing')};
+          transition: color ${this.prop('duration')} ${this.prop('easing')};
         }
         ${this.class('selector')} ${this.class('button')}::after {
-          content: '';
-          position: absolute;
-          bottom: 0;
-          left: 50%;
-          width: 0;
-          height: 2px;
-          background-color: rgb(0, 0, 0);
-          transform: translateX(-50%);
           transition: width ${this.prop('duration')} ${this.prop('easing')};
         }
-        ${this.class('selector')} ${this.class('targets')} {
-          position: relative;
-          box-shadow: inset 0 1px 0 rgb(0, 0, 0);
-        }
         ${this.class('selector')} ${this.class('target')} {
-          visibility: hidden;
-          position: absolute;
-          z-index: -1;
-          top: 0;
-          left: 0;
-          width: 100%;
-          opacity: 0.5;
           transition: opacity ${this.prop('duration')} ${this.prop('easing')};
-        }
-        ${this.class('selector')} ${this.class('target')} > * {
-          padding: 10px;
-        }
-        ${this.class('selector')} ${this.class('button')}${this.class('active')} {
-          color: rgb(0, 0, 0);
-        }
-        ${this.class('selector')} ${this.class('button')}${this.class('active')}::after {
-          width: 100%;
-        }
-        ${this.class('selector')} ${this.class('target')}${this.class('active')} {
-          visibility: visible;
-          position: relative;
-          z-index: 0;
-          opacity: 1;
         }`;
     }
 
@@ -373,13 +293,9 @@ window[namespace] = window[namespace] || {};
     var component = new global.component({
       container: 'body',
       selector: '_alert',
-      content: '_alert-content',
-      message: '_alert-message',
-      buttons: '_alert-buttons',
       confirm: '_alert-confirm',
       cancel: '_alert-cancel',
       active: '_active',
-      disable: '_disable',
       duration: '250ms',
       easing: 'cubic-bezier(.86, 0, .07, 1)'
     });
@@ -392,86 +308,22 @@ window[namespace] = window[namespace] || {};
     function style(){
       return `
         ${this.class('selector')} {
-          display: flex;
-          justify-content: center;
-          align-items: center;
-          position: fixed;
-          top: 0;
-          left: 0;
-          width: 100%;
-          height: 100%;
-          background-color: rgba(0, 0, 0, 0.5);
-          opacity: 0;
-          pointer-events: none;
           transition: all ${this.prop('duration')} ${this.prop('easing')};
-        }
-        ${this.class('selector')} ${this.class('content')} {
-          display: flex;
-          flex-direction: column;
-          justify-content: center;
-          align-items: center;
-          padding: 16px;
-          width: calc(100% - 48px);
-          min-height: 200px;
-          border-radius: 10px;
-          background-color: rgb(255, 255, 255);
-          box-shadow: 0 0 10px rgba(0, 0, 0, 0.25);
-        }
-        ${this.class('selector')} ${this.class('message')} {
-          flex-grow: 1;
-          flex-shrink: 0;
-          flex-basis: 0;
-          display: flex;
-          justify-content: center;
-          align-items: center;
-          width: 100%;
-        }
-        ${this.class('selector')} ${this.class('buttons')} {
-          display: flex;
-          margin-top: 16px;
-          width: 100%;
-        }
-        ${this.class('selector')} ${this.class('cancel')} {
-          flex-grow: 1;
-          flex-shrink: 0;
-          flex-basis: 0;
-          display: flex;
-          justify-content: center;
-          align-items: center;
-          height: 48px;
-          border-radius: 10px;
-          background-color: rgb(204, 204, 204);
-          color: rgb(0, 0, 0);
-        }
-        ${this.class('selector')} ${this.class('confirm')} {
-          flex-grow: 1;
-          flex-shrink: 0;
-          flex-basis: 0;
-          display: flex;
-          justify-content: center;
-          align-items: center;
-          height: 48px;
-          border-radius: 10px;
-          background-color: rgb(0, 0, 0);
-          color: rgb(255, 255, 255);
-        }
-        ${this.class('selector')} ${this.class('cancel')} + ${this.class('confirm')} {
-          margin-left: 10px;
-        }
-        ${this.class('selector')}${this.class('active')} {
-          pointer-events: initial;
-          opacity: 1;
         }`;
     }
 
     function html(options){
       return `
-        <div class="${this.prop('selector')}">
-          <div class="${this.prop('content')}">
-            <div class="${this.prop('message')}">${options.message}</div>
-            <div class="${this.prop('buttons')}">
-              <button type="button" class="${this.prop('cancel')}">${options.cancel}</button>
-              <button type="button" class="${this.prop('confirm')}">${options.confirm}</button>
+        <div class="alert ${this.prop('selector')}">
+          <div class="alert-content">
+            <div class="alert-message">${options.message}</div>
+            <div class="alert-buttons">
+              <button type="button" class="alert-cancel ${this.prop('cancel')}">
+                ${options.cancel}
+              </button>
+              <button type="button" class="alert-confirm ${this.prop('confirm')}">
+                ${options.confirm}
+              </button>
             </div>
           </div>
         </div>`;
