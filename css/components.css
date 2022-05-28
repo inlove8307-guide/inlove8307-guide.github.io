@@ -19,6 +19,7 @@
 .button-group .button + .button {margin-left: 10px;}
 .button-group.column .button + .button {margin-top: 10px; margin-left: 0;}
 .button-label.grow {flex-grow: 1; flex-shrink: 0; flex-basis: 0;}
+.button-icon {flex-grow: 0; flex-shrink: 0;}
 .button-label + .button-icon,
 .button-icon + .button-label {margin-left: 5px;}
 
