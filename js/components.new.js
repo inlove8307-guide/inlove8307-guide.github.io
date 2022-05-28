@@ -318,12 +318,8 @@ window[namespace] = window[namespace] || {};
           <div class="alert-content">
             <div class="alert-message">${options.message}</div>
             <div class="alert-buttons">
-              <button type="button" class="alert-cancel ${this.prop('cancel')}">
-                ${options.cancel}
-              </button>
-              <button type="button" class="alert-confirm ${this.prop('confirm')}">
-                ${options.confirm}
-              </button>
+              <button type="button" class="alert-cancel ${this.prop('cancel')}">${options.cancel}</button>
+              <button type="button" class="alert-confirm ${this.prop('confirm')}">${options.confirm}</button>
             </div>
           </div>
         </div>`;
