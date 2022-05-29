@@ -10,18 +10,59 @@
 .button.dark {border: 0; background-color: rgb(34, 34, 34); color: rgb(255, 255, 255);}
 .button.dark:focus {background-color: rgb(85, 85, 85);}
 .button.disabled,
-.button:disabled {opacity: 0.5; cursor: default; pointer-events: none;}
+.button:disabled {opacity: 0.25; cursor: default; pointer-events: none;}
 .button.disabled:hover,
 .button:disabled:hover {box-shadow: none;}
 .button.left {justify-content: flex-start;}
 .button.grow {flex-grow: 1; flex-shrink: 0; flex-basis: 0;}
-.button-group.column .button.grow {width: 100%;}
 .button-group .button + .button {margin-left: 10px;}
+.button-group.column .button.grow {width: 100%;}
 .button-group.column .button + .button {margin-top: 10px; margin-left: 0;}
+.button-group.fit .button {border-radius: 0;}
+.button-group.fit .button + .button {margin-left: 0;}
+.button-group.wrap {overflow: hidden; flex-wrap: wrap; margin-top: 0; margin-left: -10px;}
+.button-group.wrap .button {margin-top: 10px; margin-left: 10px;}
+.button-group.wrap .button:last-child {margin-right: 0;}
 .button-label.grow {flex-grow: 1; flex-shrink: 0; flex-basis: 0;}
+.button-label.ellipsis {overflow: hidden; white-space: nowrap; text-overflow: ellipsis;}
 .button-icon {flex-grow: 0; flex-shrink: 0;}
 .button-label + .button-icon,
 .button-icon + .button-label {margin-left: 5px;}
+
+/* FIELD */
+.field {}
+.field + .field {margin-top: 10px;}
+.field-line {overflow: hidden; display: flex; align-items: stretch; min-height: 40px; border-radius: 5px; box-shadow: 0 0 0 1px rgb(204, 204, 204); background-color: rgb(255, 255, 255); transition: all 250ms cubic-bezier(.65,.05,.36,1);}
+.field-line:focus-within {box-shadow: 0 0 0 2px rgb(204, 204, 204);}
+.field-line > * {padding: 0 10px;}
+.field-line > * + * {padding-left: 0;}
+/* FIELD - INPUT */
+.field-input {flex-grow: 1; flex-shrink: 0; flex-basis: 0;}
+.field-input input {width: 100%; height: 100%; border: 0; background-color: transparent;}
+.field-input input:focus {outline: none;}
+/* FIELD - SELECT */
+.field-select {}
+.field-select select {width: 100%; height: 100%;}
+.field-select button {width: 100%; height: 100%;}
+/* FIELD - TEXTAREA */
+/* FIELD - RADIO */
+/* FIELD - CHECKBOX */
+/* FIELD - ICON */
+/* FIELD - BUTTON */
+/* FIELD - TEXT */
+.field-text {flex-shrink: 0; display: flex; align-items: center;}
+/* FIELD - MESSAGE */
+.field-message {margin-top: 5px;}
+/* FIELD - INFO */
+.field-info {margin-top: 5px;}
+/* FIELD - VALID */
+.field-line.valid {box-shadow: 0 0 0 1px rgb(0, 150, 255);}
+.field-line.valid:focus-within {box-shadow: 0 0 0 2px rgb(0, 150, 255);}
+.field-line.valid ~ .field-message {color: rgb(0, 100, 255);}
+/* FIELD - INVALID */
+.field-line.invalid {box-shadow: 0 0 0 1px rgb(255, 150, 0);}
+.field-line.invalid:focus-within {box-shadow: 0 0 0 2px rgb(255, 150, 0);}
+.field-line.invalid ~ .field-message {color: rgb(255, 100, 0);}
 
 /* COLLAPSE */
 .collapse {overflow: hidden; border-radius: 5px; border: 1px solid rgb(204, 204, 204); background-color: rgb(255, 255, 255);}
