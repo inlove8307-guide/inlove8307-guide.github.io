@@ -51,6 +51,9 @@
 /* FIELD - CHECKBOX */
 /* FIELD - ICON */
 /* FIELD - BUTTON */
+/* FIELD - LABEL */
+.field-label {}
+.field-label + .field-line {margin-top: 10px;}
 /* FIELD - TEXT */
 .field-text {flex-shrink: 0; display: flex; align-items: center;}
 /* FIELD - MESSAGE */
