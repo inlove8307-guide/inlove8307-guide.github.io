@@ -410,7 +410,7 @@ window[namespace] = window[namespace] || {};
     var component = new global.component({
       container: 'body',
       selector: '_popover',
-      content: '_popover-content',
+      message: '_popover-message',
       top: '_top',
       right: '_right',
       bottom: '_bottom',
@@ -436,10 +436,28 @@ window[namespace] = window[namespace] || {};
     function html(options){
       return `
         <span class="popover ${this.prop('selector')} ${this.prop(options.direction)}">
-          <span class="popover-content ${this.prop('content')}">
-            <span class="popover-message">${options.message}</span>
-          </span>
+          <span class="popover-message ${this.prop('message')}">${options.message}</span>
         </span>`;
+    }
+
+    function direction($selector, options){}
+
+    function css($selector, options){
+      $selector.find(this.class('message')).css('width', function($message){
+        switch(options.direction){
+          case 'top': return $(window).width() - this.prop('space') * 2;
+          case 'bottom': return $(window).width() - this.prop('space') * 2;
+          case 'left': return $message.offset().left + $message.width();
+          case 'right': return $(window).width() - $message.offset().left - this.prop('space');
+        }
+      }.call(this, $selector.find(this.class('message'))));
+
+      $selector.find(this.class('message')).css('left', function($message){
+        switch(options.direction){
+          case 'top': return - $message.offset().left + this.prop('space');
+          case 'bottom': return - $message.offset().left + this.prop('space');
+        }
+      }.call(this, $selector.find(this.class('message'))));
     }
 
     component.show = function(options){
@@ -454,14 +472,13 @@ window[namespace] = window[namespace] || {};
         clearTimeout(timeout);
       }
 
-      if ($selector.length) return this.hide();
+      if ($selector.length) this.hide.call(this);
 
       $(options.target).css({ overflow: 'initial', position: 'relative' });
       $(options.target).append(html.call(this, options));
       $selector = $(this.class('selector'));
-      $selector.width(function($target){
-        return $(window).width() - $target.offset().left - this.prop('space');
-      }.call(this, $selector));
+      css.call(this, $selector, options);
+      direction.call(this, $selector, options);
 
       timeout = setTimeout(active.bind(this, $selector), 1);
 

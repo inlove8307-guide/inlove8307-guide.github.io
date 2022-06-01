@@ -984,8 +984,26 @@
             <div class="guide-viewer__view">
 
               <div class="button-group">
-                <button type="button" class="button" onclick="UI.popover.show({ target: this, message: 'message' })">
-                  <span class="button-label">Popover</span>
+                <button type="button" class="button" onclick="UI.popover.show({ target: this, message: 'message', direction: 'right' })">
+                  <span class="button-label">right</span>
+                </button>
+              </div>
+
+              <div class="button-group right">
+                <button type="button" class="button" onclick="UI.popover.show({ target: this, message: 'message', direction: 'left' })">
+                  <span class="button-label">left</span>
+                </button>
+              </div>
+
+              <div class="button-group">
+                <button type="button" class="button" onclick="UI.popover.show({ target: this, message: 'message', direction: 'top' })">
+                  <span class="button-label">top</span>
+                </button>
+              </div>
+
+              <div class="button-group">
+                <button type="button" class="button" onclick="UI.popover.show({ target: this, message: 'message', direction: 'bottom' })">
+                  <span class="button-label">bottom</span>
                 </button>
               </div>
 
@@ -1017,45 +1035,47 @@
               </pre>
               <pre class="guide-viewer__pre line-numbers" data-lang="script">
                 <code class="guide-viewer__code language-js">
-                  UI.alert.bind({
+                  UI.popover.bind({
                     container: 'body',
-                    selector: '_alert',
-                    confirm: '_alert-confirm',
-                    cancel: '_alert-cancel',
+                    selector: '_popover',
+                    content: '_popover-content',
+                    top: '_top',
+                    right: '_right',
+                    bottom: '_bottom',
+                    left: '_left',
                     active: '_active',
+                    space: 20,
                     duration: '250ms',
                     easing: 'cubic-bezier(.86, 0, .07, 1)'
                     on: {
                       init: function(){ ... },
                       change: function(){ ... },
+                      scroll: function(){ ... },
                       show: function(){ ... },
                       hide: function(){ ... }
                     }
                   });
 
-                  UI.alert.on({
+                  UI.popover.on({
                     init: function(){ ... },
                     change: function(){ ... },
+                    scroll: function(){ ... },
                     show: function(){ ... },
                     hide: function(){ ... }
                   });
 
-                  UI.alert.on('init', function(){ ... });
-                  UI.alert.on('change', function(){ ... });
-                  UI.alert.on('show', function(){ ... });
-                  UI.alert.on('hide', function(){ ... });
+                  UI.popover.on('init', function(){ ... });
+                  UI.popover.on('change', function(){ ... });
+                  UI.popover.on('scroll', function(){ ... });
+                  UI.popover.on('show', function(){ ... });
+                  UI.popover.on('hide', function(){ ... });
 
-                  UI.alert.show({
-                    message: 'message',
-                    confirm: 'confirm',
-                    cancel: 'cancel',
-                    on: {
-                      confirm: function(){ ... },
-                      cancel: function(){ ... }
-                    }
+                  UI.popover.show({
+                    target: null,
+                    message: 'message'
                   });
 
-                  UI.alert.hide();
+                  UI.popover.hide();
                 </code>
               </pre>
             </div>
