@@ -1038,7 +1038,7 @@
                   UI.popover.bind({
                     container: 'body',
                     selector: '_popover',
-                    content: '_popover-content',
+                    message: '_popover-message',
                     top: '_top',
                     right: '_right',
                     bottom: '_bottom',
@@ -1072,7 +1072,8 @@
 
                   UI.popover.show({
                     target: null,
-                    message: 'message'
+                    message: 'message',
+                    direction: 'bottom'
                   });
 
                   UI.popover.hide();

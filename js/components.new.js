@@ -440,8 +440,6 @@ window[namespace] = window[namespace] || {};
         </span>`;
     }
 
-    function direction($selector, options){}
-
     function css($selector, options){
       $selector.find(this.class('message')).css('width', function($message){
         switch(options.direction){
@@ -462,7 +460,7 @@ window[namespace] = window[namespace] || {};
 
     component.show = function(options){
       var $selector = $(this.class('selector'))
-        , options = $.extend({ target: null, direction: 'right', message: 'message' }, options)
+        , options = $.extend({ target: null, direction: 'bottom', message: 'message' }, options)
         , timeout;
 
       if (!options.target) return;
@@ -472,13 +470,22 @@ window[namespace] = window[namespace] || {};
         clearTimeout(timeout);
       }
 
-      if ($selector.length) this.hide.call(this);
+      if ($selector.length) {
+        this.hide.call(this);
+
+        if (this.prop('timestamp') == $(options.target).data('timestamp')) {
+          return;
+        }
+      }
+
+      this.prop('timestamp', + new Date());
+      $(options.target).data('timestamp', this.prop('timestamp'));
 
       $(options.target).css({ overflow: 'initial', position: 'relative' });
       $(options.target).append(html.call(this, options));
+
       $selector = $(this.class('selector'));
       css.call(this, $selector, options);
-      direction.call(this, $selector, options);
 
       timeout = setTimeout(active.bind(this, $selector), 1);
 
