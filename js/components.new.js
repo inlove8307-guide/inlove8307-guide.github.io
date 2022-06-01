@@ -441,21 +441,23 @@ window[namespace] = window[namespace] || {};
     }
 
     function css($selector, options){
-      $selector.find(this.class('message')).css('width', function($message){
+      var $message = $selector.find(this.class('message'));
+
+      $message.css('width', function($message){
         switch(options.direction){
           case 'top': return $(window).width() - this.prop('space') * 2;
           case 'bottom': return $(window).width() - this.prop('space') * 2;
           case 'left': return $message.offset().left + $message.width();
           case 'right': return $(window).width() - $message.offset().left - this.prop('space');
         }
-      }.call(this, $selector.find(this.class('message'))));
+      }.call(this, $message));
 
-      $selector.find(this.class('message')).css('left', function($message){
+      $message.css('left', function($message){
         switch(options.direction){
           case 'top': return - $message.offset().left + this.prop('space');
           case 'bottom': return - $message.offset().left + this.prop('space');
         }
-      }.call(this, $selector.find(this.class('message'))));
+      }.call(this, $message));
     }
 
     component.show = function(options){
