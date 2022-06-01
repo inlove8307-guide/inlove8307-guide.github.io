@@ -402,12 +402,95 @@ window[namespace] = window[namespace] || {};
   }();
 }(window[namespace]));
 
+/* POPOVER */
+(function(global){
+  'use strict';
+
+  global.popover = function(){
+    var component = new global.component({
+      container: 'body',
+      selector: '_popover',
+      content: '_popover-content',
+      top: '_top',
+      right: '_right',
+      bottom: '_bottom',
+      left: '_left',
+      active: '_active',
+      space: 20,
+      duration: '250ms',
+      easing: 'cubic-bezier(.86, 0, .07, 1)'
+    });
+
+    function init(){
+      this.style(this.prop('container'), style.call(this));
+      this.prop('on').init && this.prop('on').init($(this.class('selector')));
+    }
+
+    function style(){
+      return `
+        ${this.class('selector')} {
+          transition: opacity ${this.prop('duration')} ${this.prop('easing')};
+        }`;
+    }
+
+    function html(options){
+      return `
+        <span class="popover ${this.prop('selector')} ${this.prop(options.direction)}">
+          <span class="popover-content ${this.prop('content')}">
+            <span class="popover-message">${options.message}</span>
+          </span>
+        </span>`;
+    }
+
+    component.show = function(options){
+      var $selector = $(this.class('selector'))
+        , options = $.extend({ target: null, direction: 'right', message: 'message' }, options)
+        , timeout;
+
+      if (!options.target) return;
+
+      function active($selector){
+        $selector.addClass(this.prop('active'));
+        clearTimeout(timeout);
+      }
+
+      if ($selector.length) return this.hide();
+
+      $(options.target).css({ overflow: 'initial', position: 'relative' });
+      $(options.target).append(html.call(this, options));
+      $selector = $(this.class('selector'));
+      $selector.width(function($target){
+        return $(window).width() - $target.offset().left - this.prop('space');
+      }.call(this, $selector));
+
+      timeout = setTimeout(active.bind(this, $selector), 1);
+
+      this.prop('on').show && this.prop('on').show();
+      this.change.observe(this);
+      this.scroll.observe(this);
+    };
+
+    component.hide = function(){
+      $(this.class('selector')).remove();
+      this.prop('on').hide && this.prop('on').hide();
+    };
+
+    component.bind = function(options){
+      $.extend(this.options, options);
+      init.call(this);
+    };
+
+    return component;
+  }();
+}(window[namespace]));
+
 /* INITIAL */
 $(function(global){
   global.init = function(){
     this.collapse.bind();
     this.tabs.bind();
     this.alert.bind();
+    this.popover.bind();
   };
 
   global.init();
