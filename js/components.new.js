@@ -224,6 +224,7 @@ window[namespace] = window[namespace] || {};
       selector: '_tabs',
       button: '_tabs-button',
       target: '_tabs-target',
+      scroll: '_tabs-scroll',
       active: '_active',
       duration: '250ms',
       easing: 'cubic-bezier(.65,.05,.36,1)'
@@ -251,6 +252,7 @@ window[namespace] = window[namespace] || {};
 
     function handlerClick(event){
       var $button = $(event.target).closest(this.class('button'))
+        , $scroll = $button.closest(this.class('scroll'))
         , $selector = $button.closest(this.class('selector'))
         , $buttons = this.nearest($selector, this.class('button'))
         , $targets = this.nearest($selector, this.class('target'))
@@ -261,6 +263,8 @@ window[namespace] = window[namespace] || {};
 
       $button.addClass(this.prop('active'));
       $target.addClass(this.prop('active'));
+
+      $scroll.length && $scroll.stop().animate({ scrollLeft: $scroll.scrollLeft() + $button.position().left - $button.prev().outerWidth() }, { duration: parseInt(this.prop('duration')), ease: this.prop('easing') });
 
       this.prop('on').show && this.prop('on').show($button, $target);
     }
