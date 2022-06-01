@@ -984,25 +984,25 @@
             <div class="guide-viewer__view">
 
               <div class="button-group">
-                <button type="button" class="button" onclick="UI.popover.show({ target: this, message: 'message', direction: 'right' })">
+                <button type="button" class="button" onclick="UI.popover.show({ target: this, relative: '.button-group', direction: 'right', message: 'message' })">
                   <span class="button-label">right</span>
                 </button>
               </div>
 
               <div class="button-group right">
-                <button type="button" class="button" onclick="UI.popover.show({ target: this, message: 'message', direction: 'left' })">
+                <button type="button" class="button" onclick="UI.popover.show({ target: this, relative: '.button-group', direction: 'left', message: 'message' })">
                   <span class="button-label">left</span>
                 </button>
               </div>
 
               <div class="button-group">
-                <button type="button" class="button" onclick="UI.popover.show({ target: this, message: 'message', direction: 'top' })">
+                <button type="button" class="button" onclick="UI.popover.show({ target: this, relative: '.button-group', direction: 'top', message: 'message' })">
                   <span class="button-label">top</span>
                 </button>
               </div>
 
               <div class="button-group">
-                <button type="button" class="button" onclick="UI.popover.show({ target: this, message: 'message', direction: 'bottom' })">
+                <button type="button" class="button" onclick="UI.popover.show({ target: this, relative: '.button-group', direction: 'bottom', message: 'message' })">
                   <span class="button-label">bottom</span>
                 </button>
               </div>

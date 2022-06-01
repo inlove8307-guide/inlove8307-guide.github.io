@@ -436,26 +436,33 @@ window[namespace] = window[namespace] || {};
     function html(options){
       return `
         <span class="popover ${this.prop('selector')} ${this.prop(options.direction)}">
-          <span class="popover-message ${this.prop('message')}">${options.message}</span>
+          <span class="popover-message ${this.prop('message')}">
+            <span>${options.message}</span>
+          </span>
         </span>`;
     }
 
     function css($selector, options){
       var $message = $selector.find(this.class('message'));
+      var $relative = $selector.closest(options.relative);
+
+      if (!$relative.length) return;
 
       $message.css('width', function($message){
+        console.log($relative, $relative.width());
+        console.log($message, $message.offset());
         switch(options.direction){
-          case 'top': return $(window).width() - this.prop('space') * 2;
-          case 'bottom': return $(window).width() - this.prop('space') * 2;
-          case 'left': return $message.offset().left + $message.width();
-          case 'right': return $(window).width() - $message.offset().left - this.prop('space');
+          case 'top': return $relative.width();
+          case 'bottom': return $relative.width();
+          case 'left': return $relative.width() - $relative.offset().left - ($relative.width() - $message.offset().left);
+          case 'right': return $relative.width() + $relative.offset().left - $message.offset().left;
         }
       }.call(this, $message));
 
       $message.css('left', function($message){
         switch(options.direction){
-          case 'top': return - $message.offset().left + this.prop('space');
-          case 'bottom': return - $message.offset().left + this.prop('space');
+          case 'top': return - $message.offset().left + $relative.offset().left;
+          case 'bottom': return - $message.offset().left + $relative.offset().left;
         }
       }.call(this, $message));
     }
