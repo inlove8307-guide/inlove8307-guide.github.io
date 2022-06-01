@@ -132,8 +132,8 @@
 /* FIELD - CURSOR */
 .field-label,
 .field-checkbox,
-.field-select select,
-.field-radio {cursor: pointer;}
+.field-radio,
+.field-select select {cursor: pointer;}
 /* FIELD - DISABLED */
 .field.disabled .field-outline,
 .field.disabled .field-checkbox,
