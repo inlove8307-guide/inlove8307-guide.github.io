@@ -1,5 +1,5 @@
 /* BUTTON */
-.button {display: inline-flex; justify-content: center; align-items: center; padding: 0 15px; min-height: 40px; border-radius: 5px; border: 1px solid rgb(204, 204, 204); background-color: rgb(255, 255, 255); font-size: 16px; color: rgb(34, 34, 34); letter-spacing: 0; transition: all 250ms cubic-bezier(.65,.05,.36,1);}
+.button {display: inline-flex; justify-content: center; align-items: center; padding: 0 15px; min-height: 40px; border-radius: 5px; border: 1px solid rgb(187, 187, 187); background-color: rgb(255, 255, 255); font-size: 16px; color: rgb(34, 34, 34); letter-spacing: 0; transition: all 250ms cubic-bezier(.65,.05,.36,1);}
 .button:hover {border-color: rgb(187, 187, 187); box-shadow: 0 0 0 2px rgba(0, 0, 0, 0.075);}
 .button:focus {border-color: rgb(187, 187, 187); background-color: rgb(238, 238, 238);}
 /* BUTTON - DARK */
@@ -38,7 +38,7 @@
 /* BUTTON - ICON */
 .button-icon {flex-shrink: 0;}
 .button-label + .button-icon,
-.button-icon + .button-label {margin-left: 5px;}
+.button-icon + .button-label {margin-left: 5px; color: rgb(187, 187, 187);}
 
 /* FIELD */
 .field {}
@@ -48,8 +48,8 @@
 /* FIELD - ROW */
 .field-row {display: flex;}
 /* FIELD - OUTLINE */
-.field-outline {overflow: hidden; display: flex; align-items: stretch; min-height: 40px; border-radius: 5px; box-shadow: inset 0 0 0 1px rgb(204, 204, 204); background-color: rgb(255, 255, 255); transition: box-shadow 250ms cubic-bezier(.65,.05,.36,1);}
-.field-outline:focus-within {box-shadow: inset 0 0 0 2px rgb(204, 204, 204);}
+.field-outline {overflow: hidden; display: flex; align-items: stretch; min-height: 40px; border-radius: 5px; box-shadow: inset 0 0 0 1px rgb(187, 187, 187); background-color: rgb(255, 255, 255); transition: box-shadow 250ms cubic-bezier(.65,.05,.36,1);}
+.field-outline:focus-within {box-shadow: inset 0 0 0 2px rgb(187, 187, 187);}
 .field-outline.grow {flex-grow: 1; flex-shrink: 0; flex-basis: 0;}
 /* FIELD - VALID */
 .field.valid .field-outline {box-shadow: inset 0 0 0 1px rgb(0, 150, 255);}
@@ -63,12 +63,12 @@
 .field-group.column {flex-direction: column;}
 .field-outline.column {flex-direction: column;}
 /* FIELD - SPACE */
-.field + .field {margin-top: 10px;}
-.field + .field-group {margin-top: 10px;}
-.field-group + .field {margin-top: 10px;}
-.field-group + .field-group {margin-top: 10px;}
+.field + .field {margin-top: 20px;}
+.field + .field-group {margin-top: 20px;}
+.field-group + .field {margin-top: 20px;}
+.field-group + .field-group {margin-top: 20px;}
 .field-group .field + .field {margin-top: 0; margin-left: 10px;}
-.field-group.column .field + .field {margin-top: 10px; margin-left: 0;}
+.field-group.column .field + .field {margin-top: 20px; margin-left: 0;}
 .field-row + .field-row {margin-top: 10px;}
 .field-row > * + *{margin-left: 10px;}
 .field-outline > * {padding: 10px;}
@@ -81,12 +81,24 @@
 .field-outline.column .right {place-self: flex-end;}
 /* FIELD - GROW */
 .field .grow {flex-grow: 1; flex-shrink: 0; flex-basis: 0;}
+/* FIELD - ICON */
+/* FIELD - BUTTON */
+/* FIELD - LABEL */
+.field-label {display: block; margin-bottom: 5px;}
+/* FIELD - TEXT */
+.field-text {flex-shrink: 0; display: flex; align-items: center;}
+/* FIELD - MESSAGE */
+.field-message {margin-top: 5px;}
+/* FIELD - INFO */
+.field-info {margin-top: 5px; color: rgb(136, 136, 136);}
+/* FIELD - COUNT */
+.field-count {color: rgb(136, 136, 136);}
 /* FIELD - INPUT */
 .field-input {}
 .field-input input:not([type=checkbox]):not([type=radio]) {width: 100%; height: 20px; border: 0; background-color: transparent;}
 .field-input input:not([type=checkbox]):not([type=radio]):focus {outline: none;}
 /* FIELD - SELECT */
-.field-select {padding-right: 0;}
+.field-select {padding: 0;}
 .field-select select {padding-right: 30px; width: 100%; height: 100%; background-color: transparent; background-image: var(--icon-001); background-repeat: no-repeat; background-position: calc(100% - 10px) 50%; background-size: 16px 16px;}
 .field-select select:focus {outline: none;}
 .field-select button {padding-right: 30px; width: 100%; height: 100%; background-color: transparent; background-image: var(--icon-001); background-repeat: no-repeat; background-position: calc(100% - 10px) 50%; background-size: 16px 16px; text-align: left;}
@@ -103,7 +115,7 @@
 /* FIELD - RADIO OPTION */
 .field-radio.option {justify-content: center; align-items: stretch; height: 40px;}
 .field-radio.option .field-label {display: flex; align-items: center; padding: 0 10px;}
-.field-radio.option .field-label::before {content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%; border-radius: 5px; box-shadow: inset 0 0 0 1px rgb(204, 204, 204);}
+.field-radio.option .field-label::before {content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%; border-radius: 5px; box-shadow: inset 0 0 0 1px rgb(187, 187, 187);}
 .field-radio.option input[type=radio]:checked ~ .field-label::before {box-shadow: inset 0 0 0 2px rgb(0, 150, 255);}
 /* FIELD - RADIO OPTION GROUP */
 .field-radio.option.group + .field-radio.option.group {margin-left: -1px;}
@@ -117,22 +129,22 @@
 .field-checkbox .field-icon {flex-shrink: 0; margin-right: 10px; width: 24px; height: 24px; background-image: var(--icon-006); background-repeat: no-repeat; background-position: 50% 50%; background-size: 24px 24px;}
 .field-checkbox .field-label {display: block; margin-bottom: 0;}
 .field-checkbox input[type=checkbox]:checked ~ .field-icon {background-image: var(--icon-007);}
-/* FIELD - ICON */
-/* FIELD - BUTTON */
-/* FIELD - LABEL */
-.field-label {display: block; margin-bottom: 5px;}
-/* FIELD - TEXT */
-.field-text {flex-shrink: 0; display: flex; align-items: center;}
-/* FIELD - MESSAGE */
-.field-message {margin-top: 5px;}
-/* FIELD - INFO */
-.field-info {margin-top: 5px; color: rgb(136, 136, 136);}
-/* FIELD - COUNT */
-.field-count {color: rgb(136, 136, 136);}
+/* FIELD - CURSOR */
+.field-label,
+.field-checkbox,
+.field-select select,
+.field-radio {cursor: pointer;}
+/* FIELD - DISABLED */
+.field.disabled .field-outline,
+.field.disabled .field-checkbox,
+.field.disabled .field-radio,
+.field .field-checkbox.disabled,
+.field .field-radio.disabled {opacity: 0.35; cursor: default; pointer-events: none;}
+.field.disabled .field-outline {background-color: rgb(238, 238, 238);}
 
 /* COLLAPSE */
-.collapse {overflow: hidden; border-radius: 5px; border: 1px solid rgb(204, 204, 204); background-color: rgb(255, 255, 255);}
-.collapse-item + .collapse-item {border-top: 1px solid rgb(204, 204, 204);}
+.collapse {overflow: hidden; border-radius: 5px; border: 1px solid rgb(187, 187, 187); background-color: rgb(255, 255, 255);}
+.collapse-item + .collapse-item {border-top: 1px solid rgb(187, 187, 187);}
 .collapse-flex {display: flex; align-items: center;}
 .collapse-flex .grow {flex-grow: 1; flex-shrink: 0; flex-basis: 0;}
 .collapse-button {display: flex; margin-left: auto; padding: 10px; text-align: left; color: rgb(136, 136, 136);}
@@ -144,7 +156,7 @@
 .collapse-target > * {padding: 10px;}
 
 /* TABS */
-.tabs {overflow: hidden; border-radius: 5px; border: 1px solid rgb(204, 204, 204); background-color: rgb(255, 255, 255);}
+.tabs {overflow: hidden; border-radius: 5px; border: 1px solid rgb(187, 187, 187); background-color: rgb(255, 255, 255);}
 .tabs-scroll {position: relative;}
 .tabs-scroll::after {content: ''; position: absolute; top: 0; right: 0; width: 50px; height: 100%; border-top-right-radius: 5px; background: linear-gradient(90deg, rgba(255, 255, 255, 0), rgba(255, 255, 255, 1)); pointer-events: none;}
 .tabs-scroll .tabs-buttons {overflow-x: auto;}
@@ -157,7 +169,7 @@
 .tabs-button::after {content: ''; position: absolute; z-index: 1; bottom: 0; left: 50%; width: 0; height: 2px; background-color: rgb(102, 102, 102); transform: translateX(-50%);}
 .tabs-button._active::after {width: 100%;}
 .tabs-targets {position: relative;}
-.tabs-target {visibility: hidden; position: absolute; z-index: -1; top: 0; left: 0; width: 100%; box-shadow: 0 -1px 0 rgb(204, 204, 204); opacity: 0.5;}
+.tabs-target {visibility: hidden; position: absolute; z-index: -1; top: 0; left: 0; width: 100%; box-shadow: 0 -1px 0 rgb(187, 187, 187); opacity: 0.5;}
 .tabs-target._active {visibility: visible; position: relative; z-index: 0; opacity: 1;}
 .tabs-target > * {padding: 10px;}
 
