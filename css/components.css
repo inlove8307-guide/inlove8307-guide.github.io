@@ -13,17 +13,17 @@
 /* BUTTON - GROUP */
 .button-group {display: flex;}
 /* BUTTON - ALGIN */
-.button-group.center {justify-content: center;}
-.button-group.right {justify-content: flex-end;}
 .button.left {justify-content: flex-start;}
+.button-group.right {justify-content: flex-end;}
+.button-group.center {justify-content: center;}
+.button-group.column.center {align-items: center;}
 /* BUTTON - DIRECTION */
 .button-group.column {flex-direction: column; align-items: flex-start;}
-.button-group.column.center {align-items: center;}
 /* BUTTON - GROW */
 .button.grow {flex-grow: 1; flex-shrink: 0; flex-basis: 0;}
 .button-group.column .button.grow {width: 100%;}
 /* BUTTON - SPACE */
-.button-group + .button-group {margin-top: 10px;}
+.button-group + .button-group {margin-top: 20px;}
 .button-group .button + .button {margin-left: 10px;}
 .button-group.column .button + .button {margin-top: 10px; margin-left: 0;}
 /* BUTTON - FIT */
@@ -43,7 +43,6 @@
 
 /* FIELD */
 .field {}
-.field.grow {flex-grow: 1; flex-shrink: 0; flex-basis: 0;}
 /* FIELD - GROUP */
 .field-group {display: flex;}
 /* FIELD - ROW */
@@ -81,6 +80,7 @@
 .field-outline .bottom {place-self: flex-end;}
 .field-outline.column .right {place-self: flex-end;}
 /* FIELD - GROW */
+.field.grow,
 .field .grow {flex-grow: 1; flex-shrink: 0; flex-basis: 0;}
 /* FIELD - ICON */
 /* FIELD - BUTTON */
@@ -187,7 +187,7 @@
 .popover-message > * {display: block; padding: 8px 10px;}
 .popover._top {top: 0; transform: translateY(calc(-100% - 8px));}
 .popover._bottom {bottom: 0; transform: translateY(calc(100% + 8px));}
-.popover._left {justify-content: flex-end; left: 0; transform: translateX(calc(-100% - 8px));}
+.popover._left {left: 0; transform: translateX(calc(-100% - 8px));}
 .popover._right {right: 0; transform: translateX(calc(100% + 8px));}
 .popover._top::before {content: ''; position: absolute; bottom: 0; left: 50%; border-top: 4px solid rgb(0, 0, 0); border-left: 3px solid transparent; border-right: 3px solid transparent; transform: translate(-50%, 100%);}
 .popover._bottom::before {content: ''; position: absolute; top: 0; left: 50%; border-bottom: 4px solid rgb(0, 0, 0); border-left: 3px solid transparent; border-right: 3px solid transparent; transform: translate(-50%, -100%);}

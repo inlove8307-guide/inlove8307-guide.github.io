@@ -450,7 +450,7 @@ window[namespace] = window[namespace] || {};
 
       $message.css('width', function($message){
         switch(options.direction){
-          case 'top': return $ground.width();
+          case 'top': 
           case 'bottom': return $ground.width();
           case 'left': return $ground.width() - $ground.offset().left - ($ground.width() - $message.offset().left);
           case 'right': return $ground.width() + $ground.offset().left - $message.offset().left;
@@ -459,8 +459,10 @@ window[namespace] = window[namespace] || {};
 
       $message.css('left', function($message){
         switch(options.direction){
-          case 'top': return - $message.offset().left + $ground.offset().left;
-          case 'bottom': return - $message.offset().left + $ground.offset().left;
+          case 'top': 
+          case 'bottom': 
+          case 'left':  return - $message.offset().left + $ground.offset().left;
+          case 'right':  return 0;
         }
       }.call(this, $message));
     }
