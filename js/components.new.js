@@ -188,8 +188,14 @@ window[namespace] = window[namespace] || {};
     }
 
     function show($button, $target){
+      var timeout;
+
       $target.height(0);
-      $target.height($target.prop('scrollHeight'));
+      timeout = setTimeout(function(){
+        $target.height($target.prop('scrollHeight'));
+        clearTimeout(timeout);
+      }, 10);
+
       $button.addClass(this.prop('active'));
       $target.addClass(this.prop('active'));
 
@@ -197,8 +203,14 @@ window[namespace] = window[namespace] || {};
     }
 
     function hide($button, $target){
+      var timeout;
+
       $target.height($target.height());
-      $target.height(0);
+      timeout = setTimeout(function(){
+        $target.height(0);
+        clearTimeout(timeout);
+      }, 10);
+      
       $button.removeClass(this.prop('active'));
       $target.removeClass(this.prop('active'));
     }
@@ -358,11 +370,6 @@ window[namespace] = window[namespace] || {};
         , options = $.extend({ message: 'message', confirm: 'confirm', cancel: null }, options)
         , timeout;
 
-      function active($selector){
-        $selector.addClass(this.prop('active'));
-        clearTimeout(timeout);
-      }
-
       if ($selector.length) {
         $selector.remove();
         this.hide();
@@ -371,7 +378,10 @@ window[namespace] = window[namespace] || {};
       $(this.prop('container')).append(html.call(this, options));
       $selector = $(this.class('selector'));
       !options.cancel && $selector.find(this.class('cancel')).remove();
-      timeout = setTimeout(active.bind(this, $selector), 1);
+      timeout = setTimeout(function($selector){
+        $selector.addClass(this.prop('active'));
+        clearTimeout(timeout);
+      }.bind(this, $selector), 10);
 
       if (options.on) {
         this.on('confirm', options.on.confirm);
