@@ -48,7 +48,7 @@
 /* FIELD - ROW */
 .field-row {display: flex;}
 /* FIELD - OUTLINE */
-.field-outline {overflow: hidden; display: flex; align-items: stretch; min-height: 40px; border-radius: 5px; box-shadow: inset 0 0 0 1px rgb(187, 187, 187); background-color: rgb(255, 255, 255); transition: box-shadow 250ms cubic-bezier(.65,.05,.36,1);}
+.field-outline {display: flex; align-items: stretch; min-height: 40px; border-radius: 5px; box-shadow: inset 0 0 0 1px rgb(187, 187, 187); background-color: rgb(255, 255, 255); transition: box-shadow 250ms cubic-bezier(.65,.05,.36,1);}
 .field-outline:focus-within {box-shadow: inset 0 0 0 2px rgb(187, 187, 187);}
 .field-outline.grow {flex-grow: 1; flex-shrink: 0; flex-basis: 0;}
 /* FIELD - VALID */
@@ -197,6 +197,17 @@
 .popover._bottom .popover-message {transform: translateY(0);}
 .popover._left .popover-message {transform: translateY(-50%);}
 .popover._right .popover-message {transform: translateY(-50%);}
+
+/* DROPDOWN */
+.dropdown {position: relative; padding: 0;}
+.dropdown-button {display: flex; justify-content: flex-start; align-items: center; padding: 0 30px 0 0; width: 100%; height: 40px; background-color: transparent; background-image: var(--icon-001); background-repeat: no-repeat; background-position: calc(100% - 10px) 50%; background-size: 16px 16px;}
+.dropdown-items {overflow: hidden; position: absolute; z-index: 1; bottom: 0; left: 0; margin-left: -10px; width: calc(100% + 10px); height: 0; border-radius: 5px; border: 1px solid rgb(187, 187, 187); background-color: rgb(255, 255, 255); transform: translateY(calc(100% - 2px)); opacity: 0; transition: all 250ms cubic-bezier(.86, 0, .07, 1);}
+.dropdown-items._revert {bottom: initial; top: 0; transform: translateY(calc(-100% + 2px));}
+.dropdown-items._active {height: auto; opacity: 1;}
+.dropdown-items::before {content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%; border-radius: 5px; box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.15); pointer-events: none;}
+.dropdown-item + .dropdown-item {border-top: 1px solid rgb(187, 187, 187);}
+.dropdown-option {display: flex; justify-content: flex-start; align-items: center; padding: 10px 30px 10px 10px; width: 100%; height: 40px; white-space: nowrap;}
+.dropdown-option._active {background-color: rgb(238, 238, 238);}
 
 /* FIXED Z-INDEX */
 .alert {z-index: 100;}

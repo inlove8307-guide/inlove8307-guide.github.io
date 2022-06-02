@@ -51,7 +51,7 @@ window[namespace] = window[namespace] || {};
         , object = {};
 
       $(`${tagname}[${attribute}=${this.prop('selector')}]`).remove();
-      
+
       object['text'] = string;
       object[attribute] = this.prop('selector');
 
@@ -210,7 +210,7 @@ window[namespace] = window[namespace] || {};
         $target.height(0);
         clearTimeout(timeout);
       }, 10);
-      
+
       $button.removeClass(this.prop('active'));
       $target.removeClass(this.prop('active'));
     }
@@ -465,7 +465,7 @@ window[namespace] = window[namespace] || {};
 
       $message.css('width', function($message){
         switch(options.direction){
-          case 'top': 
+          case 'top':
           case 'bottom': return $basis.width();
           case 'left': return $basis.width() - $basis.offset().left - ($basis.width() - $message.offset().left);
           case 'right': return $basis.width() + $basis.offset().left - $message.offset().left;
@@ -474,8 +474,8 @@ window[namespace] = window[namespace] || {};
 
       $message.css('left', function($message){
         switch(options.direction){
-          case 'top': 
-          case 'bottom': 
+          case 'top':
+          case 'bottom':
           case 'left':  return - $message.offset().left + $basis.offset().left;
           case 'right':  return 0;
         }
@@ -532,6 +532,91 @@ window[namespace] = window[namespace] || {};
   }();
 }(window[namespace]));
 
+/* ALERT */
+(function(global){
+  'use strict';
+
+  global.dropdown = function(){
+    var component = new global.component({
+      container: 'body',
+      selector: '_dropdown',
+      button: '_dropdown-button',
+      option: '_dropdown-option',
+      items: '_dropdown-items',
+      active: '_active',
+      revert: '_revert',
+      duration: '250ms',
+      easing: 'cubic-bezier(.86, 0, .07, 1)'
+    });
+
+    function init(){
+      this.style(this.prop('container'), style.call(this));
+      this.prop('on').init && this.prop('on').init($(this.class('selector')));
+      this.change.observe(this);
+      this.scroll.observe(this);
+    }
+
+    function style(){
+      return `
+        ${this.class('selector')} ${this.class('items')} {
+          transition: height ${this.prop('duration')} ${this.prop('easing')};
+        }`;
+    }
+
+    function handlerEnd(event){
+        $(event.target).removeAttr('style');
+    }
+
+    function handlerButton(event){
+      var $selector = $(event.target).closest(this.class('selector'))
+        , $items = this.nearest($selector, this.class('items'));
+
+      $items.hasClass(this.prop('active'))
+        ? hide.call(this, $items)
+        : show.call(this, $items);
+    }
+
+    function handlerOption(event){
+      var $option = $(event.target)
+        , $selector = $option.closest(this.class('selector'))
+        , $options = this.nearest($selector, this.class('option'))
+        , $button = this.nearest($selector, this.class('button'))
+        , $items = this.nearest($selector, this.class('items'));
+
+      $button.text($option.text());
+      $options.removeClass(this.prop('active'));
+      $option.addClass(this.prop('active'));
+      hide.call(this, $items);
+    }
+
+    function show($items){
+      $items.height(0);
+      $items.height($items.prop('scrollHeight'));
+      $items.addClass(this.prop('active'));
+    }
+
+    function hide($items){
+      $items.removeClass(this.prop('active'));
+    }
+
+    component.bind = function(options){
+      $(this.prop('container')).off('TransitionEnd webkitTransitionEnd', `${this.class('selector')} ${this.class('items')}`);
+      $(this.prop('container')).off('click', `${this.class('selector')} ${this.class('button')}`);
+      $(this.prop('container')).off('click', `${this.class('selector')} ${this.class('option')}`);
+
+      $.extend(this.options, options);
+
+      $(this.prop('container')).on('TransitionEnd webkitTransitionEnd', `${this.class('selector')} ${this.class('items')}`, handlerEnd.bind(this));
+      $(this.prop('container')).on('click', `${this.class('selector')} ${this.class('button')}`, handlerButton.bind(this));
+      $(this.prop('container')).on('click', `${this.class('selector')} ${this.class('option')}`, handlerOption.bind(this));
+
+      init.call(this);
+    };
+
+    return component;
+  }();
+}(window[namespace]));
+
 /* INITIAL */
 $(function(global){
   global.init = function(){
@@ -539,6 +624,7 @@ $(function(global){
     this.tabs.bind();
     this.alert.bind();
     this.popover.bind();
+    this.dropdown.bind();
   };
 
   global.init();
