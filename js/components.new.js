@@ -47,10 +47,15 @@ window[namespace] = window[namespace] || {};
 
     this.style = function(target, string){
       var tagname = 'style'
-        , attribute = 'data-selector';
+        , attribute = 'data-selector'
+        , object = {};
 
       $(`${tagname}[${attribute}=${this.prop('selector')}]`).remove();
-      $(target).append($(`<${tagname}>`, { text: string, attribute: this.prop('selector') }));
+      
+      object['text'] = string;
+      object[attribute] = this.prop('selector');
+
+      $(target).append($(`<${tagname}>`, object));
     };
 
     this.nearest = function($current, selector){
@@ -60,7 +65,7 @@ window[namespace] = window[namespace] || {};
         $current = $current.children();
         $result = $current.filter(selector);
       }
-      while (!$result.length)
+      while (!$result.length && $current.length)
 
       return $result;
     };
@@ -444,16 +449,16 @@ window[namespace] = window[namespace] || {};
 
     function css($selector, options){
       var $message = $selector.find(this.class('message'))
-        , $ground = $selector.closest(options.ground);
+        , $basis = $selector.closest(options.basis);
 
-      if (!$ground.length) return;
+      if (!$basis.length) $basis = $(this.prop('container'));
 
       $message.css('width', function($message){
         switch(options.direction){
           case 'top': 
-          case 'bottom': return $ground.width();
-          case 'left': return $ground.width() - $ground.offset().left - ($ground.width() - $message.offset().left);
-          case 'right': return $ground.width() + $ground.offset().left - $message.offset().left;
+          case 'bottom': return $basis.width();
+          case 'left': return $basis.width() - $basis.offset().left - ($basis.width() - $message.offset().left);
+          case 'right': return $basis.width() + $basis.offset().left - $message.offset().left;
         }
       }.call(this, $message));
 
@@ -461,7 +466,7 @@ window[namespace] = window[namespace] || {};
         switch(options.direction){
           case 'top': 
           case 'bottom': 
-          case 'left':  return - $message.offset().left + $ground.offset().left;
+          case 'left':  return - $message.offset().left + $basis.offset().left;
           case 'right':  return 0;
         }
       }.call(this, $message));
@@ -469,7 +474,7 @@ window[namespace] = window[namespace] || {};
 
     component.show = function(options){
       var $selector = $(this.class('selector'))
-        , options = $.extend({ target: null, direction: 'bottom', message: 'message' }, options)
+        , options = $.extend({ target: null, basis: null, direction: 'bottom', message: 'message' }, options)
         , timeout;
 
       if (!options.target) return;
