@@ -593,10 +593,12 @@ window[namespace] = window[namespace] || {};
       $items.height(0);
       $items.height($items.prop('scrollHeight'));
       $items.addClass(this.prop('active'));
+      this.prop('on').show && this.prop('on').show();
     }
 
     function hide($items){
       $items.removeClass(this.prop('active'));
+      this.prop('on').hide && this.prop('on').hide();
     }
 
     component.bind = function(options){
