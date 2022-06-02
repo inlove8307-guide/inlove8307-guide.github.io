@@ -443,26 +443,24 @@ window[namespace] = window[namespace] || {};
     }
 
     function css($selector, options){
-      var $message = $selector.find(this.class('message'));
-      var $relative = $selector.closest(options.relative);
+      var $message = $selector.find(this.class('message'))
+        , $ground = $selector.closest(options.ground);
 
-      if (!$relative.length) return;
+      if (!$ground.length) return;
 
       $message.css('width', function($message){
-        console.log($relative, $relative.width());
-        console.log($message, $message.offset());
         switch(options.direction){
-          case 'top': return $relative.width();
-          case 'bottom': return $relative.width();
-          case 'left': return $relative.width() - $relative.offset().left - ($relative.width() - $message.offset().left);
-          case 'right': return $relative.width() + $relative.offset().left - $message.offset().left;
+          case 'top': return $ground.width();
+          case 'bottom': return $ground.width();
+          case 'left': return $ground.width() - $ground.offset().left - ($ground.width() - $message.offset().left);
+          case 'right': return $ground.width() + $ground.offset().left - $message.offset().left;
         }
       }.call(this, $message));
 
       $message.css('left', function($message){
         switch(options.direction){
-          case 'top': return - $message.offset().left + $relative.offset().left;
-          case 'bottom': return - $message.offset().left + $relative.offset().left;
+          case 'top': return - $message.offset().left + $ground.offset().left;
+          case 'bottom': return - $message.offset().left + $ground.offset().left;
         }
       }.call(this, $message));
     }

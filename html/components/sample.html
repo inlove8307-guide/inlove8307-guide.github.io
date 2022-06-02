@@ -984,25 +984,25 @@
             <div class="guide-viewer__view">
 
               <div class="button-group">
-                <button type="button" class="button" onclick="UI.popover.show({ target: this, relative: '.button-group', direction: 'right', message: 'message message message message message' })">
+                <button type="button" class="button" onclick="UI.popover.show({ target: this, ground: '.button-group', direction: 'right', message: 'message message message message message' })">
                   <span class="button-label">right</span>
                 </button>
               </div>
 
               <div class="button-group right">
-                <button type="button" class="button" onclick="UI.popover.show({ target: this, relative: '.button-group', direction: 'left', message: 'message message message message message' })">
+                <button type="button" class="button" onclick="UI.popover.show({ target: this, ground: '.button-group', direction: 'left', message: 'message message message message message' })">
                   <span class="button-label">left</span>
                 </button>
               </div>
 
               <div class="button-group">
-                <button type="button" class="button" onclick="UI.popover.show({ target: this, relative: '.button-group', direction: 'top', message: 'message message message message message' })">
+                <button type="button" class="button" onclick="UI.popover.show({ target: this, ground: '.button-group', direction: 'top', message: 'message message message message message' })">
                   <span class="button-label">top</span>
                 </button>
               </div>
 
               <div class="button-group">
-                <button type="button" class="button" onclick="UI.popover.show({ target: this, relative: '.button-group', direction: 'bottom', message: 'message message message message message' })">
+                <button type="button" class="button" onclick="UI.popover.show({ target: this, ground: '.button-group', direction: 'bottom', message: 'message message message message message' })">
                   <span class="button-label">bottom</span>
                 </button>
               </div>
@@ -1044,7 +1044,6 @@
                     bottom: '_bottom',
                     left: '_left',
                     active: '_active',
-                    space: 20,
                     duration: '250ms',
                     easing: 'cubic-bezier(.86, 0, .07, 1)'
                     on: {
@@ -1072,8 +1071,9 @@
 
                   UI.popover.show({
                     target: null,
-                    message: 'message',
-                    direction: 'bottom'
+                    ground: null,
+                    direction: 'bottom',
+                    message: 'message'
                   });
 
                   UI.popover.hide();
