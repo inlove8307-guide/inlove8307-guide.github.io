@@ -559,7 +559,7 @@ window[namespace] = window[namespace] || {};
     function style(){
       return `
         ${this.class('selector')} ${this.class('items')} {
-          transition: all ${this.prop('duration')} ${this.prop('easing')};
+          transition: height ${this.prop('duration')} ${this.prop('easing')};
         }`;
     }
 
