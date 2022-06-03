@@ -532,7 +532,7 @@ window[namespace] = window[namespace] || {};
   }();
 }(window[namespace]));
 
-/* ALERT */
+/* DROPDOWN */
 (function(global){
   'use strict';
 
@@ -559,7 +559,7 @@ window[namespace] = window[namespace] || {};
     function style(){
       return `
         ${this.class('selector')} ${this.class('items')} {
-          transition: height ${this.prop('duration')} ${this.prop('easing')};
+          transition: all ${this.prop('duration')} ${this.prop('easing')};
         }`;
     }
 
