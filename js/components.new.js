@@ -425,13 +425,15 @@ window[namespace] = window[namespace] || {};
     var component = new global.component({
       container: 'body',
       selector: '_popover',
+      content: '_popover-content',
       message: '_popover-message',
+      ground:  '_popover-ground',
       top: '_top',
       right: '_right',
       bottom: '_bottom',
       left: '_left',
       active: '_active',
-      space: 20,
+      styled: '_styled',
       duration: '250ms',
       easing: 'cubic-bezier(.86, 0, .07, 1)'
     });
@@ -444,87 +446,158 @@ window[namespace] = window[namespace] || {};
     function style(){
       return `
         ${this.class('selector')} {
+          overflow: initial;
+          position: relative;
+        }
+        ${this.class('content')} {
+          opacity: 0;
           transition: opacity ${this.prop('duration')} ${this.prop('easing')};
+        }
+        ${this.class('content')}${this.class('active')} {
+          opacity: 1;
+        }
+        ${this.class('content')}${this.class('top')} {
+          top: 0;
+          left: 50%;
+          transform: translateY(calc(-100% - 8px));
+        }
+        ${this.class('content')}${this.class('bottom')} {
+          bottom: 0;
+          left: 50%;
+          transform: translateY(calc(100% + 8px));
+        }
+        ${this.class('content')}${this.class('left')} {
+          left: 0;
+          top: 50%;
+          transform: translateX(calc(-100% - 8px));
+        }
+        ${this.class('content')}${this.class('right')} {
+          right: 0;
+          top: 50%;
+          transform: translateX(calc(100% + 8px));
+        }
+        ${this.class('content')}::before {
+          opacity: 0;
+          transition: opacity ${this.prop('duration')} ${this.prop('easing')};
+        }
+        ${this.class('content')}${this.class('active')}::before {
+          opacity: 1;
+        }
+        ${this.class('content')}${this.class('top')}::before {
+          content: '';
+          position: absolute;
+          bottom: 0;
+          left: 50%;
+          border-top: 4px solid rgb(0, 0, 0);
+          border-left: 3px solid transparent;
+          border-right: 3px solid transparent;
+          transform: translate(-50%, 100%);
+        }
+        ${this.class('content')}${this.class('bottom')}::before {
+          content: '';
+          position: absolute;
+          top: 0;
+          left: 50%;
+          border-bottom: 4px solid rgb(0, 0, 0);
+          border-left: 3px solid transparent;
+          border-right: 3px solid transparent;
+          transform: translate(-50%, -100%);
+        }
+        ${this.class('content')}${this.class('left')}::before {
+          content: '';
+          position: absolute;
+          top: 50%;
+          right: 0;
+          border-left: 4px solid rgb(0, 0, 0);
+          border-top: 3px solid transparent;
+          border-bottom: 3px solid transparent;
+          transform: translate(100%, -50%);
+        }
+        ${this.class('content')}${this.class('right')}::before {
+          content: '';
+          position: absolute;
+          top: 50%;
+          left: 0;
+          border-right: 4px solid rgb(0, 0, 0);
+          border-top: 3px solid transparent;
+          border-bottom: 3px solid transparent;
+          transform: translate(-100%, -50%);
+        }
+        ${this.class('content')}${this.class('top')} ${this.class('message')} {
+          transform: translate(-50%, -100%);
+        }
+        ${this.class('content')}${this.class('bottom')} ${this.class('message')} {
+          transform: translate(-50%, 0);
+        }
+        ${this.class('content')}${this.class('left')} ${this.class('message')} {
+          transform: translate(-100%, -50%);
+        }
+        ${this.class('content')}${this.class('right')} ${this.class('message')} {
+          transform: translate(0, -50%);
         }`;
     }
 
-    function html(options){
-      return `
-        <span class="popover ${this.prop('selector')} ${this.prop(options.direction)}">
-          <span class="popover-message ${this.prop('message')}">
-            <span>${options.message}</span>
-          </span>
-        </span>`;
+    function css($selector){
+      var $content = this.nearest($selector, this.class('content'))
+        , $message = this.nearest($selector, this.class('message'))
+        , $ground = $selector.closest(this.class('ground'))
+        , direction = function(){
+          if ($content.hasClass(this.prop('top'))) return this.prop('top');
+          if ($content.hasClass(this.prop('bottom'))) return this.prop('bottom');
+          if ($content.hasClass(this.prop('left'))) return this.prop('left');
+          if ($content.hasClass(this.prop('right'))) return this.prop('right');
+        }.call(this);
+
+      if ($selector.hasClass(this.prop('styled'))) return;
+
+      $message.css('width', function(){
+        switch(direction){
+          case this.prop('top'):
+          case this.prop('bottom'): return $ground.width();
+          case this.prop('left'): return $ground.width() - ($ground.width() - $message.offset().left) - $ground.offset().left;
+          case this.prop('right'): return $ground.width() - $message.offset().left + $ground.offset().left;
+        }
+      }.call(this));
+
+      $message.css('left', function(){
+        switch(direction){
+          case this.prop('top'):
+          case this.prop('bottom'):
+          case this.prop('left'): return - $message.offset().left + $ground.offset().left;
+          case this.prop('right'): return 0;
+        }
+      }.call(this));
+
+      $selector.addClass(this.prop('styled'));
     }
 
-    function css($selector, options){
-      var $message = $selector.find(this.class('message'))
-        , $basis = $selector.closest(options.basis);
+    function handlerEnd(event){}
 
-      if (!$basis.length) $basis = $(this.prop('container'));
+    function handlerButton(event){
+      var $selector = $(event.target).closest(this.class('selector'))
+        , $content = this.nearest($selector, this.class('content'));
 
-      $message.css('width', function($message){
-        switch(options.direction){
-          case 'top':
-          case 'bottom': return $basis.width();
-          case 'left': return $basis.width() - $basis.offset().left - ($basis.width() - $message.offset().left);
-          case 'right': return $basis.width() + $basis.offset().left - $message.offset().left;
-        }
-      }.call(this, $message));
+      css.call(this, $selector);
 
-      $message.css('left', function($message){
-        switch(options.direction){
-          case 'top':
-          case 'bottom':
-          case 'left':  return - $message.offset().left + $basis.offset().left;
-          case 'right':  return 0;
-        }
-      }.call(this, $message));
+      if ($content.hasClass(this.prop('active'))) {
+        $content.removeClass(this.prop('active'));
+        this.prop('on').hide && this.prop('on').hide();
+      }
+      else {
+        $content.addClass(this.prop('active'));
+        this.prop('on').show && this.prop('on').show();
+      }
     }
-
-    component.show = function(options){
-      var $selector = $(this.class('selector'))
-        , options = $.extend({ target: null, basis: null, direction: 'bottom', message: 'message' }, options)
-        , timeout;
-
-      if (!options.target) return;
-
-      function active($selector){
-        $selector.addClass(this.prop('active'));
-        clearTimeout(timeout);
-      }
-
-      if ($selector.length) {
-        this.hide.call(this);
-
-        if (this.prop('timestamp') == $(options.target).data('timestamp')) {
-          return;
-        }
-      }
-
-      this.prop('timestamp', + new Date());
-      $(options.target).data('timestamp', this.prop('timestamp'));
-
-      $(options.target).css({ overflow: 'initial', position: 'relative' });
-      $(options.target).append(html.call(this, options));
-
-      $selector = $(this.class('selector'));
-      css.call(this, $selector, options);
-
-      timeout = setTimeout(active.bind(this, $selector), 1);
-
-      this.prop('on').show && this.prop('on').show();
-      this.change.observe(this);
-      this.scroll.observe(this);
-    };
-
-    component.hide = function(){
-      $(this.class('selector')).remove();
-      this.prop('on').hide && this.prop('on').hide();
-    };
 
     component.bind = function(options){
+      $(this.prop('container')).off('TransitionEnd webkitTransitionEnd', `${this.class('selector')} ${this.class('content')}`);
+      $(this.prop('container')).off('click', `${this.class('selector')}`);
+
       $.extend(this.options, options);
+
+      $(this.prop('container')).on('TransitionEnd webkitTransitionEnd', `${this.class('selector')} ${this.class('content')}`, handlerEnd.bind(this));
+      $(this.prop('container')).on('click', `${this.class('selector')}`, handlerButton.bind(this));
+
       init.call(this);
     };
 
