@@ -1,3 +1,20 @@
+/* SPACER */
+.space-xl {margin-top: 40px;}
+.space-lg {margin-top: 32px;}
+.space-md {margin-top: 24px;}
+.space-sm {margin-top: 16px;}
+.space-xs {margin-top: 8px;}
+
+/* LINEAR */
+.linear {display: block; margin: 0; height: 1px; border: none; background-color: rgba(0, 0, 0, 0.25);}
+.linear.dashed {background-color: rgba(0, 0, 0, 0); background-image: repeating-linear-gradient(to right, rgba(0, 0, 0, 0.25), rgba(0, 0, 0, 0.25) 1px, rgba(0, 0, 0, 0) 1px, rgba(0, 0, 0, 0) 4px);}
+.linear.hidden {height: 0; background: none;}
+.linear.space-xl {margin: 40px 0;}
+.linear.space-lg {margin: 32px 0;}
+.linear.space-md {margin: 24px 0;}
+.linear.space-sm {margin: 16px 0;}
+.linear.space-xs {margin: 8px 0;}
+
 /* BUTTON */
 .button {flex-shrink: 0; display: inline-flex; justify-content: center; align-items: center; padding: 0 15px; min-height: 40px; border-radius: 5px; border: 1px solid rgb(187, 187, 187); background-color: rgb(255, 255, 255); font-size: 16px; color: rgb(34, 34, 34); letter-spacing: 0; transition: all 250ms cubic-bezier(.65,.05,.36,1);}
 .button:hover {border-color: rgb(187, 187, 187); box-shadow: 0 0 0 2px rgba(0, 0, 0, 0.075);}
@@ -30,7 +47,7 @@
 .button-group.fit .button {border-radius: 0;}
 .button-group.fit .button + .button {margin-left: 0;}
 /* BUTTON - WRAP */
-.button-group.wrap {overflow: hidden; flex-wrap: wrap; margin-top: 0; margin-left: -10px;}
+.button-group.wrap {overflow: hidden; flex-wrap: wrap; margin-top: -10px; margin-left: -10px;}
 .button-group.wrap .button {margin-top: 10px; margin-left: 10px;}
 .button-group.wrap .button:last-child {margin-right: 0;}
 /* BUTTON - LABEL */
