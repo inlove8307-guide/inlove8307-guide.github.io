@@ -448,68 +448,10 @@ window[namespace] = window[namespace] || {};
     function style(){
       return `
         ${this.class('selector')} {
-          visibility: hidden;
-          z-index: -1;
-          opacity: 0;
-          pointer-events: none;
-          transform: scale(0);
           transition: opacity ${this.prop('duration')} ${this.prop('easing')};
-        }
-        ${this.class('selector')}${this.class('active')} {
-          visibility: visible;
-          opacity: 1;
-          pointer-events: initial;
-          transform: scale(1);
         }
         ${this.class('selector')} ${this.class('content')} {
           transition: all ${this.prop('duration')} ${this.prop('easing')};
-        }
-        ${this.class('content')}${this.class('center')} {
-          top: 50%;
-          left: 50%;
-          min-width: 50%;
-          min-height: 50%;
-          width: calc(100% - 48px);
-          border-radius: 10px;
-          transform: translate(-50%, -50%);
-        }
-        ${this.class('content')}${this.class('full')} {
-          top: 0;
-          left: 0;
-          width: 100%;
-          height: 100%;
-        }
-        ${this.class('content')}${this.class('top')} {
-          top: 0;
-          left: 0;
-          width: 100%;
-          border-radius:
-          0 0 10px 10px;
-          transform: translate(0, -100%);
-        }
-        ${this.class('content')}${this.class('bottom')} {
-          bottom: 0;
-          left: 0;
-          width: 100%;
-          border-radius: 10px 10px 0 0;
-          transform: translate(0, 100%);
-        }
-        ${this.class('content')}${this.class('left')} {
-          top: 0;
-          left: 0;
-          width: 80%;
-          height: 100%;
-          transform: translate(-100%, 0);
-        }
-        ${this.class('content')}${this.class('right')} {
-          top: 0;
-          right: 0;
-          width: 80%;
-          height: 100%;
-          transform: translate(100%, 0);
-        }
-        ${this.class('selector')}${this.class('active')} ${this.class('content')}:not(${this.class('center')}) {
-          transform: translate(0, 0);
         }`;
     }
 
@@ -600,95 +542,11 @@ window[namespace] = window[namespace] || {};
 
     function style(){
       return `
-        ${this.class('selector')} {
-          overflow: initial;
-          position: relative;
-        }
-        ${this.class('content')} {
-          opacity: 0;
+        ${this.class('selector')} ${this.class('content')} {
           transition: opacity ${this.prop('duration')} ${this.prop('easing')};
         }
-        ${this.class('content')}${this.class('active')} {
-          opacity: 1;
-        }
-        ${this.class('content')}${this.class('top')} {
-          top: 0;
-          left: 50%;
-          transform: translateY(calc(-100% - 8px));
-        }
-        ${this.class('content')}${this.class('bottom')} {
-          bottom: 0;
-          left: 50%;
-          transform: translateY(calc(100% + 8px));
-        }
-        ${this.class('content')}${this.class('left')} {
-          left: 0;
-          top: 50%;
-          transform: translateX(calc(-100% - 8px));
-        }
-        ${this.class('content')}${this.class('right')} {
-          right: 0;
-          top: 50%;
-          transform: translateX(calc(100% + 8px));
-        }
-        ${this.class('content')}::before {
-          opacity: 0;
+        ${this.class('selector')} ${this.class('content')}::before {
           transition: opacity ${this.prop('duration')} ${this.prop('easing')};
-        }
-        ${this.class('content')}${this.class('active')}::before {
-          opacity: 1;
-        }
-        ${this.class('content')}${this.class('top')}::before {
-          content: '';
-          position: absolute;
-          bottom: 0;
-          left: 50%;
-          border-top: 4px solid rgb(0, 0, 0);
-          border-left: 3px solid transparent;
-          border-right: 3px solid transparent;
-          transform: translate(-50%, 100%);
-        }
-        ${this.class('content')}${this.class('bottom')}::before {
-          content: '';
-          position: absolute;
-          top: 0;
-          left: 50%;
-          border-bottom: 4px solid rgb(0, 0, 0);
-          border-left: 3px solid transparent;
-          border-right: 3px solid transparent;
-          transform: translate(-50%, -100%);
-        }
-        ${this.class('content')}${this.class('left')}::before {
-          content: '';
-          position: absolute;
-          top: 50%;
-          right: 0;
-          border-left: 4px solid rgb(0, 0, 0);
-          border-top: 3px solid transparent;
-          border-bottom: 3px solid transparent;
-          transform: translate(100%, -50%);
-        }
-        ${this.class('content')}${this.class('right')}::before {
-          content: '';
-          position: absolute;
-          top: 50%;
-          left: 0;
-          border-right: 4px solid rgb(0, 0, 0);
-          border-top: 3px solid transparent;
-          border-bottom: 3px solid transparent;
-          transform: translate(-100%, -50%);
-        }
-        ${this.class('content')}${this.class('top')} ${this.class('message')} {
-          transform: translate(-50%, -100%);
-        }
-        ${this.class('content')}${this.class('bottom')} ${this.class('message')} {
-          transform: translate(-50%, 0);
-        }
-        ${this.class('content')}${this.class('left')} ${this.class('message')} {
-          transform: translate(-100%, -50%);
-        }
-        ${this.class('content')}${this.class('right')} ${this.class('message')} {
-          transform: translate(0, -50%);
         }`;
     }
 
