@@ -448,14 +448,18 @@ window[namespace] = window[namespace] || {};
     function style(){
       return `
         ${this.class('selector')} {
-          visibility: none;
+          visibility: hidden;
           z-index: -1;
           opacity: 0;
-          transition: all ${this.prop('duration')} ${this.prop('easing')};
+          pointer-events: none;
+          transform: scale(0);
+          transition: opacity ${this.prop('duration')} ${this.prop('easing')};
         }
         ${this.class('selector')}${this.class('active')} {
           visibility: visible;
           opacity: 1;
+          pointer-events: initial;
+          transform: scale(1);
         }
         ${this.class('selector')} ${this.class('content')} {
           transition: all ${this.prop('duration')} ${this.prop('easing')};
@@ -527,8 +531,7 @@ window[namespace] = window[namespace] || {};
       if (!this.prop('target')) this.prop('target', $(this.class('selector')).eq(0));
       if (!this.prop('target')) return;
 
-      console.log(this.prop('target'));
-
+      $(this.class('selector')).removeClass(this.prop('active'));
       this.prop('target').addClass(this.prop('active'));
 
       if (options.on) {
@@ -850,9 +853,9 @@ $(function(global){
     this.collapse.bind();
     this.tabs.bind();
     this.alert.bind();
+    this.modal.bind();
     this.popover.bind();
     this.dropdown.bind();
-    this.modal.bind();
   };
 
   global.init();
