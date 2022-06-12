@@ -417,6 +417,158 @@ window[namespace] = window[namespace] || {};
   }();
 }(window[namespace]));
 
+/* MODAL */
+(function(global){
+  'use strict';
+
+  global.modal = function(){
+    var component = new global.component({
+      container: 'body',
+      selector: '_modal',
+      content: '_modal-content',
+      close: '_modal-close',
+      cancel: '_modal-cancel',
+      confirm: '_modal-confirm',
+      top: '_top',
+      right: '_right',
+      bottom: '_bottom',
+      left: '_left',
+      center: '_center',
+      full: '_full',
+      active: '_active',
+      duration: '250ms',
+      easing: 'cubic-bezier(.86, 0, .07, 1)'
+    });
+
+    function init(){
+      this.style(this.prop('container'), style.call(this));
+      this.prop('on').init && this.prop('on').init($(this.class('selector')));
+    }
+
+    function style(){
+      return `
+        ${this.class('selector')} {
+          visibility: none;
+          z-index: -1;
+          opacity: 0;
+          transition: all ${this.prop('duration')} ${this.prop('easing')};
+        }
+        ${this.class('selector')}${this.class('active')} {
+          visibility: visible;
+          opacity: 1;
+        }
+        ${this.class('selector')} ${this.class('content')} {
+          transition: all ${this.prop('duration')} ${this.prop('easing')};
+        }
+        ${this.class('content')}${this.class('center')} {
+          top: 50%;
+          left: 50%;
+          min-width: 50%;
+          min-height: 50%;
+          width: calc(100% - 48px);
+          border-radius: 10px;
+          transform: translate(-50%, -50%);
+        }
+        ${this.class('content')}${this.class('full')} {
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+        }
+        ${this.class('content')}${this.class('top')} {
+          top: 0;
+          left: 0;
+          width: 100%;
+          border-radius:
+          0 0 10px 10px;
+          transform: translate(0, -100%);
+        }
+        ${this.class('content')}${this.class('bottom')} {
+          bottom: 0;
+          left: 0;
+          width: 100%;
+          border-radius: 10px 10px 0 0;
+          transform: translate(0, 100%);
+        }
+        ${this.class('content')}${this.class('left')} {
+          top: 0;
+          left: 0;
+          width: 80%;
+          height: 100%;
+          transform: translate(-100%, 0);
+        }
+        ${this.class('content')}${this.class('right')} {
+          top: 0;
+          right: 0;
+          width: 80%;
+          height: 100%;
+          transform: translate(100%, 0);
+        }
+        ${this.class('selector')}${this.class('active')} ${this.class('content')}:not(${this.class('center')}) {
+          transform: translate(0, 0);
+        }`;
+    }
+
+    function handlerEnd(event){}
+
+    function handlerClick(event){
+      var $target = $(event.target);
+
+      $target.hasClass(this.prop('cancel')) && this.prop('on').cancel && this.prop('on').cancel();
+      $target.hasClass(this.prop('confirm')) && this.prop('on').confirm && this.prop('on').confirm();
+
+      this.hide();
+    }
+
+    component.show = function(options){
+      var options = $.extend({ target: null }, options);
+
+      if ($(options.target).length) this.prop('target', $(options.target));
+      if (!this.prop('target')) this.prop('target', $(this.class('selector')).eq(0));
+      if (!this.prop('target')) return;
+
+      console.log(this.prop('target'));
+
+      this.prop('target').addClass(this.prop('active'));
+
+      if (options.on) {
+        this.on('confirm', options.on.confirm);
+        this.on('cancel', options.on.cancel);
+      }
+
+      this.prop('on').show && this.prop('on').show();
+      this.change.observe(this);
+    };
+
+    component.hide = function(){
+      var $selector = this.prop('target') || $(this.class('selector'));
+
+      $selector.removeClass(this.prop('active'));
+      this.prop('on').hide && this.prop('on').hide();
+      delete this.prop('on').confirm;
+      delete this.prop('on').cancel;
+    };
+
+    component.bind = function(options){
+      $(this.prop('container')).off('TransitionEnd webkitTransitionEnd', this.class('selector'));
+      $(this.prop('container')).off('click', `${this.class('selector')} ${this.class('close')}`);
+      $(this.prop('container')).off('click', `${this.class('selector')} ${this.class('cancel')}`);
+      $(this.prop('container')).off('click', `${this.class('selector')} ${this.class('confirm')}`);
+
+      $.extend(this.options, options);
+
+      $(this.prop('container')).on('TransitionEnd webkitTransitionEnd', this.class('selector'), handlerEnd.bind(this));
+      $(this.prop('container')).on('click', `${this.class('selector')} ${this.class('close')}`, handlerClick.bind(this));
+      $(this.prop('container')).on('click', `${this.class('selector')} ${this.class('cancel')}`, handlerClick.bind(this));
+      $(this.prop('container')).on('click', `${this.class('selector')} ${this.class('confirm')}`, handlerClick.bind(this));
+
+      init.call(this);
+    };
+
+    return component;
+  }();
+}(window[namespace]));
+
 /* POPOVER */
 (function(global){
   'use strict';
@@ -700,6 +852,7 @@ $(function(global){
     this.alert.bind();
     this.popover.bind();
     this.dropdown.bind();
+    this.modal.bind();
   };
 
   global.init();

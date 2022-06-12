@@ -37,6 +37,10 @@
 .button-label.grow {flex-grow: 1; flex-shrink: 0; flex-basis: 0;}
 .button-label.ellipsis {overflow: hidden; white-space: nowrap; text-overflow: ellipsis;}
 /* BUTTON - ICON */
+.button.icon {padding: 0; width: auto; min-height: auto; height: auto; border: 0;}
+.button.icon:hover {border: 0; box-shadow: none;}
+.button.icon:focus {border: 0; background-color: none;}
+.button.icon.x24 {width: 24px; height: 24px;}
 .button-icon {flex-shrink: 0;}
 .button-label + .button-icon,
 .button-icon + .button-label {margin-left: 5px;}
@@ -198,6 +202,16 @@
 .alert-content {display: flex; flex-direction: column; justify-content: center; padding: 16px; width: calc(100% - 48px); min-height: 200px; border-radius: 10px; background-color: rgb(255, 255, 255); box-shadow: 0 0 10px rgba(0, 0, 0, 0.25);}
 .alert-message {flex-grow: 1; flex-shrink: 0; flex-basis: 0; display: flex; justify-content: center; align-items: center;}
 
+/* MODAL */
+.modal {position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0.25);}
+.modal-content {display: flex; flex-direction: column; position: absolute; background-color: rgb(255, 255, 255); transition: all 250ms cubic-bezier(.86, 0, .07, 1);}
+.modal-header {display: flex; position: relative; padding: 0 10px; height: 50px;}
+.modal-title {position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);}
+.modal-button {display: flex; align-items: center;}
+.modal-button.right {margin-left: auto;}
+.modal-main {flex: 1; flex-shrink: 0; flex-basis: 0; padding: 15px;}
+.modal-footer {padding: 15px;}
+
 /* POPOVER */
 .popover-content {display: flex; position: absolute; z-index: 1; pointer-events: none;}
 .popover-message {overflow: hidden; position: absolute; width: 0; border-radius: 5px; background-color: rgb(0, 0, 0); box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.25); text-align: left; color: rgb(255, 255, 255); word-break: keep-all;}
@@ -205,3 +219,4 @@
 
 /* FIXED Z-INDEX */
 .alert {z-index: 100;}
+.modal._active {z-index: 100;}
