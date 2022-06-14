@@ -157,7 +157,7 @@ window[namespace] = window[namespace] || {};
         ${this.class('selector')} ${this.class('button')} {
           transition: all ${this.prop('duration')} ${this.prop('easing')};
         }
-        ${this.class('selector')}  ${this.class('target')} {
+        ${this.class('selector')} ${this.class('target')} {
           transition: all ${this.prop('duration')} ${this.prop('easing')};
         }`;
     }
@@ -188,12 +188,9 @@ window[namespace] = window[namespace] || {};
     }
 
     function show($button, $target){
-      var timeout;
-
-      $target.height(0);
-      timeout = setTimeout(function(){
-        $target.height($target.prop('scrollHeight'));
-        clearTimeout(timeout);
+      $target.css('max-height', 0);
+      setTimeout(function(){
+        $target.css('max-height', $target.prop('scrollHeight'));
       }, 10);
 
       $button.addClass(this.prop('active'));
@@ -203,12 +200,9 @@ window[namespace] = window[namespace] || {};
     }
 
     function hide($button, $target){
-      var timeout;
-
-      $target.height($target.height());
-      timeout = setTimeout(function(){
-        $target.height(0);
-        clearTimeout(timeout);
+      $target.css('max-height', $target.height());
+      setTimeout(function(){
+        $target.css('max-height', 0);
       }, 10);
 
       $button.removeClass(this.prop('active'));
