@@ -5,6 +5,9 @@
 .space-sm {margin-top: 16px;}
 .space-xs {margin-top: 8px;}
 
+/* INSET */
+.inset {padding: 0 16px;}
+
 /* LINEAR */
 .linear {display: block; margin: 0; height: 1px; border: none; background-color: rgba(0, 0, 0, 0.25);}
 .linear.dashed {background-color: rgba(0, 0, 0, 0); background-image: repeating-linear-gradient(to right, rgba(0, 0, 0, 0.25), rgba(0, 0, 0, 0.25) 1px, rgba(0, 0, 0, 0) 1px, rgba(0, 0, 0, 0) 4px);}
@@ -234,7 +237,7 @@
 .modal-title {position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);}
 .modal-button {display: flex; align-items: center;}
 .modal-button.right {margin-left: auto;}
-.modal-main {flex: 1; flex-shrink: 0; flex-basis: 0; padding: 15px;}
+.modal-main {flex: 1; flex-shrink: 0; flex-basis: 0;}
 .modal-footer {padding: 15px;}
 /* MODAL - SCRIPT */
 ._modal {visibility: hidden; z-index: -1; opacity: 0; pointer-events: none; transform: scale(0);}
