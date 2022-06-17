@@ -709,14 +709,46 @@ window[namespace] = window[namespace] || {};
       selector: '_input',
       clear: '_input-clear',
       active: '_active',
+      number: '_number',
+      price: '_price',
+      date: '_date',
+      time: '_time',
+      phone: '_phone',
       duration: '250ms',
       easing: 'cubic-bezier(.65,.05,.36,1)'
     });
 
     function init(){
+      format.call(this);
       this.prop('on').init && this.prop('on').init($(this.class('selector')));
       this.change.observe(this);
       this.scroll.observe(this);
+    }
+
+    function format(){
+      if (!Cleave) return;
+
+      new Cleave(`${this.class('selector')}${this.class('price')} input`, {
+        numeral: true,
+        numeralThousandsGroupStyle: 'thousand'
+      });
+
+      new Cleave(`${this.class('selector')}${this.class('date')} input`, {
+        date: true,
+        delimiter: '.',
+        datePattern: ['Y', 'm', 'd']
+      });
+
+      new Cleave(`${this.class('selector')}${this.class('time')} input`, {
+        time: true,
+        timePattern: ['h', 'm', 's']
+      });
+
+      new Cleave(`${this.class('selector')}${this.class('phone')} input`, {
+        delimiter: '-',
+        blocks: [3, 4, 4],
+        uppercase: true
+      });
     }
 
     function handlerClear(event){
