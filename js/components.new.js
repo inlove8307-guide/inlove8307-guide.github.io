@@ -708,12 +708,11 @@ window[namespace] = window[namespace] || {};
       container: 'body',
       selector: '_input',
       clear: '_input-clear',
-      active: '_active',
       number: '_number',
       price: '_price',
       date: '_date',
       time: '_time',
-      phone: '_phone',
+      active: '_active',
       duration: '250ms',
       easing: 'cubic-bezier(.65,.05,.36,1)'
     });
@@ -742,12 +741,6 @@ window[namespace] = window[namespace] || {};
       new Cleave(`${this.class('selector')}${this.class('time')} input`, {
         time: true,
         timePattern: ['h', 'm', 's']
-      });
-
-      new Cleave(`${this.class('selector')}${this.class('phone')} input`, {
-        delimiter: '-',
-        blocks: [3, 4, 4],
-        uppercase: true
       });
     }
 
