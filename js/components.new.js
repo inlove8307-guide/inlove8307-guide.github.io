@@ -699,6 +699,62 @@ window[namespace] = window[namespace] || {};
   }();
 }(window[namespace]));
 
+/* INPUT */
+(function(global){
+  'use strict';
+
+  global.input = function(){
+    var component = new global.component({
+      container: 'body',
+      selector: '_input',
+      clear: '_input-clear',
+      active: '_active',
+      duration: '250ms',
+      easing: 'cubic-bezier(.65,.05,.36,1)'
+    });
+
+    function init(){
+      this.prop('on').init && this.prop('on').init($(this.class('selector')));
+      this.change.observe(this);
+      this.scroll.observe(this);
+    }
+
+    function handlerClear(event){
+      var $clear = $(event.target).closest(this.class('clear'))
+        , $input = $clear.siblings(this.class('selector')).find('input');
+
+      $input.val('');
+      $clear.removeClass(this.prop('active'));
+    }
+
+    function handlerChange(event){
+      var $clear = $(event.target).closest(this.class('selector')).siblings(this.class('clear'));
+
+      $(event.target).val().length
+        ? $clear.addClass(this.prop('active'))
+        : $clear.removeClass(this.prop('active'));
+    }
+
+    component.bind = function(options){
+      $(this.prop('container')).off('click', `${this.class('selector')} ~ ${this.class('clear')}`);
+      $(this.prop('container')).off('keyup', `${this.class('selector')} input`);
+      $(this.prop('container')).off('keydown', `${this.class('selector')} input`);
+      $(this.prop('container')).off('change', `${this.class('selector')} input`);
+
+      $.extend(this.options, options);
+
+      $(this.prop('container')).on('click', `${this.class('selector')} ~ ${this.class('clear')}`, handlerClear.bind(this));
+      $(this.prop('container')).on('keyup', `${this.class('selector')} input`, handlerChange.bind(this));
+      $(this.prop('container')).on('keydown', `${this.class('selector')} input`, handlerChange.bind(this));
+      $(this.prop('container')).on('change', `${this.class('selector')} input`, handlerChange.bind(this));
+
+      init.call(this);
+    };
+
+    return component;
+  }();
+}(window[namespace]));
+
 /* INITIAL */
 $(function(global){
   global.init = function(){
@@ -708,6 +764,7 @@ $(function(global){
     this.modal.bind();
     this.popover.bind();
     this.dropdown.bind();
+    this.input.bind();
   };
 
   global.init();

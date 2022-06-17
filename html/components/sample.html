@@ -134,10 +134,10 @@
               <div class="field">
                 <label class="field-label">label</label>
                 <div class="field-outline">
-                  <div class="field-input grow">
+                  <div class="field-input grow _input">
                     <input type="text" placeholder="placeholder">
                   </div>
-                  <button type="button" class="field-button">
+                  <button type="button" class="field-button _input-clear">
                     <span class="icon-002"></span>
                   </button>
                 </div>
@@ -150,10 +150,10 @@
               <div class="field valid">
                 <label class="field-label">label</label>
                 <div class="field-outline">
-                  <div class="field-input grow">
+                  <div class="field-input grow _input">
                     <input type="text" placeholder="placeholder">
                   </div>
-                  <button type="button" class="field-button">
+                  <button type="button" class="field-button _input-clear">
                     <span class="icon-002"></span>
                   </button>
                 </div>
@@ -166,10 +166,10 @@
               <div class="field invalid">
                 <label class="field-label">label</label>
                 <div class="field-outline">
-                  <div class="field-input grow">
+                  <div class="field-input grow _input">
                     <input type="text" placeholder="placeholder">
                   </div>
-                  <button type="button" class="field-button">
+                  <button type="button" class="field-button _input-clear">
                     <span class="icon-002"></span>
                   </button>
                 </div>
@@ -182,10 +182,10 @@
               <div class="field disabled">
                 <label class="field-label">label</label>
                 <div class="field-outline">
-                  <div class="field-input grow">
+                  <div class="field-input grow _input">
                     <input type="text" placeholder="placeholder">
                   </div>
-                  <button type="button" class="field-button">
+                  <button type="button" class="field-button _input-clear">
                     <span class="icon-002"></span>
                   </button>
                 </div>
@@ -199,10 +199,10 @@
                 <label class="field-label">label</label>
                 <div class="field-row">
                   <div class="field-outline grow">
-                    <div class="field-input grow">
+                    <div class="field-input grow _input">
                       <input type="text" placeholder="placeholder">
                     </div>
-                    <button type="button" class="field-button">
+                    <button type="button" class="field-button _input-clear">
                       <span class="icon-002"></span>
                     </button>
                   </div>
@@ -220,10 +220,10 @@
                 <div class="field grow">
                   <label class="field-label">label</label>
                   <div class="field-outline">
-                    <div class="field-input grow">
+                    <div class="field-input grow _input">
                       <input type="text" placeholder="placeholder">
                     </div>
-                    <button type="button" class="field-button">
+                    <button type="button" class="field-button _input-clear">
                       <span class="icon-002"></span>
                     </button>
                   </div>
@@ -233,10 +233,10 @@
                 <div class="field grow">
                   <label class="field-label">label</label>
                   <div class="field-outline">
-                    <div class="field-input grow">
+                    <div class="field-input grow _input">
                       <input type="text" placeholder="placeholder">
                     </div>
-                    <button type="button" class="field-button">
+                    <button type="button" class="field-button _input-clear">
                       <span class="icon-002"></span>
                     </button>
                   </div>
@@ -1639,10 +1639,6 @@
                   <span class="button-label">GOOGLE DOCS</span>
                   <span class="button-icon icon-010"></span>
                 </button>
-                <button type="button" class="button" onclick="UI.modal.show({target: '#MODAL_PSPDFKIT'})">
-                  <span class="button-label">PSPDFKIT</span>
-                  <span class="button-icon icon-010"></span>
-                </button>
               </div>
 
               <div id="MODAL_PDFJS" class="modal _modal">
@@ -1687,44 +1683,6 @@
                 </div>
               </div>
 
-              <div id="MODAL_PSPDFKIT" class="modal _modal">
-                <div class="modal-content _modal-content _full">
-                  <div class="modal-header">
-                    <p class="modal-title">PSPDFKIT</p>
-                    <div class="modal-button left">
-                      <button type="button" class="button icon w24">
-                        <span class="button-icon icon-013"></span>
-                      </button>
-                    </div>
-                    <div class="modal-button right">
-                      <button type="button" class="button icon w24 _modal-close">
-                        <span class="button-icon icon-014"></span>
-                      </button>
-                    </div>
-                  </div>
-                  <div class="modal-main">
-                    <div id="PSPDFKIT" style="width: 100%; height: 100%;"></div>
-                  </div>
-                </div>
-              </div>
-
-              <script>
-                (function(){
-                  'use strict';
-
-                  PSPDFKit.load({
-                    container: '#PSPDFKIT',
-                    document: '/docs/basicTermsAndConditions.pdf'
-                  })
-                  .then(function(instance) {
-                    console.log("PSPDFKit loaded", instance);
-                  })
-                  .catch(function(error) {
-                    console.error(error.message);
-                  });
-                }());
-              </script>
-
             </div>
             <!-- [E] VIEW -->
             <!-- [S] COMMENT -->
@@ -1756,16 +1714,7 @@
               </pre>
               <pre class="guide-viewer__pre line-numbers" data-lang="script">
                 <code class="guide-viewer__code language-js">
-                  PSPDFKit.load({
-                    container: '#PSPDFKIT',
-                    document: '/docs/basicTermsAndConditions.pdf'
-                  })
-                  .then(function(instance) {
-                    console.log("PSPDFKit loaded", instance);
-                  })
-                  .catch(function(error) {
-                    console.error(error.message);
-                  });
+                  // script
                 </code>
               </pre>
             </div>
