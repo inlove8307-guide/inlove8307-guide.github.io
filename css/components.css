@@ -207,13 +207,7 @@
 .collapse-button {display: flex; flex-shrink: 0; margin-left: auto; padding: 10px; text-align: left; color: rgb(136, 136, 136);}
 .collapse-button::after {content: ''; margin-left: auto; width: 16px; height: 16px; background-image: var(--icon-000); background-position: 0 0; background-repeat: no-repeat; background-size: contain; transform: rotate(180deg); opacity: 0.5;}
 .collapse-target {overflow: hidden; max-height: 0; border-top: 1px solid rgba(204, 204, 204, 0);}
-/* COLLAPSE */
-.collapse.check .collapse-item + .collapse-item {border: 0;}
-.collapse.check .collapse-flex {padding: 10px; min-height: 40px;}
-.collapse.check .collapse-button {padding: 0 0 0 10px;}
-.collapse.check a.collapse-button::after {transform: rotate(90deg);}
-.collapse.check .collapse-target {padding-left: 24px; border: 0;}
-.collapse.check .collapse.check {border: 0;}
+.collapse-content {padding: 10px;}
 /* COLLAPSE - SCRIPT */
 ._collapse-button._active {color: rgb(0, 0, 0);}
 ._collapse-button._active::after {transform: rotate(0);}
