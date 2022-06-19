@@ -712,9 +712,8 @@ window[namespace] = window[namespace] || {};
       price: '_price',
       date: '_date',
       time: '_time',
-      active: '_active',
-      duration: '250ms',
-      easing: 'cubic-bezier(.65,.05,.36,1)'
+      phone: '_phone',
+      active: '_active'
     });
 
     function init(){
@@ -729,7 +728,10 @@ window[namespace] = window[namespace] || {};
 
       new Cleave(`${this.class('selector')}${this.class('price')} input`, {
         numeral: true,
-        numeralThousandsGroupStyle: 'thousand'
+        numeralThousandsGroupStyle: 'thousand',
+        prefix: '₩',
+        // tailPrefix: true,
+        noImmediatePrefix: true
       });
 
       new Cleave(`${this.class('selector')}${this.class('date')} input`, {
@@ -741,6 +743,14 @@ window[namespace] = window[namespace] || {};
       new Cleave(`${this.class('selector')}${this.class('time')} input`, {
         time: true,
         timePattern: ['h', 'm', 's']
+      });
+
+      new Cleave(`${this.class('selector')}${this.class('phone')} input`, {
+        numericOnly: true,
+        delimiter: '-',
+        blocks: [3, 4, 4],
+        prefix: '010',
+        noImmediatePrefix: true
       });
     }
 
