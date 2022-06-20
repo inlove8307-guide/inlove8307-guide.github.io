@@ -508,6 +508,80 @@ window[namespace] = window[namespace] || {};
   }();
 }(window[namespace]));
 
+/* MODAL - SELECT */
+(function(global){
+  'use strict';
+
+  global.select = function(){
+    var component = new global.component({
+      container: 'body',
+      selector: '_select',
+      option: '_select-option',
+      label: '_select-label',
+      active: '_active',
+      duration: '250ms',
+      easing: 'cubic-bezier(.86, 0, .07, 1)'
+    });
+
+    function init(){
+      this.prop('on').init && this.prop('on').init($(this.class('selector')));
+    }
+
+    function handlerClick(event){
+      var $target = $(event.target).closest(this.class('option'))
+        , $selector = $target.closest(this.class('selector'))
+        , $options = $(this.class('option'), $selector);
+      
+      $options.removeClass(this.prop('active'));
+      $target.addClass(this.prop('active'));
+
+      if (this.prop('button')) {
+        $(this.class('label'), this.prop('button')).text($(this.class('label'), $target).text());
+      }
+
+      $target.hasClass(this.prop('option')) && this.prop('on').selected && this.prop('on').selected($target);
+
+      this.hide();
+    }
+
+    component.show = function(options){
+      var options = $.extend({ target: null, button: null }, options);
+
+      global.modal.show(options);
+
+      if (options.button) {
+        this.prop('button', options.button);
+      }
+
+      if (options.on) {
+        this.on('selected', options.on.selected);
+      }
+
+      this.prop('on').show && this.prop('on').show();
+      this.change.observe(this);
+    };
+
+    component.hide = function(){
+      global.modal.hide();
+
+      this.prop('on').hide && this.prop('on').hide();
+      delete this.prop('on').selected;
+    };
+
+    component.bind = function(options){
+      $(this.prop('container')).off('click', `${this.class('selector')} ${this.class('option')}`);
+
+      $.extend(this.options, options);
+
+      $(this.prop('container')).on('click', `${this.class('selector')} ${this.class('option')}`, handlerClick.bind(this));
+
+      init.call(this);
+    };
+
+    return component;
+  }();
+}(window[namespace]));
+
 /* POPOVER */
 (function(global){
   'use strict';
@@ -797,6 +871,7 @@ $(function(global){
     this.tabs.bind();
     this.alert.bind();
     this.modal.bind();
+    this.select.bind();
     this.popover.bind();
     this.dropdown.bind();
     this.input.bind();

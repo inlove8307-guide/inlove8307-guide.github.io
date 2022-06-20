@@ -426,7 +426,9 @@
                   </div>
                   <span class="field-text">@</span>
                   <div class="field-select grow">
-                    <button type="button">option</button>
+                    <button type="button" onclick="UI.select.show({target: '#MODAL_SELECT', button: this})">
+                      <span class="_select-label">option</span>
+                    </button>
                   </div>
                 </div>
                 <p class="field-message">message</p>
@@ -1465,12 +1467,12 @@
               <div id="MODAL_01" class="modal _modal">
                 <div class="modal-content _modal-content _top">
                   <div class="modal-header">
-                    <p class="modal-title">title</p>
                     <div class="modal-button left">
                       <button type="button" class="button icon w24">
                         <span class="button-icon icon-013"></span>
                       </button>
                     </div>
+                    <p class="modal-title center">title</p>
                     <div class="modal-button right">
                       <button type="button" class="button icon w24 _modal-close">
                         <span class="button-icon icon-014"></span>
@@ -1496,12 +1498,12 @@
               <div id="MODAL_02" class="modal _modal">
                 <div class="modal-content _modal-content _bottom">
                   <div class="modal-header">
-                    <p class="modal-title">title</p>
                     <div class="modal-button left">
                       <button type="button" class="button icon w24">
                         <span class="button-icon icon-013"></span>
                       </button>
                     </div>
+                    <p class="modal-title center">title</p>
                     <div class="modal-button right">
                       <button type="button" class="button icon w24 _modal-close">
                         <span class="button-icon icon-014"></span>
@@ -1527,12 +1529,12 @@
               <div id="MODAL_03" class="modal _modal">
                 <div class="modal-content _modal-content _left">
                   <div class="modal-header">
-                    <p class="modal-title">title</p>
                     <div class="modal-button left">
                       <button type="button" class="button icon w24">
                         <span class="button-icon icon-013"></span>
                       </button>
                     </div>
+                    <p class="modal-title center">title</p>
                     <div class="modal-button right">
                       <button type="button" class="button icon w24 _modal-close">
                         <span class="button-icon icon-014"></span>
@@ -1558,12 +1560,12 @@
               <div id="MODAL_04" class="modal _modal">
                 <div class="modal-content _modal-content _right">
                   <div class="modal-header">
-                    <p class="modal-title">title</p>
                     <div class="modal-button left">
                       <button type="button" class="button icon w24">
                         <span class="button-icon icon-013"></span>
                       </button>
                     </div>
+                    <p class="modal-title center">title</p>
                     <div class="modal-button right">
                       <button type="button" class="button icon w24 _modal-close">
                         <span class="button-icon icon-014"></span>
@@ -1589,12 +1591,12 @@
               <div id="MODAL_05" class="modal _modal">
                 <div class="modal-content _modal-content _center">
                   <div class="modal-header">
-                    <p class="modal-title">title</p>
                     <div class="modal-button left">
                       <button type="button" class="button icon w24">
                         <span class="button-icon icon-013"></span>
                       </button>
                     </div>
+                    <p class="modal-title center">title</p>
                     <div class="modal-button right">
                       <button type="button" class="button icon w24 _modal-close">
                         <span class="button-icon icon-014"></span>
@@ -1620,12 +1622,12 @@
               <div id="MODAL_06" class="modal _modal">
                 <div class="modal-content _modal-content _full">
                   <div class="modal-header">
-                    <p class="modal-title">title</p>
                     <div class="modal-button left">
                       <button type="button" class="button icon w24">
                         <span class="button-icon icon-013"></span>
                       </button>
                     </div>
+                    <p class="modal-title center">title</p>
                     <div class="modal-button right">
                       <button type="button" class="button icon w24 _modal-close">
                         <span class="button-icon icon-014"></span>
@@ -1634,6 +1636,227 @@
                   </div>
                   <div class="modal-main">
                     <div class="inset">main</div>
+                  </div>
+                  <div class="modal-footer">
+                    <div class="button-group">
+                      <button type="button" class="button grow _modal-cancel">
+                        <span class="button-label">cancel</span>
+                      </button>
+                      <button type="button" class="button dark grow _modal-confirm">
+                        <span class="button-label">confirm</span>
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+            <!-- [E] VIEW -->
+            <!-- [S] COMMENT -->
+            <!-- <ul class="guide-viewer__comment">
+              <li class="comment__text"># 코멘트</li>
+            </ul> -->
+            <!-- [E] COMMENT -->
+            <!-- [S] BUTTON -->
+            <div class="guide-viewer__tab">
+              <button class="guide-tab__button" data-lang="html">html</button>
+              <!-- <button class="guide-tab__button" data-lang="css">css</button> -->
+              <button class="guide-tab__button" data-lang="script">script</button>
+            </div>
+            <!-- [E] BUTTON -->
+            <!-- [S] CODE -->
+            <div class="guide-viewer__syntax">
+              <pre class="guide-viewer__pre line-numbers" data-lang="html">
+                <code class="guide-viewer__code language-html">
+                  <div class="button-group wrap">
+                    <button type="button" class="button" onclick="UI.modal.show({target: '#MODAL_01'})">
+                      <span class="button-label">modal</span>
+                      <span class="button-icon icon-010"></span>
+                    </button>
+                  </div>
+
+                  <div id="MODAL_01" class="modal _modal">
+                    <div class="modal-content _modal-content _top"> <!-- _top, _right, _bottom, _left, _center, _full -->
+                      <div class="modal-header">
+                        <div class="modal-button left">
+                          <button type="button" class="button icon w24">
+                            <span class="button-icon icon-013"></span>
+                          </button>
+                        </div>
+                        <p class="modal-title center">title</p>
+                        <div class="modal-button right">
+                          <button type="button" class="button icon w24 _modal-close">
+                            <span class="button-icon icon-014"></span>
+                          </button>
+                        </div>
+                      </div>
+                      <div class="modal-main">
+                        <div class="inset">main</div>
+                      </div>
+                      <div class="modal-footer">
+                        <div class="button-group">
+                          <button type="button" class="button grow _modal-cancel">
+                            <span class="button-label">cancel</span>
+                          </button>
+                          <button type="button" class="button dark grow _modal-confirm">
+                            <span class="button-label">confirm</span>
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </code>
+              </pre>
+              <pre class="guide-viewer__pre line-numbers" data-lang="css">
+                <code class="guide-viewer__code language-css">
+                  /* css */
+                </code>
+              </pre>
+              <pre class="guide-viewer__pre line-numbers" data-lang="script">
+                <code class="guide-viewer__code language-js">
+                  UI.modal.bind({
+                    container: 'body',
+                    selector: '_modal',
+                    content: '_modal-content',
+                    close: '_modal-close',
+                    cancel: '_modal-cancel',
+                    confirm: '_modal-confirm',
+                    top: '_top',
+                    right: '_right',
+                    bottom: '_bottom',
+                    left: '_left',
+                    center: '_center',
+                    full: '_full',
+                    active: '_active',
+                    duration: '250ms',
+                    easing: 'cubic-bezier(.86, 0, .07, 1)'
+                    on: {
+                      init: function(){ ... },
+                      change: function(){ ... },
+                      show: function(){ ... },
+                      hide: function(){ ... }
+                    }
+                  });
+
+                  UI.modal.on({
+                    init: function(){ ... },
+                    change: function(){ ... },
+                    show: function(){ ... },
+                    hide: function(){ ... }
+                  });
+
+                  UI.modal.on('init', function(){ ... });
+                  UI.modal.on('change', function(){ ... });
+                  UI.modal.on('show', function(){ ... });
+                  UI.modal.on('hide', function(){ ... });
+
+                  UI.modal.show({
+                    target: null,
+                    on: {
+                      confirm: function(){ ... },
+                      cancel: function(){ ... }
+                    }
+                  });
+
+                  UI.modal.hide();
+                </code>
+              </pre>
+            </div>
+            <!-- [E] CODE -->
+          </div>
+          <!-- [E] GUIDE -->
+        </article>
+        <!--// MODAL -->
+
+        <!-- MODAL - SELECT //-->
+        <article class="guide-viewer">
+          <!-- GUIDE TITLE -->
+          <h3 class="guide-viewer__title">Modal - Select</h3>
+          <!-- [S] GUIDE -->
+          <div class="guide-viewer__content">
+            <!-- [S] VIEW -->
+            <div class="guide-viewer__view">
+
+              <div class="button-group wrap">
+                <button type="button" class="button" onclick="UI.select.show({target: '#MODAL_SELECT', button: this})">
+                  <span class="button-label _select-label">SELECT</span>
+                  <span class="button-icon icon-010"></span>
+                </button>
+              </div>
+
+              <div id="MODAL_SELECT" class="modal _modal _select">
+                <div class="modal-content _modal-content _bottom">
+                  <div class="modal-header">
+                    <p class="modal-title left">select</p>
+                    <div class="modal-button right">
+                      <button type="button" class="button icon w24 _modal-close">
+                        <span class="button-icon icon-014"></span>
+                      </button>
+                    </div>
+                  </div>
+                  <div class="modal-main scroll-y">
+                    <ul class="modal-select">
+                      <li class="select-item">
+                        <button type="button" class="select-button _select-option">
+                          <span class="select-label _select-label">option1</span>
+                          <span class="select-icon"></span>
+                        </button>
+                      </li>
+                      <li class="select-item">
+                        <button type="button" class="select-button _select-option">
+                          <span class="select-label _select-label">option2</span>
+                          <span class="select-icon"></span>
+                        </button>
+                      </li>
+                      <li class="select-item">
+                        <button type="button" class="select-button _select-option">
+                          <span class="select-label _select-label">option3</span>
+                          <span class="select-icon"></span>
+                        </button>
+                      </li>
+                      <li class="select-item">
+                        <button type="button" class="select-button _select-option">
+                          <span class="select-label _select-label">option4</span>
+                          <span class="select-icon"></span>
+                        </button>
+                      </li>
+                      <li class="select-item">
+                        <button type="button" class="select-button _select-option">
+                          <span class="select-label _select-label">option5</span>
+                          <span class="select-icon"></span>
+                        </button>
+                      </li>
+                      <li class="select-item">
+                        <button type="button" class="select-button _select-option">
+                          <span class="select-label _select-label">option6</span>
+                          <span class="select-icon"></span>
+                        </button>
+                      </li>
+                      <li class="select-item">
+                        <button type="button" class="select-button _select-option">
+                          <span class="select-label _select-label">option7</span>
+                          <span class="select-icon"></span>
+                        </button>
+                      </li>
+                      <li class="select-item">
+                        <button type="button" class="select-button _select-option">
+                          <span class="select-label _select-label">option8</span>
+                          <span class="select-icon"></span>
+                        </button>
+                      </li>
+                      <li class="select-item">
+                        <button type="button" class="select-button _select-option">
+                          <span class="select-label _select-label">option9</span>
+                          <span class="select-icon"></span>
+                        </button>
+                      </li>
+                      <li class="select-item">
+                        <button type="button" class="select-button _select-option">
+                          <span class="select-label _select-label">option10</span>
+                          <span class="select-icon"></span>
+                        </button>
+                      </li>
+                    </ul>
                   </div>
                   <div class="modal-footer">
                     <div class="button-group">
@@ -1764,7 +1987,7 @@
           </div>
           <!-- [E] GUIDE -->
         </article>
-        <!--// MODAL -->
+        <!--// MODAL - SELECT -->
 
         <!-- PDF //-->
         <article class="guide-viewer">
@@ -1789,12 +2012,12 @@
               <div id="MODAL_PDFJS" class="modal _modal">
                 <div class="modal-content _modal-content _full">
                   <div class="modal-header">
-                    <p class="modal-title">PDF.JS</p>
                     <div class="modal-button left">
                       <button type="button" class="button icon w24">
                         <span class="button-icon icon-013"></span>
                       </button>
                     </div>
+                    <p class="modal-title center">PDF.JS</p>
                     <div class="modal-button right">
                       <button type="button" class="button icon w24 _modal-close">
                         <span class="button-icon icon-014"></span>
@@ -1810,12 +2033,12 @@
               <div id="MODAL_GOOGLE_DOCS" class="modal _modal">
                 <div class="modal-content _modal-content _full">
                   <div class="modal-header">
-                    <p class="modal-title">GOOGLE DOCS</p>
                     <div class="modal-button left">
                       <button type="button" class="button icon w24">
                         <span class="button-icon icon-013"></span>
                       </button>
                     </div>
+                    <p class="modal-title center">GOOGLE DOCS</p>
                     <div class="modal-button right">
                       <button type="button" class="button icon w24 _modal-close">
                         <span class="button-icon icon-014"></span>
