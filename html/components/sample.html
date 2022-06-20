@@ -1332,102 +1332,6 @@
         </article>
         <!--// TABS -->
 
-        <!-- ALERT //-->
-        <article class="guide-viewer">
-          <!-- GUIDE TITLE -->
-          <h3 class="guide-viewer__title">Alert</h3>
-          <!-- [S] GUIDE -->
-          <div class="guide-viewer__content">
-            <!-- [S] VIEW -->
-            <div class="guide-viewer__view">
-
-              <div class="button-group">
-                <button type="button" class="button" onclick="UI.alert.show({message: 'Alert', confirm: 'confirm'})">
-                  <span class="button-label">Alert</span>
-                  <span class="button-icon icon-010"></span>
-                </button>
-                <button type="button" class="button" onclick="UI.alert.show({message: 'Confirm', confirm: 'confirm', cancel: 'cancel'})">
-                  <span class="button-label">Confirm</span>
-                  <span class="button-icon icon-010"></span>
-                </button>
-              </div>
-
-            </div>
-            <!-- [E] VIEW -->
-            <!-- [S] COMMENT -->
-            <!-- <ul class="guide-viewer__comment">
-              <li class="comment__text"># 코멘트</li>
-            </ul> -->
-            <!-- [E] COMMENT -->
-            <!-- [S] BUTTON -->
-            <div class="guide-viewer__tab">
-              <!-- <button class="guide-tab__button" data-lang="html">html</button> -->
-              <!-- <button class="guide-tab__button" data-lang="css">css</button> -->
-              <button class="guide-tab__button" data-lang="script">script</button>
-            </div>
-            <!-- [E] BUTTON -->
-            <!-- [S] CODE -->
-            <div class="guide-viewer__syntax">
-              <pre class="guide-viewer__pre line-numbers" data-lang="html">
-                <code class="guide-viewer__code language-html">
-                  <!-- html -->
-                </code>
-              </pre>
-              <pre class="guide-viewer__pre line-numbers" data-lang="css">
-                <code class="guide-viewer__code language-css">
-                  /* css */
-                </code>
-              </pre>
-              <pre class="guide-viewer__pre line-numbers" data-lang="script">
-                <code class="guide-viewer__code language-js">
-                  UI.alert.bind({
-                    container: 'body',
-                    selector: '_alert',
-                    confirm: '_alert-confirm',
-                    cancel: '_alert-cancel',
-                    active: '_active',
-                    duration: '250ms',
-                    easing: 'cubic-bezier(.86, 0, .07, 1)'
-                    on: {
-                      init: function(){ ... },
-                      change: function(){ ... },
-                      show: function(){ ... },
-                      hide: function(){ ... }
-                    }
-                  });
-
-                  UI.alert.on({
-                    init: function(){ ... },
-                    change: function(){ ... },
-                    show: function(){ ... },
-                    hide: function(){ ... }
-                  });
-
-                  UI.alert.on('init', function(){ ... });
-                  UI.alert.on('change', function(){ ... });
-                  UI.alert.on('show', function(){ ... });
-                  UI.alert.on('hide', function(){ ... });
-
-                  UI.alert.show({
-                    message: 'message',
-                    confirm: 'confirm',
-                    cancel: 'cancel',
-                    on: {
-                      confirm: function(){ ... },
-                      cancel: function(){ ... }
-                    }
-                  });
-
-                  UI.alert.hide();
-                </code>
-              </pre>
-            </div>
-            <!-- [E] CODE -->
-          </div>
-          <!-- [E] GUIDE -->
-        </article>
-        <!--// ALERT -->
-
         <!-- MODAL //-->
         <article class="guide-viewer">
           <!-- GUIDE TITLE -->
@@ -1768,6 +1672,99 @@
         </article>
         <!--// MODAL -->
 
+        <!-- MODAL - ALERT //-->
+        <article class="guide-viewer">
+          <!-- GUIDE TITLE -->
+          <h3 class="guide-viewer__title">Modal - Alert</h3>
+          <!-- [S] GUIDE -->
+          <div class="guide-viewer__content">
+            <!-- [S] VIEW -->
+            <div class="guide-viewer__view">
+
+              <div class="button-group">
+                <button type="button" class="button" onclick="UI.alert.show({message: 'Alert', confirm: 'confirm'})">
+                  <span class="button-label">Alert</span>
+                  <span class="button-icon icon-010"></span>
+                </button>
+                <button type="button" class="button" onclick="UI.alert.show({message: 'Confirm', confirm: 'confirm', cancel: 'cancel'})">
+                  <span class="button-label">Confirm</span>
+                  <span class="button-icon icon-010"></span>
+                </button>
+              </div>
+
+            </div>
+            <!-- [E] VIEW -->
+            <!-- [S] COMMENT -->
+            <!-- <ul class="guide-viewer__comment">
+              <li class="comment__text"># 코멘트</li>
+            </ul> -->
+            <!-- [E] COMMENT -->
+            <!-- [S] BUTTON -->
+            <div class="guide-viewer__tab">
+              <!-- <button class="guide-tab__button" data-lang="html">html</button> -->
+              <!-- <button class="guide-tab__button" data-lang="css">css</button> -->
+              <button class="guide-tab__button" data-lang="script">script</button>
+            </div>
+            <!-- [E] BUTTON -->
+            <!-- [S] CODE -->
+            <div class="guide-viewer__syntax">
+              <pre class="guide-viewer__pre line-numbers" data-lang="html">
+                <code class="guide-viewer__code language-html">
+                  <!-- html -->
+                </code>
+              </pre>
+              <pre class="guide-viewer__pre line-numbers" data-lang="css">
+                <code class="guide-viewer__code language-css">
+                  /* css */
+                </code>
+              </pre>
+              <pre class="guide-viewer__pre line-numbers" data-lang="script">
+                <code class="guide-viewer__code language-js">
+                  UI.alert.bind({
+                    container: 'body',
+                    selector: '_alert',
+                    confirm: '_alert-confirm',
+                    cancel: '_alert-cancel'
+                    on: {
+                      init: function(){ ... },
+                      change: function(){ ... },
+                      show: function(){ ... },
+                      hide: function(){ ... }
+                    }
+                  });
+
+                  UI.alert.on({
+                    init: function(){ ... },
+                    change: function(){ ... },
+                    show: function(){ ... },
+                    hide: function(){ ... }
+                  });
+
+                  UI.alert.on('init', function(){ ... });
+                  UI.alert.on('change', function(){ ... });
+                  UI.alert.on('show', function(){ ... });
+                  UI.alert.on('hide', function(){ ... });
+
+                  UI.alert.show({
+                    message: 'message',
+                    confirm: 'confirm',
+                    cancel: 'cancel',
+                    on: {
+                      confirm: function(){ ... },
+                      cancel: function(){ ... }
+                    }
+                  });
+
+                  UI.alert.hide();
+                </code>
+              </pre>
+            </div>
+            <!-- [E] CODE -->
+          </div>
+          <!-- [E] GUIDE -->
+        </article>
+        <!--// MODAL - ALERT -->
+
         <!-- MODAL - SELECT //-->
         <article class="guide-viewer">
           <!-- GUIDE TITLE -->
@@ -1779,7 +1776,7 @@
 
               <div class="button-group wrap">
                 <button type="button" class="button" onclick="UI.select.show({target: '#MODAL_SELECT', button: this})">
-                  <span class="button-label _select-label">SELECT</span>
+                  <span class="button-label _select-label">Select</span>
                   <span class="button-icon icon-010"></span>
                 </button>
               </div>
@@ -1895,7 +1892,7 @@
                       <span class="button-icon icon-010"></span>
                     </button>
                   </div>
-    
+
                   <div id="MODAL_SELECT" class="modal _modal _select">
                     <div class="modal-content _modal-content _bottom">
                       <div class="modal-header">

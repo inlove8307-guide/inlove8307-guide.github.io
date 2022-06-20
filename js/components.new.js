@@ -300,117 +300,6 @@ window[namespace] = window[namespace] || {};
   }();
 }(window[namespace]));
 
-/* ALERT */
-(function(global){
-  'use strict';
-
-  global.alert = function(){
-    var component = new global.component({
-      container: 'body',
-      selector: '_alert',
-      confirm: '_alert-confirm',
-      cancel: '_alert-cancel',
-      active: '_active',
-      duration: '250ms',
-      easing: 'cubic-bezier(.86, 0, .07, 1)'
-    });
-
-    function init(){
-      this.style(this.prop('container'), style.call(this));
-      this.prop('on').init && this.prop('on').init($(this.class('selector')));
-    }
-
-    function style(){
-      return `
-        ${this.class('selector')} {
-          transition: all ${this.prop('duration')} ${this.prop('easing')};
-        }`;
-    }
-
-    function html(options){
-      return `
-        <div class="alert ${this.prop('selector')}" tabindex="0">
-          <div class="alert-content">
-            <div class="alert-message">${options.message}</div>
-            <div class="button-group">
-              <button type="button" class="button grow ${this.prop('cancel')}">${options.cancel}</button>
-              <button type="button" class="button grow dark ${this.prop('confirm')}">${options.confirm}</button>
-            </div>
-          </div>
-        </div>`;
-    }
-
-    function handlerClick(event){
-      var $target = $(event.target);
-
-      $target.hasClass(this.prop('cancel')) && this.prop('on').cancel && this.prop('on').cancel();
-      $target.hasClass(this.prop('confirm')) && this.prop('on').confirm && this.prop('on').confirm();
-
-      this.hide();
-    }
-
-    function handlerEnd(event){
-      var $selector = $(event.target).hasClass(this.prop('selector')) ? $(event.target) : null;
-
-      if ($selector) {
-        $selector.hasClass(this.prop('active'))
-          ? $selector.focusin()
-          : $selector.remove();
-      }
-    }
-
-    component.show = function(options){
-      var $selector = $(this.class('selector'))
-        , options = $.extend({ message: 'message', confirm: 'confirm', cancel: null }, options)
-        , timeout;
-
-      if ($selector.length) {
-        $selector.remove();
-        this.hide();
-      }
-
-      $(this.prop('container')).append(html.call(this, options));
-      $selector = $(this.class('selector'));
-      !options.cancel && $selector.find(this.class('cancel')).remove();
-      timeout = setTimeout(function($selector){
-        $selector.addClass(this.prop('active'));
-        clearTimeout(timeout);
-      }.bind(this, $selector), 10);
-
-      if (options.on) {
-        this.on('confirm', options.on.confirm);
-        this.on('cancel', options.on.cancel);
-      }
-
-      this.prop('on').show && this.prop('on').show();
-      this.change.observe(this);
-    };
-
-    component.hide = function(){
-      $(this.class('selector')).removeClass(this.prop('active'));
-      this.prop('on').hide && this.prop('on').hide();
-      delete this.prop('on').confirm;
-      delete this.prop('on').cancel;
-    };
-
-    component.bind = function(options){
-      $(this.prop('container')).off('TransitionEnd webkitTransitionEnd', this.class('selector'));
-      $(this.prop('container')).off('click', `${this.class('selector')} ${this.class('cancel')}`);
-      $(this.prop('container')).off('click', `${this.class('selector')} ${this.class('confirm')}`);
-
-      $.extend(this.options, options);
-
-      $(this.prop('container')).on('TransitionEnd webkitTransitionEnd', this.class('selector'), handlerEnd.bind(this));
-      $(this.prop('container')).on('click', `${this.class('selector')} ${this.class('cancel')}`, handlerClick.bind(this));
-      $(this.prop('container')).on('click', `${this.class('selector')} ${this.class('confirm')}`, handlerClick.bind(this));
-
-      init.call(this);
-    };
-
-    return component;
-  }();
-}(window[namespace]));
-
 /* MODAL */
 (function(global){
   'use strict';
@@ -479,10 +368,11 @@ window[namespace] = window[namespace] || {};
       this.change.observe(this);
     };
 
-    component.hide = function(){
+    component.hide = function(callback){
       var $selector = this.prop('target') || $(this.class('selector'));
 
       $selector.removeClass(this.prop('active'));
+      callback && callback($selector);
       this.prop('on').hide && this.prop('on').hide();
       delete this.prop('on').confirm;
       delete this.prop('on').cancel;
@@ -498,6 +388,95 @@ window[namespace] = window[namespace] || {};
 
       $(this.prop('container')).on('TransitionEnd webkitTransitionEnd', this.class('selector'), handlerEnd.bind(this));
       $(this.prop('container')).on('click', `${this.class('selector')} ${this.class('close')}`, handlerClick.bind(this));
+      $(this.prop('container')).on('click', `${this.class('selector')} ${this.class('cancel')}`, handlerClick.bind(this));
+      $(this.prop('container')).on('click', `${this.class('selector')} ${this.class('confirm')}`, handlerClick.bind(this));
+
+      init.call(this);
+    };
+
+    return component;
+  }();
+}(window[namespace]));
+
+/* MODAL - ALERT */
+(function(global){
+  'use strict';
+
+  global.alert = function(){
+    var component = new global.component({
+      container: 'body',
+      selector: '_alert',
+      confirm: '_alert-confirm',
+      cancel: '_alert-cancel'
+    });
+
+    function init(){
+      this.prop('on').init && this.prop('on').init($(this.class('selector')));
+    }
+
+    function html(options){
+      return `
+        <div class="modal _modal ${this.prop('selector')}">
+          <div class="modal-content _modal-content _center">
+            <div class="modal-main inset inset-sm center middle">${options.message}</div>
+            <div class="modal-footer">
+              <div class="button-group">
+                <button type="button" class="button grow ${this.prop('cancel')}">${options.cancel}</button>
+                <button type="button" class="button grow dark ${this.prop('confirm')}">${options.confirm}</button>
+              </div>
+            </div>
+          </div>
+        </div>`;
+    }
+
+    function handlerClick(event){
+      var $target = $(event.target);
+
+      $target.hasClass(this.prop('cancel')) && this.prop('on').cancel && this.prop('on').cancel();
+      $target.hasClass(this.prop('confirm')) && this.prop('on').confirm && this.prop('on').confirm();
+
+      this.hide();
+    }
+
+    component.show = function(options){
+      var options = $.extend({ target: this.class('selector'), message: 'message', confirm: 'confirm', cancel: null }, options)
+        , timeout;
+
+      $(this.class('selector')).remove();
+      $(this.prop('container')).append(html.call(this, options));
+
+      if (!options.cancel) $(this.class('cancel'), this.class('selector')).remove();
+
+      timeout = setTimeout(function(){
+        global.modal.show(options);
+        clearTimeout(timeout);
+      }, 10);
+
+      if (options.on) {
+        this.on('confirm', options.on.confirm);
+        this.on('cancel', options.on.cancel);
+      }
+
+      this.prop('on').show && this.prop('on').show();
+      this.change.observe(this);
+    };
+
+    component.hide = function(){
+      global.modal.hide(function($selector){
+        $selector.remove();
+      });
+
+      this.prop('on').hide && this.prop('on').hide();
+      delete this.prop('on').confirm;
+      delete this.prop('on').cancel;
+    };
+
+    component.bind = function(options){
+      $(this.prop('container')).off('click', `${this.class('selector')} ${this.class('cancel')}`);
+      $(this.prop('container')).off('click', `${this.class('selector')} ${this.class('confirm')}`);
+
+      $.extend(this.options, options);
+
       $(this.prop('container')).on('click', `${this.class('selector')} ${this.class('cancel')}`, handlerClick.bind(this));
       $(this.prop('container')).on('click', `${this.class('selector')} ${this.class('confirm')}`, handlerClick.bind(this));
 
@@ -532,7 +511,7 @@ window[namespace] = window[namespace] || {};
       var $target = $(event.target).closest(this.class('option'))
         , $selector = $target.closest(this.class('selector'))
         , $options = $(this.class('option'), $selector);
-      
+
       $options.removeClass(this.prop('active'));
       $target.addClass(this.prop('active'));
 
@@ -876,8 +855,8 @@ $(function(global){
   global.init = function(){
     this.collapse.bind();
     this.tabs.bind();
-    this.alert.bind();
     this.modal.bind();
+    this.alert.bind();
     this.select.bind();
     this.popover.bind();
     this.dropdown.bind();
@@ -886,3 +865,19 @@ $(function(global){
 
   global.init();
 }(window[namespace]));
+
+/*
+UI.alert.show({
+  message: '메세지',
+  confirm: '확인',
+  cancel: '취소',
+  on: {
+    confirm: function(){
+      console.log('alert confirm');
+    },
+    cancel: function(){
+      console.log('alert cancel');
+    }
+  }
+});
+*/

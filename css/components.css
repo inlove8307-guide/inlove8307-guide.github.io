@@ -39,6 +39,9 @@
 .inset-lg.both {padding-top: 32px!important; padding-bottom: 32px!important;}
 .inset-xl.both {padding-top: 40px!important; padding-bottom: 40px!important;}
 
+.inset.center {text-align: center;}
+.inset.middle {display: flex; flex-direction: column; justify-content: center;}
+
 /* SCROLL */
 .scroll-x {overflow-x: auto; overflow-y: hidden;}
 .scroll-y {overflow-y: auto; overflow-x: hidden;}
@@ -275,6 +278,8 @@
 .modal-button {display: flex; align-items: center;}
 .modal-button.right {margin-left: auto;}
 .modal-main {flex: 1; flex-shrink: 0; flex-basis: 0;}
+/* .modal-main.center {text-align: center;} */
+/* .modal-main.middle {display: flex; flex-direction: column; justify-content: center;} */
 .modal-footer {flex-shrink: 0; padding: 15px;}
 /* MODAL - SCRIPT */
 ._modal {visibility: hidden; z-index: -1; opacity: 0; pointer-events: none; transform: scale(0);}
@@ -286,7 +291,9 @@
 ._modal-content._full {top: 0; left: 0; width: 100%; height: 100%;}
 ._modal._active {visibility: visible; opacity: 1; pointer-events: initial; transform: scale(1);}
 ._modal._active ._modal-content:not(._center) {transform: translate(0, 0);}
-
+/* MODAL - ALERT */
+._modal._alert {}
+._modal._alert ._modal-content {min-height: 200px;}
 /* MODAL - SELECT */
 .modal-select {}
 .modal-select .select-item {}
