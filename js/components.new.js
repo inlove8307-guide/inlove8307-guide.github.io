@@ -516,6 +516,7 @@ window[namespace] = window[namespace] || {};
     var component = new global.component({
       container: 'body',
       selector: '_select',
+      scroll: '_select-scroll',
       option: '_select-option',
       label: '_select-label',
       active: '_active',
@@ -546,6 +547,8 @@ window[namespace] = window[namespace] || {};
 
     component.show = function(options){
       var options = $.extend({ target: null, button: null }, options);
+      var $scroll = $(this.class('scroll'), this.class('selector'));
+      var $active = $(this.class('option'), this.class('selector')).filter(this.class('active'));
 
       global.modal.show(options);
 
@@ -555,6 +558,10 @@ window[namespace] = window[namespace] || {};
 
       if (options.on) {
         this.on('selected', options.on.selected);
+      }
+
+      if ($active.length) {
+        $scroll.scrollTop($active.position().top + $scroll.scrollTop() - $scroll.position().top);
       }
 
       this.prop('on').show && this.prop('on').show();
