@@ -224,6 +224,7 @@
 ._dropdown-option._active {background-color: rgb(238, 238, 238);}
 /* DROPDOWN - FIELD */
 .field-outline .dropdown {padding: 0;}
+.field-outline .dropdown-button {height: 100%;}
 .field-outline .dropdown-button,
 .field-outline .dropdown:focus-within .dropdown-button {box-shadow: none;}
 .field-outline * + .dropdown .dropdown-button {padding-left: 0;}
@@ -237,7 +238,7 @@
 .collapse-button {display: flex; flex-shrink: 0; margin-left: auto; padding: 10px; text-align: left; color: rgb(136, 136, 136);}
 .collapse-button::after {content: ''; margin-left: auto; width: 16px; height: 16px; background-image: var(--icon-000); background-position: 0 0; background-repeat: no-repeat; background-size: contain; transform: rotate(180deg); opacity: 0.5;}
 .collapse-target {overflow: hidden; max-height: 0; border-top: 1px solid rgba(204, 204, 204, 0);}
-.collapse-content {padding: 10px;}
+.collapse-content {}
 /* COLLAPSE - SCRIPT */
 ._collapse-button._active {color: rgb(0, 0, 0);}
 ._collapse-button._active::after {transform: rotate(0);}
@@ -256,7 +257,6 @@
 .tabs-button::after {content: ''; position: absolute; z-index: 1; bottom: 0; left: 50%; width: 0; height: 2px; background-color: rgb(102, 102, 102); transform: translateX(-50%);}
 .tabs-targets {position: relative;}
 .tabs-target {visibility: hidden; position: absolute; z-index: -1; top: 0; left: 0; width: 100%; box-shadow: 0 -1px 0 rgb(187, 187, 187); opacity: 0.5;}
-.tabs-target > * {padding: 10px;}
 /* TABS - SCRIPT */
 ._tabs-button._active {color: rgb(0, 0, 0);}
 ._tabs-button._active::after {width: 100%;}
