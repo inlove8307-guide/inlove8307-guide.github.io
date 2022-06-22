@@ -70,6 +70,18 @@ window[namespace] = window[namespace] || {};
       return $result;
     };
 
+    this.pad = function(value, char, length, after){
+      var result = String(value);
+
+      while (result.length < length) {
+        result = after
+          ? result + String(char)
+          : String(char) + result;
+      }
+
+      return result;
+    };
+
     this.change = {
       observe: function(context, options){
         if (!context.prop('on').change) return;
@@ -126,6 +138,229 @@ window[namespace] = window[namespace] || {};
       }
     };
   };
+}(window[namespace]));
+
+/* DATEPICKER */
+(function(global){
+  'use strict';
+
+  global.calendar = function(){
+    var component = new global.component({
+      container: 'body',
+      selector: 'calendar',
+      caption: 'calendar-caption',
+      title: 'calendar-title',
+      controller: 'calendar-controller',
+      table: 'calendar-table',
+      body: 'calendar-body',
+      week: 'calendar-week',
+      date: 'calendar-date',
+      button: 'calendar-button',
+      weeks: ['일', '월', '화', '수', '목', '금', '토']
+    });
+
+    function init(){
+      this.style(this.prop('container'), style.call(this));
+      this.prop('on').init && this.prop('on').init($(this.class('selector')));
+      this.change.observe(this);
+      this.scroll.observe(this);
+    }
+
+    function style(){
+      return `
+        ${this.class('selector')} {
+          height: 100%;
+        }
+        ${this.class('caption')} {
+          overflow: initial;
+          display: flex;
+          align-items: center;
+          padding: 0 16px;
+          width: 100%;
+          height: 40px;
+        }
+        ${this.class('title')} {
+          margin: 0 auto;
+        }
+        ${this.class('controller')} {
+          overflow: hidden;
+          font-size: 0;
+          line-height: 0;
+          color: translate;
+        }
+        ${this.class('table')} th:first-child,
+        ${this.class('table')} td:first-child button {
+          color: rgb(255, 150, 0);
+        }
+        ${this.class('table')} th:last-child,
+        ${this.class('table')} td:last-child button {
+          color: rgb(0, 150, 255);
+        }
+        ${this.class('body')} {}
+        ${this.class('week')} {
+          height: 40px;
+        }
+        ${this.class('date')} {}
+        ${this.class('button')} {
+          width: 100%;
+          height: 40px;
+          text-align: center;
+        }`;
+    }
+
+    function getData(context){
+      var array = []
+        , date;
+
+      do {
+        date = new Date([context.year, context.month, array.length+1].join());
+        array.push({
+          year: context.year,
+          month: context.month,
+          date: date.getDate(),
+          week: date.getDay()
+        });
+      }
+      while(context.month == date.getMonth()+1);
+
+      array.pop();
+
+      while(array[0].week != 0){
+        array.unshift({
+          year: context.year,
+          month: context.month,
+          date: null,
+          week: array[0].week-1
+        });
+      }
+
+      while(array[array.length-1].week != 6){
+        array.push({
+          year: context.year,
+          month: context.month,
+          date: null,
+          week: array[array.length-1].week+1
+        });
+      }
+
+      return array;
+    };
+
+    function getCaption(context){
+      var $caption = $('<div>', { class: this.prop('caption') })
+        , $title = $('<span>', { class: this.prop('title'), text: `${context.year}.${this.pad(context.month, 0, 2)}` });
+
+      $caption.append($title);
+
+      $caption.prepend($('<button>', { class: `${this.prop('controller')} icon-015`, text: 'PrevMonth', data: { string: 'month', number: -1 }}));
+      $caption.prepend($('<button>', { class: `${this.prop('controller')} icon-017`, text: 'PrevYear', data: { string: 'year', number: -1 }}));
+      $caption.append($('<button>', { class: `${this.prop('controller')} icon-016`, text: 'NextMonth', data: { string: 'month', number: +1 }}));
+      $caption.append($('<button>', { class: `${this.prop('controller')} icon-018`, text: 'NextYear', data: { string: 'year', number: +1 }}));
+
+      $(this.class('controller'), $caption).on('click', update.bind(this, context));
+
+      return $caption;
+    }
+
+    function getHead(context){
+      var $thead = $('<thead>')
+        , $row = $('<tr>')
+        , $col
+        , weeks = this.prop('weeks').slice();
+
+      while(weeks.length){
+        $col = $('<th>', { class: this.prop('week'), scope: 'col', text: weeks[0] });
+        $row.append($col);
+        weeks.shift();
+      }
+
+      return $thead.append($row);
+    }
+
+    function getBody(context){
+      var $tbody = $('<tbody>', { class: this.prop('body') })
+        , $row, $col, $button
+        , data = context.data.slice();
+
+      while(data.length){
+        if (data[0].week == 0) {
+          $row = $('<tr>');
+          $tbody.append($row);
+        }
+
+        $col = $('<td>', { class: this.prop('date') });
+        $row.append($col);
+
+        if (data[0].date) {
+          $button = $('<button>', { type: 'button', class: this.prop('button'), text: data[0].date });
+          $button.data({ date: `${data[0].year}.${this.pad(data[0].month, 0, 2)}.${this.pad(data[0].date, 0, 2)}`, week: data[0].week });
+          $col.append($button);
+        }
+
+        data.shift();
+      }
+
+      return $tbody;
+    }
+
+    function getTable(context){
+      var $calendar = $('<div>', { class: this.prop('selector') })
+        , $table = $('<table>', { class: this.prop('table') });
+
+      $table.append(getHead.call(this, context));
+      $table.append(getBody.call(this, context));
+
+      $calendar.append(getCaption.call(this, context));
+      $calendar.append($table);
+
+      return $calendar;
+    }
+
+    function update(context, event){
+      var dataset = $(event.target).data();
+
+      context[dataset.string] += dataset.number;
+
+      if (context.month >= 13) {
+        context.year++;
+        context.month = 1;
+      }
+
+      if (context.month <= 0) {
+        context.year--;
+        context.month = 12;
+      }
+
+      context.data = getData.call(this, context);
+
+      $(this.class('title'), context.table).text(`${context.year}.${this.pad(context.month, 0, 2)}`);
+      $(this.class('body'), context.table).replaceWith(getBody.call(this, context));
+    }
+
+    function creator(context, options){
+      this.year = options.year;
+      this.month = options.month;
+      this.data = getData.call(context, this);
+      this.table = getTable.call(context, this);
+    }
+
+    component.create = function(options){
+      var options = $.extend({
+        year: new Date().getFullYear(),
+        month: new Date().getMonth() + 1
+      }, options);
+
+      return new creator(this, options);
+    };
+
+    component.bind = function(options){
+      $.extend(this.options, options);
+
+      init.call(this);
+    };
+
+    return component;
+  }();
 }(window[namespace]));
 
 /* COLLAPSE */
@@ -479,6 +714,102 @@ window[namespace] = window[namespace] || {};
 
       $(this.prop('container')).on('click', `${this.class('selector')} ${this.class('cancel')}`, handlerClick.bind(this));
       $(this.prop('container')).on('click', `${this.class('selector')} ${this.class('confirm')}`, handlerClick.bind(this));
+
+      init.call(this);
+    };
+
+    return component;
+  }();
+}(window[namespace]));
+
+/* MODAL - DATEPICKER */
+(function(global){
+  'use strict';
+
+  global.datepicker = function(){
+    var component = new global.component({
+      container: 'body',
+      selector: '_datepicker',
+      content: '_datepicker-content',
+      close: '_datepicker-close',
+      field: '_datepicker-field',
+      button: '_datepicker-button'
+    });
+
+    function init(){
+      this.style(this.prop('container'), style.call(this));
+      this.prop('on').init && this.prop('on').init($(this.class('selector')));
+    }
+
+    function style(){
+      return `
+        ${this.class('selector')} {
+          min-height: initial;
+          max-height: initial;
+        }
+        ${this.class('content')} {
+          height: 100%;
+        }`;
+    }
+
+    function html(){
+      return `
+        <div class="modal _modal ${this.prop('selector')}">
+          <div class="modal-content _modal-content _bottom">
+          <div class="modal-header">
+            <p class="modal-title left">select</p>
+            <div class="modal-button right">
+              <button type="button" class="button icon w24 ${this.prop('close')}">
+                <span class="button-icon icon-014"></span>
+              </button>
+            </div>
+          </div>
+            <div class="modal-main">
+              <div class="${this.prop('content')}"></div>
+            </div>
+          </div>
+        </div>`;
+    }
+
+    function handlerClick(event){
+      this.hide();
+    }
+
+    component.show = function(options){
+      var options = $.extend({ target: this.class('selector') }, options)
+        , timeout;
+
+      options.calendar = global.calendar.create();
+
+      $(this.class('selector')).remove();
+      $(this.prop('container')).append(html.call(this, options));
+      $(this.class('content'), this.class('selector')).html(options.calendar.table);
+
+      $(global.calendar.class('button'), options.calendar.table).on('click', handlerClick.bind(this));
+
+      timeout = setTimeout(function(){
+        global.modal.show(options);
+        clearTimeout(timeout);
+      }, 10);
+
+      this.prop('on').show && this.prop('on').show();
+      this.change.observe(this);
+    };
+
+    component.hide = function(){
+      global.modal.hide(function($selector){
+        $selector.remove();
+      });
+
+      this.prop('on').hide && this.prop('on').hide();
+    };
+
+    component.bind = function(options){
+      $(this.prop('container')).off('click', `${this.class('selector')} ${this.class('close')}`);
+
+      $.extend(this.options, options);
+
+      $(this.prop('container')).on('click', `${this.class('selector')} ${this.class('close')}`, handlerClick.bind(this));
 
       init.call(this);
     };
@@ -861,23 +1192,9 @@ $(function(global){
     this.popover.bind();
     this.dropdown.bind();
     this.input.bind();
+    this.calendar.bind();
+    this.datepicker.bind();
   };
 
   global.init();
 }(window[namespace]));
-
-/*
-UI.alert.show({
-  message: '메세지',
-  confirm: '확인',
-  cancel: '취소',
-  on: {
-    confirm: function(){
-      console.log('alert confirm');
-    },
-    cancel: function(){
-      console.log('alert cancel');
-    }
-  }
-});
-*/
