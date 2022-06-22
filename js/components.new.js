@@ -584,6 +584,12 @@ window[namespace] = window[namespace] || {};
       this.hide();
     }
 
+    function handlerSelector(event){
+      if (!$(event.target).closest(this.class('content')).length) {
+        this.hide();
+      }
+    }
+
     component.show = function(options){
       var options = $.extend({ target: null }, options);
 
@@ -615,6 +621,7 @@ window[namespace] = window[namespace] || {};
 
     component.bind = function(options){
       $(this.prop('container')).off('TransitionEnd webkitTransitionEnd', this.class('selector'));
+      $(this.prop('container')).off('click', this.class('selector'));
       $(this.prop('container')).off('click', `${this.class('selector')} ${this.class('close')}`);
       $(this.prop('container')).off('click', `${this.class('selector')} ${this.class('cancel')}`);
       $(this.prop('container')).off('click', `${this.class('selector')} ${this.class('confirm')}`);
@@ -622,6 +629,7 @@ window[namespace] = window[namespace] || {};
       $.extend(this.options, options);
 
       $(this.prop('container')).on('TransitionEnd webkitTransitionEnd', this.class('selector'), handlerEnd.bind(this));
+      $(this.prop('container')).on('click', this.class('selector'), handlerSelector.bind(this));
       $(this.prop('container')).on('click', `${this.class('selector')} ${this.class('close')}`, handlerClick.bind(this));
       $(this.prop('container')).on('click', `${this.class('selector')} ${this.class('cancel')}`, handlerClick.bind(this));
       $(this.prop('container')).on('click', `${this.class('selector')} ${this.class('confirm')}`, handlerClick.bind(this));
@@ -1198,3 +1206,5 @@ $(function(global){
 
   global.init();
 }(window[namespace]));
+
+UI.datepicker.show();
