@@ -215,7 +215,6 @@ window[namespace] = window[namespace] || {};
 
       do {
         date = moment([context.year, context.month, array.length+1]);
-        console.log(context.year, context.month, array.length+1);
         array.push({
           year: context.year,
           month: context.month,
@@ -226,8 +225,6 @@ window[namespace] = window[namespace] || {};
       while(context.month == date.month());
 
       array.pop();
-
-      console.log(array);
 
       while(array[0].week != 0){
         array.unshift({
@@ -298,6 +295,7 @@ window[namespace] = window[namespace] || {};
         if (data[0].date) {
           $button = $('<button>', { type: 'button', class: this.prop('button'), text: data[0].date });
           $button.data({ date: moment([data[0].year, data[0].month, data[0].date]).format('YYYY.MM.DD'), week: data[0].week });
+          context.on.select && $button.on('click', context.on.select.bind(this, context));
           $col.append($button);
         }
 
@@ -339,11 +337,14 @@ window[namespace] = window[namespace] || {};
 
       $(this.class('title'), context.table).text(moment([context.year, context.month]).format('YYYY.MM'));
       $(this.class('body'), context.table).replaceWith(getBody.call(this, context));
+
+      context.on.update && context.on.update.call(this, context);
     }
 
     function creator(context, options){
       this.year = options.year;
       this.month = options.month;
+      this.on = options.on;
       this.data = getData.call(context, this);
       this.table = getTable.call(context, this);
     }
@@ -351,7 +352,8 @@ window[namespace] = window[namespace] || {};
     component.create = function(options){
       var options = $.extend({
         year: moment().year(),
-        month: moment().month()
+        month: moment().month(),
+        on: {}
       }, options);
 
       return new creator(this, options);
@@ -744,9 +746,7 @@ window[namespace] = window[namespace] || {};
       selector: '_datepicker',
       content: '_datepicker-content',
       calendar: '_datepicker-calendar',
-      close: '_datepicker-close',
-      field: '_datepicker-field',
-      button: '_datepicker-button'
+      close: '_datepicker-close'
     });
 
     function init(){
@@ -756,7 +756,6 @@ window[namespace] = window[namespace] || {};
 
     function style(){
       return `
-        ${this.class('selector')} {}
         ${this.class('selector')} ${this.class('content')} {
           min-height: initial;
           max-height: initial;
@@ -787,10 +786,20 @@ window[namespace] = window[namespace] || {};
     }
 
     component.show = function(options){
-      var options = $.extend({ target: this.class('selector') }, options)
+      var options = $.extend({ target: this.class('selector'), field: null }, options)
         , timeout;
 
-      options.calendar = global.calendar.create();
+      options.calendar = global.calendar.create({
+        on: {
+          select: function(calendar, event){
+            $(options.field).val($(event.target).data('date'));
+            this.hide();
+          }.bind(this),
+          update: function(calendar){
+            console.log('calendar update', calendar);
+          }
+        }
+      });
 
       $(this.class('selector')).remove();
       $(this.prop('container')).append(html.call(this, options));
@@ -1126,31 +1135,39 @@ window[namespace] = window[namespace] || {};
     function format(){
       if (!Cleave) return;
 
-      new Cleave(`${this.class('selector')}${this.class('price')} input`, {
-        numeral: true,
-        numeralThousandsGroupStyle: 'thousand',
-        prefix: '₩',
-        // tailPrefix: true,
-        noImmediatePrefix: true
+      $(`${this.class('selector')}${this.class('price')} input`).each(function(){
+        new Cleave(this, {
+          numeral: true,
+          numeralThousandsGroupStyle: 'thousand',
+          prefix: '₩',
+          // tailPrefix: true,
+          noImmediatePrefix: true
+        });
       });
 
-      new Cleave(`${this.class('selector')}${this.class('date')} input`, {
-        date: true,
-        delimiter: '.',
-        datePattern: ['Y', 'm', 'd']
+      $(`${this.class('selector')}${this.class('date')} input`).each(function(){
+        new Cleave(this, {
+          date: true,
+          delimiter: '.',
+          datePattern: ['Y', 'm', 'd']
+        });
       });
 
-      new Cleave(`${this.class('selector')}${this.class('time')} input`, {
-        time: true,
-        timePattern: ['h', 'm', 's']
+      $(`${this.class('selector')}${this.class('time')} input`).each(function(){
+        new Cleave(this, {
+          time: true,
+          timePattern: ['h', 'm', 's']
+        });
       });
 
-      new Cleave(`${this.class('selector')}${this.class('phone')} input`, {
-        numericOnly: true,
-        delimiter: '-',
-        blocks: [3, 4, 4],
-        prefix: '010',
-        noImmediatePrefix: true
+      $(`${this.class('selector')}${this.class('phone')} input`).each(function(){
+        new Cleave(this, {
+          numericOnly: true,
+          delimiter: '-',
+          blocks: [3, 4, 4],
+          prefix: '010',
+          noImmediatePrefix: true
+        });
       });
     }
 
