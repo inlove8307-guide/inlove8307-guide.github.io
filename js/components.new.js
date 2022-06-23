@@ -752,7 +752,7 @@ window[namespace] = window[namespace] || {};
 
     function style(){
       return `
-        ${this.class('selector')} {        }
+        ${this.class('selector')} {}
         ${this.class('content')} {
           min-height: initial;
           max-height: initial;
@@ -762,7 +762,7 @@ window[namespace] = window[namespace] || {};
     function html(){
       return `
         <div class="modal _modal ${this.prop('selector')}">
-          <div class="modal-content _modal-content _bottom">
+          <div class="modal-content _modal-content _bottom ${this.prop('content')}">
           <div class="modal-header">
             <p class="modal-title left">select</p>
             <div class="modal-button right">
@@ -791,8 +791,6 @@ window[namespace] = window[namespace] || {};
       $(this.class('selector')).remove();
       $(this.prop('container')).append(html.call(this, options));
       $(this.class('content'), this.class('selector')).html(options.calendar.table);
-
-      $(global.calendar.class('button'), options.calendar.table).on('click', handlerClick.bind(this));
 
       timeout = setTimeout(function(){
         global.modal.show(options);
