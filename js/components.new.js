@@ -753,7 +753,7 @@ window[namespace] = window[namespace] || {};
     function style(){
       return `
         ${this.class('selector')} {}
-        ${this.class('content')} {
+        ${this.class('selector')} ._modal-content {
           min-height: initial;
           max-height: initial;
         }`;
@@ -762,15 +762,15 @@ window[namespace] = window[namespace] || {};
     function html(){
       return `
         <div class="modal _modal ${this.prop('selector')}">
-          <div class="modal-content _modal-content _bottom ${this.prop('content')}">
-          <div class="modal-header">
-            <p class="modal-title left">select</p>
-            <div class="modal-button right">
-              <button type="button" class="button icon w24 ${this.prop('close')}">
-                <span class="button-icon icon-014"></span>
-              </button>
+          <div class="modal-content _modal-content _bottom">
+            <div class="modal-header">
+              <p class="modal-title left">select</p>
+              <div class="modal-button right">
+                <button type="button" class="button icon w24 ${this.prop('close')}">
+                  <span class="button-icon icon-014"></span>
+                </button>
+              </div>
             </div>
-          </div>
             <div class="modal-main">
               <div class="${this.prop('content')}"></div>
             </div>
