@@ -213,15 +213,15 @@ window[namespace] = window[namespace] || {};
         , date;
 
       do {
-        date = new Date([context.year, context.month, array.length+1].join());
+        date = moment([context.year, context.month, array.length+1]);
         array.push({
           year: context.year,
           month: context.month,
-          date: date.getDate(),
-          week: date.getDay()
+          date: date.date(),
+          week: date.day()
         });
       }
-      while(context.month == date.getMonth()+1);
+      while(context.month == date.month());
 
       array.pop();
 
@@ -248,7 +248,7 @@ window[namespace] = window[namespace] || {};
 
     function getCaption(context){
       var $caption = $('<div>', { class: this.prop('caption') })
-        , $title = $('<span>', { class: this.prop('title'), text: `${context.year}.${this.pad(context.month, 0, 2)}` });
+        , $title = $('<span>', { class: this.prop('title'), text: moment([context.year, context.month]).format('YYYY.MM') });
 
       $caption.append($title);
 
@@ -293,7 +293,7 @@ window[namespace] = window[namespace] || {};
 
         if (data[0].date) {
           $button = $('<button>', { type: 'button', class: this.prop('button'), text: data[0].date });
-          $button.data({ date: `${data[0].year}.${this.pad(data[0].month, 0, 2)}.${this.pad(data[0].date, 0, 2)}`, week: data[0].week });
+          $button.data({ date: moment([data[0].year, data[0].month, data[0].date]).format('YYYY.MM.DD'), week: data[0].week });
           $col.append($button);
         }
 
@@ -333,7 +333,7 @@ window[namespace] = window[namespace] || {};
 
       context.data = getData.call(this, context);
 
-      $(this.class('title'), context.table).text(`${context.year}.${this.pad(context.month, 0, 2)}`);
+      $(this.class('title'), context.table).text(moment([context.year, context.month]).format('YYYY.MM'));
       $(this.class('body'), context.table).replaceWith(getBody.call(this, context));
     }
 
@@ -346,8 +346,8 @@ window[namespace] = window[namespace] || {};
 
     component.create = function(options){
       var options = $.extend({
-        year: new Date().getFullYear(),
-        month: new Date().getMonth() + 1
+        year: moment().year(),
+        month: moment().month()
       }, options);
 
       return new creator(this, options);
