@@ -215,6 +215,7 @@ window[namespace] = window[namespace] || {};
 
       do {
         date = moment([context.year, context.month, array.length+1]);
+        console.log(context.year, context.month, array.length+1);
         array.push({
           year: context.year,
           month: context.month,
@@ -225,6 +226,8 @@ window[namespace] = window[namespace] || {};
       while(context.month == date.month());
 
       array.pop();
+
+      console.log(array);
 
       while(array[0].week != 0){
         array.unshift({
@@ -322,14 +325,14 @@ window[namespace] = window[namespace] || {};
 
       context[dataset.string] += dataset.number;
 
-      if (context.month >= 13) {
+      if (context.month >= 12) {
         context.year++;
-        context.month = 1;
+        context.month = 0;
       }
 
-      if (context.month <= 0) {
+      if (context.month <= -1) {
         context.year--;
-        context.month = 12;
+        context.month = 11;
       }
 
       context.data = getData.call(this, context);
