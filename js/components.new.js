@@ -174,13 +174,14 @@ window[namespace] = window[namespace] || {};
         ${this.class('caption')} {
           overflow: initial;
           display: flex;
+          justify-content: center;
           align-items: center;
           padding: 0 16px;
           width: 100%;
           height: 40px;
         }
         ${this.class('title')} {
-          margin: 0 auto;
+          margin: 0 16px;
         }
         ${this.class('controller')} {
           overflow: hidden;
@@ -751,12 +752,10 @@ window[namespace] = window[namespace] || {};
 
     function style(){
       return `
-        ${this.class('selector')} {
+        ${this.class('selector')} {        }
+        ${this.class('content')} {
           min-height: initial;
           max-height: initial;
-        }
-        ${this.class('content')} {
-          height: 100%;
         }`;
     }
 
@@ -1206,5 +1205,3 @@ $(function(global){
 
   global.init();
 }(window[namespace]));
-
-UI.datepicker.show();
