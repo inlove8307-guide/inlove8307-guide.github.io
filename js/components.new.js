@@ -140,7 +140,7 @@ window[namespace] = window[namespace] || {};
   };
 }(window[namespace]));
 
-/* DATEPICKER */
+/* CALENDAR */
 (function(global){
   'use strict';
 
@@ -740,6 +740,7 @@ window[namespace] = window[namespace] || {};
       container: 'body',
       selector: '_datepicker',
       content: '_datepicker-content',
+      calendar: '_datepicker-calendar',
       close: '_datepicker-close',
       field: '_datepicker-field',
       button: '_datepicker-button'
@@ -753,7 +754,7 @@ window[namespace] = window[namespace] || {};
     function style(){
       return `
         ${this.class('selector')} {}
-        ${this.class('selector')} ._modal-content {
+        ${this.class('selector')} ${this.class('content')} {
           min-height: initial;
           max-height: initial;
         }`;
@@ -762,7 +763,7 @@ window[namespace] = window[namespace] || {};
     function html(){
       return `
         <div class="modal _modal ${this.prop('selector')}">
-          <div class="modal-content _modal-content _bottom">
+          <div class="modal-content _modal-content _bottom ${this.prop('content')}">
             <div class="modal-header">
               <p class="modal-title left">select</p>
               <div class="modal-button right">
@@ -772,7 +773,7 @@ window[namespace] = window[namespace] || {};
               </div>
             </div>
             <div class="modal-main">
-              <div class="${this.prop('content')}"></div>
+              <div class="${this.prop('calendar')}"></div>
             </div>
           </div>
         </div>`;
@@ -790,7 +791,7 @@ window[namespace] = window[namespace] || {};
 
       $(this.class('selector')).remove();
       $(this.prop('container')).append(html.call(this, options));
-      $(this.class('content'), this.class('selector')).html(options.calendar.table);
+      $(this.class('calendar'), this.class('selector')).html(options.calendar.table);
 
       timeout = setTimeout(function(){
         global.modal.show(options);
