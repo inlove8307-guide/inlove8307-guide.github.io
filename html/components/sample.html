@@ -1779,6 +1779,104 @@
         </article>
         <!--// MODAL - ALERT -->
 
+        <!-- MODAL - DATEPICKER //-->
+        <article class="guide-viewer">
+          <!-- GUIDE TITLE -->
+          <h3 class="guide-viewer__title">Modal - Datepicker</h3>
+          <!-- [S] GUIDE -->
+          <div class="guide-viewer__content">
+            <!-- [S] VIEW -->
+            <div class="guide-viewer__view">
+
+              <div class="field">
+                <label class="field-label">label</label>
+                <div class="field-row">
+                  <div class="field-outline grow">
+                    <div class="field-input grow _input _date">
+                      <input type="tel" id="DATE05" placeholder="YYYY.MM.DD">
+                    </div>
+                    <button type="button" class="field-button" onclick="UI.datepicker.show({ field: '#DATE05' })">
+                      <span class="icon-008"></span>
+                    </button>
+                  </div>
+                </div>
+                <p class="field-message">message</p>
+                <p class="field-info">info</p>
+              </div>
+
+            </div>
+            <!-- [E] VIEW -->
+            <!-- [S] COMMENT -->
+            <!-- <ul class="guide-viewer__comment">
+              <li class="comment__text"># 코멘트</li>
+            </ul> -->
+            <!-- [E] COMMENT -->
+            <!-- [S] BUTTON -->
+            <div class="guide-viewer__tab">
+              <!-- <button class="guide-tab__button" data-lang="html">html</button> -->
+              <!-- <button class="guide-tab__button" data-lang="css">css</button> -->
+              <button class="guide-tab__button" data-lang="script">script</button>
+            </div>
+            <!-- [E] BUTTON -->
+            <!-- [S] CODE -->
+            <div class="guide-viewer__syntax">
+              <pre class="guide-viewer__pre line-numbers" data-lang="html">
+                <code class="guide-viewer__code language-html">
+                  <!-- html -->
+                </code>
+              </pre>
+              <pre class="guide-viewer__pre line-numbers" data-lang="css">
+                <code class="guide-viewer__code language-css">
+                  /* css */
+                </code>
+              </pre>
+              <pre class="guide-viewer__pre line-numbers" data-lang="script">
+                <code class="guide-viewer__code language-js">
+                  UI.alert.bind({
+                    container: 'body',
+                    selector: '_alert',
+                    confirm: '_alert-confirm',
+                    cancel: '_alert-cancel'
+                    on: {
+                      init: function(){ ... },
+                      change: function(){ ... },
+                      show: function(){ ... },
+                      hide: function(){ ... }
+                    }
+                  });
+
+                  UI.alert.on({
+                    init: function(){ ... },
+                    change: function(){ ... },
+                    show: function(){ ... },
+                    hide: function(){ ... }
+                  });
+
+                  UI.alert.on('init', function(){ ... });
+                  UI.alert.on('change', function(){ ... });
+                  UI.alert.on('show', function(){ ... });
+                  UI.alert.on('hide', function(){ ... });
+
+                  UI.alert.show({
+                    message: 'message',
+                    confirm: 'confirm',
+                    cancel: 'cancel',
+                    on: {
+                      confirm: function(){ ... },
+                      cancel: function(){ ... }
+                    }
+                  });
+
+                  UI.alert.hide();
+                </code>
+              </pre>
+            </div>
+            <!-- [E] CODE -->
+          </div>
+          <!-- [E] GUIDE -->
+        </article>
+        <!--// MODAL - DATEPICKER -->
+
         <!-- MODAL - SELECT //-->
         <article class="guide-viewer">
           <!-- GUIDE TITLE -->

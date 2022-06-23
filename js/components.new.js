@@ -759,15 +759,18 @@ window[namespace] = window[namespace] || {};
         ${this.class('selector')} ${this.class('content')} {
           min-height: initial;
           max-height: initial;
+        }
+        ${this.class('calendar')} {
+          min-height: 360px;
         }`;
     }
 
-    function html(){
+    function html(options){
       return `
         <div class="modal _modal ${this.prop('selector')}">
           <div class="modal-content _modal-content _bottom ${this.prop('content')}">
             <div class="modal-header">
-              <p class="modal-title left">select</p>
+              <p class="modal-title left">${options.title}</p>
               <div class="modal-button right">
                 <button type="button" class="button icon w24 ${this.prop('close')}">
                   <span class="button-icon icon-014"></span>
@@ -786,7 +789,7 @@ window[namespace] = window[namespace] || {};
     }
 
     component.show = function(options){
-      var options = $.extend({ target: this.class('selector'), field: null }, options)
+      var options = $.extend({ target: this.class('selector'), title: 'Date Picker', field: null }, options)
         , timeout;
 
       options.calendar = global.calendar.create({
