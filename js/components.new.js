@@ -147,15 +147,15 @@ window[namespace] = window[namespace] || {};
   global.calendar = function(){
     var component = new global.component({
       container: 'body',
-      selector: 'calendar',
-      caption: 'calendar-caption',
-      title: 'calendar-title',
-      controller: 'calendar-controller',
-      table: 'calendar-table',
-      body: 'calendar-body',
-      week: 'calendar-week',
-      date: 'calendar-date',
-      button: 'calendar-button',
+      selector: '_calendar',
+      caption: '_calendar-caption',
+      title: '_calendar-title',
+      controller: '_calendar-controller',
+      table: '_calendar-table',
+      body: '_calendar-body',
+      week: '_calendar-week',
+      date: '_calendar-date',
+      button: '_calendar-button',
       weeks: ['일', '월', '화', '수', '목', '금', '토']
     });
 
@@ -627,6 +627,7 @@ window[namespace] = window[namespace] || {};
 
     component.bind = function(options){
       $(this.prop('container')).off('TransitionEnd webkitTransitionEnd', this.class('selector'));
+      $(this.prop('container')).off('touchstart', this.class('selector'));
       $(this.prop('container')).off('click', this.class('selector'));
       $(this.prop('container')).off('click', `${this.class('selector')} ${this.class('close')}`);
       $(this.prop('container')).off('click', `${this.class('selector')} ${this.class('cancel')}`);
@@ -635,6 +636,7 @@ window[namespace] = window[namespace] || {};
       $.extend(this.options, options);
 
       $(this.prop('container')).on('TransitionEnd webkitTransitionEnd', this.class('selector'), handlerEnd.bind(this));
+      $(this.prop('container')).on('touchstart', this.class('selector'), handlerSelector.bind(this));
       $(this.prop('container')).on('click', this.class('selector'), handlerSelector.bind(this));
       $(this.prop('container')).on('click', `${this.class('selector')} ${this.class('close')}`, handlerClick.bind(this));
       $(this.prop('container')).on('click', `${this.class('selector')} ${this.class('cancel')}`, handlerClick.bind(this));
@@ -746,7 +748,9 @@ window[namespace] = window[namespace] || {};
       selector: '_datepicker',
       content: '_datepicker-content',
       calendar: '_datepicker-calendar',
-      close: '_datepicker-close'
+      close: '_datepicker-close',
+      cancel: '_datepicker-cancel',
+      confirm: '_datepicker-confirm'
     });
 
     function init(){
@@ -761,7 +765,7 @@ window[namespace] = window[namespace] || {};
           max-height: initial;
         }
         ${this.class('calendar')} {
-          min-height: 360px;
+          min-height: 320px;
         }`;
     }
 
@@ -780,16 +784,27 @@ window[namespace] = window[namespace] || {};
             <div class="modal-main">
               <div class="${this.prop('calendar')}"></div>
             </div>
+            <div class="modal-footer">
+              <div class="button-group">
+                <button type="button" class="button grow ${this.prop('cancel')}">${options.cancel}</button>
+                <button type="button" class="button grow dark ${this.prop('confirm')}">${options.confirm}</button>
+              </div>
+            </div>
           </div>
         </div>`;
     }
 
     function handlerClick(event){
+      var $target = $(event.target);
+
+      $target.hasClass(this.prop('cancel')) && this.prop('on').cancel && this.prop('on').cancel();
+      $target.hasClass(this.prop('confirm')) && this.prop('on').confirm && this.prop('on').confirm();
+
       this.hide();
     }
 
     component.show = function(options){
-      var options = $.extend({ target: this.class('selector'), title: 'Date Picker', field: null }, options)
+      var options = $.extend({ target: this.class('selector'), title: 'Date Picker', field: null, confirm: null, cancel: 'cancel' }, options)
         , timeout;
 
       options.calendar = global.calendar.create({
@@ -808,10 +823,17 @@ window[namespace] = window[namespace] || {};
       $(this.prop('container')).append(html.call(this, options));
       $(this.class('calendar'), this.class('selector')).html(options.calendar.table);
 
+      !options.confirm && $(this.class('confirm'), this.class('selector')).remove();
+
       timeout = setTimeout(function(){
         global.modal.show(options);
         clearTimeout(timeout);
       }, 10);
+
+      if (options.on) {
+        this.on('confirm', options.on.confirm);
+        this.on('cancel', options.on.cancel);
+      }
 
       this.prop('on').show && this.prop('on').show();
       this.change.observe(this);
@@ -823,14 +845,20 @@ window[namespace] = window[namespace] || {};
       });
 
       this.prop('on').hide && this.prop('on').hide();
+      delete this.prop('on').confirm;
+      delete this.prop('on').cancel;
     };
 
     component.bind = function(options){
       $(this.prop('container')).off('click', `${this.class('selector')} ${this.class('close')}`);
+      $(this.prop('container')).off('click', `${this.class('selector')} ${this.class('cancel')}`);
+      $(this.prop('container')).off('click', `${this.class('selector')} ${this.class('confirm')}`);
 
       $.extend(this.options, options);
 
       $(this.prop('container')).on('click', `${this.class('selector')} ${this.class('close')}`, handlerClick.bind(this));
+      $(this.prop('container')).on('click', `${this.class('selector')} ${this.class('cancel')}`, handlerClick.bind(this));
+      $(this.prop('container')).on('click', `${this.class('selector')} ${this.class('confirm')}`, handlerClick.bind(this));
 
       init.call(this);
     };
@@ -1210,6 +1238,96 @@ window[namespace] = window[namespace] || {};
   }();
 }(window[namespace]));
 
+/* CHECKBOX */
+(function(global){
+  'use strict';
+
+  global.checkbox = function(){
+    var component = new global.component({
+      container: 'body',
+      selector: '_checkbox'
+    });
+
+    function init(){
+      this.style(this.prop('container'), style.call(this));
+      this.prop('on').init && this.prop('on').init($(this.class('selector')));
+    }
+
+    function style(){
+      return ``;
+    }
+
+    component.bind = function(options){
+
+      $.extend(this.options, options);
+
+      init.call(this);
+    };
+
+    return component;
+  }();
+}(window[namespace]));
+
+/* FORMATTER */
+(function(global){
+  'use strict';
+
+  global.formatter = function(){
+    var component = new global.component({
+      container: 'body',
+      selector: '_formatter'
+    });
+
+    function init(){
+      this.style(this.prop('container'), style.call(this));
+      this.prop('on').init && this.prop('on').init($(this.class('selector')));
+    }
+
+    function style(){
+      return ``;
+    }
+
+    component.bind = function(options){
+
+      $.extend(this.options, options);
+
+      init.call(this);
+    };
+
+    return component;
+  }();
+}(window[namespace]));
+
+/* SCROLLBAR */
+(function(global){
+  'use strict';
+
+  global.scrollbar = function(){
+    var component = new global.component({
+      container: 'body',
+      selector: '_scrollbar'
+    });
+
+    function init(){
+      this.style(this.prop('container'), style.call(this));
+      this.prop('on').init && this.prop('on').init($(this.class('selector')));
+    }
+
+    function style(){
+      return ``;
+    }
+
+    component.bind = function(options){
+
+      $.extend(this.options, options);
+
+      init.call(this);
+    };
+
+    return component;
+  }();
+}(window[namespace]));
+
 /* INITIAL */
 $(function(global){
   global.init = function(){
@@ -1223,6 +1341,9 @@ $(function(global){
     this.input.bind();
     this.calendar.bind();
     this.datepicker.bind();
+    this.checkbox.bind();
+    this.formatter.bind();
+    this.scrollbar.bind();
   };
 
   global.init();

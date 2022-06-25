@@ -1,141 +1,50 @@
+/* FONT */
+@font-face {
+  font-family: 'Noto Sans KR';
+  font-style: normal;
+  font-weight: 400;
+  src: local(''),
+    url('../font/noto-sans-kr-v27-latin_korean-regular.woff2') format('woff2'), /* Chrome 26+, Opera 23+, Firefox 39+ */
+    url('../font/noto-sans-kr-v27-latin_korean-regular.woff') format('woff'); /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
+}
+@font-face {
+  font-family: 'Noto Sans KR';
+  font-style: bold;
+  font-weight: 700;
+  src: local(''),
+    url('../font/noto-sans-kr-v27-latin_korean-700.woff2') format('woff2'), /* Chrome 26+, Opera 23+, Firefox 39+ */
+    url('../font/noto-sans-kr-v27-latin_korean-700.woff') format('woff'); /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
+}
+
+/* BASE */
 html, body, div, ul, ol, dl, li, dt, dd, p, h1, h2, h3, h4, h5, h6, table, thead, tbody, tfoot, tr, th, td, caption, address, article, aside,
 canvas, details, figure, figcaption, footer, header, menu, nav, section, main,
-label, button, select, textarea, input, fieldset, legend, a, span, strong, em, address, dfn, small, i, b {
-  margin: 0;
-  padding: 0;
-  border: 0;
-  list-style: none;
-  font-style: inherit;
-  font-size: inherit;
-  font-weight: inherit;
-  font-family: inherit;
-  line-height: inherit;
-  word-break: inherit;
-  word-wrap: inherit;
-  box-sizing: border-box;
-  -webkit-box-sizing: border-box;
-  -moz-box-sizing: border-box;
-  -o-box-sizing: border-box;
-}
-
-:before, :after {
-  box-sizing: border-box;
-  -webkit-box-sizing: border-box;
-  -moz-box-sizing: border-box;
-  -o-box-sizing: border-box;
-}
-
-article, aside, canvas, details, figure, figcaption, footer, header, menu, nav, section, main {
-  display: block;
-}
-
-html {
-  height: 100%;
-  font-family: 'Noto Sans KR';
-  font-size: 10px;
-}
-
-body {
-  height: 100%;
-  margin: 0;
-  font-size: 1.6rem;
-  font-style: normal;
-  font-weight: normal;
-  line-height: 1;
-  word-break: keep-all;
-  word-wrap: word-break;
-  letter-spacing: -0.1rem;
-  -webkit-text-size-adjust: none;
-  -moz-text-size-adjust: none;
-  -ms-text-size-adjust: none;
-}
-
-[hidden], hr {
-  display: none;
-}
-
-img {
-  vertical-align: middle;
-}
-
-fieldset, iframe {
-  width: 100%;
-}
-
-button, img, a, frame, iframe, fieldset {
-  border: 0;
-}
-
-a {
-  text-decoration: none;
-}
-
-table {
-  width: 100%;
-  border-spacing: 0;
-  border-collapse: collapse;
-}
-
-caption {
-  overflow: hidden;
-  height: 0;
-}
-
-legend {
-  overflow: hidden;
-  height: 0;
-}
-
-
-button {
-  overflow: hidden;
-  background-color: transparent;
-  cursor: pointer;
-  color: rgb(0, 0, 0);
-}
-
-button::-moz-focus-inner {
-  border: 0px;
-  padding: 0px;
-}
-
-select {
-  appearance: none;
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  -o-appearance: none;
-}
-
-select::-ms-expand {
-  display: none;
-}
-
+label, button, select, textarea, input, fieldset, legend, a, span, strong, em, address, dfn, small, i, b {margin: 0; padding: 0; border: 0; list-style: none; font-style: inherit; font-size: inherit; font-weight: inherit; font-family: inherit; line-height: inherit; word-break: inherit; word-wrap: inherit; box-sizing: border-box; -webkit-box-sizing: border-box; -moz-box-sizing: border-box; -o-box-sizing: border-box;}
+:before, :after {box-sizing: border-box; -webkit-box-sizing: border-box; -moz-box-sizing: border-box; -o-box-sizing: border-box;}
+article, aside, canvas, details, figure, figcaption, footer, header, menu, nav, section, main {display: block;}
+html {height: 100%; font-family: 'Noto Sans KR'; font-size: 10px;}
+body {height: 100%; margin: 0; font-size: 1.6rem; font-style: normal; font-weight: normal; line-height: 1; word-break: keep-all; word-wrap: word-break; letter-spacing: -0.1rem; -webkit-text-size-adjust: none; -moz-text-size-adjust: none; -ms-text-size-adjust: none;}
+[hidden], hr {display: none;}
+img {vertical-align: middle;}
+fieldset, iframe {width: 100%;}
+button, img, a, frame, iframe, fieldset {border: 0;}
+a {text-decoration: none;}
+table {width: 100%; border-spacing: 0; border-collapse: collapse;}
+caption {overflow: hidden; height: 0;}
+legend {overflow: hidden; height: 0;}
+button {overflow: hidden; background-color: transparent; cursor: pointer; color: rgb(0, 0, 0);}
+button::-moz-focus-inner {border: 0px; padding: 0px;}
+select {appearance: none; -webkit-appearance: none; -moz-appearance: none; -o-appearance: none;}
+select::-ms-expand {display: none;}
 input::-ms-clear,
-input::-ms-reveal {
-  display: none;
-  width: 0;
-  height: 0;
-}
-
+input::-ms-reveal {display: none; width: 0; height: 0;}
 input::search-decoration,
 input::search-cancel-button,
 input::search-results-button,
-input::search-results-decoration {
-  display: none;
-}
-
+input::search-results-decoration {display: none;}
 input::-webkit-search-decoration,
 input::-webkit-search-cancel-button,
 input::-webkit-search-results-button,
-input::-webkit-search-results-decoration {
-  display: none;
-}
-
-input::-webkit-outer-spin-button, input::-webkit-inner-spin-button {
-  -webkit-appearance: none;
-  margin: 0;
-}
-
-input::-webkit-calendar-picker-indicator {
-  -webkit-appearance: none;
-}
+input::-webkit-search-results-decoration {display: none;}
+input::-webkit-outer-spin-button, input::-webkit-inner-spin-button {-webkit-appearance: none; margin: 0;}
+input::-webkit-calendar-picker-indicator {-webkit-appearance: none;}
