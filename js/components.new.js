@@ -804,7 +804,7 @@ window[namespace] = window[namespace] || {};
     }
 
     component.show = function(options){
-      var options = $.extend({ target: this.class('selector'), title: 'Date Picker', field: null, confirm: null, cancel: 'cancel' }, options)
+      var options = $.extend({ target: this.class('selector'), title: 'Date Picker', field: null, confirm: null, cancel: 'cancel', on: {} }, options)
         , timeout;
 
       options.calendar = global.calendar.create({
@@ -812,6 +812,7 @@ window[namespace] = window[namespace] || {};
           select: function(calendar, event){
             $(options.field).val($(event.target).data('date'));
             this.hide();
+            options.on.select && options.on.select();
           }.bind(this),
           update: function(calendar){
             console.log('calendar update', calendar);
@@ -1309,12 +1310,26 @@ window[namespace] = window[namespace] || {};
     });
 
     function init(){
+      create.call(this);
       this.style(this.prop('container'), style.call(this));
       this.prop('on').init && this.prop('on').init($(this.class('selector')));
     }
 
     function style(){
-      return ``;
+      return `
+        ${this.class('selector')} {
+          position: relative;
+        }
+      `;
+    }
+
+    function create(options){
+      var options = $.extend({}, options);
+
+      $(this.class('selector')).each(function(index, target){
+        $(target).data();
+        new PerfectScrollbar(target, options);
+      });
     }
 
     component.bind = function(options){

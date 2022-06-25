@@ -1832,42 +1832,47 @@
               </pre>
               <pre class="guide-viewer__pre line-numbers" data-lang="script">
                 <code class="guide-viewer__code language-js">
-                  UI.alert.bind({
+                  UI.datepicker.bind({
                     container: 'body',
-                    selector: '_alert',
-                    confirm: '_alert-confirm',
-                    cancel: '_alert-cancel'
+                    selector: '_datepicker',
+                    content: '_datepicker-content',
+                    calendar: '_datepicker-calendar',
+                    close: '_datepicker-close',
+                    cancel: '_datepicker-cancel',
+                    confirm: '_datepicker-confirm'
                     on: {
                       init: function(){ ... },
                       change: function(){ ... },
                       show: function(){ ... },
-                      hide: function(){ ... }
+                      hide: function(){ ... },
+                      select: function(){ ... }
                     }
                   });
 
-                  UI.alert.on({
+                  UI.datepicker.on({
                     init: function(){ ... },
                     change: function(){ ... },
                     show: function(){ ... },
                     hide: function(){ ... }
                   });
 
-                  UI.alert.on('init', function(){ ... });
-                  UI.alert.on('change', function(){ ... });
-                  UI.alert.on('show', function(){ ... });
-                  UI.alert.on('hide', function(){ ... });
+                  UI.datepicker.on('init', function(){ ... });
+                  UI.datepicker.on('change', function(){ ... });
+                  UI.datepicker.on('show', function(){ ... });
+                  UI.datepicker.on('hide', function(){ ... });
 
-                  UI.alert.show({
+                  UI.datepicker.show({
                     message: 'message',
                     confirm: 'confirm',
                     cancel: 'cancel',
                     on: {
                       confirm: function(){ ... },
-                      cancel: function(){ ... }
+                      cancel: function(){ ... },
+                      select: function(){ ... }
                     }
                   });
 
-                  UI.alert.hide();
+                  UI.datepicker.hide();
                 </code>
               </pre>
             </div>
@@ -2280,7 +2285,7 @@
                       <span class="button-label">right</span>
                       <span class="popover-content _popover-content _top"> <!-- _top, _right, _bottom, _left -->
                         <span class="popover-message _popover-message">
-                          <span>message message message message message</span>
+                          <span>message message message</span>
                         </span>
                       </span>
                     </button>
