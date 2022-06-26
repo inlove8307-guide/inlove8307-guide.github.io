@@ -23,7 +23,7 @@ label, button, select, textarea, input, fieldset, legend, a, span, strong, em, a
 :before, :after {box-sizing: border-box; -webkit-box-sizing: border-box; -moz-box-sizing: border-box; -o-box-sizing: border-box;}
 article, aside, canvas, details, figure, figcaption, footer, header, menu, nav, section, main {display: block;}
 html {height: 100%; font-family: 'Noto Sans KR'; font-size: 10px;}
-body {height: 100%; margin: 0; font-size: 1.6rem; font-style: normal; font-weight: normal; line-height: 1; word-break: keep-all; word-wrap: word-break; letter-spacing: -0.1rem; -webkit-text-size-adjust: none; -moz-text-size-adjust: none; -ms-text-size-adjust: none;}
+body {height: 100%; margin: 0; font-size: 1.6rem; font-style: normal; font-weight: normal; line-height: inherit; word-break: keep-all; word-wrap: word-break; letter-spacing: -0.1rem; -webkit-text-size-adjust: none; -moz-text-size-adjust: none; -ms-text-size-adjust: none;}
 [hidden], hr {display: none;}
 img {vertical-align: middle;}
 fieldset, iframe {width: 100%;}
