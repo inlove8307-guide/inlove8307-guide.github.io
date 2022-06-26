@@ -804,18 +804,21 @@ window[namespace] = window[namespace] || {};
     }
 
     component.show = function(options){
-      var options = $.extend({ target: this.class('selector'), title: 'Date Picker', field: null, confirm: null, cancel: 'cancel', on: {} }, options)
+      var options = $.extend({ target: this.class('selector'), title: 'Date Picker', field: null, confirm: null, cancel: null, on: {} }, options)
         , timeout;
 
       options.calendar = global.calendar.create({
         on: {
           select: function(calendar, event){
-            $(options.field).val($(event.target).data('date'));
+            var $target = $(event.target)
+              , $field = $(options.field);
+
+            $field.val($target.data('date'));
+            options.on.select && options.on.select.call(calendar, $field);
             this.hide();
-            options.on.select && options.on.select();
           }.bind(this),
           update: function(calendar){
-            console.log('calendar update', calendar);
+            options.on.update && options.on.update.call(calendar);
           }
         }
       });
@@ -824,6 +827,7 @@ window[namespace] = window[namespace] || {};
       $(this.prop('container')).append(html.call(this, options));
       $(this.class('calendar'), this.class('selector')).html(options.calendar.table);
 
+      !options.cancel && $(this.class('cancel'), this.class('selector')).remove();
       !options.confirm && $(this.class('confirm'), this.class('selector')).remove();
 
       timeout = setTimeout(function(){
@@ -879,6 +883,8 @@ window[namespace] = window[namespace] || {};
       scroll: '_select-scroll',
       option: '_select-option',
       label: '_select-label',
+      cancel: '_select-cancel',
+      confirm: '_select-confirm',
       active: '_active',
       duration: '250ms',
       easing: 'cubic-bezier(.86, 0, .07, 1)'
@@ -889,40 +895,42 @@ window[namespace] = window[namespace] || {};
     }
 
     function handlerClick(event){
-      var $target = $(event.target).closest(this.class('option'))
+      var $target = $(event.target)
         , $selector = $target.closest(this.class('selector'))
         , $options = $(this.class('option'), $selector);
 
-      $options.removeClass(this.prop('active'));
-      $target.addClass(this.prop('active'));
+      if ($target.closest(this.class('option')).length) {
+        $options.removeClass(this.prop('active'));
+        $target.closest(this.class('option')).addClass(this.prop('active'));
 
-      if (this.prop('button')) {
-        $(this.class('label'), this.prop('button')).text($(this.class('label'), $target).text());
+        if (this.prop('field')) {
+          $(this.class('label'), this.prop('field')).text($(this.class('label'), $target).text());
+        }
+
+        this.prop('on').select && this.prop('on').select($target);
       }
 
-      $target.hasClass(this.prop('option')) && this.prop('on').selected && this.prop('on').selected($target);
+      $target.closest(this.class('cancel')).length && this.prop('on').cancel && this.prop('on').cancel();
+      $target.closest(this.class('confirm')).length && this.prop('on').confirm && this.prop('on').confirm();
 
       this.hide();
     }
 
     component.show = function(options){
-      var options = $.extend({ target: null, button: null }, options);
-      var $scroll = $(this.class('scroll'), this.class('selector'));
-      var $active = $(this.class('option'), this.class('selector')).filter(this.class('active'));
+      var options = $.extend({ target: null, field: null , on: {}}, options)
+        , $scroll = $(this.class('scroll'), this.class('selector'))
+        , $active = $(this.class('option'), this.class('selector')).filter(this.class('active'));
 
       global.modal.show(options);
-
-      if (options.button) {
-        this.prop('button', options.button);
-      }
-
-      if (options.on) {
-        this.on('selected', options.on.selected);
-      }
 
       if ($active.length) {
         $scroll.scrollTop($active.position().top + $scroll.scrollTop() - $scroll.position().top);
       }
+
+      options.field && this.prop('field', options.field);
+      options.on.select && this.on('select', options.on.select);
+      options.on.cancel && this.on('cancel', options.on.cancel);
+      options.on.confirm && this.on('confirm', options.on.confirm);
 
       this.prop('on').show && this.prop('on').show();
       this.change.observe(this);
@@ -932,15 +940,21 @@ window[namespace] = window[namespace] || {};
       global.modal.hide();
 
       this.prop('on').hide && this.prop('on').hide();
-      delete this.prop('on').selected;
+      delete this.prop('on').select;
+      delete this.prop('on').cancel;
+      delete this.prop('on').confirm;
     };
 
     component.bind = function(options){
       $(this.prop('container')).off('click', `${this.class('selector')} ${this.class('option')}`);
+      $(this.prop('container')).off('click', `${this.class('selector')} ${this.class('cancel')}`);
+      $(this.prop('container')).off('click', `${this.class('selector')} ${this.class('confirm')}`);
 
       $.extend(this.options, options);
 
       $(this.prop('container')).on('click', `${this.class('selector')} ${this.class('option')}`, handlerClick.bind(this));
+      $(this.prop('container')).on('click', `${this.class('selector')} ${this.class('cancel')}`, handlerClick.bind(this));
+      $(this.prop('container')).on('click', `${this.class('selector')} ${this.class('confirm')}`, handlerClick.bind(this));
 
       init.call(this);
     };

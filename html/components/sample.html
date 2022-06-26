@@ -1861,13 +1861,15 @@
                   UI.datepicker.on('hide', function(){ ... });
 
                   UI.datepicker.show({
-                    message: 'message',
+                    title: 'title',
+                    field: '#DATE05',
                     confirm: 'confirm',
                     cancel: 'cancel',
                     on: {
                       confirm: function(){ ... },
                       cancel: function(){ ... },
-                      select: function(){ ... }
+                      select: function(){ ... },
+                      update: function(){ ... }
                     }
                   });
 
@@ -1973,10 +1975,10 @@
                   </div>
                   <div class="modal-footer">
                     <div class="button-group">
-                      <button type="button" class="button grow _modal-cancel">
+                      <button type="button" class="button grow _select-cancel">
                         <span class="button-label">cancel</span>
                       </button>
-                      <button type="button" class="button dark grow _modal-confirm">
+                      <button type="button" class="button dark grow _select-confirm">
                         <span class="button-label">confirm</span>
                       </button>
                     </div>
@@ -2003,7 +2005,7 @@
               <pre class="guide-viewer__pre line-numbers" data-lang="html">
                 <code class="guide-viewer__code language-html">
                   <div class="button-group wrap">
-                    <button type="button" class="button" onclick="UI.select.show({target: '#MODAL_SELECT', button: this})">
+                    <button type="button" class="button" onclick="UI.select.show({target: '#MODAL_SELECT', field: this})">
                       <span class="button-label _select-label">SELECT</span>
                       <span class="button-icon icon-010"></span>
                     </button>
@@ -2080,12 +2082,12 @@
                   UI.select.on('hide', function(){ ... });
 
                   UI.select.show({
-                    target: null,
-                    button: null,
+                    target: '#MODAL_SELECT',
+                    field: null
                     on: {
                       confirm: function(){ ... },
                       cancel: function(){ ... },
-                      selected: function(){ ... }
+                      select: function(){ ... }
                     }
                   });
 
