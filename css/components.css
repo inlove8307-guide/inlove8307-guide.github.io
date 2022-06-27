@@ -168,6 +168,8 @@
 .title.lg.solid {background-image: repeating-linear-gradient(rgba(0, 0, 0, 0) 0px, rgba(0, 0, 0, 0) calc(var(--font-4xl) * 0.8), rgba(0, 0, 0, 0.15) calc(var(--font-4xl) * 0.8), rgba(0, 0, 0, 0.15) calc(var(--font-4xl) * 1.5));}
 .title.xl.solid {background-image: repeating-linear-gradient(rgba(0, 0, 0, 0) 0px, rgba(0, 0, 0, 0) calc(var(--font-5xl) * 0.8), rgba(0, 0, 0, 0.15) calc(var(--font-5xl) * 0.8), rgba(0, 0, 0, 0.15) calc(var(--font-5xl) * 1.5));}
 .title.xxl.solid {background-image: repeating-linear-gradient(rgba(0, 0, 0, 0) 0px, rgba(0, 0, 0, 0) calc(var(--font-6xl) * 0.8), rgba(0, 0, 0, 0.15) calc(var(--font-6xl) * 0.8), rgba(0, 0, 0, 0.15) calc(var(--font-6xl) * 1.5));}
+.title.solid + [class*=icon-],
+.text.solid + [class*=icon-],
 .title.solid > [class*=icon-],
 .text.solid > [class*=icon-] {margin-left: 8px; vertical-align: unset;}
 /* TITLE, TEXT - ALIGN */
