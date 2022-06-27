@@ -23,11 +23,11 @@
   --font-md: 16px;
   --font-lg: 18px;
   --font-xl: 20px;
-  --font-2xl: 24px;
-  --font-3xl: 28px;
-  --font-4xl: 32px;
-  --font-5xl: 36px;
-  --font-6xl: 40px;
+  --font-2xl: 22px;
+  --font-3xl: 24px;
+  --font-4xl: 26px;
+  --font-5xl: 28px;
+  --font-6xl: 30px;
 }
 
 /* COLOR */
@@ -133,7 +133,7 @@
 .inset.bottom {display: flex; flex-direction: column; justify-content: flex-end;}
 
 /* TITLE */
-.title {}
+.title {line-height: 1.5;}
 /* TITLE - SIZE */
 .title.xxs {font-weight: bold; font-size: var(--font-lg);}
 .title.xs {font-weight: bold; font-size: var(--font-xl);}
@@ -154,24 +154,26 @@
 .text.xxl {font-size: var(--font-2xl);}
 /* TITLE, TEXT - STYLE */
 .text.bold {font-weight: bold;}
-.text.xxs.solid {background-image: repeating-linear-gradient(rgba(0, 0, 0, 0) 0px, rgba(0, 0, 0, 0) calc(var(--font-2xs) * 0.8), rgba(0, 0, 0, 0.15) calc(var(--font-2xs) * 0.8), rgba(0, 0, 0, 0.15) calc(var(--font-2xs) * 1.5));}
-.text.xs.solid {background-image: repeating-linear-gradient(rgba(0, 0, 0, 0) 0px, rgba(0, 0, 0, 0) calc(var(--font-xs) * 0.8), rgba(0, 0, 0, 0.15) calc(var(--font-xs) * 0.8), rgba(0, 0, 0, 0.15) calc(var(--font-xs) * 1.5));}
-.text.sm.solid {background-image: repeating-linear-gradient(rgba(0, 0, 0, 0) 0px, rgba(0, 0, 0, 0) calc(var(--font-sm) * 0.8), rgba(0, 0, 0, 0.15) calc(var(--font-sm) * 0.8), rgba(0, 0, 0, 0.15) calc(var(--font-sm) * 1.5));}
-.text.md.solid {background-image: repeating-linear-gradient(rgba(0, 0, 0, 0) 0px, rgba(0, 0, 0, 0) calc(var(--font-md) * 0.8), rgba(0, 0, 0, 0.15) calc(var(--font-md) * 0.8), rgba(0, 0, 0, 0.15) calc(var(--font-md) * 1.5));}
-.text.lg.solid {background-image: repeating-linear-gradient(rgba(0, 0, 0, 0) 0px, rgba(0, 0, 0, 0) calc(var(--font-lg) * 0.8), rgba(0, 0, 0, 0.15) calc(var(--font-lg) * 0.8), rgba(0, 0, 0, 0.15) calc(var(--font-lg) * 1.5));}
-.text.xl.solid {background-image: repeating-linear-gradient(rgba(0, 0, 0, 0) 0px, rgba(0, 0, 0, 0)calc( var(--font-xl) * 0.8), rgba(0, 0, 0, 0.15) calc(var(--font-xl) * 0.8), rgba(0, 0, 0, 0.15) calc(var(--font-xl) * 1.5));}
-.text.xxl.solid {background-image: repeating-linear-gradient(rgba(0, 0, 0, 0) 0px, rgba(0, 0, 0, 0) calc(var(--font-2xl) * 0.8), rgba(0, 0, 0, 0.15) calc(var(--font-2xl) * 0.8), rgba(0, 0, 0, 0.15) calc(var(--font-2xl) * 1.5));}
-.title.xxs.solid {background-image: repeating-linear-gradient(rgba(0, 0, 0, 0) 0px, rgba(0, 0, 0, 0) calc(var(--font-lg) * 0.8), rgba(0, 0, 0, 0.15) calc(var(--font-lg) * 0.8), rgba(0, 0, 0, 0.15) calc(var(--font-lg) * 1.5));}
-.title.xs.solid {background-image: repeating-linear-gradient(rgba(0, 0, 0, 0) 0px, rgba(0, 0, 0, 0) calc(var(--font-xl) * 0.8), rgba(0, 0, 0, 0.15) calc(var(--font-xl) * 0.8), rgba(0, 0, 0, 0.15) calc(var(--font-xl) * 1.5));}
-.title.sm.solid {background-image: repeating-linear-gradient(rgba(0, 0, 0, 0) 0px, rgba(0, 0, 0, 0) calc(var(--font-2xl) * 0.8), rgba(0, 0, 0, 0.15) calc(var(--font-2xl) * 0.8), rgba(0, 0, 0, 0.15) calc(var(--font-2xl) * 1.5));}
-.title.md.solid {background-image: repeating-linear-gradient(rgba(0, 0, 0, 0) 0px, rgba(0, 0, 0, 0) calc(var(--font-3xl) * 0.8), rgba(0, 0, 0, 0.15) calc(var(--font-3xl) * 0.8), rgba(0, 0, 0, 0.15) calc(var(--font-3xl) * 1.5));}
-.title.lg.solid {background-image: repeating-linear-gradient(rgba(0, 0, 0, 0) 0px, rgba(0, 0, 0, 0) calc(var(--font-4xl) * 0.8), rgba(0, 0, 0, 0.15) calc(var(--font-4xl) * 0.8), rgba(0, 0, 0, 0.15) calc(var(--font-4xl) * 1.5));}
-.title.xl.solid {background-image: repeating-linear-gradient(rgba(0, 0, 0, 0) 0px, rgba(0, 0, 0, 0) calc(var(--font-5xl) * 0.8), rgba(0, 0, 0, 0.15) calc(var(--font-5xl) * 0.8), rgba(0, 0, 0, 0.15) calc(var(--font-5xl) * 1.5));}
-.title.xxl.solid {background-image: repeating-linear-gradient(rgba(0, 0, 0, 0) 0px, rgba(0, 0, 0, 0) calc(var(--font-6xl) * 0.8), rgba(0, 0, 0, 0.15) calc(var(--font-6xl) * 0.8), rgba(0, 0, 0, 0.15) calc(var(--font-6xl) * 1.5));}
-.title.solid + [class*=icon-],
-.text.solid + [class*=icon-],
-.title.solid > [class*=icon-],
-.text.solid > [class*=icon-] {margin-left: 8px; vertical-align: unset;}
+/* TITLE, TEXT - LINEAR */
+.text.xxs.linear {background-image: repeating-linear-gradient(rgba(0, 0, 0, 0) 0px, rgba(0, 0, 0, 0) calc(var(--font-2xs) * 0.8), rgba(0, 0, 0, 0.15) calc(var(--font-2xs) * 0.8), rgba(0, 0, 0, 0.15) calc(var(--font-2xs) * 1.5));}
+.text.xs.linear {background-image: repeating-linear-gradient(rgba(0, 0, 0, 0) 0px, rgba(0, 0, 0, 0) calc(var(--font-xs) * 0.8), rgba(0, 0, 0, 0.15) calc(var(--font-xs) * 0.8), rgba(0, 0, 0, 0.15) calc(var(--font-xs) * 1.5));}
+.text.sm.linear {background-image: repeating-linear-gradient(rgba(0, 0, 0, 0) 0px, rgba(0, 0, 0, 0) calc(var(--font-sm) * 0.8), rgba(0, 0, 0, 0.15) calc(var(--font-sm) * 0.8), rgba(0, 0, 0, 0.15) calc(var(--font-sm) * 1.5));}
+.text.md.linear {background-image: repeating-linear-gradient(rgba(0, 0, 0, 0) 0px, rgba(0, 0, 0, 0) calc(var(--font-md) * 0.8), rgba(0, 0, 0, 0.15) calc(var(--font-md) * 0.8), rgba(0, 0, 0, 0.15) calc(var(--font-md) * 1.5));}
+.text.lg.linear {background-image: repeating-linear-gradient(rgba(0, 0, 0, 0) 0px, rgba(0, 0, 0, 0) calc(var(--font-lg) * 0.8), rgba(0, 0, 0, 0.15) calc(var(--font-lg) * 0.8), rgba(0, 0, 0, 0.15) calc(var(--font-lg) * 1.5));}
+.text.xl.linear {background-image: repeating-linear-gradient(rgba(0, 0, 0, 0) 0px, rgba(0, 0, 0, 0)calc( var(--font-xl) * 0.8), rgba(0, 0, 0, 0.15) calc(var(--font-xl) * 0.8), rgba(0, 0, 0, 0.15) calc(var(--font-xl) * 1.5));}
+.text.xxl.linear {background-image: repeating-linear-gradient(rgba(0, 0, 0, 0) 0px, rgba(0, 0, 0, 0) calc(var(--font-2xl) * 0.8), rgba(0, 0, 0, 0.15) calc(var(--font-2xl) * 0.8), rgba(0, 0, 0, 0.15) calc(var(--font-2xl) * 1.5));}
+.title.xxs.linear {background-image: repeating-linear-gradient(rgba(0, 0, 0, 0) 0px, rgba(0, 0, 0, 0) calc(var(--font-lg) * 0.8), rgba(0, 0, 0, 0.15) calc(var(--font-lg) * 0.8), rgba(0, 0, 0, 0.15) calc(var(--font-lg) * 1.5));}
+.title.xs.linear {background-image: repeating-linear-gradient(rgba(0, 0, 0, 0) 0px, rgba(0, 0, 0, 0) calc(var(--font-xl) * 0.8), rgba(0, 0, 0, 0.15) calc(var(--font-xl) * 0.8), rgba(0, 0, 0, 0.15) calc(var(--font-xl) * 1.5));}
+.title.sm.linear {background-image: repeating-linear-gradient(rgba(0, 0, 0, 0) 0px, rgba(0, 0, 0, 0) calc(var(--font-2xl) * 0.8), rgba(0, 0, 0, 0.15) calc(var(--font-2xl) * 0.8), rgba(0, 0, 0, 0.15) calc(var(--font-2xl) * 1.5));}
+.title.md.linear {background-image: repeating-linear-gradient(rgba(0, 0, 0, 0) 0px, rgba(0, 0, 0, 0) calc(var(--font-3xl) * 0.8), rgba(0, 0, 0, 0.15) calc(var(--font-3xl) * 0.8), rgba(0, 0, 0, 0.15) calc(var(--font-3xl) * 1.5));}
+.title.lg.linear {background-image: repeating-linear-gradient(rgba(0, 0, 0, 0) 0px, rgba(0, 0, 0, 0) calc(var(--font-4xl) * 0.8), rgba(0, 0, 0, 0.15) calc(var(--font-4xl) * 0.8), rgba(0, 0, 0, 0.15) calc(var(--font-4xl) * 1.5));}
+.title.xl.linear {background-image: repeating-linear-gradient(rgba(0, 0, 0, 0) 0px, rgba(0, 0, 0, 0) calc(var(--font-5xl) * 0.8), rgba(0, 0, 0, 0.15) calc(var(--font-5xl) * 0.8), rgba(0, 0, 0, 0.15) calc(var(--font-5xl) * 1.5));}
+.title.xxl.linear {background-image: repeating-linear-gradient(rgba(0, 0, 0, 0) 0px, rgba(0, 0, 0, 0) calc(var(--font-6xl) * 0.8), rgba(0, 0, 0, 0.15) calc(var(--font-6xl) * 0.8), rgba(0, 0, 0, 0.15) calc(var(--font-6xl) * 1.5));}
+/* TITLE, TEXT - ICON */
+.title.linear + [class*=icon-],
+.text.linear + [class*=icon-],
+.title.linear > [class*=icon-],
+.text.linear > [class*=icon-] {margin-left: 8px; vertical-align: unset;}
 /* TITLE, TEXT - ALIGN */
 .title.left,
 .text.left {text-align: left;}
@@ -192,9 +194,9 @@
 .scroll-hidden {overflow: hidden;}
 
 /* LINEAR */
-.linear {display: block; margin: 0; height: 1px; border: none; background-color: rgba(0, 0, 0, 0.25);}
-.linear.dashed {background-color: rgba(0, 0, 0, 0); background-image: repeating-linear-gradient(to right, rgba(0, 0, 0, 0.25), rgba(0, 0, 0, 0.25) 1px, rgba(0, 0, 0, 0) 1px, rgba(0, 0, 0, 0) 4px);}
-.linear.hidden {overflow: hidden; height: 0; background: none;}
+.linear:not(.title):not(.text) {display: block; margin: 0; height: 1px; border: none; background-color: rgba(0, 0, 0, 0.25);}
+.linear:not(.title):not(.text).dashed {background-color: rgba(0, 0, 0, 0); background-image: repeating-linear-gradient(to right, rgba(0, 0, 0, 0.25), rgba(0, 0, 0, 0.25) 1px, rgba(0, 0, 0, 0) 1px, rgba(0, 0, 0, 0) 4px);}
+.linear:not(.title):not(.text).hidden {overflow: hidden; height: 0; background: none;}
 
 /* ROUNDED */
 .round {border-radius: 16px;}
@@ -273,7 +275,10 @@ table.table .center {text-align: center!important;}
 
 ul.table {}
 li.table {}
-dl.table {}
+
+dl.table {display: flex; flex-wrap: wrap; margin-left: -1px; border-top: 1px solid rgb(0, 0, 0);}
+dl.table dt {flex-grow: 0; flex-shrink: 0; flex-basis: 25%; padding: 8px; border-bottom: 1px solid rgba(0, 0, 0, 0.15); border-left: 1px solid rgba(0, 0, 0, 0.15); background-color: rgba(0, 0, 0, 0.05);}
+dl.table dd {flex-grow: 1; flex-shrink: 0; flex-basis: 25%; padding: 8px; border-bottom: 1px solid rgba(0, 0, 0, 0.15); border-left: 1px solid rgba(0, 0, 0, 0.15);}
 
 /* BUTTON */
 .button {flex-shrink: 0; display: inline-flex; justify-content: center; align-items: center; padding: 0 15px; min-height: 40px; border-radius: 5px; border: 1px solid rgb(187, 187, 187); background-color: rgb(255, 255, 255); font-size: 16px; color: rgb(34, 34, 34); letter-spacing: 0; transition: all 250ms cubic-bezier(.65,.05,.36,1);}
