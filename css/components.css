@@ -225,6 +225,14 @@ dl.list .list-dd {}
 
 .list:not(ul):not(ol):not(dl) {}
 
+/* BULLET */
+.bullet {}
+.bullet.circle {}
+.bullet.square {}
+.bullet.asterisk {}
+.bullet.hyphen {}
+.bullet.hyphen {}
+
 /* TABLE */
 .table-wrap {overflow: hidden;}
 table.table {margin-left: -1px; width: calc(100% + 1px); border-collapse: initial; border-top: 1px solid rgb(0, 0, 0);}
@@ -348,7 +356,7 @@ dl.table {}
 .field.invalid .field-message {color: rgb(255, 100, 0);}
 /* FIELD - ICON */
 /* FIELD - BUTTON */
-.field-button {flex-shrink: 0;}
+.field-button {flex-shrink: 0; display: flex; justify-content: center; align-items: center;}
 /* FIELD - LABEL */
 .field-label {display: block; margin-bottom: 10px;}
 /* FIELD - TEXT */
@@ -438,7 +446,7 @@ dl.table {}
 .collapse-item + .collapse-item {border-top: 1px solid rgb(187, 187, 187);}
 .collapse-flex {display: flex; align-items: center;}
 .collapse-flex .grow {flex-grow: 1; flex-shrink: 0; flex-basis: 0;}
-.collapse-button {display: flex; flex-shrink: 0; margin-left: auto; padding: 10px; text-align: left; color: rgb(136, 136, 136);}
+.collapse-button {flex-shrink: 0; display: flex; align-items: center; margin-left: auto; padding: 10px; text-align: left; color: rgb(136, 136, 136);}
 .collapse-button::after {content: ''; margin-left: auto; width: 16px; height: 16px; background-image: var(--icon-000); background-position: 0 0; background-repeat: no-repeat; background-size: contain; transform: rotate(180deg); opacity: 0.5;}
 .collapse-target {overflow: hidden; max-height: 0; border-top: 1px solid rgba(204, 204, 204, 0);}
 .collapse-content {}
