@@ -23,7 +23,11 @@
   --font-md: 16px;
   --font-lg: 18px;
   --font-xl: 20px;
-  --font-2xl: 22px;
+  --font-2xl: 24px;
+  --font-3xl: 28px;
+  --font-4xl: 32px;
+  --font-5xl: 36px;
+  --font-6xl: 40px;
 }
 
 /* COLOR */
@@ -131,27 +135,41 @@
 /* TITLE */
 .title {}
 /* TITLE - SIZE */
-.title.xxs {}
-.title.xs {}
-.title.sm {}
-.title.md {}
-.title.lg {}
-.title.xl {}
-.title.xxl {}
+.title.xxs {font-weight: bold; font-size: var(--font-lg);}
+.title.xs {font-weight: bold; font-size: var(--font-xl);}
+.title.sm {font-weight: bold; font-size: var(--font-2xl);}
+.title.md {font-weight: bold; font-size: var(--font-3xl);}
+.title.lg {font-weight: bold; font-size: var(--font-4xl);}
+.title.xl {font-weight: bold; font-size: var(--font-5xl);}
+.title.xxl {font-weight: bold; font-size: var(--font-6xl);}
 /* TEXT */
 .text {line-height: 1.5;}
 /* TEXT - SIZE */
-.text.xxs {}
-.text.xs {}
-.text.sm {}
-.text.md {}
-.text.lg {}
-.text.xl {}
-.text.xxl {}
+.text.xxs {font-size: var(--font-2xs);}
+.text.xs {font-size: var(--font-xs);}
+.text.sm {font-size: var(--font-sm);}
+.text.md {font-size: var(--font-md);}
+.text.lg {font-size: var(--font-lg);}
+.text.xl {font-size: var(--font-xl);}
+.text.xxl {font-size: var(--font-2xl);}
 /* TITLE, TEXT - STYLE */
 .text.bold {font-weight: bold;}
-.text.solid {background-image: repeating-linear-gradient(rgba(0, 0, 0, 0) 0px, rgba(0, 0, 0, 0) 16px, rgba(0, 0, 0, 0.15) 16px, rgba(0, 0, 0, 0.15) 22px);}
-.text.solid > [class*=icon-] {margin-left: 8px; vertical-align: sub;}
+.text.xxs.solid {background-image: repeating-linear-gradient(rgba(0, 0, 0, 0) 0px, rgba(0, 0, 0, 0) calc(var(--font-2xs) * 0.8), rgba(0, 0, 0, 0.15) calc(var(--font-2xs) * 0.8), rgba(0, 0, 0, 0.15) calc(var(--font-2xs) * 1.5));}
+.text.xs.solid {background-image: repeating-linear-gradient(rgba(0, 0, 0, 0) 0px, rgba(0, 0, 0, 0) calc(var(--font-xs) * 0.8), rgba(0, 0, 0, 0.15) calc(var(--font-xs) * 0.8), rgba(0, 0, 0, 0.15) calc(var(--font-xs) * 1.5));}
+.text.sm.solid {background-image: repeating-linear-gradient(rgba(0, 0, 0, 0) 0px, rgba(0, 0, 0, 0) calc(var(--font-sm) * 0.8), rgba(0, 0, 0, 0.15) calc(var(--font-sm) * 0.8), rgba(0, 0, 0, 0.15) calc(var(--font-sm) * 1.5));}
+.text.md.solid {background-image: repeating-linear-gradient(rgba(0, 0, 0, 0) 0px, rgba(0, 0, 0, 0) calc(var(--font-md) * 0.8), rgba(0, 0, 0, 0.15) calc(var(--font-md) * 0.8), rgba(0, 0, 0, 0.15) calc(var(--font-md) * 1.5));}
+.text.lg.solid {background-image: repeating-linear-gradient(rgba(0, 0, 0, 0) 0px, rgba(0, 0, 0, 0) calc(var(--font-lg) * 0.8), rgba(0, 0, 0, 0.15) calc(var(--font-lg) * 0.8), rgba(0, 0, 0, 0.15) calc(var(--font-lg) * 1.5));}
+.text.xl.solid {background-image: repeating-linear-gradient(rgba(0, 0, 0, 0) 0px, rgba(0, 0, 0, 0)calc( var(--font-xl) * 0.8), rgba(0, 0, 0, 0.15) calc(var(--font-xl) * 0.8), rgba(0, 0, 0, 0.15) calc(var(--font-xl) * 1.5));}
+.text.xxl.solid {background-image: repeating-linear-gradient(rgba(0, 0, 0, 0) 0px, rgba(0, 0, 0, 0) calc(var(--font-2xl) * 0.8), rgba(0, 0, 0, 0.15) calc(var(--font-2xl) * 0.8), rgba(0, 0, 0, 0.15) calc(var(--font-2xl) * 1.5));}
+.title.xxs.solid {background-image: repeating-linear-gradient(rgba(0, 0, 0, 0) 0px, rgba(0, 0, 0, 0) calc(var(--font-lg) * 0.8), rgba(0, 0, 0, 0.15) calc(var(--font-lg) * 0.8), rgba(0, 0, 0, 0.15) calc(var(--font-lg) * 1.5));}
+.title.xs.solid {background-image: repeating-linear-gradient(rgba(0, 0, 0, 0) 0px, rgba(0, 0, 0, 0) calc(var(--font-xl) * 0.8), rgba(0, 0, 0, 0.15) calc(var(--font-xl) * 0.8), rgba(0, 0, 0, 0.15) calc(var(--font-xl) * 1.5));}
+.title.sm.solid {background-image: repeating-linear-gradient(rgba(0, 0, 0, 0) 0px, rgba(0, 0, 0, 0) calc(var(--font-2xl) * 0.8), rgba(0, 0, 0, 0.15) calc(var(--font-2xl) * 0.8), rgba(0, 0, 0, 0.15) calc(var(--font-2xl) * 1.5));}
+.title.md.solid {background-image: repeating-linear-gradient(rgba(0, 0, 0, 0) 0px, rgba(0, 0, 0, 0) calc(var(--font-3xl) * 0.8), rgba(0, 0, 0, 0.15) calc(var(--font-3xl) * 0.8), rgba(0, 0, 0, 0.15) calc(var(--font-3xl) * 1.5));}
+.title.lg.solid {background-image: repeating-linear-gradient(rgba(0, 0, 0, 0) 0px, rgba(0, 0, 0, 0) calc(var(--font-4xl) * 0.8), rgba(0, 0, 0, 0.15) calc(var(--font-4xl) * 0.8), rgba(0, 0, 0, 0.15) calc(var(--font-4xl) * 1.5));}
+.title.xl.solid {background-image: repeating-linear-gradient(rgba(0, 0, 0, 0) 0px, rgba(0, 0, 0, 0) calc(var(--font-5xl) * 0.8), rgba(0, 0, 0, 0.15) calc(var(--font-5xl) * 0.8), rgba(0, 0, 0, 0.15) calc(var(--font-5xl) * 1.5));}
+.title.xxl.solid {background-image: repeating-linear-gradient(rgba(0, 0, 0, 0) 0px, rgba(0, 0, 0, 0) calc(var(--font-6xl) * 0.8), rgba(0, 0, 0, 0.15) calc(var(--font-6xl) * 0.8), rgba(0, 0, 0, 0.15) calc(var(--font-6xl) * 1.5));}
+.title.solid > [class*=icon-],
+.text.solid > [class*=icon-] {margin-left: 8px; vertical-align: unset;}
 /* TITLE, TEXT - ALIGN */
 .title.left,
 .text.left {text-align: left;}
@@ -219,19 +237,12 @@ dl.list .list-dd {}
 .list.xs {font-size: var(--font-xs);}
 .list.sm {font-size: var(--font-sm);}
 .list.md {font-size: var(--font-md);}
+.list.lg {font-size: var(--font-lg);}
+.list.xl {font-size: var(--font-xl);}
 /* LIST - COLOR */
 .list.light {color: rgba(0, 0, 0, 0.25);}
 .list.dark {color: rgba(0, 0, 0, 0.75);}
-
-.list:not(ul):not(ol):not(dl) {}
-
-/* BULLET */
-.bullet {}
-.bullet.circle {}
-.bullet.square {}
-.bullet.asterisk {}
-.bullet.hyphen {}
-.bullet.hyphen {}
+/* .list:not(ul):not(ol):not(dl) {} */
 
 /* TABLE */
 .table-wrap {overflow: hidden;}
