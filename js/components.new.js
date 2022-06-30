@@ -350,6 +350,8 @@ window[namespace] = window[namespace] || {};
     }
 
     component.create = function(options){
+      if (!moment) return;
+
       var options = $.extend({
         year: moment().year(),
         month: moment().month(),
@@ -1163,58 +1165,11 @@ window[namespace] = window[namespace] || {};
       container: 'body',
       selector: '_input',
       clear: '_input-clear',
-      number: '_number',
-      price: '_price',
-      date: '_date',
-      time: '_time',
-      phone: '_phone',
       active: '_active'
     });
 
     function init(){
-      format.call(this);
       this.prop('on').init && this.prop('on').init($(this.class('selector')));
-      this.change.observe(this);
-      this.scroll.observe(this);
-    }
-
-    function format(){
-      if (!Cleave) return;
-
-      $(`${this.class('selector')}${this.class('price')} input`).each(function(){
-        new Cleave(this, {
-          numeral: true,
-          numeralThousandsGroupStyle: 'thousand',
-          prefix: '₩',
-          // tailPrefix: true,
-          noImmediatePrefix: true
-        });
-      });
-
-      $(`${this.class('selector')}${this.class('date')} input`).each(function(){
-        new Cleave(this, {
-          date: true,
-          delimiter: '.',
-          datePattern: ['Y', 'm', 'd']
-        });
-      });
-
-      $(`${this.class('selector')}${this.class('time')} input`).each(function(){
-        new Cleave(this, {
-          time: true,
-          timePattern: ['h', 'm', 's']
-        });
-      });
-
-      $(`${this.class('selector')}${this.class('phone')} input`).each(function(){
-        new Cleave(this, {
-          numericOnly: true,
-          delimiter: '-',
-          blocks: [3, 4, 4],
-          prefix: '010',
-          noImmediatePrefix: true
-        });
-      });
     }
 
     function handlerClear(event){
@@ -1253,28 +1208,89 @@ window[namespace] = window[namespace] || {};
   }();
 }(window[namespace]));
 
-/* CHECKBOX */
+/* FORMATTER */
 (function(global){
   'use strict';
 
-  global.checkbox = function(){
+  global.formatter = function(){
     var component = new global.component({
       container: 'body',
-      selector: '_checkbox'
+      selector: '_format',
+      number: '_number',
+      price: '_price',
+      date: '_date',
+      time: '_time',
+      phone: '_phone',
     });
 
     function init(){
-      this.style(this.prop('container'), style.call(this));
       this.prop('on').init && this.prop('on').init($(this.class('selector')));
+      this.change.observe(this);
+      this.scroll.observe(this);
     }
 
-    function style(){
-      return ``;
+    function handler(event){
+      if (!Cleave || $(event.target).data('format')) return;
+
+      if ($(event.target).hasClass(this.prop('number'))) {
+        new Cleave(event.target, {
+          numeral: true,
+          numeralThousandsGroupStyle: 'none',
+          onValueChanged: function(event){}
+        });
+      }
+
+      if ($(event.target).hasClass(this.prop('price'))) {
+        new Cleave(event.target, {
+          numeral: true,
+          numeralThousandsGroupStyle: 'thousand',
+          prefix: '₩',
+          // tailPrefix: true,
+          noImmediatePrefix: true,
+          onValueChanged: function(event){}
+        });
+      }
+
+      if ($(event.target).hasClass(this.prop('date'))) {
+        new Cleave(event.target, {
+          date: true,
+          delimiter: '.',
+          // dateMin: '2000-01-01',
+          // dateMax: '2099-12-31',
+          datePattern: ['Y', 'm', 'd'],
+          onValueChanged: function(event){}
+        });
+      }
+
+      if ($(event.target).hasClass(this.prop('time'))) {
+        new Cleave(event.target, {
+          time: true,
+          // timeFormat: '12',
+          timePattern: ['h', 'm', 's'],
+          onValueChanged: function(event){}
+        });
+      }
+
+      if ($(event.target).hasClass(this.prop('phone'))) {
+        new Cleave(event.target, {
+          numericOnly: true,
+          delimiter: '-',
+          blocks: [3, 4, 4],
+          prefix: '010',
+          noImmediatePrefix: true,
+          onValueChanged: function(event){}
+        });
+      }
+
+      $(event.target).data('format', true);
     }
 
     component.bind = function(options){
+      $(this.prop('container')).off('focusin', this.class('selector'));
 
       $.extend(this.options, options);
+
+      $(this.prop('container')).on('focusin', this.class('selector'), handler.bind(this));
 
       init.call(this);
     };
@@ -1283,14 +1299,14 @@ window[namespace] = window[namespace] || {};
   }();
 }(window[namespace]));
 
-/* FORMATTER */
+/* CHECKBOX */
 (function(global){
   'use strict';
 
-  global.formatter = function(){
+  global.checkbox = function(){
     var component = new global.component({
       container: 'body',
-      selector: '_formatter'
+      selector: '_checkbox'
     });
 
     function init(){
@@ -1333,15 +1349,16 @@ window[namespace] = window[namespace] || {};
       return `
         ${this.class('selector')} {
           position: relative;
-        }
-      `;
+        }`;
     }
 
     function create(options){
+      if (!PerfectScrollbar) return;
+
       var options = $.extend({}, options);
 
       $(this.class('selector')).each(function(index, target){
-        $(target).data();
+        // $(target).data();
         new PerfectScrollbar(target, options);
       });
     }
@@ -1360,18 +1377,18 @@ window[namespace] = window[namespace] || {};
 /* INITIAL */
 $(function(global){
   global.init = function(){
+    this.calendar.bind();
     this.collapse.bind();
     this.tabs.bind();
     this.modal.bind();
     this.alert.bind();
+    this.datepicker.bind();
     this.select.bind();
     this.popover.bind();
     this.dropdown.bind();
     this.input.bind();
-    this.calendar.bind();
-    this.datepicker.bind();
-    this.checkbox.bind();
     this.formatter.bind();
+    this.checkbox.bind();
     this.scrollbar.bind();
   };
 
