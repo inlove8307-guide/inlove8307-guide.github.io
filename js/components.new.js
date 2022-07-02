@@ -1152,7 +1152,7 @@ window[namespace] = window[namespace] || {};
       }.bind(this));
 
       html = `
-        <div class="dropdown ${this.prop('selector')}" style="width: ${$target.outerWidth()}px">
+        <div class="dropdown ${this.prop('selector')}">
           <button type="button" class="dropdown-button ${this.prop('button')}">
             <span class="dropdown-label ${this.prop('label')}">select</span>
           </button>
