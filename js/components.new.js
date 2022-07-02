@@ -1167,6 +1167,9 @@ window[namespace] = window[namespace] || {};
       $button = $(this.class('button'), $target.next());
       $(this.class('label'), $button).text($('option:selected', $target).text());
       $button.trigger('click');
+
+      event.preventDefault();
+      return false;
     }
 
     function show($items){
