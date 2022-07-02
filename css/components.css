@@ -451,7 +451,7 @@ dl.table dd {flex-grow: 1; flex-shrink: 0; flex-basis: 25%; padding: 8px; border
 .dropdown-label {overflow: hidden; white-space: nowrap; text-overflow: ellipsis;}
 /* DROPDOWN - SCRIPT */
 ._dropdown-field select {pointer-events: none;}
-._dropdown-field select._hidden {display: none;}
+._dropdown-field select._hidden {position: absolute; z-index: -1; top: 0; left: 0; opacity: 0;}
 ._dropdown-items._active {height: auto; opacity: 1;}
 ._dropdown-items._revert {bottom: initial; top: 0; transform: translateY(calc(-100% + 2px));}
 ._dropdown-option._active {background-color: rgb(238, 238, 238);}
