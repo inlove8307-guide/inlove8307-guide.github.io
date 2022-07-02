@@ -1078,10 +1078,13 @@ window[namespace] = window[namespace] || {};
       container: 'body',
       selector: '_dropdown',
       button: '_dropdown-button',
-      option: '_dropdown-option',
       items: '_dropdown-items',
+      item: '_dropdown-item',
+      option: '_dropdown-option',
+      label: '_dropdown-label',
       active: '_active',
       revert: '_revert',
+      hidden: '_hidden',
       duration: '250ms',
       easing: 'cubic-bezier(.86, 0, .07, 1)'
     });
@@ -1114,16 +1117,56 @@ window[namespace] = window[namespace] || {};
     }
 
     function handlerOption(event){
-      var $option = $(event.target)
+      var $option = $(event.target).closest(this.class('option'))
         , $selector = $option.closest(this.class('selector'))
         , $options = this.nearest($selector, this.class('option'))
         , $button = this.nearest($selector, this.class('button'))
-        , $items = this.nearest($selector, this.class('items'));
+        , $items = this.nearest($selector, this.class('items'))
+        , $item = $option.closest(this.class('item'))
+        , select = $selector.siblings('select');
 
-      $button.text($option.text());
       $options.removeClass(this.prop('active'));
       $option.addClass(this.prop('active'));
+
+      $(this.class('label'), $button).text($(this.class('label'), $option).text());
+      select.length && $('option', select).eq($item.index()).prop('selected', true);
+
       hide.call(this, $items);
+    }
+
+    function handlerReplace(event){
+      var $target = $(event.target)
+        , $button
+        , html = ''
+        , item = '';
+
+      if ($target.hasClass(this.prop('hidden'))) return;
+
+      $('option', event.target).each(function(index, target){
+        item += `
+          <li class="dropdown-item ${this.prop('item')}">
+            <button type="button" class="dropdown-option ${this.prop('option')}">
+              <span class="dropdown-label ${this.prop('label')}">${$(target).text()}</span>
+            </button>
+          </li>`;
+      }.bind(this));
+
+      html = `
+        <div class="dropdown ${this.prop('selector')}" style="width: ${$target.outerWidth()}px">
+          <button type="button" class="dropdown-button ${this.prop('button')}">
+            <span class="dropdown-label ${this.prop('label')}">select</span>
+          </button>
+          <ul class="dropdown-items ${this.prop('items')}">
+            ${item}
+          </ul>
+        </div>`;
+
+      $target.addClass(this.prop('hidden'));
+      $target.after(html);
+
+      $button = $(this.class('button'), $target.next());
+      $(this.class('label'), $button).text($('option:selected', $target).text());
+      $button.trigger('click');
     }
 
     function show($items){
@@ -1142,12 +1185,16 @@ window[namespace] = window[namespace] || {};
       $(this.prop('container')).off('TransitionEnd webkitTransitionEnd', `${this.class('selector')} ${this.class('items')}`);
       $(this.prop('container')).off('click', `${this.class('selector')} ${this.class('button')}`);
       $(this.prop('container')).off('click', `${this.class('selector')} ${this.class('option')}`);
+      $(this.prop('container')).off('focusin', `select${this.class('selector')}`);
+      $(this.prop('container')).off('click', `select${this.class('selector')}`);
 
       $.extend(this.options, options);
 
       $(this.prop('container')).on('TransitionEnd webkitTransitionEnd', `${this.class('selector')} ${this.class('items')}`, handlerEnd.bind(this));
       $(this.prop('container')).on('click', `${this.class('selector')} ${this.class('button')}`, handlerButton.bind(this));
       $(this.prop('container')).on('click', `${this.class('selector')} ${this.class('option')}`, handlerOption.bind(this));
+      $(this.prop('container')).on('focusin', `select${this.class('selector')}`, handlerReplace.bind(this));
+      $(this.prop('container')).on('click', `select${this.class('selector')}`, handlerReplace.bind(this));
 
       init.call(this);
     };
