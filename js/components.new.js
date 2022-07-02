@@ -1135,7 +1135,7 @@ window[namespace] = window[namespace] || {};
     }
 
     function handlerReplace(event){
-      var $target = $(event.target)
+      var $target = $(event.target).prop('disabled', true)
         , $button
         , html = ''
         , item = '';
