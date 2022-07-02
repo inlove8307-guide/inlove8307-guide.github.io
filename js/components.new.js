@@ -1077,6 +1077,7 @@ window[namespace] = window[namespace] || {};
     var component = new global.component({
       container: 'body',
       selector: '_dropdown',
+      field: '_dropdown-field',
       button: '_dropdown-button',
       items: '_dropdown-items',
       item: '_dropdown-item',
@@ -1135,18 +1136,18 @@ window[namespace] = window[namespace] || {};
     }
 
     function handlerReplace(event){
-      var $target = $(event.target).prop('disabled', true)
+      var $target = $('select', event.target)
         , $button
         , html = ''
         , item = '';
 
       if ($target.hasClass(this.prop('hidden'))) return;
 
-      $('option', event.target).each(function(index, target){
+      $('option', $target).each(function(index, option){
         item += `
           <li class="dropdown-item ${this.prop('item')}">
             <button type="button" class="dropdown-option ${this.prop('option')}">
-              <span class="dropdown-label ${this.prop('label')}">${$(target).text()}</span>
+              <span class="dropdown-label ${this.prop('label')}">${$(option).text()}</span>
             </button>
           </li>`;
       }.bind(this));
@@ -1167,9 +1168,6 @@ window[namespace] = window[namespace] || {};
       $button = $(this.class('button'), $target.next());
       $(this.class('label'), $button).text($('option:selected', $target).text());
       $button.trigger('click');
-
-      event.preventDefault();
-      return false;
     }
 
     function show($items){
@@ -1188,16 +1186,14 @@ window[namespace] = window[namespace] || {};
       $(this.prop('container')).off('TransitionEnd webkitTransitionEnd', `${this.class('selector')} ${this.class('items')}`);
       $(this.prop('container')).off('click', `${this.class('selector')} ${this.class('button')}`);
       $(this.prop('container')).off('click', `${this.class('selector')} ${this.class('option')}`);
-      $(this.prop('container')).off('focusin', `select${this.class('selector')}`);
-      $(this.prop('container')).off('click', `select${this.class('selector')}`);
+      $(this.prop('container')).off('click', this.class('field'));
 
       $.extend(this.options, options);
 
       $(this.prop('container')).on('TransitionEnd webkitTransitionEnd', `${this.class('selector')} ${this.class('items')}`, handlerEnd.bind(this));
       $(this.prop('container')).on('click', `${this.class('selector')} ${this.class('button')}`, handlerButton.bind(this));
       $(this.prop('container')).on('click', `${this.class('selector')} ${this.class('option')}`, handlerOption.bind(this));
-      $(this.prop('container')).on('focusin', `select${this.class('selector')}`, handlerReplace.bind(this));
-      $(this.prop('container')).on('click', `select${this.class('selector')}`, handlerReplace.bind(this));
+      $(this.prop('container')).on('click', this.class('field'), handlerReplace.bind(this));
 
       init.call(this);
     };
