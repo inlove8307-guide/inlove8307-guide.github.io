@@ -449,7 +449,7 @@
             <div class="guide-viewer__view">
 
               <div class="field valid">
-                <label class="field-label">label</label>
+                <label class="field-label">valid</label>
                 <div class="field-outline">
                   <div class="field-input grow _input">
                     <input type="text" placeholder="placeholder">
@@ -465,7 +465,7 @@
               <hr class="linear dashed space-sm both">
 
               <div class="field invalid">
-                <label class="field-label">label</label>
+                <label class="field-label">invalid</label>
                 <div class="field-outline">
                   <div class="field-input grow _input">
                     <input type="text" placeholder="placeholder">
@@ -481,10 +481,26 @@
               <hr class="linear dashed space-sm both">
 
               <div class="field disabled">
-                <label class="field-label">label</label>
+                <label class="field-label">disabled</label>
                 <div class="field-outline">
                   <div class="field-input grow _input">
-                    <input type="text" placeholder="placeholder">
+                    <input type="text" placeholder="placeholder" value="disabled">
+                  </div>
+                  <button type="button" class="field-button _input-clear">
+                    <span class="icon-002"></span>
+                  </button>
+                </div>
+                <p class="field-message">message</p>
+                <p class="field-info">info</p>
+              </div>
+
+              <hr class="linear dashed space-sm both">
+
+              <div class="field readonly">
+                <label class="field-label">readonly</label>
+                <div class="field-outline">
+                  <div class="field-input grow _input">
+                    <input type="text" placeholder="placeholder" value="readonly">
                   </div>
                   <button type="button" class="field-button _input-clear">
                     <span class="icon-002"></span>
@@ -567,17 +583,17 @@
               <hr class="linear dashed space-sm both">
 
               <div class="field">
-                <label class="field-label">label</label>
+                <label class="field-label">datepicker</label>
                 <div class="field-outline">
-                  <div class="field-input grow _input _date">
-                    <input type="tel" id="DATE01" placeholder="YYYY.MM.DD">
+                  <div class="field-input grow _input">
+                    <input type="tel" id="DATE01" class="_format _date" placeholder="YYYY.MM.DD">
                   </div>
                   <button type="button" class="field-button" onclick="UI.datepicker.show({ field: '#DATE01' })">
                     <span class="icon-008"></span>
                   </button>
                   <span class="field-text">~</span>
-                  <div class="field-input grow _input _date">
-                    <input type="tel" id="DATE02" placeholder="YYYY.MM.DD">
+                  <div class="field-input grow _input">
+                    <input type="tel" id="DATE02" class="_format _date" placeholder="YYYY.MM.DD">
                   </div>
                   <button type="button" class="field-button" onclick="UI.datepicker.show({ field: '#DATE02' })">
                     <span class="icon-008"></span>
@@ -590,11 +606,11 @@
               <hr class="linear dashed space-sm both">
 
               <div class="field">
-                <label class="field-label">label</label>
+                <label class="field-label">datepicker</label>
                 <div class="field-row">
                   <div class="field-outline grow">
-                    <div class="field-input grow _input _date">
-                      <input type="tel" id="DATE03" placeholder="YYYY.MM.DD">
+                    <div class="field-input grow _input">
+                      <input type="tel" id="DATE03" class="_format _date" placeholder="YYYY.MM.DD">
                     </div>
                     <button type="button" class="field-button" onclick="UI.datepicker.show({ field: '#DATE03' })">
                       <span class="icon-008"></span>
@@ -602,8 +618,8 @@
                   </div>
                   <span class="field-text">~</span>
                   <div class="field-outline grow">
-                    <div class="field-input grow _input _date">
-                      <input type="tel" id="DATE04" placeholder="YYYY.MM.DD">
+                    <div class="field-input grow _input">
+                      <input type="tel" id="DATE04" class="_format _date" placeholder="YYYY.MM.DD">
                     </div>
                     <button type="button" class="field-button" onclick="UI.datepicker.show({ field: '#DATE04' })">
                       <span class="icon-008"></span>
@@ -617,7 +633,7 @@
               <hr class="linear dashed space-sm both">
 
               <div class="field">
-                <label class="field-label">label</label>
+                <label class="field-label">native select</label>
                 <div class="field-outline">
                   <div class="field-input grow">
                     <input type="text" placeholder="placeholder">
@@ -638,13 +654,13 @@
               <hr class="linear dashed space-sm both">
 
               <div class="field">
-                <label class="field-label">label</label>
+                <label class="field-label">dropdown</label>
                 <div class="field-outline">
                   <div class="field-input grow">
                     <input type="text" placeholder="placeholder">
                   </div>
                   <span class="field-text">@</span>
-                  <div class="field-select grow _dropdown-field">
+                  <div class="field-select grow _dropdown-replace">
                     <select>
                       <option>option 1</option>
                       <option>option 2</option>
@@ -659,7 +675,7 @@
               <hr class="linear dashed space-sm both">
 
               <div class="field">
-                <label class="field-label">label</label>
+                <label class="field-label">modal select</label>
                 <div class="field-outline">
                   <div class="field-input grow">
                     <input type="text" placeholder="placeholder">
@@ -921,8 +937,8 @@
               <div class="field">
                 <label class="field-label">label</label>
                 <div class="field-outline">
-                  <div class="field-select grow _dropdown-field">
-                    <select class="_dropdown" disabled>
+                  <div class="field-select grow _dropdown-replace">
+                    <select disabled>
                       <option>option 1</option>
                       <option>option 2</option>
                       <option>option 3</option>
@@ -942,8 +958,8 @@
                     <input type="text" placeholder="placeholder">
                   </div>
                   <span class="field-text">@</span>
-                  <div class="field-select grow _dropdown-field">
-                    <select class="_dropdown" disabled>
+                  <div class="field-select grow _dropdown-replace">
+                    <select disabled>
                       <option>option 1</option>
                       <option>option 2</option>
                       <option>option 3</option>
@@ -2082,17 +2098,23 @@
             <!-- [S] VIEW -->
             <div class="guide-viewer__view">
 
-              <div class="button-group wrap">
-                <button type="button" class="button" onclick="UI.select.show({target: '#MODAL_SELECT', field: this})">
-                  <span class="button-label _select-label">Select</span>
-                  <span class="button-icon icon-010"></span>
-                </button>
+              <div class="field">
+                <label class="field-label">label</label>
+                <div class="field-outline">
+                  <div class="field-select grow">
+                    <button type="button" onclick="UI.select.show({target: '#MODAL_SELECT', field: this})">
+                      <span class="_select-label">option 1</span>
+                    </button>
+                  </div>
+                </div>
+                <p class="field-message">message</p>
+                <p class="field-info">info</p>
               </div>
 
               <div id="MODAL_SELECT" class="modal _modal _select">
                 <div class="modal-content _modal-content _bottom">
                   <div class="modal-header">
-                    <p class="modal-title left">select</p>
+                    <p class="modal-title left">SELECT</p>
                     <div class="modal-button right">
                       <button type="button" class="button icon w24 _modal-close">
                         <span class="button-icon icon-014"></span>

@@ -1077,12 +1077,12 @@ window[namespace] = window[namespace] || {};
     var component = new global.component({
       container: 'body',
       selector: '_dropdown',
-      field: '_dropdown-field',
       button: '_dropdown-button',
       items: '_dropdown-items',
       item: '_dropdown-item',
       option: '_dropdown-option',
       label: '_dropdown-label',
+      replace: '_dropdown-replace',
       active: '_active',
       revert: '_revert',
       hidden: '_hidden',
@@ -1141,6 +1141,8 @@ window[namespace] = window[namespace] || {};
         , html = ''
         , item = '';
 
+        console.log($target);
+
       if ($target.hasClass(this.prop('hidden'))) return;
 
       $('option', $target).each(function(index, option){
@@ -1186,14 +1188,14 @@ window[namespace] = window[namespace] || {};
       $(this.prop('container')).off('TransitionEnd webkitTransitionEnd', `${this.class('selector')} ${this.class('items')}`);
       $(this.prop('container')).off('click', `${this.class('selector')} ${this.class('button')}`);
       $(this.prop('container')).off('click', `${this.class('selector')} ${this.class('option')}`);
-      $(this.prop('container')).off('click', this.class('field'));
+      $(this.prop('container')).off('click', this.class('replace'));
 
       $.extend(this.options, options);
 
       $(this.prop('container')).on('TransitionEnd webkitTransitionEnd', `${this.class('selector')} ${this.class('items')}`, handlerEnd.bind(this));
       $(this.prop('container')).on('click', `${this.class('selector')} ${this.class('button')}`, handlerButton.bind(this));
       $(this.prop('container')).on('click', `${this.class('selector')} ${this.class('option')}`, handlerOption.bind(this));
-      $(this.prop('container')).on('click', this.class('field'), handlerReplace.bind(this));
+      $(this.prop('container')).on('click', this.class('replace'), handlerReplace.bind(this));
 
       init.call(this);
     };
