@@ -2,6 +2,36 @@ var namespace = 'UI';
 
 window[namespace] = window[namespace] || {};
 
+/* USER AGENT */
+(function(global){
+  'use strict';
+
+  global.ua = function(){
+    try {
+      if (UAParser) return new UAParser();
+    }
+    catch(error){
+      console.error(`${namespace} ERROR: ${namespace}.ua is required UAParser.`);
+    }
+  }();
+
+  if (global.ua) {
+    global.isMobile = global.ua.getDevice().type === 'mobile';
+    global.isTablet = global.ua.getDevice().type === 'tablet';
+    global.isIOS = global.ua.getOS().name === 'iOS';
+    global.isAOS = global.ua.getOS().name === 'Android';
+  }
+
+  // console.log('getBrowser', global.ua.getBrowser());
+  // console.log('getCPU', global.ua.getCPU());
+  // console.log('getDevice', global.ua.getDevice());
+  // console.log('getEngine', global.ua.getEngine());
+  // console.log('getOS', global.ua.getOS());
+  // console.log('getResult', global.ua.getResult());
+  // console.log('getUA', global.ua.getUA());
+  // console.log('setUA', global.ua.setUA());
+}(window[namespace]));
+
 /* COMPONENT */
 (function(global){
   'use strict';
@@ -350,15 +380,20 @@ window[namespace] = window[namespace] || {};
     }
 
     component.create = function(options){
-      if (!moment) return;
+      try {
+        if (!moment) return;
 
-      var options = $.extend({
-        year: moment().year(),
-        month: moment().month(),
-        on: {}
-      }, options);
+        var options = $.extend({
+          year: moment().year(),
+          month: moment().month(),
+          on: {}
+        }, options);
 
-      return new creator(this, options);
+        return new creator(this, options);
+      }
+      catch(error){
+        console.error(`${namespace} ERROR: ${namespace}.calendar is required moment.`);
+      }
     };
 
     component.bind = function(options){
@@ -827,7 +862,7 @@ window[namespace] = window[namespace] || {};
 
       $(this.class('selector')).remove();
       $(this.prop('container')).append(html.call(this, options));
-      $(this.class('calendar'), this.class('selector')).html(options.calendar.table);
+      $(this.class('calendar'), this.class('selector')).html(options.calendar && options.calendar.table);
 
       !options.cancel && $(this.class('cancel'), this.class('selector')).remove();
       !options.confirm && $(this.class('confirm'), this.class('selector')).remove();
@@ -1141,8 +1176,6 @@ window[namespace] = window[namespace] || {};
         , html = ''
         , item = '';
 
-        console.log($target);
-
       if ($target.hasClass(this.prop('hidden'))) return;
 
       $('option', $target).each(function(index, option){
@@ -1277,19 +1310,19 @@ window[namespace] = window[namespace] || {};
       this.scroll.observe(this);
     }
 
-    function handler(event){
-      if (!Cleave || $(event.target).data('format')) return;
+    function format (target){
+      if ($(target).data('format')) return;
 
-      if ($(event.target).hasClass(this.prop('number'))) {
-        new Cleave(event.target, {
+      if ($(target).hasClass(this.prop('number'))) {
+        new Cleave(target, {
           numeral: true,
           numeralThousandsGroupStyle: 'none',
           onValueChanged: function(event){}
         });
       }
 
-      if ($(event.target).hasClass(this.prop('price'))) {
-        new Cleave(event.target, {
+      if ($(target).hasClass(this.prop('price'))) {
+        new Cleave(target, {
           numeral: true,
           numeralThousandsGroupStyle: 'thousand',
           prefix: '₩',
@@ -1299,8 +1332,8 @@ window[namespace] = window[namespace] || {};
         });
       }
 
-      if ($(event.target).hasClass(this.prop('date'))) {
-        new Cleave(event.target, {
+      if ($(target).hasClass(this.prop('date'))) {
+        new Cleave(target, {
           date: true,
           delimiter: '.',
           // dateMin: '2000-01-01',
@@ -1310,8 +1343,8 @@ window[namespace] = window[namespace] || {};
         });
       }
 
-      if ($(event.target).hasClass(this.prop('time'))) {
-        new Cleave(event.target, {
+      if ($(target).hasClass(this.prop('time'))) {
+        new Cleave(target, {
           time: true,
           // timeFormat: '12',
           timePattern: ['h', 'm', 's'],
@@ -1319,8 +1352,8 @@ window[namespace] = window[namespace] || {};
         });
       }
 
-      if ($(event.target).hasClass(this.prop('phone'))) {
-        new Cleave(event.target, {
+      if ($(target).hasClass(this.prop('phone'))) {
+        new Cleave(target, {
           numericOnly: true,
           delimiter: '-',
           blocks: [3, 4, 4],
@@ -1330,7 +1363,18 @@ window[namespace] = window[namespace] || {};
         });
       }
 
-      $(event.target).data('format', true);
+      $(target).data('format', true);
+    }
+
+    function handler(event){
+      try{
+        if (!Cleave) return;
+
+        format.call(this, event.target);
+      }
+      catch(error){
+        console.error(`${namespace} ERROR: ${namespace}.formatter is required Cleave.`);
+      }
     }
 
     component.bind = function(options){
