@@ -690,37 +690,6 @@ window[namespace] = window[namespace] || {};
   }();
 }(window[namespace]));
 
-/* LOCK */
-(function(global){
-  'use strict';
-
-  global.lock = function(){
-    var component = new global.component({
-      html: 'html',
-      body: 'body',
-      active: '_lockup',
-      fixed: 'guide-container'
-    });
-
-    component.lockup = function(){
-      this.prop('scroll', $(this.prop('html')).scrollTop());
-      $(this.prop('html')).addClass(this.prop('active'));
-      $(this.class('fixed')).css('margin-top', `-${this.prop('scroll')}px`);
-    };
-
-    component.unlock = function(){
-      $(this.prop('html')).removeClass(this.prop('active'));
-      $(this.prop('html')).scrollTop(this.prop('scroll'));
-    };
-
-    component.bind = function(options){
-      $.extend(this.options, options);
-    };
-
-    return component;
-  }();
-}(window[namespace]));
-
 /* MODAL - ALERT */
 (function(global){
   'use strict';
@@ -1495,6 +1464,37 @@ window[namespace] = window[namespace] || {};
       $.extend(this.options, options);
 
       init.call(this);
+    };
+
+    return component;
+  }();
+}(window[namespace]));
+
+/* LOCK */
+(function(global){
+  'use strict';
+
+  global.lock = function(){
+    var component = new global.component({
+      html: 'html',
+      body: 'body',
+      active: '_lockup',
+      fixed: 'guide-container'
+    });
+
+    component.lockup = function(){
+      this.prop('scroll', $(this.prop('html')).scrollTop());
+      $(this.prop('html')).addClass(this.prop('active'));
+      $(this.class('fixed')).css('margin-top', `-${this.prop('scroll')}px`);
+    };
+
+    component.unlock = function(){
+      $(this.prop('html')).removeClass(this.prop('active'));
+      $(this.prop('html')).scrollTop(this.prop('scroll'));
+    };
+
+    component.bind = function(options){
+      $.extend(this.options, options);
     };
 
     return component;
