@@ -698,17 +698,20 @@ window[namespace] = window[namespace] || {};
     var component = new global.component({
       html: 'html',
       body: 'body',
+      fixed: 'guide-container',
       active: '_lockup'
     });
 
     component.lockup = function(){
       this.prop('scroll', $(this.prop('html')).scrollTop());
       $(this.prop('html')).addClass(this.prop('active'));
+      $(this.class('fixed')).css('margin-top', `-${this.prop('scroll')}px`);
     };
 
     component.unlock = function(){
       $(this.prop('html')).removeClass(this.prop('active'));
       $(this.prop('html')).scrollTop(this.prop('scroll'));
+      $(this.class('fixed')).css('margin-top', 0);
     };
 
     component.bind = function(options){
