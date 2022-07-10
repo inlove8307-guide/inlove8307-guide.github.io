@@ -27,6 +27,11 @@
     .guide-main {overflow-y: initial; display: initial; flex: initial;}
     .guide-main__content {overflow: hidden; flex: initial; padding: 0 16px 5rem;}
     .guide-viewer__view {padding: 16px;}
+    .guide-viewer__tab {padding-left: 0;}
+    .guide-viewer__tab .guide-tab__button {position: relative; margin-right: 0; height: 100%; border: 0; border-radius: 0; background-color: transparent; box-shadow: none; font-size: 1.6rem;}
+    .guide-viewer__tab .guide-tab__button + .guide-tab__button::before {content: ''; position: absolute; top: 50%; left: 0; width: 1px; height: 40%; background-color: rgb(204, 204, 204); transform: translateY(-50%);}
+    .guide-viewer__tab .guide-tab__button--active {background-color: transparent; box-shadow: none;}
+    .guide-viewer__tab .guide-tab__button--active::after {content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 3px; background-color: rgb(102, 102, 102);}
   </style>
 </head>
 <body>
@@ -149,31 +154,31 @@
             <!-- [S] VIEW -->
             <div class="guide-viewer__view">
 
-              <span class="title xxl linear">TITLE TITLE TITLE TITLE TITLE TITLE TITLE TITLE</span><i class="icon-003"></i>
+              <span class="title xxl linear">TITLE SIZE XXL</span><i class="icon-003"></i>
 
               <hr class="linear dashed space-sm both">
 
-              <span class="title xl linear">TITLE TITLE TITLE TITLE TITLE TITLE TITLE TITLE</span><i class="icon-003"></i>
+              <span class="title xl linear">TITLE SIZE XL</span><i class="icon-003"></i>
 
               <hr class="linear dashed space-sm both">
 
-              <span class="title lg linear">TITLE TITLE TITLE TITLE TITLE TITLE TITLE TITLE</span><i class="icon-003"></i>
+              <span class="title lg linear">TITLE SIZE LG</span><i class="icon-003"></i>
 
               <hr class="linear dashed space-sm both">
 
-              <span class="title md linear">TITLE TITLE TITLE TITLE TITLE TITLE TITLE TITLE</span><i class="icon-003"></i>
+              <span class="title md linear">TITLE SIZE MD</span><i class="icon-003"></i>
 
               <hr class="linear dashed space-sm both">
 
-              <span class="title sm linear">TITLE TITLE TITLE TITLE TITLE TITLE TITLE TITLE</span><i class="icon-003"></i>
+              <span class="title sm linear">TITLE SIZE SM</span><i class="icon-003"></i>
 
               <hr class="linear dashed space-sm both">
 
-              <span class="title xs linear">TITLE TITLE TITLE TITLE TITLE TITLE TITLE TITLE</span><i class="icon-003"></i>
+              <span class="title xs linear">TITLE SIZE XS</span><i class="icon-003"></i>
 
               <hr class="linear dashed space-sm both">
 
-              <span class="title xxs linear">TITLE TITLE TITLE TITLE TITLE TITLE TITLE TITLE</span><i class="icon-003"></i>
+              <span class="title xxs linear">TITLE SIZE XXS</span><i class="icon-003"></i>
 
             </div>
             <!-- [E] VIEW -->
@@ -196,31 +201,31 @@
             <!-- [S] VIEW -->
             <div class="guide-viewer__view">
 
-              <span class="text xxl linear">TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT</span><i class="icon-003"></i>
+              <span class="text xxl linear">TEXT SIZE XXL</span><i class="icon-003"></i>
 
               <hr class="linear dashed space-sm both">
 
-              <span class="text xl linear">TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT</span><i class="icon-003"></i>
+              <span class="text xl linear">TEXT SIZE XL</span><i class="icon-003"></i>
 
               <hr class="linear dashed space-sm both">
 
-              <span class="text lg linear">TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT</span><i class="icon-003"></i>
+              <span class="text lg linear">TEXT SIZE LG</span><i class="icon-003"></i>
 
               <hr class="linear dashed space-sm both">
 
-              <span class="text md linear">TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT</span><i class="icon-003"></i>
+              <span class="text md linear">TEXT SIZE MD</span><i class="icon-003"></i>
 
               <hr class="linear dashed space-sm both">
 
-              <span class="text sm linear">TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT</span><i class="icon-003"></i>
+              <span class="text sm linear">TEXT SIZE SM</span><i class="icon-003"></i>
 
               <hr class="linear dashed space-sm both">
 
-              <span class="text xs linear">TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT</span><i class="icon-003"></i>
+              <span class="text xs linear">TEXT SIZE XS</span><i class="icon-003"></i>
 
               <hr class="linear dashed space-sm both">
 
-              <span class="text xxs linear">TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT</span><i class="icon-003"></i>
+              <span class="text xxs linear">TEXT SIZE XXS</span><i class="icon-003"></i>
 
             </div>
             <!-- [E] VIEW -->
@@ -243,26 +248,30 @@
             <!-- [S] VIEW -->
             <div class="guide-viewer__view">
 
-              <ul class="list">
+              <ul class="list dark3">
                 <li class="list-item">
-                  <span class="list-bullet">·</span>
-                  <p class="list-text">list text list text list text list text list text list text list text list text list text list text list text list text list text list text list text list text list text list text list text list text list text list text</p>
+                  <span class="list-bullet">1.</span>
+                  <p class="list-text">LIST TEXT</p>
                 </li>
                 <li class="list-item">
-                  <span class="list-bullet">·</span>
-                  <div class="list-block">
-                    <p class="list-text">list text list text list text list text list text list text list text list text list text list text list text list text list text list text list text list text list text list text list text list text list text list text</p>
-                    <ul class="list">
+                  <span class="list-bullet">2.</span>
+                  <div>
+                    <p class="list-text">LIST TEXT</p>
+                    <ul class="list light3">
                       <li class="list-item">
-                        <span class="list-bullet">-</span>
-                        <p class="list-text">list text list text list text list text list text list text list text list text list text list text list text list text list text list text list text list text list text list text list text list text list text list text</p>
+                        <span class="list-bullet">·</span>
+                        <p class="list-text">LIST TEXT</p>
                       </li>
                       <li class="list-item">
-                        <span class="list-bullet">-</span>
-                        <p class="list-text">list text list text list text list text list text list text list text list text list text list text list text list text list text list text list text list text list text list text list text list text list text list text</p>
+                        <span class="list-bullet">·</span>
+                        <p class="list-text">LIST TEXT</p>
                       </li>
                     </ul>
                   </div>
+                </li>
+                <li class="list-item">
+                  <span class="list-bullet">3.</span>
+                  <p class="list-text">LIST TEXT</p>
                 </li>
               </ul>
 

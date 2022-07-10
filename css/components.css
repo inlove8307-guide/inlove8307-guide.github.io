@@ -95,7 +95,7 @@
 .text.sm.linear {background-image: repeating-linear-gradient(var(--light0) 0px, var(--light0) calc(var(--font-sm) * 0.8), var(--light1) calc(var(--font-sm) * 0.8), var(--light1) calc(var(--font-sm) * 1.5));}
 .text.md.linear {background-image: repeating-linear-gradient(var(--light0) 0px, var(--light0) calc(var(--font-md) * 0.8), var(--light1) calc(var(--font-md) * 0.8), var(--light1) calc(var(--font-md) * 1.5));}
 .text.lg.linear {background-image: repeating-linear-gradient(var(--light0) 0px, var(--light0) calc(var(--font-lg) * 0.8), var(--light1) calc(var(--font-lg) * 0.8), var(--light1) calc(var(--font-lg) * 1.5));}
-.text.xl.linear {background-image: repeating-linear-gradient(var(--light0) 0px, var(--light0)calc( var(--font-xl) * 0.8), var(--light1) calc(var(--font-xl) * 0.8), var(--light1) calc(var(--font-xl) * 1.5));}
+.text.xl.linear {background-image: repeating-linear-gradient(var(--light0) 0px, var(--light0) calc(var(--font-xl) * 0.8), var(--light1) calc(var(--font-xl) * 0.8), var(--light1) calc(var(--font-xl) * 1.5));}
 .text.xxl.linear {background-image: repeating-linear-gradient(var(--light0) 0px, var(--light0) calc(var(--font-2xl) * 0.8), var(--light1) calc(var(--font-2xl) * 0.8), var(--light1) calc(var(--font-2xl) * 1.5));}
 .title.xxs.linear {background-image: repeating-linear-gradient(var(--light0) 0px, var(--light0) calc(var(--font-lg) * 0.8), var(--light1) calc(var(--font-lg) * 0.8), var(--light1) calc(var(--font-lg) * 1.5));}
 .title.xs.linear {background-image: repeating-linear-gradient(var(--light0) 0px, var(--light0) calc(var(--font-xl) * 0.8), var(--light1) calc(var(--font-xl) * 0.8), var(--light1) calc(var(--font-xl) * 1.5));}
@@ -178,6 +178,13 @@ dl.list .list-dd {}
 .list.md {font-size: var(--font-md);}
 .list.lg {font-size: var(--font-lg);}
 .list.xl {font-size: var(--font-xl);}
+/* LIST - COLOR */
+.list.dark1 {color: var(--dark1);}
+.list.dark2 {color: var(--dark2);}
+.list.dark3 {color: var(--dark3);}
+.list.light1 {color: var(--light1);}
+.list.light2 {color: var(--light2);}
+.list.light3 {color: var(--light3);}
 /* .list:not(ul):not(ol):not(dl) {} */
 
 /* TABLE */
@@ -448,7 +455,7 @@ dl.table dd {flex-grow: 1; flex-shrink: 0; flex-basis: 25%; padding: 8px; border
 ._alert._active {pointer-events: initial; opacity: 1;}
 
 /* MODAL */
-.modal {position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0.25);}
+.modal {position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0.25); backdrop-filter: blur(5px);}
 .modal-content {display: flex; flex-direction: column; position: absolute; background-color: var(--light0); box-shadow: 0 0 5px rgba(0, 0, 0, 0.25);}
 .modal-header {display: flex; flex-shrink: 0; position: relative; padding: 0 10px; height: 50px;}
 .modal-title {display: flex; align-items: center;  padding: 0 10px;}
