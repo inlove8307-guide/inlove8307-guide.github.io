@@ -643,6 +643,8 @@ window[namespace] = window[namespace] || {};
       $(this.class('selector')).removeClass(this.prop('active'));
       this.prop('target').addClass(this.prop('active'));
 
+      global.lock.lockup();
+
       if (options.on) {
         this.on('confirm', options.on.confirm);
         this.on('cancel', options.on.cancel);
@@ -654,6 +656,8 @@ window[namespace] = window[namespace] || {};
 
     component.hide = function(callback){
       var $selector = this.prop('target') || $(this.class('selector'));
+
+      global.lock.unlock();
 
       $selector.removeClass(this.prop('active'));
       callback && callback($selector);
@@ -680,6 +684,35 @@ window[namespace] = window[namespace] || {};
       $(this.prop('container')).on('click', `${this.class('selector')} ${this.class('confirm')}`, handlerClick.bind(this));
 
       init.call(this);
+    };
+
+    return component;
+  }();
+}(window[namespace]));
+
+/* LOCK */
+(function(global){
+  'use strict';
+
+  global.lock = function(){
+    var component = new global.component({
+      html: 'html',
+      body: 'body',
+      active: '_lockup'
+    });
+
+    component.lockup = function(){
+      this.prop('scroll', $(this.prop('html')).scrollTop());
+      $(this.prop('html')).addClass(this.prop('active'));
+    };
+
+    component.unlock = function(){
+      $(this.prop('html')).removeClass(this.prop('active'));
+      $(this.prop('html')).scrollTop(this.prop('scroll'));
+    };
+
+    component.bind = function(options){
+      $.extend(this.options, options);
     };
 
     return component;
@@ -1482,6 +1515,7 @@ $(function(global){
     this.formatter.bind();
     this.checkbox.bind();
     this.scrollbar.bind();
+    this.lock.bind();
   };
 
   global.init();

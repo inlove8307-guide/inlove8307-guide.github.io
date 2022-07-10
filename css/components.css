@@ -573,6 +573,9 @@ dl.table dd {flex-grow: 1; flex-shrink: 0; flex-basis: 25%; padding: 8px; border
 ._popover-content._active,
 ._popover-content._active::before {opacity: 1;}
 
+html._lockup {overflow: hidden; height: 100%;}
+/* html._lockup body > :not(.modal) {position: fixed; top: 0; left: 0; width: 100%; height: 100%;} */
+
 /* FIXED Z-INDEX */
 .alert {z-index: 100;}
 .modal._active {z-index: 100;}
