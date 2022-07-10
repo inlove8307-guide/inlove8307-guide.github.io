@@ -59,22 +59,6 @@
 
 /* INSET */
 .inset {padding: 0 var(--space-sm);}
-/* INSET - TOP */
-.inset-2xs {padding-top: var(--space-2xs)!important;}
-.inset-xs {padding-top: var(--space-xs)!important;}
-.inset-sm {padding-top: var(--space-sm)!important;}
-.inset-md {padding-top: var(--space-md)!important;}
-.inset-lg {padding-top: var(--space-lg)!important;}
-.inset-xl {padding-top: var(--space-xl)!important;}
-.inset-2xl {padding-top: var(--space-2xl)!important;}
-/* INSET - BOTH */
-.inset-2xs.both {padding-top: var(--space-2xs)!important; padding-bottom: var(--space-2xs)!important;}
-.inset-xs.both {padding-top: var(--space-xs)!important; padding-bottom: var(--space-xs)!important;}
-.inset-sm.both {padding-top: var(--space-sm)!important; padding-bottom: var(--space-sm)!important;}
-.inset-md.both {padding-top: var(--space-md)!important; padding-bottom: var(--space-md)!important;}
-.inset-lg.both {padding-top: var(--space-lg)!important; padding-bottom: var(--space-lg)!important;}
-.inset-xl.both {padding-top: var(--space-xl)!important; padding-bottom: var(--space-xl)!important;}
-.inset-2xl.both {padding-top: var(--space-2xl)!important; padding-bottom: var(--space-2xl)!important;}
 /* INSET - ALIGN */
 .inset.left {text-align: left;}
 .inset.right {text-align: right;}
