@@ -465,7 +465,7 @@ dl.table dd {flex-grow: 1; flex-shrink: 0; flex-basis: 25%; padding: 8px; border
 
 /* MODAL */
 .modal {position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0.25);}
-.modal-content {display: flex; flex-direction: column; position: absolute; background-color: var(--light0);}
+.modal-content {display: flex; flex-direction: column; position: absolute; background-color: var(--light0); box-shadow: 0 0 5px rgba(0, 0, 0, 0.25);}
 .modal-header {display: flex; flex-shrink: 0; position: relative; padding: 0 10px; height: 50px;}
 .modal-title {display: flex; align-items: center;  padding: 0 10px;}
 .modal-title.center {position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);}
