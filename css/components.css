@@ -12,8 +12,8 @@
   --dark1: rgb(34, 34, 34);
   --dark2: rgb(68, 68, 68);
   --dark3: rgb(102, 102, 102);
-  --valid: rgb(0, 100, 255);
-  --invalid: rgb(255, 100, 0);
+  --valid: rgb(0, 150, 255);
+  --invalid: rgb(255, 150, 0);
 
   /* SIZE */
   --space-2xs: 4px;
