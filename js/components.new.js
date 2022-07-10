@@ -698,8 +698,8 @@ window[namespace] = window[namespace] || {};
     var component = new global.component({
       html: 'html',
       body: 'body',
-      fixed: 'guide-container',
-      active: '_lockup'
+      active: '_lockup',
+      fixed: 'guide-container'
     });
 
     component.lockup = function(){
