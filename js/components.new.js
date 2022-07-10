@@ -711,7 +711,6 @@ window[namespace] = window[namespace] || {};
     component.unlock = function(){
       $(this.prop('html')).removeClass(this.prop('active'));
       $(this.prop('html')).scrollTop(this.prop('scroll'));
-      $(this.class('fixed')).css('margin-top', 0);
     };
 
     component.bind = function(options){
