@@ -668,7 +668,7 @@ window[namespace] = window[namespace] || {};
 
     component.bind = function(options){
       $(this.prop('container')).off('TransitionEnd webkitTransitionEnd', this.class('selector'));
-      $(this.prop('container')).off('touchstart', this.class('selector'));
+      // $(this.prop('container')).off('touchstart', this.class('selector'));
       $(this.prop('container')).off('click', this.class('selector'));
       $(this.prop('container')).off('click', `${this.class('selector')} ${this.class('close')}`);
       $(this.prop('container')).off('click', `${this.class('selector')} ${this.class('cancel')}`);
@@ -677,7 +677,7 @@ window[namespace] = window[namespace] || {};
       $.extend(this.options, options);
 
       $(this.prop('container')).on('TransitionEnd webkitTransitionEnd', this.class('selector'), handlerEnd.bind(this));
-      $(this.prop('container')).on('touchstart', this.class('selector'), handlerSelector.bind(this));
+      // $(this.prop('container')).on('touchstart', this.class('selector'), handlerSelector.bind(this));
       $(this.prop('container')).on('click', this.class('selector'), handlerSelector.bind(this));
       $(this.prop('container')).on('click', `${this.class('selector')} ${this.class('close')}`, handlerClick.bind(this));
       $(this.prop('container')).on('click', `${this.class('selector')} ${this.class('cancel')}`, handlerClick.bind(this));
