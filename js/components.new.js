@@ -1486,11 +1486,15 @@ window[namespace] = window[namespace] || {};
       this.prop('scroll', $(this.prop('html')).scrollTop());
       $(this.prop('html')).addClass(this.prop('active'));
       $(this.class('fixed')).css('margin-top', `-${this.prop('scroll')}px`);
+
+      this.prop('on').lockup && this.prop('on').lockup();
     };
 
     component.unlock = function(){
       $(this.prop('html')).removeClass(this.prop('active'));
       $(this.prop('html')).scrollTop(this.prop('scroll'));
+
+      this.prop('on').unlock && this.prop('on').unlock();
     };
 
     component.bind = function(options){
