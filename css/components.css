@@ -455,7 +455,7 @@ dl.table dd {flex-grow: 1; flex-shrink: 0; flex-basis: 25%; padding: 8px; border
 ._alert._active {pointer-events: initial; opacity: 1;}
 
 /* MODAL */
-.modal {position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0.25); backdrop-filter: blur(5px);}
+.modal {position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0.25); backdrop-filter: blur(5px); -webkit-backdrop-filter: blur(5px);}
 .modal-content {display: flex; flex-direction: column; position: absolute; background-color: var(--light0); box-shadow: 0 0 5px rgba(0, 0, 0, 0.25);}
 .modal-header {display: flex; flex-shrink: 0; position: relative; padding: 0 10px; height: 50px;}
 .modal-title {display: flex; align-items: center;  padding: 0 10px;}
