@@ -137,25 +137,6 @@
 .round {border-radius: 16px;}
 .round.half {border-radius: 50%;}
 
-/* FLEX */
-.flex {display: flex;}
-.flex.wrap {flex-wrap: wrap;}
-.flex.column {flex-direction: column;}
-.flex > .grow {flex-grow: 1!important; flex-shrink: 0; flex-basis: 0;}
-.flex > .col-1 {flex-grow: 0; flex-shrink: 0; flex-basis: calc(100% / 1)!important;}
-.flex > .col-2 {flex-grow: 0; flex-shrink: 0; flex-basis: calc(100% / 2)!important;}
-.flex > .col-3 {flex-grow: 0; flex-shrink: 0; flex-basis: calc(100% / 3)!important;}
-.flex > .col-4 {flex-grow: 0; flex-shrink: 0; flex-basis: calc(100% / 4)!important;}
-.flex:not(.column) > .left {margin-right: auto;}
-.flex:not(.column) > .right {margin-left: auto;}
-/* FLEX - WRAP SPACE */
-.flex.wrap.space {margin-top: -8px; margin-left: -8px;}
-.flex.wrap.space > [class*=col-] {margin-top: 8px; margin-left: 8px;}
-.flex.wrap.space > .col-1 {flex-basis: calc(100% / 1 - 8px)!important;}
-.flex.wrap.space > .col-2 {flex-basis: calc(100% / 2 - 8px)!important;}
-.flex.wrap.space > .col-3 {flex-basis: calc(100% / 3 - 8px)!important;}
-.flex.wrap.space > .col-4 {flex-basis: calc(100% / 4 - 8px)!important;}
-
 /* LIST - UL */
 ul.list {}
 ul.list .list-item {display: flex; align-items: flex-start;}
@@ -211,13 +192,44 @@ table.table .right {text-align: right!important;}
 table.table.center th,
 table.table.center td {text-align: center;}
 table.table .center {text-align: center!important;}
-
+/* TABLE - UL */
 ul.table {}
-li.table {}
-
+/* TABLE - OL */
+ol.table {}
+/* TABLE - DL */
 dl.table {display: flex; flex-wrap: wrap; margin-left: -1px; border-top: 1px solid var(--dark3);}
 dl.table dt {flex-grow: 0; flex-shrink: 0; flex-basis: 25%; padding: 8px; border-bottom: 1px solid var(--light2); border-left: 1px solid var(--light2); background-color: var(--light1);}
 dl.table dd {flex-grow: 1; flex-shrink: 0; flex-basis: 25%; padding: 8px; border-bottom: 1px solid var(--light2); border-left: 1px solid var(--light2);}
+
+/* FLEX */
+.flex {display: flex;}
+.flex.wrap {flex-wrap: wrap;}
+.flex.column {flex-direction: column;}
+.flex > .grow {flex-grow: 1!important; flex-shrink: 0; flex-basis: 0;}
+.flex.col-1 > .flex-item {flex-grow: 0; flex-shrink: 0; flex-basis: calc(100% / 1)!important;}
+.flex.col-2 > .flex-item {flex-grow: 0; flex-shrink: 0; flex-basis: calc(100% / 2)!important;}
+.flex.col-3 > .flex-item {flex-grow: 0; flex-shrink: 0; flex-basis: calc(100% / 3)!important;}
+.flex.col-4 > .flex-item {flex-grow: 0; flex-shrink: 0; flex-basis: calc(100% / 4)!important;}
+.flex.col-5 > .flex-item {flex-grow: 0; flex-shrink: 0; flex-basis: calc(100% / 5)!important;}
+.flex:not(.column) > .left {margin-right: auto;}
+.flex:not(.column) > .right {margin-left: auto;}
+/* FLEX - WRAP SPACE */
+.flex.wrap.space {margin-top: -10px; margin-left: -10px;}
+.flex.wrap.space[class*=col-] > .flex-item {margin-top: 10px; margin-left: 10px;}
+.flex.wrap.space.col-1 > .flex-item {flex-basis: calc(100% / 1 - 10px)!important;}
+.flex.wrap.space.col-2 > .flex-item {flex-basis: calc(100% / 2 - 10px)!important;}
+.flex.wrap.space.col-3 > .flex-item {flex-basis: calc(100% / 3 - 10px)!important;}
+.flex.wrap.space.col-4 > .flex-item {flex-basis: calc(100% / 4 - 10px)!important;}
+.flex.wrap.space.col-5 > .flex-item {flex-basis: calc(100% / 5 - 10px)!important;}
+
+/* TILE */
+.tile {display: flex; flex-wrap: wrap; margin: -10px 0 0 -10px;}
+.tile > .tile-item {flex-grow: 0; flex-shrink: 0; margin: 10px 0 0 10px; height: 50px; border-radius: 5px; border: 1px solid var(--light2); box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);}
+.tile.col-1 > .tile-item {flex-basis: calc(100% / 1 - 10px);}
+.tile.col-2 > .tile-item {flex-basis: calc(100% / 2 - 10px);}
+.tile.col-3 > .tile-item {flex-basis: calc(100% / 3 - 10px);}
+.tile.col-4 > .tile-item {flex-basis: calc(100% / 4 - 10px);}
+.tile.col-5 > .tile-item {flex-basis: calc(100% / 5 - 10px);}
 
 /* BUTTON */
 .button {flex-shrink: 0; display: inline-flex; justify-content: center; align-items: center; padding: 0 15px; min-height: 40px; border-radius: 5px; border: 1px solid var(--light2); background-color: var(--light0); font-size: 16px; color: var(--dark1); letter-spacing: 0; transition: all 250ms cubic-bezier(.65,.05,.36,1);}
