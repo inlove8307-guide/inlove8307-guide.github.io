@@ -1505,6 +1505,135 @@ window[namespace] = window[namespace] || {};
   }();
 }(window[namespace]));
 
+/* GRAPH */
+(function(global){
+  'use strict';
+
+  global.graph = function(){
+    var component = new global.component({
+      container: 'body',
+      selector: '_graph',
+      base: '_graph-base',
+      value: '_graph-value',
+      line: '_graph-line',
+      active: '_active',
+      duration: '1000ms',
+      easing: 'cubic-bezier(.65,.05,.36,1)',
+      angle: 270,
+      size: 200,
+      stroke: 30,
+      delay: 250
+    });
+
+    function init(){
+      this.style(this.prop('container'), style.call(this));
+      this.prop('on').init && this.prop('on').init($(this.class('selector')));
+      this.change.observe(this);
+      this.scroll.observe(this);
+    }
+
+    function style(){
+      return `
+        ${this.class('selector')} {
+          display: none;
+        }
+        ${this.class('selector')}${this.class('active')} {
+          display: initial;
+        }
+        ${this.class('selector')} circle {
+          stroke-linecap: round;
+          fill: transparent;
+          transform-origin: 50% 50%;
+        }
+        ${this.class('selector')} ${this.class('base')} {}
+        ${this.class('selector')} ${this.class('value')} {
+          transition: stroke-dashoffset ${this.prop('duration')} ${this.prop('easing')};
+        }
+        ${this.class('selector')} ${this.class('line')} {
+          stroke-linecap: butt;
+          opacity: 0.75;
+        }`;
+    }
+
+    function handlerEnd(event){
+      // console.log(event.target)
+    };
+
+    function angle(angle){
+      return angle - 180 ? 180 - ((angle - 180) / 2) : 180;
+    }
+
+    component.draw = function(options){
+      var options = $.extend({
+        selector: null,
+        value: null,
+        angle: this.prop('angle'),
+        size: this.prop('size'),
+        stroke: this.prop('stroke'),
+        delay: this.prop('delay')
+      }, options);
+
+      if (!options.selector) return console.error(`${namespace}.graph.draw({ selector: [required], value: [required] })`);
+
+      var $selector = $(options.selector).addClass(this.prop('active'))
+        , $clone = $selector.children().clone()
+        , value = options.value !== null ? options.value : parseInt($selector.data('value'))
+        , dasharray, timeout;
+
+      if (isNaN(value)) return console.error(`${namespace}.graph.draw({ selector: [required], value: [required] })`);
+
+      $selector.empty();
+
+      $selector.attr({ width: options.size, height: options.size, viewBox: `0 0 ${options.size} ${options.size}` });
+      $clone.filter(this.class('base')).attr({ r: options.size / 2 - options.stroke / 2, cx: options.size / 2, cy: options.size / 2 });
+      $clone.filter(this.class('value')).attr({ r: options.size / 2 - options.stroke / 2, cx: options.size / 2, cy: options.size / 2 });
+      $clone.filter(this.class('line')).attr({ r: options.size / 2 - options.stroke / 8, cx: options.size / 2, cy: options.size / 2 });
+
+      dasharray = $clone.filter(this.class('base')).prop('r').baseVal.value * 2 * Math.PI;
+      value = (value / 100 * options.angle).toFixed(0);
+
+      $clone.filter(this.class('base')).css({
+        strokeWidth: `${options.stroke}px`,
+        strokeDasharray: `${dasharray} ${dasharray}`,
+        strokeDashoffset: `${dasharray - options.angle / 360 * dasharray }`,
+        transform: `rotate(${angle(options.angle)}deg)`
+      });
+
+      $clone.filter(this.class('value')).css({
+        strokeWidth: `${options.stroke}px`,
+        strokeDasharray: `${dasharray} ${dasharray}`,
+        strokeDashoffset: `${dasharray}`,
+        transform: `rotate(${angle(options.angle)}deg)`
+      });
+
+      $clone.filter(this.class('line')).css({
+        strokeWidth: `${options.stroke / 4}px`,
+        strokeDasharray: `0.5 ${dasharray / options.size * 5.5}`,
+        transform: `rotate(${angle(options.angle)}deg)`
+      });
+
+      $selector.append($clone);
+
+      timeout = setTimeout(function(){
+        $clone.filter(this.class('value')).css('strokeDashoffset', `${dasharray - value / 360 * dasharray}`);
+        clearTimeout(timeout);
+      }.bind(this), options.delay);
+    };
+
+    component.bind = function(options){
+      $(this.prop('container')).off('TransitionEnd webkitTransitionEnd', `${this.class('selector')} ${this.class('value')}`);
+
+      $.extend(this.options, options);
+
+      $(this.prop('container')).on('TransitionEnd webkitTransitionEnd', `${this.class('selector')} ${this.class('value')}`, handlerEnd.bind(this));
+
+      init.call(this);
+    };
+
+    return component;
+  }();
+}(window[namespace]));
+
 /* INITIAL */
 $(function(global){
   global.init = function(){
@@ -1522,6 +1651,7 @@ $(function(global){
     this.checkbox.bind();
     this.scrollbar.bind();
     this.lock.bind();
+    this.graph.bind();
   };
 
   global.init();
