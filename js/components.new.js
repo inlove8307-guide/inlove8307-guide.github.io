@@ -1519,7 +1519,7 @@ window[namespace] = window[namespace] || {};
       active: '_active',
       duration: '1000ms',
       easing: 'cubic-bezier(.65,.05,.36,1)',
-      angle: 270,
+      angle: 315,
       size: 200,
       stroke: 30,
       delay: 250
