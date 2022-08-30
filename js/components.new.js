@@ -1545,7 +1545,6 @@ window[namespace] = window[namespace] || {};
           fill: transparent;
           transform-origin: 50% 50%;
         }
-        ${this.class('selector')} ${this.class('base')} {}
         ${this.class('selector')} ${this.class('value')} {
           transition: stroke-dashoffset ${this.prop('duration')} ${this.prop('easing')};
         }
