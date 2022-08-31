@@ -1633,6 +1633,148 @@ window[namespace] = window[namespace] || {};
   }();
 }(window[namespace]));
 
+/* PROGRESS */
+(function(global){
+  'use strict';
+
+  global.progress = function(){
+    var component = new global.component({
+      container: 'body',
+      selector: '_progress',
+      base: '_progress-base',
+      value: '_progress-value',
+      text: '_progress-text',
+      active: '_active',
+      revert: '_revert',
+      duration: '1000ms',
+      easing: 'cubic-bezier(.65,.05,.36,1)',
+      stroke: 30,
+      delay: 250
+    });
+
+    function init(){
+      this.style(this.prop('container'), style.call(this));
+      this.prop('on').init && this.prop('on').init($(this.class('selector')));
+      this.change.observe(this);
+      this.scroll.observe(this);
+    }
+
+    function style(){
+      return `
+        ${this.class('selector')} {
+          position: relative;
+        }
+        ${this.class('selector')} ${this.class('base')} {
+          overflow: hidden;
+          position: relative;
+          width: 100%;
+          height: ${this.prop('stroke')}px;
+          border-radius: ${this.prop('stroke') / 2}px;
+          background-color: rgb(240, 240, 240);
+        }
+        ${this.class('selector')} ${this.class('value')} {
+          position: absolute;
+          top: 0;
+          left: -100%;
+          width: 100%;
+          height: ${this.prop('stroke')}px;
+          border-radius: ${this.prop('stroke') / 2}px;
+          background: linear-gradient(90deg, rgb(238, 205, 163), rgb(239, 98, 159));
+          transition: left ${this.prop('duration')} ${this.prop('easing')};
+        }
+        ${this.class('selector')} ${this.class('text')} {
+          position: absolute;
+          top: 0;
+          left: 0;
+          padding: 5px;
+          border-radius: 4px 4px 0px 4px;
+          background-color: rgb(239, 98, 159);
+          color: rgb(255, 255, 255);
+          transform: translate(-100%, calc(-100% - 10px));
+          transition: left ${this.prop('duration')} ${this.prop('easing')};
+        }
+        ${this.class('selector')} ${this.class('text')}::after {
+          content: '';
+          position: absolute;
+          bottom: 0;
+          right: 0;
+          width: 0;
+          height: 0;
+          border-top: 5px solid rgb(239, 98, 159);
+          border-left: 5px solid transparent;
+          border-right: 0 solid transparent;
+          transform: translate(0, 100%);
+        }
+        ${this.class('selector')} ${this.class('text')}${this.class('revert')} {
+          border-radius: 4px 4px 4px 0px;
+          transform: translate(0, calc(-100% - 10px));
+        }
+        ${this.class('selector')} ${this.class('text')}${this.class('revert')}::after {
+          right: initial;
+          left: 0;
+          border-left-width: 0;
+          border-right-width: 5px;
+        }`;
+    }
+
+    function handlerStart($selector){
+      clearInterval(this.interval);
+      this.interval = setInterval(handlerUpdate.bind(this, $selector), 10);
+    };
+
+    function handlerUpdate($selector){
+      var $text = $(this.class('text'), $selector);
+
+      if ($text.hasClass(this.prop('revert')) && $text.offset().left - $selector.offset().left > $text.width()) {
+        $text.removeClass(this.prop('revert'));
+      }
+
+      if (!$text.hasClass(this.prop('revert')) && $text.offset().left - $selector.offset().left < $text.width()) {
+        $text.addClass(this.prop('revert'));
+      }
+    };
+
+    function handlerEnd(event){
+      clearInterval(this.interval);
+    };
+
+    component.update = function(options){
+      var options = $.extend({
+        selector: null,
+        value: null,
+        delay: this.prop('delay')
+      }, options);
+
+      if (!options.selector) return console.error(`${namespace}.progress.update({ selector: [required], value: [required] })`);
+
+      var $selector = $(options.selector)
+        , value = options.value !== null ? options.value : parseInt($selector.data('value'))
+        , timeout;
+
+      if (isNaN(value)) return console.error(`${namespace}.progress.update({ selector: [required], value: [required] })`);
+
+      timeout = setTimeout(function(){
+        $(this.class('value'), $selector).css('left', `-${100 - value}%`);
+        $(this.class('text'), $selector).css('left', `${value}%`);
+        clearTimeout(timeout);
+        handlerStart.call(this, $selector);
+      }.bind(this), options.delay);
+    };
+
+    component.bind = function(options){
+      $(this.prop('container')).off('TransitionEnd webkitTransitionEnd', `${this.class('selector')} ${this.class('value')}`);
+
+      $.extend(this.options, options);
+
+      $(this.prop('container')).on('TransitionEnd webkitTransitionEnd', `${this.class('selector')} ${this.class('value')}`, handlerEnd.bind(this));
+
+      init.call(this);
+    };
+
+    return component;
+  }();
+}(window[namespace]));
+
 /* INITIAL */
 $(function(global){
   global.init = function(){
@@ -1651,6 +1793,7 @@ $(function(global){
     this.scrollbar.bind();
     this.lock.bind();
     this.graph.bind();
+    this.progress.bind();
   };
 
   global.init();

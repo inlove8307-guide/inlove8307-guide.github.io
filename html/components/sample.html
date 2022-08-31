@@ -2672,6 +2672,89 @@
         </article>
         <!--// GRAPH -->
 
+        <!-- PROGRESS //-->
+        <article class="guide-viewer">
+          <!-- GUIDE TITLE -->
+          <h3 class="guide-viewer__title">Progress</h3>
+          <!-- [S] GUIDE -->
+          <div class="guide-viewer__content">
+            <!-- [S] VIEW -->
+            <div class="guide-viewer__view">
+
+              <div id="PROGRESS1" class="_progress" data-value="100">
+                <div class="_progress-base">
+                  <div class="_progress-value"></div>
+                </div>
+                <div class="_progress-text _revert">10회차</div>
+              </div>
+
+              <div class="button-group wrap space-xs">
+                <button type="button" class="button" onclick="UI.progress.update({ selector: '#PROGRESS1', value: 0 })">
+                  <span class="button-label">0%</span>
+                </button>
+                <button type="button" class="button" onclick="UI.progress.update({ selector: '#PROGRESS1', value: 25 })">
+                  <span class="button-label">25%</span>
+                </button>
+                <button type="button" class="button" onclick="UI.progress.update({ selector: '#PROGRESS1', value: 50 })">
+                  <span class="button-label">50%</span>
+                </button>
+                <button type="button" class="button" onclick="UI.progress.update({ selector: '#PROGRESS1', value: 75 })">
+                  <span class="button-label">75%</span>
+                </button>
+                <button type="button" class="button" onclick="UI.progress.update({ selector: '#PROGRESS1', value: 100 })">
+                  <span class="button-label">100%</span>
+                </button>
+              </div>
+
+              <script>
+                $(function(){
+                  UI.progress.update({
+                    selector: '#PROGRESS1',
+                    value: 75,
+                    stroke: 30,
+                    duration: 1000
+                  });
+                });
+              </script>
+
+            </div>
+            <!-- [E] VIEW -->
+            <!-- [S] COMMENT -->
+            <!-- <ul class="guide-viewer__comment">
+              <li class="comment__text"># 코멘트</li>
+            </ul> -->
+            <!-- [E] COMMENT -->
+            <!-- [S] BUTTON -->
+            <div class="guide-viewer__tab">
+              <button class="guide-tab__button" data-lang="html">html</button>
+              <!-- <button class="guide-tab__button" data-lang="css">css</button> -->
+              <button class="guide-tab__button" data-lang="script">script</button>
+            </div>
+            <!-- [E] BUTTON -->
+            <!-- [S] CODE -->
+            <div class="guide-viewer__syntax">
+              <pre class="guide-viewer__pre line-numbers" data-lang="html">
+                <code class="guide-viewer__code language-html">
+
+                </code>
+              </pre>
+              <pre class="guide-viewer__pre line-numbers" data-lang="css">
+                <code class="guide-viewer__code language-css">
+
+                </code>
+              </pre>
+              <pre class="guide-viewer__pre line-numbers" data-lang="script">
+                <code class="guide-viewer__code language-js">
+
+                </code>
+              </pre>
+            </div>
+            <!-- [E] CODE -->
+          </div>
+          <!-- [E] GUIDE -->
+        </article>
+        <!--// PROGRESS -->
+
       </section>
     </main>
   </div>
