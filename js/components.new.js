@@ -287,24 +287,36 @@ window[namespace] = window[namespace] || {};
 
     function getLayer(context, type){
       var $layer = $('<div>', { class: this.prop('layer') })
-        , maximum = type === 'year' ? 24 : 12
-        , number = type === 'year' ? moment().year() : 12;
-
-      $(this.class('layer'), context.table).length && $(this.class('layer'), context.table).remove();
+        , maximum = type === 'year' ? 16 : 12
+        , number = type === 'year' ? context.number || moment().year() : 12;
 
       while($layer.children().length < maximum){
         $layer.prepend($('<button>', { text: `${number}${type === 'year' ? '년' : '월'}`, data: { value: number } }));
         number--;
       }
 
+      if (type === 'year') {
+        $layer.prepend($('<button>', { text: '이전', style: 'width: 100%', data: { type: 'prev' } }));
+        $layer.append($('<button>', { text: '다음', style: 'width: 100%', data: { type: 'next' } }));
+      }
+
       $('button', $layer).on('click', function(event){
         var value = $(event.target).data('value');
-        type === 'year'
-          ? context.year = value
-          : context.month = value - 1;
 
-        update.call(this, context);
-        $(this.class('layer'), context.table).remove();
+        if (value) {
+          type === 'year'
+            ? context.year = value
+            : context.month = value - 1;
+
+          context.number = null;
+          update.call(this, context);
+          $(this.class('layer'), context.table).remove();
+        }
+        else {
+          context.number = $(event.target).data('type') === 'prev' ? number : number + (maximum * 2);
+          $layer.replaceWith(getLayer.call(this, context, type));
+        }
+
       }.bind(this));
 
       return $layer;
@@ -320,16 +332,15 @@ window[namespace] = window[namespace] || {};
       $('button', $caption).on('click', function(event){
         var type = $(event.target).data('type');
 
+        $(this.class('layer'), context.table).remove();
+
         if (type === 'today') {
           context.year = moment().year();
           context.month = moment().month();
           update.call(this, context);
-          $(this.class('layer'), context.table).remove();
         }
         else {
-          $(this.class('layer'), context.table).length
-            ? $(this.class('layer'), context.table).remove()
-            : $caption.append(getLayer.call(this, context, type));
+          $caption.append(getLayer.call(this, context, type));
         }
       }.bind(this));
 
