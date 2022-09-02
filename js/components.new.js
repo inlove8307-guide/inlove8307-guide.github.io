@@ -1687,33 +1687,33 @@ window[namespace] = window[namespace] || {};
           top: 0;
           left: 0;
           padding: 5px;
-          border-radius: 4px 4px 0px 4px;
+          border-radius: 4px 4px 4px 0px;
           background-color: rgb(239, 98, 159);
           color: rgb(255, 255, 255);
-          transform: translate(-100%, calc(-100% - 10px));
+          transform: translate(0, calc(-100% - 10px));
           transition: left ${this.prop('duration')} ${this.prop('easing')};
         }
         ${this.class('selector')} ${this.class('text')}::after {
           content: '';
           position: absolute;
           bottom: 0;
-          right: 0;
+          left: 0;
           width: 0;
           height: 0;
           border-top: 5px solid rgb(239, 98, 159);
-          border-left: 5px solid transparent;
-          border-right: 0 solid transparent;
+          border-left: 0px solid transparent;
+          border-right: 5px solid transparent;
           transform: translate(0, 100%);
         }
         ${this.class('selector')} ${this.class('text')}${this.class('revert')} {
-          border-radius: 4px 4px 4px 0px;
-          transform: translate(0, calc(-100% - 10px));
+          border-radius: 4px 4px 0px 4px;
+          transform: translate(-100%, calc(-100% - 10px));
         }
         ${this.class('selector')} ${this.class('text')}${this.class('revert')}::after {
-          right: initial;
-          left: 0;
-          border-left-width: 0;
-          border-right-width: 5px;
+          left: initial;
+          right: 0;
+          border-left-width: 5px;
+          border-right-width: 0px;
         }`;
     }
 
@@ -1725,12 +1725,14 @@ window[namespace] = window[namespace] || {};
     function handlerUpdate($selector){
       var $text = $(this.class('text'), $selector);
 
-      if ($text.hasClass(this.prop('revert')) && $text.offset().left - $selector.offset().left > $text.width()) {
-        $text.removeClass(this.prop('revert'));
+      if (!$text.hasClass(this.prop('revert')) && $selector.offset().left + $text.width() < $text.offset().left) {
+        console.log('add');
+        $text.addClass(this.prop('revert'));
       }
 
-      if (!$text.hasClass(this.prop('revert')) && $text.offset().left - $selector.offset().left < $text.width()) {
-        $text.addClass(this.prop('revert'));
+      if ($text.hasClass(this.prop('revert')) && $selector.offset().left > $text.offset().left) {
+        console.log('remove');
+        $text.removeClass(this.prop('revert'));
       }
     };
 
@@ -1756,6 +1758,7 @@ window[namespace] = window[namespace] || {};
       timeout = setTimeout(function(){
         $(this.class('value'), $selector).css('left', `-${100 - value}%`);
         $(this.class('text'), $selector).css('left', `${value}%`);
+        $(this.class('text'), $selector).text(options.text);
         clearTimeout(timeout);
         handlerStart.call(this, $selector);
       }.bind(this), options.delay);
