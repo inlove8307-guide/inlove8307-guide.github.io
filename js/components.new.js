@@ -179,8 +179,6 @@ window[namespace] = window[namespace] || {};
       container: 'body',
       selector: '_calendar',
       caption: '_calendar-caption',
-      // title: '_calendar-title',
-      // controller: '_calendar-controller',
       layer: '_calendar-layer',
       table: '_calendar-table',
       body: '_calendar-body',
