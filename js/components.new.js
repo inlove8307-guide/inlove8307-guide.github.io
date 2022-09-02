@@ -296,8 +296,8 @@ window[namespace] = window[namespace] || {};
       }
 
       if (type === 'year') {
-        $layer.prepend($('<button>', { text: '이전', style: 'width: 100%', data: { type: 'prev' } }));
-        $layer.append($('<button>', { text: '다음', style: 'width: 100%', data: { type: 'next' } }));
+        $layer.prepend($('<button>', { text: '▲', style: 'width: 100%', data: { type: 'prev' } }));
+        $layer.append($('<button>', { text: '▼', style: 'width: 100%', data: { type: 'next' } }));
       }
 
       $('button', $layer).on('click', function(event){
@@ -327,12 +327,13 @@ window[namespace] = window[namespace] || {};
 
       $caption.append($('<button>', { text: `${context.year}년`, data: { type: 'year' } }));
       $caption.append($('<button>', { text: `${context.month + 1}월`, data: { type: 'month' } }));
-      $caption.append($('<button>', { text: `오늘`, data: { type: 'today' } }));
+      $caption.append($('<button>', { text: `이번달`, data: { type: 'today' } }));
 
       $('button', $caption).on('click', function(event){
-        var type = $(event.target).data('type');
+        var $layer = $(this.class('layer'), context.table)
+          , type = $(event.target).data('type');
 
-        $(this.class('layer'), context.table).remove();
+        $layer.remove();
 
         if (type === 'today') {
           context.year = moment().year();
@@ -340,8 +341,12 @@ window[namespace] = window[namespace] || {};
           update.call(this, context);
         }
         else {
-          $caption.append(getLayer.call(this, context, type));
+          $layer.length && context.type === type
+            ? $layer.remove()
+            : $caption.append(getLayer.call(this, context, type));
         }
+
+        context.type = type;
       }.bind(this));
 
       return $caption;
