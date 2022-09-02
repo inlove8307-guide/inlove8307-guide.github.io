@@ -310,7 +310,7 @@ window[namespace] = window[namespace] || {};
           $layer.remove();
         }
         else {
-          context.number = $(event.target).data('type') === 'prev' ? number : number + (maximum * 2);
+          context.number = $(event.target).data('type') === 'prev' ? number : number + maximum * 2;
           $layer.replaceWith(getLayer.call(this, context, type));
         }
 
