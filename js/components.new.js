@@ -212,7 +212,6 @@ window[namespace] = window[namespace] || {};
           width: 100%;
           height: 40px;
         }
-        ${this.class('caption')} > button {}
         ${this.class('layer')} {
           position: absolute;
           bottom: 0;
