@@ -293,8 +293,8 @@ window[namespace] = window[namespace] || {};
       }
 
       if (type === 'year') {
-        $layer.prepend($('<button>', { text: '▲', style: 'width: 100%', data: { type: 'prev' } }));
-        $layer.append($('<button>', { text: '▼', style: 'width: 100%', data: { type: 'next' } }));
+        $layer.prepend($('<button>', { text: '이전', style: 'width: 100%', data: { type: 'prev' } }));
+        $layer.append($('<button>', { text: '다음', style: 'width: 100%', data: { type: 'next' } }));
       }
 
       $('button', $layer).on('click', function(event){
@@ -335,6 +335,7 @@ window[namespace] = window[namespace] || {};
         if (type === 'today') {
           context.year = moment().year();
           context.month = moment().month();
+          context.number = null;
           update.call(this, context);
         }
         else {
