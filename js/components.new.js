@@ -294,7 +294,6 @@ window[namespace] = window[namespace] || {};
 
       while($layer.children().length < maximum){
         $layer.prepend($('<button>', { text: `${number}${type === 'year' ? '년' : '월'}`, data: { value: number } }));
-
         number--;
       }
 
