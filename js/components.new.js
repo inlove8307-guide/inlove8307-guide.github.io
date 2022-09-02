@@ -310,7 +310,7 @@ window[namespace] = window[namespace] || {};
 
           context.number = null;
           update.call(this, context);
-          $(this.class('layer'), context.table).remove();
+          $layer.remove();
         }
         else {
           context.number = $(event.target).data('type') === 'prev' ? number : number + (maximum * 2);
