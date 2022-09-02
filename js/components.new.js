@@ -305,7 +305,6 @@ window[namespace] = window[namespace] || {};
             ? context.year = value
             : context.month = value - 1;
 
-          context.number = null;
           update.call(this, context);
           $layer.remove();
         }
@@ -314,6 +313,7 @@ window[namespace] = window[namespace] || {};
           $layer.replaceWith(getLayer.call(this, context, type));
         }
 
+        context.number = null;
       }.bind(this));
 
       return $layer;
