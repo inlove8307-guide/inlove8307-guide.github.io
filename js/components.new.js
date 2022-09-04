@@ -284,7 +284,7 @@ window[namespace] = window[namespace] || {};
 
     function getLayer(context, type){
       var $layer = $('<div>', { class: this.prop('layer') })
-        , maximum = type === 'year' ? 16 : 12
+        , maximum = type === 'year' ? 22 : 12
         , number = type === 'year' ? context.number || moment().year() : 12;
 
       while($layer.children().length < maximum){
@@ -293,8 +293,8 @@ window[namespace] = window[namespace] || {};
       }
 
       if (type === 'year') {
-        $layer.prepend($('<button>', { text: '이전', style: 'width: 100%', data: { type: 'prev' } }));
-        $layer.append($('<button>', { text: '다음', style: 'width: 100%', data: { type: 'next' } }));
+        $layer.prepend($('<button>', { text: '◀', data: { type: 'prev' } }));
+        $layer.append($('<button>', { text: '▶', data: { type: 'next' } }));
       }
 
       $('button', $layer).on('click', function(event){
