@@ -224,6 +224,30 @@ window[namespace] = window[namespace] || {};
           width: calc(100% / 4);
           height: 40px;
         }
+        ${this.class('layer')} .prev {
+          color: transparent;
+        }
+        ${this.class('layer')} .next {
+          color: transparent;
+        }
+        ${this.class('layer')} .prev::before {
+          content: '';
+          display: inline-block;
+          width: 0;
+          height: 0;
+          border-top: 6px solid transparent;
+          border-bottom: 6px solid transparent;
+          border-right: 8px solid rgb(0, 0, 0);
+        }
+        ${this.class('layer')} .next::before {
+          content: '';
+          display: inline-block;
+          width: 0;
+          height: 0;
+          border-top: 6px solid transparent;
+          border-bottom: 6px solid transparent;
+          border-left: 8px solid rgb(0, 0, 0);
+        }
         ${this.class('table')} th:first-child,
         ${this.class('table')} td:first-child button {
           color: rgb(255, 150, 0);
@@ -293,8 +317,8 @@ window[namespace] = window[namespace] || {};
       }
 
       if (type === 'year') {
-        $layer.prepend($('<button>', { text: '◀', data: { type: 'prev' } }));
-        $layer.append($('<button>', { text: '▶', data: { type: 'next' } }));
+        $layer.prepend($('<button>', { class: 'prev', data: { type: 'prev' } }));
+        $layer.append($('<button>', { class: 'next', data: { type: 'next' } }));
       }
 
       $('button', $layer).on('click', function(event){
