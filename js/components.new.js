@@ -185,6 +185,7 @@ window[namespace] = window[namespace] || {};
       prev: '_calendar-prev',
       next: '_calendar-next',
       layer: '_calendar-layer',
+      align: '_calendar-align',
       table: '_calendar-table',
       body: '_calendar-body',
       week: '_calendar-week',
@@ -246,9 +247,7 @@ window[namespace] = window[namespace] || {};
 
     function getLayer(context, string){
       var $layer = $('<div>', { class: this.prop('layer') })
-        , isYear = string === this.prop('year');
-
-      var object = {};
+        , $wrapper, $button, object = {};
 
       object[this.prop('year')] = {
         number: context.number || moment().year(),
@@ -263,20 +262,27 @@ window[namespace] = window[namespace] || {};
       };
 
       while($layer.children().length < object[string].maximum){
-        $layer.prepend($('<button>', {
+        $wrapper = $('<span>', { class: this.prop('align') });
+        $button = $('<button>', {
           class: string,
           text: object[string].number + object[string].text,
-          data: {
-            value: object[string].number
-          }
-        }));
+          data: { value: object[string].number }
+        });
 
+        $layer.prepend($wrapper.append($button));
         object[string].number--;
       }
 
-      if (isYear) {
-        $layer.prepend($('<button>', { class: this.prop('prev') }));
-        $layer.append($('<button>', { class: this.prop('next') }));
+      if (string === this.prop('year')) {
+        $layer.prepend(`
+          <span class="${this.prop('align')}">
+            <button class="${this.prop('prev')}"></button>
+          </span>`);
+
+        $layer.append(`
+          <span class="${this.prop('align')}">
+            <button class="${this.prop('next')}"></button>
+          </span>`);
       }
 
       $('button', $layer).on('click', function(event){
@@ -311,13 +317,14 @@ window[namespace] = window[namespace] || {};
     }
 
     function getCaption(context){
-      var $caption = $('<div>', { class: this.prop('caption') });
+      var $caption = $('<div>', { class: this.prop('caption') })
+        , date = moment([context.year, context.month, 1]);
 
-      $caption.append($('<button>', { class: this.prop('prev'), text: `이전달` }));
-      $caption.append($('<button>', { class: this.prop('year'), text: `${context.year}년` }));
-      $caption.append($('<button>', { class: this.prop('month'), text: `${context.month + 1}월` }));
-      $caption.append($('<button>', { class: this.prop('today'), text: `이번달` }));
-      $caption.append($('<button>', { class: this.prop('next'), text: `다음달` }));
+      $caption.append($('<button>', { class: this.prop('prev'), text: '이전달' }));
+      $caption.append($('<button>', { class: this.prop('year'), text: date.format('YYYY년') }));
+      $caption.append($('<button>', { class: this.prop('month'), text: date.format('MM월') }));
+      $caption.append($('<button>', { class: this.prop('today'), text: '이번달' }));
+      $caption.append($('<button>', { class: this.prop('next'), text: '다음달' }));
 
       $('button', $caption).on('click', function(event){
         var $layer = $(this.class('layer'), context.table)
@@ -416,10 +423,12 @@ window[namespace] = window[namespace] || {};
     }
 
     function update(context){
+      var date = moment([context.year, context.month, 1]);
+
       context.data = getData.call(this, context);
 
-      $(this.class('year'), context.table).text(`${context.year}년`);
-      $(this.class('month'), context.table).text(`${context.month + 1}월`);
+      $(this.class('year'), context.table).text(date.format('YYYY년'));
+      $(this.class('month'), context.table).text(date.format('MM월'));
       $(this.class('body'), context.table).replaceWith(getBody.call(this, context));
 
       context.on.update && context.on.update.call(this, context);

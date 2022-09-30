@@ -232,12 +232,24 @@ dl.table dd {flex-grow: 1; flex-shrink: 0; flex-basis: 25%; padding: 8px; border
 .tile.col-5 > .tile-item {flex-basis: calc(100% / 5 - 10px);}
 
 /* BUTTON */
-.button {flex-shrink: 0; display: inline-flex; justify-content: center; align-items: center; padding: 0 15px; min-height: 40px; border-radius: 5px; border: 1px solid var(--light2); background-color: var(--light0); font-size: 16px; color: var(--dark1); letter-spacing: 0; transition: all 250ms cubic-bezier(.65,.05,.36,1);}
+.button {flex-shrink: 0; display: inline-flex; justify-content: center; align-items: center; padding: 0 16px; min-height: 40px; border-radius: 5px; border: 1px solid var(--light2); background-color: var(--light0); font-size: 16px; color: var(--dark1); letter-spacing: 0; transition: all 250ms cubic-bezier(.65,.05,.36,1);}
 .button:hover {border-color: var(--light3); box-shadow: 0 0 0 2px var(--light1);}
 .button:focus {border-color: var(--light3); background-color: var(--light1);}
-/* BUTTON - DARK */
+/* BUTTON - COLOR */
 .button.dark {border: 0; background-color: var(--dark2); color: var(--light0);}
 .button.dark:focus {background-color: var(--dark0);}
+/* BUTTON - SIZE */
+.button.xs {padding: 0 8px; min-height: initial; height: 24px; font-size: 14px;}
+.button.sm {padding: 0 12px; min-height: initial; height: 32px;}
+.button.md {padding: 0 14px; min-height: initial; height: 40px;}
+.button.lg {padding: 0 16px; min-height: initial; height: 48px;}
+.button.xl {min-height: initial; height: 56px;}
+/* BUTTON - ROUND */
+.button.xs.round {border-radius: 12px;}
+.button.sm.round {border-radius: 16px;}
+.button.md.round {border-radius: 20px;}
+.button.lg.round {border-radius: 24px;}
+.button.xl.round {border-radius: 28px;}
 /* BUTTON - DISABLED */
 .button.disabled,
 .button:disabled {opacity: 0.25; cursor: default; pointer-events: none;}
@@ -526,8 +538,12 @@ dl.table dd {flex-grow: 1; flex-shrink: 0; flex-basis: 25%; padding: 8px; border
 /* CALENDAR */
 ._calendar {height: 320px;}
 ._calendar-caption {overflow: initial; display: flex; justify-content: space-between; align-items: center; position: relative; padding: 0 16px; width: 100%; height: 40px;}
+._calendar-caption > button {flex-shrink: 0; display: inline-flex; justify-content: center; align-items: center; padding: 0 8px; height: 28px; border-radius: 14px; border: 1px solid var(--light2); background-color: var(--light0); font-size: 14px; color: var(--dark1); letter-spacing: 0; transition: all 250ms cubic-bezier(.65,.05,.36,1);}
+._calendar-caption > button:hover {border-color: var(--light3); box-shadow: 0 0 0 2px var(--light1);}
+._calendar-caption > button:focus {border-color: var(--light3); background-color: var(--light1);}
 ._calendar-layer {position: absolute; bottom: 0; left: 0; z-index: 1; width: 100%; height: 280px; background-color: rgb(255, 255, 255); transform: translate(0, 100%);}
-._calendar-layer > button {float: left; width: calc(100% / 4); height: 40px;}
+._calendar-layer ._calendar-align {display: flex; justify-content: center; align-items: center; float: left; width: calc(100% / 4); height: 40px;}
+._calendar-layer ._calendar-align button {text-decoration: underline;}
 ._calendar-layer ._calendar-prev,
 ._calendar-layer ._calendar-next {color: transparent;}
 ._calendar-layer ._calendar-prev::before {content: ''; display: inline-block; width: 0; height: 0; border-top: 6px solid transparent; border-bottom: 6px solid transparent; border-right: 8px solid rgb(0, 0, 0);}
