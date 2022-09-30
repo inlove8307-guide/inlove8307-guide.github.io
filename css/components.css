@@ -524,9 +524,9 @@ dl.table dd {flex-grow: 1; flex-shrink: 0; flex-basis: 25%; padding: 8px; border
 ._popover-content._active {opacity: 1;}
 
 /* CALENDAR */
-._calendar {height: 100%;}
+._calendar {height: 320px;}
 ._calendar-caption {overflow: initial; display: flex; justify-content: space-between; align-items: center; position: relative; padding: 0 16px; width: 100%; height: 40px;}
-._calendar-layer {position: absolute; bottom: 0; left: 0; width: 100%; background-color: rgb(255, 255, 255); transform: translate(0, 100%);}
+._calendar-layer {position: absolute; bottom: 0; left: 0; z-index: 1; width: 100%; height: 280px; background-color: rgb(255, 255, 255); transform: translate(0, 100%);}
 ._calendar-layer > button {float: left; width: calc(100% / 4); height: 40px;}
 ._calendar-layer ._calendar-prev,
 ._calendar-layer ._calendar-next {color: transparent;}

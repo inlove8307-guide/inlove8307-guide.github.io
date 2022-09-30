@@ -330,24 +330,22 @@ window[namespace] = window[namespace] || {};
           context.year = prev.year();
           context.month = prev.month();
           context.number = null;
-          return update.call(this, context);
+          update.call(this, context);
         }
 
         if ($(event.target).hasClass(this.prop('next'))) {
           context.year = next.year();
           context.month = next.month();
           context.number = null;
-          return update.call(this, context);
+          update.call(this, context);
         }
 
         if ($(event.target).hasClass(this.prop('today'))) {
           context.year = moment().year();
           context.month = moment().month();
           context.number = null;
-          return update.call(this, context);
+          update.call(this, context);
         }
-
-        $layer.remove();
 
         if ($(event.target).hasClass(this.prop('year'))) {
           $caption.append(getLayer.call(this, context, this.prop('year')));
@@ -854,9 +852,6 @@ window[namespace] = window[namespace] || {};
         ${this.class('selector')} ${this.class('content')} {
           min-height: initial;
           max-height: initial;
-        }
-        ${this.class('calendar')} {
-          min-height: 320px;
         }`;
     }
 
