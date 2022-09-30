@@ -179,6 +179,11 @@ window[namespace] = window[namespace] || {};
       container: 'body',
       selector: '_calendar',
       caption: '_calendar-caption',
+      year: '_calendar-year',
+      month: '_calendar-month',
+      today: '_calendar-today',
+      prev: '_calendar-prev',
+      next: '_calendar-next',
       layer: '_calendar-layer',
       table: '_calendar-table',
       body: '_calendar-body',
@@ -189,155 +194,117 @@ window[namespace] = window[namespace] || {};
     });
 
     function init(){
-      this.style(this.prop('container'), style.call(this));
       this.prop('on').init && this.prop('on').init($(this.class('selector')));
       this.change.observe(this);
       this.scroll.observe(this);
     }
 
-    function style(){
-      return `
-        ${this.class('selector')} {
-          height: 100%;
-        }
-        ${this.class('caption')} {
-          overflow: initial;
-          display: flex;
-          justify-content: space-evenly;
-          align-items: center;
-          position: relative;
-          padding: 0 16px;
-          width: 100%;
-          height: 40px;
-        }
-        ${this.class('layer')} {
-          position: absolute;
-          bottom: 0;
-          left: 0;
-          width: 100%;
-          height: 280px;
-          background-color: rgb(255, 255, 255);
-          transform: translate(0, 100%);
-        }
-        ${this.class('layer')} > button {
-          float: left;
-          width: calc(100% / 4);
-          height: 40px;
-        }
-        ${this.class('layer')} .prev {
-          color: transparent;
-        }
-        ${this.class('layer')} .next {
-          color: transparent;
-        }
-        ${this.class('layer')} .prev::before {
-          content: '';
-          display: inline-block;
-          width: 0;
-          height: 0;
-          border-top: 6px solid transparent;
-          border-bottom: 6px solid transparent;
-          border-right: 8px solid rgb(0, 0, 0);
-        }
-        ${this.class('layer')} .next::before {
-          content: '';
-          display: inline-block;
-          width: 0;
-          height: 0;
-          border-top: 6px solid transparent;
-          border-bottom: 6px solid transparent;
-          border-left: 8px solid rgb(0, 0, 0);
-        }
-        ${this.class('table')} th:first-child,
-        ${this.class('table')} td:first-child button {
-          color: rgb(255, 150, 0);
-        }
-        ${this.class('table')} th:last-child,
-        ${this.class('table')} td:last-child button {
-          color: rgb(0, 150, 255);
-        }
-        ${this.class('body')} {}
-        ${this.class('week')} {
-          height: 40px;
-        }
-        ${this.class('date')} {}
-        ${this.class('button')} {
-          width: 100%;
-          height: 40px;
-          text-align: center;
-        }`;
-    }
-
     function getData(context){
       var array = []
-        , date;
+        , date = moment([context.year, context.month, 1])
+        , prev = moment([context.year, context.month, 1]).add(-1, 'month').endOf('month')
+        , next = moment([context.year, context.month, 1]).add(1, 'month');
 
       do {
-        date = moment([context.year, context.month, array.length+1]);
         array.push({
-          year: context.year,
-          month: context.month,
+          year: date.year(),
+          month: date.month(),
           date: date.date(),
           week: date.day()
         });
+
+        date = date.add(1, 'days');
       }
       while(context.month == date.month());
 
-      array.pop();
-
-      while(array[0].week != 0){
+      do {
         array.unshift({
-          year: context.year,
-          month: context.month,
-          date: null,
-          week: array[0].week-1
+          year: prev.year(),
+          month: prev.month(),
+          date: prev.date(),
+          week: prev.day()
         });
-      }
 
-      while(array[array.length-1].week != 6){
-        array.push({
-          year: context.year,
-          month: context.month,
-          date: null,
-          week: array[array.length-1].week+1
-        });
+        prev.add(-1, 'days');
       }
+      while(array[0].week != 0);
+
+      do {
+        array.push({
+          year: next.year(),
+          month: next.month(),
+          date: next.date(),
+          week: next.day()
+        });
+
+        next.add(1, 'days');
+      }
+      while(array[array.length-1].week != 6 || array.length < 7 * 6);
 
       return array;
     }
 
-    function getLayer(context, type){
+    function getLayer(context, string){
       var $layer = $('<div>', { class: this.prop('layer') })
-        , maximum = type === 'year' ? 22 : 12
-        , number = type === 'year' ? context.number || moment().year() : 12;
+        , isYear = string === this.prop('year');
 
-      while($layer.children().length < maximum){
-        $layer.prepend($('<button>', { text: `${number}${type === 'year' ? '년' : '월'}`, data: { value: number } }));
-        number--;
+      var object = {};
+
+      object[this.prop('year')] = {
+        number: context.number || moment().year(),
+        maximum: 26,
+        text: '년'
+      };
+
+      object[this.prop('month')] = {
+        number: 12,
+        maximum: 12,
+        text: '월'
+      };
+
+      while($layer.children().length < object[string].maximum){
+        $layer.prepend($('<button>', {
+          class: string,
+          text: object[string].number + object[string].text,
+          data: {
+            value: object[string].number
+          }
+        }));
+
+        object[string].number--;
       }
 
-      if (type === 'year') {
-        $layer.prepend($('<button>', { class: 'prev', data: { type: 'prev' } }));
-        $layer.append($('<button>', { class: 'next', data: { type: 'next' } }));
+      if (isYear) {
+        $layer.prepend($('<button>', { class: this.prop('prev'), data: { type: 'prev' } }));
+        $layer.append($('<button>', { class: this.prop('next'), data: { type: 'next' } }));
       }
 
       $('button', $layer).on('click', function(event){
         var value = $(event.target).data('value');
 
         if (value) {
-          type === 'year'
-            ? context.year = value
-            : context.month = value - 1;
+          if ($(event.target).hasClass(this.prop('year'))) {
+            context.year = value;
+          }
+
+          if ($(event.target).hasClass(this.prop('month'))) {
+            context.month = value - 1;
+          }
 
           update.call(this, context);
           $layer.remove();
-        }
-        else {
-          context.number = $(event.target).data('type') === 'prev' ? number : number + maximum * 2;
-          $layer.replaceWith(getLayer.call(this, context, type));
+          context.number = null;
         }
 
-        context.number = null;
+        if ($(event.target).hasClass(this.prop('prev'))) {
+          context.number = object[string].number;
+          $layer.replaceWith(getLayer.call(this, context, this.prop('year')));
+        }
+
+        if ($(event.target).hasClass(this.prop('next'))) {
+          context.number = object[string].number + object[string].maximum * 2;
+          $layer.replaceWith(getLayer.call(this, context, this.prop('year')));
+        }
       }.bind(this));
 
       return $layer;
@@ -346,29 +313,49 @@ window[namespace] = window[namespace] || {};
     function getCaption(context){
       var $caption = $('<div>', { class: this.prop('caption') });
 
-      $caption.append($('<button>', { text: `${context.year}년`, data: { type: 'year' } }));
-      $caption.append($('<button>', { text: `${context.month + 1}월`, data: { type: 'month' } }));
-      $caption.append($('<button>', { text: `이번달`, data: { type: 'today' } }));
+      $caption.append($('<button>', { class: this.prop('prev'), text: `이전달` }));
+      $caption.append($('<button>', { class: this.prop('year'), text: `${context.year}년` }));
+      $caption.append($('<button>', { class: this.prop('month'), text: `${context.month + 1}월` }));
+      $caption.append($('<button>', { class: this.prop('today'), text: `이번달` }));
+      $caption.append($('<button>', { class: this.prop('next'), text: `다음달` }));
 
       $('button', $caption).on('click', function(event){
         var $layer = $(this.class('layer'), context.table)
-          , type = $(event.target).data('type');
+          , prev = moment([context.year, context.month, 1]).add(-1, 'month')
+          , next = moment([context.year, context.month, 1]).add(1, 'month');
 
         $layer.remove();
 
-        if (type === 'today') {
+        if ($(event.target).hasClass(this.prop('prev'))) {
+          context.year = prev.year();
+          context.month = prev.month();
+          context.number = null;
+          return update.call(this, context);
+        }
+
+        if ($(event.target).hasClass(this.prop('next'))) {
+          context.year = next.year();
+          context.month = next.month();
+          context.number = null;
+          return update.call(this, context);
+        }
+
+        if ($(event.target).hasClass(this.prop('today'))) {
           context.year = moment().year();
           context.month = moment().month();
           context.number = null;
-          update.call(this, context);
-        }
-        else {
-          $layer.length && context.type === type
-            ? $layer.remove()
-            : $caption.append(getLayer.call(this, context, type));
+          return update.call(this, context);
         }
 
-        context.type = type;
+        $layer.remove();
+
+        if ($(event.target).hasClass(this.prop('year'))) {
+          $caption.append(getLayer.call(this, context, this.prop('year')));
+        }
+
+        if ($(event.target).hasClass(this.prop('month'))) {
+          $caption.append(getLayer.call(this, context, this.prop('month')));
+        }
       }.bind(this));
 
       return $caption;
@@ -432,8 +419,8 @@ window[namespace] = window[namespace] || {};
     function update(context){
       context.data = getData.call(this, context);
 
-      $(`${this.class('caption')} button`, context.table).eq(0).text(`${context.year}년`);
-      $(`${this.class('caption')} button`, context.table).eq(1).text(`${context.month + 1}월`);
+      $(this.class('year'), context.table).text(`${context.year}년`);
+      $(this.class('month'), context.table).text(`${context.month + 1}월`);
       $(this.class('body'), context.table).replaceWith(getBody.call(this, context));
 
       context.on.update && context.on.update.call(this, context);
@@ -448,20 +435,13 @@ window[namespace] = window[namespace] || {};
     }
 
     component.create = function(options){
-      try {
-        if (!moment) return;
+      var options = $.extend({
+        year: moment().year(),
+        month: moment().month(),
+        on: {}
+      }, options);
 
-        var options = $.extend({
-          year: moment().year(),
-          month: moment().month(),
-          on: {}
-        }, options);
-
-        return new creator(this, options);
-      }
-      catch(error){
-        console.error(`${namespace} ERROR: ${namespace}.calendar is required moment.`);
-      }
+      return new creator(this, options);
     };
 
     component.bind = function(options){
