@@ -275,8 +275,8 @@ window[namespace] = window[namespace] || {};
       }
 
       if (isYear) {
-        $layer.prepend($('<button>', { class: this.prop('prev'), data: { type: 'prev' } }));
-        $layer.append($('<button>', { class: this.prop('next'), data: { type: 'next' } }));
+        $layer.prepend($('<button>', { class: this.prop('prev') }));
+        $layer.append($('<button>', { class: this.prop('next') }));
       }
 
       $('button', $layer).on('click', function(event){
@@ -393,6 +393,7 @@ window[namespace] = window[namespace] || {};
         if (data[0].date) {
           $button = $('<button>', { type: 'button', class: this.prop('button'), text: data[0].date });
           $button.data({ date: moment([data[0].year, data[0].month, data[0].date]).format('YYYY.MM.DD'), week: data[0].week });
+          data[0].month !== context.month && $button.attr('disabled', true);
           context.on.select && $button.on('click', context.on.select.bind(this, context));
           $col.append($button);
         }
