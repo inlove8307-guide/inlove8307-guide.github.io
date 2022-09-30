@@ -807,9 +807,10 @@ window[namespace] = window[namespace] || {};
 
       if (!options.cancel) $(this.class('cancel'), this.class('selector')).remove();
 
+      clearTimeout(timeout);
+
       timeout = setTimeout(function(){
         global.modal.show(options);
-        clearTimeout(timeout);
       }, 10);
 
       if (options.on) {
@@ -939,9 +940,10 @@ window[namespace] = window[namespace] || {};
       !options.cancel && $(this.class('cancel'), this.class('selector')).remove();
       !options.confirm && $(this.class('confirm'), this.class('selector')).remove();
 
+      clearTimeout(timeout);
+
       timeout = setTimeout(function(){
         global.modal.show(options);
-        clearTimeout(timeout);
       }, 10);
 
       if (options.on) {
@@ -1082,15 +1084,16 @@ window[namespace] = window[namespace] || {};
       selector: '_popover',
       content: '_popover-content',
       message: '_popover-message',
-      ground:  '_popover-ground',
       top: '_top',
       right: '_right',
       bottom: '_bottom',
       left: '_left',
       active: '_active',
-      styled: '_styled',
       duration: '250ms',
-      easing: 'cubic-bezier(.86, 0, .07, 1)'
+      easing: 'cubic-bezier(.86, 0, .07, 1)',
+      direction: 'top',
+      space: 8,
+      padding: 32
     });
 
     function init(){
@@ -1102,72 +1105,102 @@ window[namespace] = window[namespace] || {};
       return `
         ${this.class('selector')} ${this.class('content')} {
           transition: opacity ${this.prop('duration')} ${this.prop('easing')};
-        }
-        ${this.class('selector')} ${this.class('content')}::before {
-          transition: opacity ${this.prop('duration')} ${this.prop('easing')};
         }`;
     }
 
-    function css($selector){
-      var $content = this.nearest($selector, this.class('content'))
-        , $message = this.nearest($selector, this.class('message'))
-        , $ground = $selector.closest(this.class('ground'))
-        , direction = function(){
-          if ($content.hasClass(this.prop('top'))) return this.prop('top');
-          if ($content.hasClass(this.prop('bottom'))) return this.prop('bottom');
-          if ($content.hasClass(this.prop('left'))) return this.prop('left');
-          if ($content.hasClass(this.prop('right'))) return this.prop('right');
+    function html(options){
+      var html = `
+        <span class="popover-content _popover-content ${this.prop(options.direction)}">
+          <span class="popover-message _popover-message">${options.message}</span>
+        </span>`;
+
+      return css.call(this, options, html);
+    }
+
+    function css(options, markup){
+      var $html = $(markup)
+        , $target = $(options.selector)
+        , width = function(){
+          var deviceWidth = $(window).width();
+
+          switch(options.direction){
+            case 'top':
+            case 'bottom': return deviceWidth - options.padding * 2;
+            case 'left': return deviceWidth - options.padding - options.space - (deviceWidth - $target.offset().left);
+            case 'right': return deviceWidth - options.padding - options.space - $target.offset().left - $target.outerWidth();
+          }
+        }()
+        , left = function(){
+          switch(options.direction){
+            case 'top':
+            case 'bottom': return - ($target.offset().left + $target.outerWidth() / 2) + (width / 2) + options.padding;
+            case 'left':
+            case 'right': return 0;
+          }
+        }()
+        , translate = function(){
+          switch(options.direction){
+            case 'top': return `translateY(calc(-100% - ${this.prop('space')}px))`;
+            case 'bottom': return `translateY(calc(100% + ${this.prop('space')}px))`;
+            case 'left': return `translateX(calc(-100% - ${this.prop('space')}px))`;
+            case 'right': return `translateX(calc(100% + ${this.prop('space')}px))`;
+          }
         }.call(this);
 
-      if ($selector.hasClass(this.prop('styled'))) return;
+      $html.css({ transform: translate });
+      $(this.class('message'), $html).css({ width: width, left: left });
 
-      $message.css('width', function(){
-        switch(direction){
-          case this.prop('top'):
-          case this.prop('bottom'): return $ground.width();
-          case this.prop('left'): return $ground.width() - ($ground.width() - $message.offset().left) - $ground.offset().left;
-          case this.prop('right'): return $ground.width() - $message.offset().left + $ground.offset().left;
-        }
-      }.call(this));
-
-      $message.css('left', function(){
-        switch(direction){
-          case this.prop('top'):
-          case this.prop('bottom'):
-          case this.prop('left'): return - $message.offset().left + $ground.offset().left;
-          case this.prop('right'): return 0;
-        }
-      }.call(this));
-
-      $selector.addClass(this.prop('styled'));
+      return $html;
     }
 
-    function handlerEnd(event){}
+    function handlerEnd(event){
+      if (!$(event.target).hasClass(this.prop('active'))) {
+        $(event.target).closest(this.class('selector')).removeClass(this.prop('selector'));
+        $(event.target).remove();
 
-    function handlerButton(event){
-      var $selector = $(event.target).closest(this.class('selector'))
-        , $content = this.nearest($selector, this.class('content'));
-
-      css.call(this, $selector);
-
-      if ($content.hasClass(this.prop('active'))) {
-        $content.removeClass(this.prop('active'));
         this.prop('on').hide && this.prop('on').hide();
       }
-      else {
-        $content.addClass(this.prop('active'));
-        this.prop('on').show && this.prop('on').show();
-      }
     }
+
+    component.show = function(options){
+      var options = $.extend({
+          selector: null,
+          message: 'message',
+          direction: this.prop('direction'),
+          padding: this.prop('padding'),
+          space: this.prop('space')
+        }, options)
+        , timeout;
+
+      if (!options.selector) return;
+
+      if ($(this.class('content'), options.selector).length) return this.hide();
+
+      $(this.class('selector')).removeClass(this.prop('selector'));
+      $(this.class('content')).remove();
+
+      $(options.selector).addClass(this.prop('selector'));
+      $(options.selector).append(html.call(this, options));
+
+      clearTimeout(timeout);
+
+      timeout = setTimeout(function(){
+        $(this.class('content')).addClass(this.prop('active'));
+      }.bind(this), 10);
+
+      this.prop('on').show && this.prop('on').show();
+    };
+
+    component.hide = function(){
+      $(this.class('content')).removeClass(this.prop('active'));
+    };
 
     component.bind = function(options){
       $(this.prop('container')).off('TransitionEnd webkitTransitionEnd', `${this.class('selector')} ${this.class('content')}`);
-      $(this.prop('container')).off('click', `${this.class('selector')}`);
 
       $.extend(this.options, options);
 
       $(this.prop('container')).on('TransitionEnd webkitTransitionEnd', `${this.class('selector')} ${this.class('content')}`, handlerEnd.bind(this));
-      $(this.prop('container')).on('click', `${this.class('selector')}`, handlerButton.bind(this));
 
       init.call(this);
     };
@@ -1681,9 +1714,10 @@ window[namespace] = window[namespace] || {};
 
       $selector.append($clone);
 
+      clearTimeout(timeout);
+
       timeout = setTimeout(function(){
         $clone.filter(this.class('value')).css('strokeDashoffset', `${dasharray - value / 360 * dasharray}`);
-        clearTimeout(timeout);
       }.bind(this), options.delay);
     };
 
@@ -1821,11 +1855,12 @@ window[namespace] = window[namespace] || {};
 
       if (isNaN(value)) return console.error(`${namespace}.progress.update({ selector: [required], value: [required] })`);
 
+      clearTimeout(timeout);
+
       timeout = setTimeout(function(){
         $(this.class('value'), $selector).css('left', `-${100 - value}%`);
         $(this.class('text'), $selector).css('left', `${value}%`);
         $(this.class('text'), $selector).text(options.text);
-        clearTimeout(timeout);
         handlerStart.call(this, $selector);
       }.bind(this), options.delay);
     };

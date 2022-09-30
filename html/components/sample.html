@@ -2450,53 +2450,33 @@
             <!-- [S] VIEW -->
             <div class="guide-viewer__view">
 
-              <div class="button-group _popover-ground">
-                <button type="button" class="button _popover">
+              <div class="button-group">
+                <button type="button" class="button" onclick="UI.popover.show({ selector: this, message: 'message', direction: 'right' })">
                   <span class="button-label">right</span>
-                  <span class="popover-content _popover-content _right">
-                    <span class="popover-message _popover-message">
-                      <span>message message message message message</span>
-                    </span>
-                  </span>
                 </button>
               </div>
 
               <hr class="linear dashed space-sm both">
 
-              <div class="button-group right _popover-ground">
-                <button type="button" class="button _popover">
+              <div class="button-group right">
+                <button type="button" class="button" onclick="UI.popover.show({ selector: this, message: 'message', direction: 'left' })">
                   <span class="button-label">left</span>
-                  <span class="popover-content _popover-content _left">
-                    <span class="popover-message _popover-message">
-                      <span>message message message message message</span>
-                    </span>
-                  </span>
                 </button>
               </div>
 
               <hr class="linear dashed space-sm both">
 
-              <div class="button-group _popover-ground">
-                <button type="button" class="button _popover">
+              <div class="button-groupd">
+                <button type="button" class="button" onclick="UI.popover.show({ selector: this, message: 'message', direction: 'top' })">
                   <span class="button-label">top</span>
-                  <span class="popover-content _popover-content _top">
-                    <span class="popover-message _popover-message">
-                      <span>message message message message message</span>
-                    </span>
-                  </span>
                 </button>
               </div>
 
               <hr class="linear dashed space-sm both">
 
-              <div class="button-group right _popover-ground">
-                <button type="button" class="button _popover">
+              <div class="button-group right">
+                <button type="button" class="button" onclick="UI.popover.show({ selector: this, message: 'message', direction: 'bottom' })">
                   <span class="button-label">bottom</span>
-                  <span class="popover-content _popover-content _bottom">
-                    <span class="popover-message _popover-message">
-                      <span>message message message message message</span>
-                    </span>
-                  </span>
                 </button>
               </div>
 

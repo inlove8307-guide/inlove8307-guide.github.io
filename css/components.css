@@ -505,16 +505,14 @@ dl.table dd {flex-grow: 1; flex-shrink: 0; flex-basis: 25%; padding: 8px; border
 
 /* POPOVER */
 .popover-content {display: flex; position: absolute; z-index: 1; pointer-events: none;}
-.popover-message {overflow: hidden; position: absolute; width: 0; border-radius: 5px; background-color: var(--dark0); box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.25); text-align: left; line-height: 1.25; color: var(--light0); word-break: keep-all;}
-.popover-message > * {display: block; padding: 8px 10px;}
+.popover-message {overflow: hidden; position: absolute; padding: 8px 10px; width: 0; border-radius: 5px; background-color: var(--dark0); box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.25); text-align: left; line-height: 1.25; color: var(--light0); word-wrap: break-word;}
 /* POPOVER - SCRIPT */
 ._popover {overflow: initial; position: relative;}
-._popover-content,
-._popover-content::before {opacity: 0;}
-._popover-content._top {top: 0; left: 50%; transform: translateY(calc(-100% - 8px));}
-._popover-content._bottom {bottom: 0; left: 50%; transform: translateY(calc(100% + 8px));}
-._popover-content._left {left: 0; top: 50%; transform: translateX(calc(-100% - 8px));}
-._popover-content._right {right: 0; top: 50%; transform: translateX(calc(100% + 8px));}
+._popover-content {opacity: 0;}
+._popover-content._top {top: 0; left: 50%;}
+._popover-content._bottom {bottom: 0; left: 50%;}
+._popover-content._left {left: 0; top: 50%;}
+._popover-content._right {right: 0; top: 50%;}
 ._popover-content._top::before {content: ''; position: absolute; bottom: 0; left: 50%; border-top: 4px solid var(--dark0); border-left: 3px solid transparent; border-right: 3px solid transparent; transform: translate(-50%, 100%);}
 ._popover-content._bottom::before {content: ''; position: absolute; top: 0; left: 50%; border-bottom: 4px solid var(--dark0); border-left: 3px solid transparent; border-right: 3px solid transparent; transform: translate(-50%, -100%);}
 ._popover-content._left::before {content: ''; position: absolute; top: 50%; right: 0; border-left: 4px solid var(--dark0); border-top: 3px solid transparent; border-bottom: 3px solid transparent; transform: translate(100%, -50%);}
@@ -523,8 +521,7 @@ dl.table dd {flex-grow: 1; flex-shrink: 0; flex-basis: 25%; padding: 8px; border
 ._popover-content._bottom ._popover-message {transform: translate(-50%, 0);}
 ._popover-content._left ._popover-message {transform: translate(-100%, -50%);}
 ._popover-content._right ._popover-message {transform: translate(0, -50%);}
-._popover-content._active,
-._popover-content._active::before {opacity: 1;}
+._popover-content._active {opacity: 1;}
 
 /* LOCK */
 html._lockup,
