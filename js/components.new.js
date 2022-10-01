@@ -1939,6 +1939,155 @@ window[namespace] = window[namespace] || {};
   }();
 }(window[namespace]));
 
+/* PDF */
+(function (global) {
+  'use strict';
+
+  global.pdf = function(){
+    var component = new global.component({
+      container: 'body',
+      selector: '_pdf',
+      swiper: '_pdf-swiper',
+      list: '_pdf-list',
+      item: '_pdf-item',
+      prev: '_pdf-prev',
+      next: '_pdf-next',
+      iframe: '_pdf-iframe',
+      confirm: '_pdf-confirm',
+      cancel: '_pdf-cancel'
+    });
+
+    function init(){
+      this.prop('on').init && this.prop('on').init($(this.class('selector')));
+    }
+
+    function html(options){
+      if (!options && !options.url && !Array.isArray(options.url)) return;
+
+      return `
+        <div class="modal _modal ${this.prop('selector')}" data-name="${options.name}">
+          <div class="modal-content _modal-content _full">
+            <div class="modal-header">
+              <div class="modal-button left">
+                <button type="button" class="button icon w24">
+                  <span class="button-icon icon-013"></span>
+                </button>
+              </div>
+              <p class="modal-title center">${options.title}</p>
+              <div class="modal-button right">
+                <button type="button" class="button icon w24 _modal-close">
+                  <span class="button-icon icon-014"></span>
+                </button>
+              </div>
+            </div>
+            <div class="modal-main">
+              <div class="swiper-container ${this.prop('swiper')}">
+                <div class="swiper-wrapper ${this.prop('list')}">
+                  ${global.isIOS ? '' : slides.call(this, options)}
+                </div>
+                <button type="button" class="${this.prop('prev')}"></button>
+                <button type="button" class="${this.prop('next')}"></button>
+              </div>
+            </div>
+          </div>
+        </div>`;
+    }
+
+    function slides(options){
+      var path = '/lib/pdfjs/web/viewer.html?file='
+        , result = '';
+
+      $.each(options.url, function (index, url) {
+        result +=
+          `<div class="swiper-slide ${this.prop('item')}">
+            <iframe src="${path + url}" class="${this.prop('iframe')}" title="webviewer" width="100%" frameborder="0"></iframe>
+          </div >`;
+      }.bind(this));
+
+      return result;
+    }
+
+    function swiper(selector){
+      new Swiper(`${selector} ${this.class('swiper')}`, {
+        navigation: {
+          prevEl: `${selector} ${this.class('swiper')} ${this.class('prev')}`,
+          nextEl: `${selector} ${this.class('swiper')} ${this.class('next')}`
+        }
+      });
+    }
+
+    function handlerClick(event){
+      var $target = $(event.target);
+
+      $target.hasClass(this.prop('cancel')) && this.prop('on').cancel && this.prop('on').cancel();
+      $target.hasClass(this.prop('confirm')) && this.prop('on').confirm && this.prop('on').confirm();
+
+      this.hide();
+    }
+
+    component.import = function(options){
+      var options = $.extend({
+          title: 'title',
+          name: null,
+          url: []
+        }, options)
+        , selector = `${this.class('selector')}[data-name=${options.name}]`;
+
+      if (!options.name) return;
+
+      $(selector).length && $(selector).remove();
+      $(this.prop('container')).append(html.call(this, options));
+      $(selector).data('url', options.url);
+      !global.isIOS && swiper.call(this, selector);
+    }
+
+    component.show = function(options){
+      var options = $.extend({ target: null, name: null }, options),
+        selector = `${this.class('selector')}[data-name=${options.name}]`;
+
+      if (!options.name || !$(selector).length) return;
+
+      if (global.isIOS && !$(selector).data('import')) {
+        $(this.class('list'), selector).append(slides.call(this, { url: $(selector).data('url') }));
+        $(selector).data('import', true);
+        swiper.call(this, selector);
+      }
+
+      clearTimeout(this.timeout);
+
+      this.timeout = setTimeout(function(){
+        options.target = selector;
+        global.modal.show(options);
+      }, 10);
+
+      this.prop('on').show && this.prop('on').show();
+      this.change.observe(this);
+    };
+
+    component.hide = function(){
+      global.modal.hide(function($selector){
+        $selector.remove();
+      });
+
+      this.prop('on').hide && this.prop('on').hide();
+    };
+
+    component.bind = function(options){
+      $(this.prop('container')).off('click', `${this.class('selector')} ${this.class('cancel')}`);
+      $(this.prop('container')).off('click', `${this.class('selector')} ${this.class('confirm')}`);
+
+      $.extend(this.options, options);
+
+      $(this.prop('container')).on('click', `${this.class('selector')} ${this.class('cancel')}`, handlerClick.bind(this));
+      $(this.prop('container')).on('click', `${this.class('selector')} ${this.class('confirm')}`, handlerClick.bind(this));
+
+      init.call(this);
+    };
+
+    return component;
+  }();
+}(window[namespace]));
+
 /* INITIAL */
 $(function(global){
   global.init = function(){
@@ -1947,11 +2096,12 @@ $(function(global){
     this.tabs.bind();
     this.modal.bind();
     this.alert.bind();
-    this.datepicker.bind();
     this.select.bind();
+    this.datepicker.bind();
+    this.pdf.bind();
     this.popover.bind();
-    this.dropdown.bind();
     this.toast.bind();
+    this.dropdown.bind();
     this.input.bind();
     this.formatter.bind();
     this.checkbox.bind();

@@ -7,21 +7,29 @@
   <!-- <link rel="icon" href="favicon.png"> -->
   <title>UI GUIDE</title>
 
-  <!-- STYLE -->
+  <!-- [S] PUBLISH STYLE -->
   <link rel="stylesheet" href="../../css/style.new.css">
+  <!-- [E] PUBLISH STYLE -->
 
-  <!-- LIBRARY -->
+  <!-- [S] LIBRARY - STYLE -->
+  <link rel="stylesheet" href="../../lib/swiper.js/swiper-bundle.min.css">
+  <!-- [E] LIBRARY - STYLE -->
+
+  <!-- [S] LIBRARY - SCRIPT -->
   <script src="../../lib/jquery/jquery-3.5.1.min.js"></script>
   <script src="../../lib/jquery/jquery-ui-1.12.1.min.js"></script>
   <script src="../../lib/ua-parser-js/dist/ua-parser.min.js"></script>
   <script src="../../lib/cleave.js/cleave.min.js"></script>
   <script src="../../lib/moment/moment.min.js"></script>
+  <script src="../../lib/swiper.js/swiper-bundle.min.js"></script>
   <script src="../../lib/perfect-scrollbar/perfect-scrollbar.min.js"></script>
+  <!-- [E] LIBRARY - SCRIPT -->
 
-  <!-- SYNTAX HIGHLIGHTER -->
+  <!-- [S] GUIDE - SYNTAX HIGHLIGHTER -->
   <script src="../../lib/prism/prism.js"></script>
+  <!-- [E] GUIDE - SYNTAX HIGHLIGHTER -->
 
-  <!-- GUIDE STYLE -->
+  <!-- [S] GUIDE STYLE -->
   <style>
     .guide-container {display: initial; flex-flow: initial; position: initial; height: initial;}
     .guide-main {overflow-y: initial; display: initial; flex: initial;}
@@ -33,6 +41,7 @@
     .guide-viewer__tab .guide-tab__button--active {background-color: transparent; box-shadow: none;}
     .guide-viewer__tab .guide-tab__button--active::after {content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 3px; background-color: rgb(102, 102, 102);}
   </style>
+  <!-- [E] GUIDE STYLE -->
 </head>
 <body>
   <div class="guide-container">
@@ -2348,57 +2357,23 @@
             <div class="guide-viewer__view">
 
               <div class="button-group wrap">
-                <button type="button" class="button" onclick="UI.modal.show({target: '#MODAL_PDFJS'})">
+                <button type="button" class="button" onclick="UI.pdf.show({ name: 'PDF1' })">
                   <span class="button-label">PDF.JS</span>
                   <span class="button-icon icon-010"></span>
                 </button>
-                <button type="button" class="button" onclick="UI.modal.show({target: '#MODAL_GOOGLE_DOCS'})">
-                  <span class="button-label">GOOGLE DOCS</span>
-                  <span class="button-icon icon-010"></span>
-                </button>
               </div>
 
-              <div id="MODAL_PDFJS" class="modal _modal">
-                <div class="modal-content _modal-content _full">
-                  <div class="modal-header">
-                    <div class="modal-button left">
-                      <button type="button" class="button icon w24">
-                        <span class="button-icon icon-013"></span>
-                      </button>
-                    </div>
-                    <p class="modal-title center">PDF.JS</p>
-                    <div class="modal-button right">
-                      <button type="button" class="button icon w24 _modal-close">
-                        <span class="button-icon icon-014"></span>
-                      </button>
-                    </div>
-                  </div>
-                  <div class="modal-main">
-                    <!-- <iframe src="/lib/pdfjs/web/viewer.html?file=/docs/basicTermsAndConditions.pdf" frameborder="0" style="width: 100%; height: 100%;"></iframe> -->
-                  </div>
-                </div>
-              </div>
+              <script>
+                $(function(){
+                  UI.pdf.import({
+                    title: 'PDF',
+                    name: 'PDF1',
+                    url: ['/docs/AMGVC1E006.pdf', '/docs/CFGVC1E003.pdf', '/docs/TMGVC0R001.pdf', '/docs/TMGVC0R006.pdf']
+                  });
+                });
+              </script>
 
-              <div id="MODAL_GOOGLE_DOCS" class="modal _modal">
-                <div class="modal-content _modal-content _full">
-                  <div class="modal-header">
-                    <div class="modal-button left">
-                      <button type="button" class="button icon w24">
-                        <span class="button-icon icon-013"></span>
-                      </button>
-                    </div>
-                    <p class="modal-title center">GOOGLE DOCS</p>
-                    <div class="modal-button right">
-                      <button type="button" class="button icon w24 _modal-close">
-                        <span class="button-icon icon-014"></span>
-                      </button>
-                    </div>
-                  </div>
-                  <div class="modal-main">
-                    <!-- <iframe src="https://docs.google.com/viewer?embedded=true&url=https://inlove8307-guide.github.io/docs/basicTermsAndConditions.pdf" frameborder="0" style="width: 100%; height: 100%;"></iframe> -->
-                  </div>
-                </div>
-              </div>
+              <!-- <iframe src="https://docs.google.com/viewer?embedded=true&url=https://inlove8307-guide.github.io/docs/basicTermsAndConditions.pdf" frameborder="0" style="width: 100%; height: 100%;"></iframe> -->
 
             </div>
             <!-- [E] VIEW -->
@@ -2793,8 +2768,10 @@
     </main>
   </div>
 
+  <!-- [S] PUBLISH SCRIPT -->
   <script src="../../js/guide.js"></script>
   <script src="../../js/global.js"></script>
   <script src="../../js/components.new.js"></script>
+  <!-- [E] PUBLISH SCRIPT -->
 </body>
 </html>
