@@ -144,7 +144,7 @@ a {text-decoration: none;}
 table {width: 100%; border-spacing: 0; border-collapse: collapse;}
 caption {overflow: hidden; height: 0;}
 legend {overflow: hidden; height: 0;}
-button {overflow: hidden; background-color: transparent; cursor: pointer; color: rgb(0, 0, 0);}
+button {overflow: hidden; background-color: transparent; font-family: inherit; font-weight: inherit; font-size: inherit; line-height: inherit; cursor: pointer; color: rgb(0, 0, 0);}
 button::-moz-focus-inner {border: 0px; padding: 0px;}
 select {appearance: none; -webkit-appearance: none; -moz-appearance: none; -o-appearance: none;}
 select::-ms-expand {display: none;}
