@@ -517,7 +517,7 @@ dl.table dd {flex-grow: 1; flex-shrink: 0; flex-basis: 25%; padding: 8px; border
 
 /* POPOVER */
 .popover-content {display: flex; position: absolute; z-index: 1; pointer-events: none;}
-.popover-message {overflow: hidden; position: absolute; padding: 8px; width: 0; border-radius: 8px; background-color: rgba(0, 0, 0, 0.75); text-align: left; line-height: 1.25; color: var(--light0); word-wrap: break-word; backdrop-filter: blur(5px);}
+.popover-message {overflow: hidden; position: absolute; padding: 8px; width: 0; border-radius: 8px; background-color: rgba(0, 0, 0, 0.75); text-align: left; line-height: 1.25; color: var(--light0); word-wrap: break-word; backdrop-filter: blur(5px); -webkit-backdrop-filter: blur(5px);}
 /* POPOVER - SCRIPT */
 ._popover {overflow: initial; position: relative;}
 ._popover-content {opacity: 0;}
@@ -537,7 +537,7 @@ dl.table dd {flex-grow: 1; flex-shrink: 0; flex-basis: 25%; padding: 8px; border
 
 /* TOAST */
 ._toast {position: fixed; bottom: 0; left: 0; padding: 16px; width: 100%; opacity: 0;}
-._toast-message {display: block; padding: 8px; border-radius: 8px; background-color: rgba(0, 0, 0, 0.75); color: rgb(255, 255, 255); backdrop-filter: blur(5px);}
+._toast-message {display: block; padding: 8px; border-radius: 8px; background-color: rgba(0, 0, 0, 0.75); color: rgb(255, 255, 255); backdrop-filter: blur(5px); -webkit-backdrop-filter: blur(5px);}
 ._toast._active {opacity: 1;}
 
 /* CALENDAR */
