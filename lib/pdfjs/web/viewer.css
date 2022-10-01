@@ -1539,12 +1539,12 @@ select {
   transform: translateX(-50%);
 }
 
-[dir="ltr"] #toolbarViewerLeft,[dir="ltr"] 
+[dir="ltr"] #toolbarViewerLeft,[dir="ltr"]
 #toolbarSidebarLeft {
   float: left;
 }
 
-[dir="rtl"] #toolbarViewerLeft,[dir="rtl"] 
+[dir="rtl"] #toolbarViewerLeft,[dir="rtl"]
 #toolbarSidebarLeft {
   float: right;
 }
@@ -1553,11 +1553,11 @@ select {
 #toolbarSidebarLeft {
   float: inline-start;
 }
-[dir="ltr"] #toolbarViewerRight,[dir="ltr"] 
+[dir="ltr"] #toolbarViewerRight,[dir="ltr"]
 #toolbarSidebarRight {
   float: right;
 }
-[dir="rtl"] #toolbarViewerRight,[dir="rtl"] 
+[dir="rtl"] #toolbarViewerRight,[dir="rtl"]
 #toolbarSidebarRight {
   float: left;
 }
@@ -1566,20 +1566,20 @@ select {
   float: inline-end;
 }
 
-[dir="ltr"] #toolbarViewerLeft > *,[dir="ltr"] 
-#toolbarViewerMiddle > *,[dir="ltr"] 
-#toolbarViewerRight > *,[dir="ltr"] 
-#toolbarSidebarLeft *,[dir="ltr"] 
-#toolbarSidebarRight *,[dir="ltr"] 
+[dir="ltr"] #toolbarViewerLeft > *,[dir="ltr"]
+#toolbarViewerMiddle > *,[dir="ltr"]
+#toolbarViewerRight > *,[dir="ltr"]
+#toolbarSidebarLeft *,[dir="ltr"]
+#toolbarSidebarRight *,[dir="ltr"]
 .findbar * {
   float: left;
 }
 
-[dir="rtl"] #toolbarViewerLeft > *,[dir="rtl"] 
-#toolbarViewerMiddle > *,[dir="rtl"] 
-#toolbarViewerRight > *,[dir="rtl"] 
-#toolbarSidebarLeft *,[dir="rtl"] 
-#toolbarSidebarRight *,[dir="rtl"] 
+[dir="rtl"] #toolbarViewerLeft > *,[dir="rtl"]
+#toolbarViewerMiddle > *,[dir="rtl"]
+#toolbarViewerRight > *,[dir="rtl"]
+#toolbarSidebarLeft *,[dir="rtl"]
+#toolbarSidebarRight *,[dir="rtl"]
 .findbar * {
   float: right;
 }
@@ -2288,12 +2288,12 @@ a:focus > .thumbnail > .thumbnailSelectionRing,
   color: rgba(255, 255, 255, 1);
 }
 
-[dir="ltr"] .treeWithDeepNesting > .treeItem,[dir="ltr"] 
+[dir="ltr"] .treeWithDeepNesting > .treeItem,[dir="ltr"]
 .treeItem > .treeItems {
   margin-left: 20px;
 }
 
-[dir="rtl"] .treeWithDeepNesting > .treeItem,[dir="rtl"] 
+[dir="rtl"] .treeWithDeepNesting > .treeItem,[dir="rtl"]
 .treeItem > .treeItems {
   margin-right: 20px;
 }
@@ -2683,3 +2683,10 @@ dialog :link {
     display: none;
   }
 }
+
+/* [S] MODIFIED */
+#sidebarContainer {display: none;}
+#toolbarContainer {display: none;}
+#viewerContainer {top: 0;}
+#dialogContainer {display: none;}
+/* [E] MODIFIED */

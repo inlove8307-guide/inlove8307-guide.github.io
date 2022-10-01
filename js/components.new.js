@@ -2008,12 +2008,17 @@ window[namespace] = window[namespace] || {};
     }
 
     function swiper(selector){
-      new Swiper(`${selector} ${this.class('swiper')}`, {
+      var swiper = new Swiper(`${selector} ${this.class('swiper')}`, {
         navigation: {
           prevEl: `${selector} ${this.class('swiper')} ${this.class('prev')}`,
           nextEl: `${selector} ${this.class('swiper')} ${this.class('next')}`
         }
       });
+
+      if (swiper.slides.length <= 1) {
+        $(`${selector} ${this.class('swiper')} ${this.class('prev')}`).hide();
+        $(`${selector} ${this.class('swiper')} ${this.class('next')}`).hide();
+      }
     }
 
     function handlerClick(event){
