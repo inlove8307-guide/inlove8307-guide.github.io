@@ -1095,8 +1095,8 @@ window[namespace] = window[namespace] || {};
 
     function html(options){
       var html = `
-        <span class="popover-content _popover-content ${this.prop(options.direction)}">
-          <span class="popover-message _popover-message">${options.message}</span>
+        <span class="popover-content ${this.prop('content')} ${this.prop(options.direction)}">
+          <span class="popover-message ${this.prop('message')}">${options.message}</span>
         </span>`;
 
       return css.call(this, options, html);
@@ -1319,6 +1319,81 @@ window[namespace] = window[namespace] || {};
       $(this.prop('container')).on('click', `${this.class('selector')} ${this.class('button')}`, handlerButton.bind(this));
       $(this.prop('container')).on('click', `${this.class('selector')} ${this.class('option')}`, handlerOption.bind(this));
       $(this.prop('container')).on('click', this.class('replace'), handlerReplace.bind(this));
+
+      init.call(this);
+    };
+
+    return component;
+  }();
+}(window[namespace]));
+
+/* TOAST */
+(function(global){
+  'use strict';
+
+  global.toast = function(){
+    var component = new global.component({
+      container: 'body',
+      selector: '_toast',
+      message: '_toast-message',
+      active: '_active',
+      duration: '250ms',
+      easing: 'cubic-bezier(.86, 0, .07, 1)',
+      delay: 3000
+    });
+
+    function init(){
+      this.style(this.prop('container'), style.call(this));
+      this.prop('on').init && this.prop('on').init($(this.class('selector')));
+    }
+
+    function style(){
+      return `
+        ${this.class('selector')} {
+          transition: opacity ${this.prop('duration')} ${this.prop('easing')};
+        }`;
+    }
+
+    function html(options){
+      var html = `
+        <div class="${this.prop('selector')}">
+          <p class="${this.prop('message')}">${options.message}</p>
+        </div>`;
+
+      return html;
+    }
+
+    function handlerEnd(event){
+      if (!$(event.target).hasClass(this.prop('active'))) {
+        $(event.target).remove();
+      }
+    }
+
+    component.show = function(options){
+      var options = $.extend({ message: 'message', delay: this.prop('delay') }, options);
+
+      $(this.class('selector')).remove();
+      $(this.prop('container')).append(html.call(this, options));
+
+      setTimeout(function(){
+        $(this.class('selector')).addClass(this.prop('active'));
+
+        clearTimeout(this.timeout);
+
+        this.timeout = setTimeout(function(){
+          $(this.class('selector')).removeClass(this.prop('active'));
+        }.bind(this), options.delay);
+      }.bind(this), 10);
+
+      this.prop('on').show && this.prop('on').show();
+    };
+
+    component.bind = function(options){
+      $(this.prop('container')).off('TransitionEnd webkitTransitionEnd', this.class('selector'));
+
+      $.extend(this.options, options);
+
+      $(this.prop('container')).on('TransitionEnd webkitTransitionEnd', this.class('selector'), handlerEnd.bind(this));
 
       init.call(this);
     };
@@ -1876,6 +1951,7 @@ $(function(global){
     this.select.bind();
     this.popover.bind();
     this.dropdown.bind();
+    this.toast.bind();
     this.input.bind();
     this.formatter.bind();
     this.checkbox.bind();
