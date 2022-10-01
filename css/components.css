@@ -573,6 +573,21 @@ dl.table dd {flex-grow: 1; flex-shrink: 0; flex-basis: 25%; padding: 8px; border
 ._pdf-next::after {left: calc(50% + 1px); border-left: 8px solid rgb(0, 0, 0, 0.5);}
 ._pdf-iframe {height: 100%;}
 
+/* GRAPH */
+._graph {display: none;}
+._graph._active {display: initial;}
+._graph circle {stroke-linecap: round; fill: transparent; transform-origin: 50% 50%;}
+._graph ._graph-line {stroke-linecap: butt; opacity: 0.75;}
+
+/* PROGRESS */
+._progress {position: relative;}
+._progress-base {overflow: hidden; position: relative; width: 100%; background-color: rgb(240, 240, 240);}
+._progress-value {position: absolute; top: 0; left: -100%; width: 100%; background: linear-gradient(90deg, rgb(238, 205, 163), rgb(239, 98, 159));}
+._progress-text {position: absolute; top: 0; left: 0; padding: 5px; border-radius: 4px 4px 4px 0px; background-color: rgb(239, 98, 159); color: rgb(255, 255, 255); transform: translate(0, calc(-100% - 10px));}
+._progress-text::after {content: ''; position: absolute; bottom: 0; left: 0; width: 0; height: 0; border-top: 5px solid rgb(239, 98, 159); border-left: 0px solid transparent; border-right: 5px solid transparent; transform: translate(0, 100%);}
+._progress-text._revert {border-radius: 4px 4px 0px 4px; transform: translate(-100%, calc(-100% - 10px));}
+._progress-text._revert::after {left: initial; right: 0; border-left-width: 5px; border-right-width: 0px;}
+
 /* LOCK */
 html._lockup,
 html._lockup body {overflow: hidden;}

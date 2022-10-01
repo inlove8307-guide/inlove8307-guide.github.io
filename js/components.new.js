@@ -1,8 +1,19 @@
+/*
+  [REQUIRED LIBRARY]
+  - jquery (https://jquery.com/)
+  - jquery-ui (https://jquery.com/)
+  - ua-parser-js (https://faisalman.github.io/ua-parser-js/)
+  - cleave.js (https://nosir.github.io/cleave.js/)
+  - moment.js (https://momentjs.com/)
+  - swiper.js (https://swiperjs.com/)
+  - pdf.js (https://mozilla.github.io/pdf.js/)
+*/
+
 var namespace = 'UI';
 
 window[namespace] = window[namespace] || {};
 
-/* USER AGENT */
+/* [S] USER AGENT : [REQUIRED LIBRARY] ua-parser-js */
 (function(global){
   'use strict';
 
@@ -31,8 +42,9 @@ window[namespace] = window[namespace] || {};
   // console.log('getUA', global.ua.getUA());
   // console.log('setUA', global.ua.setUA());
 }(window[namespace]));
+/* [E] USER AGENT */
 
-/* COMPONENT */
+/* [S] COMPONENT */
 (function(global){
   'use strict';
 
@@ -169,8 +181,9 @@ window[namespace] = window[namespace] || {};
     };
   };
 }(window[namespace]));
+/* [E] COMPONENT */
 
-/* CALENDAR */
+/* [S] CALENDAR : [REQUIRED LIBRARY] moment.js */
 (function(global){
   'use strict';
 
@@ -461,8 +474,9 @@ window[namespace] = window[namespace] || {};
     return component;
   }();
 }(window[namespace]));
+/* [E] CALENDAR */
 
-/* COLLAPSE */
+/* [S] COLLAPSE */
 (function(global){
   'use strict';
 
@@ -558,8 +572,9 @@ window[namespace] = window[namespace] || {};
     return component;
   }();
 }(window[namespace]));
+/* [E] COLLAPSE */
 
-/* TABS */
+/* [S] TABS */
 (function(global){
   'use strict';
 
@@ -633,8 +648,9 @@ window[namespace] = window[namespace] || {};
     return component;
   }();
 }(window[namespace]));
+/* [E] TABS */
 
-/* MODAL */
+/* [S] MODAL */
 (function(global){
   'use strict';
 
@@ -745,8 +761,9 @@ window[namespace] = window[namespace] || {};
     return component;
   }();
 }(window[namespace]));
+/* [E] MODAL */
 
-/* MODAL - ALERT */
+/* [S] MODAL - ALERT */
 (function(global){
   'use strict';
 
@@ -835,8 +852,9 @@ window[namespace] = window[namespace] || {};
     return component;
   }();
 }(window[namespace]));
+/* [E] MODAL - ALERT */
 
-/* MODAL - DATEPICKER */
+/* [S] MODAL - DATEPICKER */
 (function(global){
   'use strict';
 
@@ -967,8 +985,9 @@ window[namespace] = window[namespace] || {};
     return component;
   }();
 }(window[namespace]));
+/* [E] MODAL - DATEPICKER */
 
-/* MODAL - SELECT */
+/* [S] MODAL - SELECT */
 (function(global){
   'use strict';
 
@@ -1058,8 +1077,198 @@ window[namespace] = window[namespace] || {};
     return component;
   }();
 }(window[namespace]));
+/* [E] MODAL - SELECT */
 
-/* POPOVER */
+/* [S] MODAL - PDF : [REQUIRED LIBRARY] pdf.js, swiper.js */
+(function (global) {
+  'use strict';
+
+  global.pdf = function(){
+    var component = new global.component({
+      container: 'body',
+      selector: '_pdf',
+      swiper: '_pdf-swiper',
+      list: '_pdf-list',
+      item: '_pdf-item',
+      prev: '_pdf-prev',
+      next: '_pdf-next',
+      iframe: '_pdf-iframe',
+      confirm: '_pdf-confirm',
+      cancel: '_pdf-cancel'
+    });
+
+    function init(){
+      this.prop('on').init && this.prop('on').init($(this.class('selector')));
+    }
+
+    function html(options){
+      if (!options && !options.url && !Array.isArray(options.url)) return;
+
+      return `
+        <div class="modal _modal ${this.prop('selector')}" data-name="${options.name}">
+          <div class="modal-content _modal-content _full">
+            <div class="modal-header">
+              <div class="modal-button left">
+                <button type="button" class="button icon w24">
+                  <span class="button-icon icon-013"></span>
+                </button>
+              </div>
+              <p class="modal-title center">${options.title}</p>
+              <div class="modal-button right">
+                <button type="button" class="button icon w24 _modal-close">
+                  <span class="button-icon icon-014"></span>
+                </button>
+              </div>
+            </div>
+            <div class="modal-main">
+              <div class="swiper-container ${this.prop('swiper')}">
+                <div class="swiper-wrapper ${this.prop('list')}">
+                  ${global.isIOS ? '' : slides.call(this, options)}
+                </div>
+                <button type="button" class="${this.prop('prev')}"></button>
+                <button type="button" class="${this.prop('next')}"></button>
+              </div>
+            </div>
+          </div>
+        </div>`;
+    }
+
+    function slides(options){
+      var path = '/lib/pdfjs/web/viewer.html?file='
+        , result = '';
+
+      $.each(options.url, function (index, url) {
+        result +=
+          `<div class="swiper-slide ${this.prop('item')}">
+            <iframe src="${path + url}" class="${this.prop('iframe')}" title="webviewer" width="100%" frameborder="0"></iframe>
+          </div >`;
+      }.bind(this));
+
+      return result;
+    }
+
+    function swiper(selector){
+      var swiper = new Swiper(`${selector} ${this.class('swiper')}`, {
+        navigation: {
+          prevEl: `${selector} ${this.class('swiper')} ${this.class('prev')}`,
+          nextEl: `${selector} ${this.class('swiper')} ${this.class('next')}`
+        }
+      });
+
+      if (swiper.slides.length <= 1) {
+        $(`${selector} ${this.class('swiper')} ${this.class('prev')}`).hide();
+        $(`${selector} ${this.class('swiper')} ${this.class('next')}`).hide();
+      }
+    }
+
+    function handlerClick(event){
+      var $target = $(event.target);
+
+      $target.hasClass(this.prop('cancel')) && this.prop('on').cancel && this.prop('on').cancel();
+      $target.hasClass(this.prop('confirm')) && this.prop('on').confirm && this.prop('on').confirm();
+
+      this.hide();
+    }
+
+    component.import = function(options){
+      var options = $.extend({
+          title: 'title',
+          name: null,
+          url: []
+        }, options)
+        , selector = `${this.class('selector')}[data-name=${options.name}]`;
+
+      if (!options.name) return;
+
+      $(selector).length && $(selector).remove();
+      $(this.prop('container')).append(html.call(this, options));
+      $(selector).data('url', options.url);
+      !global.isIOS && swiper.call(this, selector);
+    }
+
+    component.show = function(options){
+      var options = $.extend({ target: null, name: null }, options),
+        selector = `${this.class('selector')}[data-name=${options.name}]`;
+
+      if (!options.name || !$(selector).length) return;
+
+      if (global.isIOS && !$(selector).data('import')) {
+        $(this.class('list'), selector).append(slides.call(this, { url: $(selector).data('url') }));
+        $(selector).data('import', true);
+        swiper.call(this, selector);
+      }
+
+      clearTimeout(this.timeout);
+
+      this.timeout = setTimeout(function(){
+        options.target = selector;
+        global.modal.show(options);
+      }, 10);
+
+      this.prop('on').show && this.prop('on').show();
+      this.change.observe(this);
+    };
+
+    component.hide = function(){
+      global.modal.hide();
+
+      this.prop('on').hide && this.prop('on').hide();
+    };
+
+    component.bind = function(options){
+      $(this.prop('container')).off('click', `${this.class('selector')} ${this.class('cancel')}`);
+      $(this.prop('container')).off('click', `${this.class('selector')} ${this.class('confirm')}`);
+
+      $.extend(this.options, options);
+
+      $(this.prop('container')).on('click', `${this.class('selector')} ${this.class('cancel')}`, handlerClick.bind(this));
+      $(this.prop('container')).on('click', `${this.class('selector')} ${this.class('confirm')}`, handlerClick.bind(this));
+
+      init.call(this);
+    };
+
+    return component;
+  }();
+}(window[namespace]));
+/* [E] MODAL - PDF */
+
+/* [S] LOCK */
+(function(global){
+  'use strict';
+
+  global.lock = function(){
+    var component = new global.component({
+      html: 'html',
+      body: 'body',
+      fixed: 'guide-container',
+      active: '_lockup'
+    });
+
+    component.lockup = function(){
+      this.prop('scroll', $(this.prop('html')).scrollTop());
+      $(this.prop('html')).addClass(this.prop('active'));
+      $(this.class('fixed')).css('margin-top', `-${this.prop('scroll')}px`);
+
+      this.prop('on').lockup && this.prop('on').lockup();
+    };
+
+    component.unlock = function(){
+      $(this.prop('html')).removeClass(this.prop('active'));
+      $(this.prop('html')).scrollTop(this.prop('scroll'));
+
+      this.prop('on').unlock && this.prop('on').unlock();
+    };
+
+    component.bind = function(options){
+      $.extend(this.options, options);
+    };
+
+    return component;
+  }();
+}(window[namespace]));
+/* [E] LOCK */
+
+/* [S] POPOVER */
 (function(global){
   'use strict';
 
@@ -1193,8 +1402,85 @@ window[namespace] = window[namespace] || {};
     return component;
   }();
 }(window[namespace]));
+/* [E] POPOVER */
 
-/* DROPDOWN */
+/* [S] TOAST */
+(function(global){
+  'use strict';
+
+  global.toast = function(){
+    var component = new global.component({
+      container: 'body',
+      selector: '_toast',
+      message: '_toast-message',
+      active: '_active',
+      duration: '250ms',
+      easing: 'cubic-bezier(.86, 0, .07, 1)',
+      delay: 3000
+    });
+
+    function init(){
+      this.style(this.prop('container'), style.call(this));
+      this.prop('on').init && this.prop('on').init($(this.class('selector')));
+    }
+
+    function style(){
+      return `
+        ${this.class('selector')} {
+          transition: opacity ${this.prop('duration')} ${this.prop('easing')};
+        }`;
+    }
+
+    function html(options){
+      var html = `
+        <div class="${this.prop('selector')}">
+          <p class="${this.prop('message')}">${options.message}</p>
+        </div>`;
+
+      return html;
+    }
+
+    function handlerEnd(event){
+      if (!$(event.target).hasClass(this.prop('active'))) {
+        $(event.target).remove();
+      }
+    }
+
+    component.show = function(options){
+      var options = $.extend({ message: 'message', delay: this.prop('delay') }, options);
+
+      $(this.class('selector')).remove();
+      $(this.prop('container')).append(html.call(this, options));
+
+      setTimeout(function(){
+        $(this.class('selector')).addClass(this.prop('active'));
+
+        clearTimeout(this.timeout);
+
+        this.timeout = setTimeout(function(){
+          $(this.class('selector')).removeClass(this.prop('active'));
+        }.bind(this), options.delay);
+      }.bind(this), 10);
+
+      this.prop('on').show && this.prop('on').show();
+    };
+
+    component.bind = function(options){
+      $(this.prop('container')).off('TransitionEnd webkitTransitionEnd', this.class('selector'));
+
+      $.extend(this.options, options);
+
+      $(this.prop('container')).on('TransitionEnd webkitTransitionEnd', this.class('selector'), handlerEnd.bind(this));
+
+      init.call(this);
+    };
+
+    return component;
+  }();
+}(window[namespace]));
+/* [E] TOAST */
+
+/* [S] DROPDOWN */
 (function(global){
   'use strict';
 
@@ -1326,83 +1612,9 @@ window[namespace] = window[namespace] || {};
     return component;
   }();
 }(window[namespace]));
+/* [E] DROPDOWN */
 
-/* TOAST */
-(function(global){
-  'use strict';
-
-  global.toast = function(){
-    var component = new global.component({
-      container: 'body',
-      selector: '_toast',
-      message: '_toast-message',
-      active: '_active',
-      duration: '250ms',
-      easing: 'cubic-bezier(.86, 0, .07, 1)',
-      delay: 3000
-    });
-
-    function init(){
-      this.style(this.prop('container'), style.call(this));
-      this.prop('on').init && this.prop('on').init($(this.class('selector')));
-    }
-
-    function style(){
-      return `
-        ${this.class('selector')} {
-          transition: opacity ${this.prop('duration')} ${this.prop('easing')};
-        }`;
-    }
-
-    function html(options){
-      var html = `
-        <div class="${this.prop('selector')}">
-          <p class="${this.prop('message')}">${options.message}</p>
-        </div>`;
-
-      return html;
-    }
-
-    function handlerEnd(event){
-      if (!$(event.target).hasClass(this.prop('active'))) {
-        $(event.target).remove();
-      }
-    }
-
-    component.show = function(options){
-      var options = $.extend({ message: 'message', delay: this.prop('delay') }, options);
-
-      $(this.class('selector')).remove();
-      $(this.prop('container')).append(html.call(this, options));
-
-      setTimeout(function(){
-        $(this.class('selector')).addClass(this.prop('active'));
-
-        clearTimeout(this.timeout);
-
-        this.timeout = setTimeout(function(){
-          $(this.class('selector')).removeClass(this.prop('active'));
-        }.bind(this), options.delay);
-      }.bind(this), 10);
-
-      this.prop('on').show && this.prop('on').show();
-    };
-
-    component.bind = function(options){
-      $(this.prop('container')).off('TransitionEnd webkitTransitionEnd', this.class('selector'));
-
-      $.extend(this.options, options);
-
-      $(this.prop('container')).on('TransitionEnd webkitTransitionEnd', this.class('selector'), handlerEnd.bind(this));
-
-      init.call(this);
-    };
-
-    return component;
-  }();
-}(window[namespace]));
-
-/* INPUT */
+/* [S] INPUT */
 (function(global){
   'use strict';
 
@@ -1453,8 +1665,9 @@ window[namespace] = window[namespace] || {};
     return component;
   }();
 }(window[namespace]));
+/* [E] INPUT */
 
-/* FORMATTER */
+/* [S] FORMATTER : [REQUIRED LIBRARY] cleave.js */
 (function(global){
   'use strict';
 
@@ -1555,8 +1768,9 @@ window[namespace] = window[namespace] || {};
     return component;
   }();
 }(window[namespace]));
+/* [E] FORMATTER */
 
-/* CHECKBOX */
+/* [S] CHECKBOX */
 (function(global){
   'use strict';
 
@@ -1585,88 +1799,9 @@ window[namespace] = window[namespace] || {};
     return component;
   }();
 }(window[namespace]));
+/* [E] CHECKBOX */
 
-/* SCROLLBAR */
-(function(global){
-  'use strict';
-
-  global.scrollbar = function(){
-    var component = new global.component({
-      container: 'body',
-      selector: '_scrollbar'
-    });
-
-    function init(){
-      create.call(this);
-      this.style(this.prop('container'), style.call(this));
-      this.prop('on').init && this.prop('on').init($(this.class('selector')));
-    }
-
-    function style(){
-      return `
-        ${this.class('selector')} {
-          position: relative;
-        }`;
-    }
-
-    function create(options){
-      if (!PerfectScrollbar) return;
-
-      var options = $.extend({}, options);
-
-      $(this.class('selector')).each(function(index, target){
-        // $(target).data();
-        new PerfectScrollbar(target, options);
-      });
-    }
-
-    component.bind = function(options){
-
-      $.extend(this.options, options);
-
-      init.call(this);
-    };
-
-    return component;
-  }();
-}(window[namespace]));
-
-/* LOCK */
-(function(global){
-  'use strict';
-
-  global.lock = function(){
-    var component = new global.component({
-      html: 'html',
-      body: 'body',
-      fixed: 'guide-container',
-      active: '_lockup'
-    });
-
-    component.lockup = function(){
-      this.prop('scroll', $(this.prop('html')).scrollTop());
-      $(this.prop('html')).addClass(this.prop('active'));
-      $(this.class('fixed')).css('margin-top', `-${this.prop('scroll')}px`);
-
-      this.prop('on').lockup && this.prop('on').lockup();
-    };
-
-    component.unlock = function(){
-      $(this.prop('html')).removeClass(this.prop('active'));
-      $(this.prop('html')).scrollTop(this.prop('scroll'));
-
-      this.prop('on').unlock && this.prop('on').unlock();
-    };
-
-    component.bind = function(options){
-      $.extend(this.options, options);
-    };
-
-    return component;
-  }();
-}(window[namespace]));
-
-/* GRAPH */
+/* [S] GRAPH */
 (function(global){
   'use strict';
 
@@ -1695,23 +1830,8 @@ window[namespace] = window[namespace] || {};
 
     function style(){
       return `
-        ${this.class('selector')} {
-          display: none;
-        }
-        ${this.class('selector')}${this.class('active')} {
-          display: initial;
-        }
-        ${this.class('selector')} circle {
-          stroke-linecap: round;
-          fill: transparent;
-          transform-origin: 50% 50%;
-        }
         ${this.class('selector')} ${this.class('value')} {
           transition: stroke-dashoffset ${this.prop('duration')} ${this.prop('easing')};
-        }
-        ${this.class('selector')} ${this.class('line')} {
-          stroke-linecap: butt;
-          opacity: 0.75;
         }`;
     }
 
@@ -1794,8 +1914,9 @@ window[namespace] = window[namespace] || {};
     return component;
   }();
 }(window[namespace]));
+/* [E] GRAPH */
 
-/* PROGRESS */
+/* [S] PROGRESS */
 (function(global){
   'use strict';
 
@@ -1823,59 +1944,17 @@ window[namespace] = window[namespace] || {};
 
     function style(){
       return `
-        ${this.class('selector')} {
-          position: relative;
-        }
         ${this.class('selector')} ${this.class('base')} {
-          overflow: hidden;
-          position: relative;
-          width: 100%;
           height: ${this.prop('stroke')}px;
           border-radius: ${this.prop('stroke') / 2}px;
-          background-color: rgb(240, 240, 240);
         }
         ${this.class('selector')} ${this.class('value')} {
-          position: absolute;
-          top: 0;
-          left: -100%;
-          width: 100%;
           height: ${this.prop('stroke')}px;
           border-radius: ${this.prop('stroke') / 2}px;
-          background: linear-gradient(90deg, rgb(238, 205, 163), rgb(239, 98, 159));
           transition: left ${this.prop('duration')} ${this.prop('easing')};
         }
         ${this.class('selector')} ${this.class('text')} {
-          position: absolute;
-          top: 0;
-          left: 0;
-          padding: 5px;
-          border-radius: 4px 4px 4px 0px;
-          background-color: rgb(239, 98, 159);
-          color: rgb(255, 255, 255);
-          transform: translate(0, calc(-100% - 10px));
           transition: left ${this.prop('duration')} ${this.prop('easing')};
-        }
-        ${this.class('selector')} ${this.class('text')}::after {
-          content: '';
-          position: absolute;
-          bottom: 0;
-          left: 0;
-          width: 0;
-          height: 0;
-          border-top: 5px solid rgb(239, 98, 159);
-          border-left: 0px solid transparent;
-          border-right: 5px solid transparent;
-          transform: translate(0, 100%);
-        }
-        ${this.class('selector')} ${this.class('text')}${this.class('revert')} {
-          border-radius: 4px 4px 0px 4px;
-          transform: translate(-100%, calc(-100% - 10px));
-        }
-        ${this.class('selector')} ${this.class('text')}${this.class('revert')}::after {
-          left: initial;
-          right: 0;
-          border-left-width: 5px;
-          border-right-width: 0px;
         }`;
     }
 
@@ -1938,162 +2017,9 @@ window[namespace] = window[namespace] || {};
     return component;
   }();
 }(window[namespace]));
+/* [E] PROGRESS */
 
-/* PDF */
-(function (global) {
-  'use strict';
-
-  global.pdf = function(){
-    var component = new global.component({
-      container: 'body',
-      selector: '_pdf',
-      swiper: '_pdf-swiper',
-      list: '_pdf-list',
-      item: '_pdf-item',
-      prev: '_pdf-prev',
-      next: '_pdf-next',
-      iframe: '_pdf-iframe',
-      confirm: '_pdf-confirm',
-      cancel: '_pdf-cancel'
-    });
-
-    function init(){
-      this.prop('on').init && this.prop('on').init($(this.class('selector')));
-    }
-
-    function html(options){
-      if (!options && !options.url && !Array.isArray(options.url)) return;
-
-      return `
-        <div class="modal _modal ${this.prop('selector')}" data-name="${options.name}">
-          <div class="modal-content _modal-content _full">
-            <div class="modal-header">
-              <div class="modal-button left">
-                <button type="button" class="button icon w24">
-                  <span class="button-icon icon-013"></span>
-                </button>
-              </div>
-              <p class="modal-title center">${options.title}</p>
-              <div class="modal-button right">
-                <button type="button" class="button icon w24 _modal-close">
-                  <span class="button-icon icon-014"></span>
-                </button>
-              </div>
-            </div>
-            <div class="modal-main">
-              <div class="swiper-container ${this.prop('swiper')}">
-                <div class="swiper-wrapper ${this.prop('list')}">
-                  ${global.isIOS ? '' : slides.call(this, options)}
-                </div>
-                <button type="button" class="${this.prop('prev')}"></button>
-                <button type="button" class="${this.prop('next')}"></button>
-              </div>
-            </div>
-          </div>
-        </div>`;
-    }
-
-    function slides(options){
-      var path = '/lib/pdfjs/web/viewer.html?file='
-        , result = '';
-
-      $.each(options.url, function (index, url) {
-        result +=
-          `<div class="swiper-slide ${this.prop('item')}">
-            <iframe src="${path + url}" class="${this.prop('iframe')}" title="webviewer" width="100%" frameborder="0"></iframe>
-          </div >`;
-      }.bind(this));
-
-      return result;
-    }
-
-    function swiper(selector){
-      var swiper = new Swiper(`${selector} ${this.class('swiper')}`, {
-        navigation: {
-          prevEl: `${selector} ${this.class('swiper')} ${this.class('prev')}`,
-          nextEl: `${selector} ${this.class('swiper')} ${this.class('next')}`
-        }
-      });
-
-      if (swiper.slides.length <= 1) {
-        $(`${selector} ${this.class('swiper')} ${this.class('prev')}`).hide();
-        $(`${selector} ${this.class('swiper')} ${this.class('next')}`).hide();
-      }
-    }
-
-    function handlerClick(event){
-      var $target = $(event.target);
-
-      $target.hasClass(this.prop('cancel')) && this.prop('on').cancel && this.prop('on').cancel();
-      $target.hasClass(this.prop('confirm')) && this.prop('on').confirm && this.prop('on').confirm();
-
-      this.hide();
-    }
-
-    component.import = function(options){
-      var options = $.extend({
-          title: 'title',
-          name: null,
-          url: []
-        }, options)
-        , selector = `${this.class('selector')}[data-name=${options.name}]`;
-
-      if (!options.name) return;
-
-      $(selector).length && $(selector).remove();
-      $(this.prop('container')).append(html.call(this, options));
-      $(selector).data('url', options.url);
-      !global.isIOS && swiper.call(this, selector);
-    }
-
-    component.show = function(options){
-      var options = $.extend({ target: null, name: null }, options),
-        selector = `${this.class('selector')}[data-name=${options.name}]`;
-
-      if (!options.name || !$(selector).length) return;
-
-      if (global.isIOS && !$(selector).data('import')) {
-        $(this.class('list'), selector).append(slides.call(this, { url: $(selector).data('url') }));
-        $(selector).data('import', true);
-        swiper.call(this, selector);
-      }
-
-      clearTimeout(this.timeout);
-
-      this.timeout = setTimeout(function(){
-        options.target = selector;
-        global.modal.show(options);
-      }, 10);
-
-      this.prop('on').show && this.prop('on').show();
-      this.change.observe(this);
-    };
-
-    component.hide = function(){
-      global.modal.hide(function($selector){
-        $selector.remove();
-      });
-
-      this.prop('on').hide && this.prop('on').hide();
-    };
-
-    component.bind = function(options){
-      $(this.prop('container')).off('click', `${this.class('selector')} ${this.class('cancel')}`);
-      $(this.prop('container')).off('click', `${this.class('selector')} ${this.class('confirm')}`);
-
-      $.extend(this.options, options);
-
-      $(this.prop('container')).on('click', `${this.class('selector')} ${this.class('cancel')}`, handlerClick.bind(this));
-      $(this.prop('container')).on('click', `${this.class('selector')} ${this.class('confirm')}`, handlerClick.bind(this));
-
-      init.call(this);
-    };
-
-    return component;
-  }();
-}(window[namespace]));
-
-/* INITIAL */
+/* [S] INITIALIZE */
 $(function(global){
   global.init = function(){
     this.calendar.bind();
@@ -2104,17 +2030,17 @@ $(function(global){
     this.select.bind();
     this.datepicker.bind();
     this.pdf.bind();
+    this.lock.bind();
     this.popover.bind();
     this.toast.bind();
     this.dropdown.bind();
     this.input.bind();
     this.formatter.bind();
     this.checkbox.bind();
-    this.scrollbar.bind();
-    this.lock.bind();
     this.graph.bind();
     this.progress.bind();
   };
 
   global.init();
 }(window[namespace]));
+/* [E] INITIALIZE */
