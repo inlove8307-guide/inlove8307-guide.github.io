@@ -2030,6 +2030,8 @@ window[namespace] = window[namespace] || {};
       button: '_anchor-button',
       target: '_anchor-target',
       active: '_active',
+      duration: '250ms',
+      easing: 'cubic-bezier(.65,.05,.36,1)',
       space: 50
     });
 
@@ -2046,22 +2048,24 @@ window[namespace] = window[namespace] || {};
 
     function change($buttons, index){
       var $overflow = $(this.class('overflow'))
-        , $button = $buttons.eq(index)
-        , scrollLeft = $button.prev().length
-          ? $overflow.scrollLeft() - $overflow.offset().left + $button.offset().left - this.prop('space')
-          : 0;
+        , $button = $buttons.eq(index);
 
-      $buttons.removeClass(this.prop('active'));
-      $button.addClass(this.prop('active'));
+      if (!$button.hasClass(this.prop('active'))) {
+        $buttons.removeClass(this.prop('active'));
+        $button.addClass(this.prop('active'));
 
-      $overflow.stop(true).animate({ scrollLeft: scrollLeft });
+        $overflow.scrollLeft(function(){
+          return $button.prev().length
+            ? $overflow.scrollLeft() +  $button.position().left - this.prop('space')
+            : 0;
+        }.call(this));
+      }
     }
 
     function handlerClick(event){
       var $target = $($(event.target).closest(this.class('button')).attr('href'));
 
-      $(this.prop('scroller')).stop(true).animate({ scrollTop: offset.call(this, $target) });
-
+      $(this.prop('scroller')).stop().animate({ scrollTop: offset.call(this, $target) });
       event.preventDefault();
     }
 
