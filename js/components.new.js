@@ -2046,22 +2046,21 @@ window[namespace] = window[namespace] || {};
 
     function change($buttons, index){
       var $overflow = $(this.class('overflow'))
-        , $button = $buttons.eq(index);
+        , $button = $buttons.eq(index)
+        , scrollLeft = $button.prev().length
+          ? $overflow.scrollLeft() - $overflow.offset().left + $button.offset().left - this.prop('space')
+          : 0;
 
       $buttons.removeClass(this.prop('active'));
       $button.addClass(this.prop('active'));
 
-      $overflow.scrollLeft(function(){
-        return $button.prev().length
-          ? $overflow.scrollLeft() - $overflow.offset().left + $button.offset().left - this.prop('space')
-          : 0;
-      }.call(this));
+      $overflow.stop(true).animate({ scrollLeft: scrollLeft });
     }
 
     function handlerClick(event){
       var $target = $($(event.target).closest(this.class('button')).attr('href'));
 
-      $(this.prop('scroller')).stop().animate({ scrollTop: offset.call(this, $target) });
+      $(this.prop('scroller')).stop(true).animate({ scrollTop: offset.call(this, $target) });
 
       event.preventDefault();
     }
@@ -2081,7 +2080,7 @@ window[namespace] = window[namespace] || {};
         }
       }.bind(this));
 
-      if ($scroller.prop('scrollHeight') == $scroller.scrollTop() + $scroller.height()) {
+      if ($scroller.prop('scrollHeight') <= $scroller.scrollTop() + $scroller.height()) {
         change.call(this, $buttons, $buttons.length - 1);
       }
     }
