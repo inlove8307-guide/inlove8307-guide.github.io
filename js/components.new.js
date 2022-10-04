@@ -2019,6 +2019,93 @@ window[namespace] = window[namespace] || {};
 }(window[namespace]));
 /* [E] PROGRESS */
 
+/* [S] ANCHOR */
+(function(global){
+  global.anchor = function(){
+    var component = new global.component({
+      container: 'body',
+      scroller: 'html',
+      selector: '_anchor',
+      overflow: '_anchor-overflow',
+      button: '_anchor-button',
+      target: '_anchor-target',
+      active: '_active'
+    });
+
+    function init(){
+      this.prop('on').init && this.prop('on').init($(this.class('selector')));
+      this.change.observe(this);
+      this.scroll.observe(this);
+    }
+
+    function offset($target){
+      var result = $target && $target.length ? $target.offset().top : 0
+        , $selector = $(this.class('selector'));
+
+      result
+        ? result -= $selector.outerHeight()
+        : result += $selector.outerHeight() * 2;
+
+      return result;
+    }
+
+    function change($buttons, index){
+      var $overflow = $(this.class('overflow'))
+        , $button = $buttons.eq(index)
+        , scrollLeft = $button.prev().length
+          ? $overflow.scrollLeft() + $button.prev().offset().left + $button.prev().outerWidth() / 3
+          : 0;
+
+      if (!$button.hasClass(this.prop('active'))) {
+        $buttons.removeClass(this.prop('active'));
+        $button.addClass(this.prop('active'));
+        $overflow.stop().animate({ scrollLeft: scrollLeft });
+      }
+    }
+
+    function handlerClick(event){
+      var $target = $($(event.target).closest(this.class('button')).attr('href'));
+
+      $(this.prop('scroller')).stop().animate({ scrollTop: offset.call(this, $target) });
+
+      event.preventDefault();
+    }
+
+    function handlerScroll(event){
+      var $scroller = $(event.target)
+        , $buttons = $(this.class('button'))
+        , $targets = $(this.class('target'));
+
+      $.each($targets, function(index, target){
+        if ($scroller.scrollTop() + offset.call(this) > $targets.eq(index).offset().top) {
+          if ($targets.eq(index + 1).length) {
+            if ($scroller.scrollTop() + offset.call(this) < $targets.eq(index + 1).offset().top) {
+              change.call(this, $buttons, index);
+            }
+          }
+          else {
+            change.call(this, $buttons, index);
+          }
+        }
+      }.bind(this));
+    }
+
+    component.bind = function(options){
+      $(this.prop('container')).off('click', `${this.class('selector')} ${this.class('button')}`);
+
+      $.extend(this.options, options);
+
+      $(this.prop('container')).on('click', `${this.class('selector')} ${this.class('button')}`, handlerClick.bind(this));
+      $(document).on('scroll', handlerScroll.bind(this));
+
+      init.call(this);
+    };
+
+    return component;
+  }();
+}(window[namespace]));
+/* [E] ANCHOR */
+
 /* [S] INITIALIZE */
 $(function(global){
   global.init = function(){
@@ -2039,6 +2126,7 @@ $(function(global){
     this.checkbox.bind();
     this.graph.bind();
     this.progress.bind();
+    this.anchor.bind();
   };
 
   global.init();

@@ -588,6 +588,20 @@ dl.table dd {flex-grow: 1; flex-shrink: 0; flex-basis: 25%; padding: 8px; border
 ._progress-text._revert {border-radius: 4px 4px 0px 4px; transform: translate(-100%, calc(-100% - 10px));}
 ._progress-text._revert::after {left: initial; right: 0; border-left-width: 5px; border-right-width: 0px;}
 
+/* ANCHOR */
+._anchor {position: sticky; top: 0; left: 0; margin-top: -10px; padding-top: 10px;}
+._anchor-inner {overflow: hidden; position: relative; padding: 10px; border-radius: 12px; background-color: rgba(255, 255, 255, 0.75); box-shadow: 0 2px 16px -4px rgba(0, 0, 0, 0.15); backdrop-filter: blur(4px); -webkit-backdrop-filter: blur(4px);}
+._anchor-buttons {display: flex; flex-wrap: wrap; margin: -10px 0 0 -10px;}
+._anchor-button {margin: 10px 0 0 10px;}
+._anchor-button._active {border-color: rgb(17, 17, 17); background-color: rgb(17, 17, 17); color: rgb(255, 255, 255);}
+._anchor-target {}
+._anchor._scroll ._anchor-overflow {overflow: hidden; overflow-x: auto; -ms-overflow-style: none; scrollbar-width: none;}
+._anchor._scroll ._anchor-overflow::before,
+._anchor._scroll ._anchor-overflow::after {content: ''; position: absolute; top: 0px; width: 52px; height: 100%; pointer-events: none;}
+._anchor._scroll ._anchor-overflow::before {left: 0px; background: linear-gradient(90deg, rgba(255, 255, 255, 1) 0%, rgba(255, 255, 255, 0) 100%);}
+._anchor._scroll ._anchor-overflow::after {right: 0px; background: linear-gradient(270deg, rgba(255, 255, 255, 1) 0%, rgba(255, 255, 255, 0) 100%);}
+._anchor._scroll ._anchor-buttons {flex-wrap: nowrap;}
+
 /* LOCK */
 html._lockup,
 html._lockup body {overflow: hidden;}
@@ -597,3 +611,5 @@ html._lockup .guide-container {position: fixed; top: 0; left: 0; width: 100%; he
 .alert {z-index: 100;}
 .modal._active {z-index: 100;}
 ._toast {z-index: 110;}
+/* STICKY Z-INDEX */
+._anchor {z-index: 90;}
