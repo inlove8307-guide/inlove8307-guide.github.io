@@ -599,7 +599,7 @@ dl.table dd {flex-grow: 1; flex-shrink: 0; flex-basis: 25%; padding: 8px; border
 ._anchor._scroll ._anchor-transform::after {transform: translate(-50%, -50%) rotate(180deg);}
 ._anchor._scroll ._anchor-overflow {overflow: hidden; overflow-x: auto; -ms-overflow-style: none; scrollbar-width: none;}
 ._anchor._scroll ._anchor-overflow::before,
-._anchor._scroll ._anchor-overflow::after {content: ''; position: absolute; top: 0px; width: 52px; height: 100%; opacity: 0; pointer-events: none;}
+._anchor._scroll ._anchor-overflow::after {content: ''; position: absolute; top: 0px; width: 52px; height: 100%; border-radius: 12px; opacity: 0; pointer-events: none;}
 ._anchor._scroll ._anchor-overflow::before {left: 0px; background: linear-gradient(90deg, rgba(255, 255, 255, 1) 15%, rgba(255, 255, 255, 0) 100%);}
 ._anchor._scroll ._anchor-overflow::after {right: 50px; background: linear-gradient(270deg, rgba(255, 255, 255, 1) 15%, rgba(255, 255, 255, 0) 100%);}
 ._anchor._scroll ._anchor-buttons {flex-wrap: nowrap;}
