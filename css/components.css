@@ -594,7 +594,9 @@ dl.table dd {flex-grow: 1; flex-shrink: 0; flex-basis: 25%; padding: 8px; border
 ._anchor-buttons {display: flex; flex-wrap: wrap; margin: -10px 0 0 -10px;}
 ._anchor-button {margin: 10px 0 0 10px;}
 ._anchor-button._active {border-color: rgb(17, 17, 17); background-color: rgb(17, 17, 17); color: rgb(255, 255, 255);}
-._anchor-transform {position: absolute; top: 10px; right: 10px; width: 32px; height: 32px; border-radius: 16px; background-color: rgb(0, 0, 0);}
+._anchor-transform {position: absolute; top: 10px; right: 10px; width: 32px; height: 32px;}
+._anchor-transform::after {content: ''; position: absolute; top: 50%; left: 50%; width: 16px; height: 16px; background-image: var(--icon-000); background-position: 0 0; background-repeat: no-repeat; background-size: contain; transform: translate(-50%, -50%);}
+._anchor._scroll ._anchor-transform::after {transform: translate(-50%, -50%) rotate(180deg);}
 ._anchor._scroll ._anchor-overflow {overflow: hidden; overflow-x: auto; -ms-overflow-style: none; scrollbar-width: none;}
 ._anchor._scroll ._anchor-overflow::before,
 ._anchor._scroll ._anchor-overflow::after {content: ''; position: absolute; top: 0px; width: 52px; height: 100%; opacity: 0; pointer-events: none;}

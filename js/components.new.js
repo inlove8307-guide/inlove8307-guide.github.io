@@ -2043,7 +2043,6 @@ window[namespace] = window[namespace] || {};
     function init(){
       this.height = $(this.class('selector')).outerHeight();
       this.prop('on').init && this.prop('on').init($(this.class('selector')));
-      change.call(this, 0);
     }
 
     function handlerTransform(event){
