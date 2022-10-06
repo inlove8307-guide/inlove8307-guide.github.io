@@ -76,7 +76,7 @@ window[namespace] = window[namespace] || {};
     };
 
     this.prop = function (key, value) {
-      if (value) {
+      if (value !== undefined) {
         this.options[key] = value;
         this.bind && this.bind();
       }
@@ -2029,73 +2029,122 @@ window[namespace] = window[namespace] || {};
       overflow: '_anchor-overflow',
       button: '_anchor-button',
       target: '_anchor-target',
+      transform: '_anchor-transform',
+      before: '_before',
+      after: '_after',
       active: '_active',
-      duration: '250ms',
-      easing: 'cubic-bezier(.65,.05,.36,1)',
-      space: 50
+      scroll: '_scroll',
+      margin: 0,
+      buffer: 20,
+      duration: 250,
+      handler: true
     });
 
-    function offset($target){
-      var result = $target && $target.length ? $target.offset().top : 0
-        , $selector = $(this.class('selector'));
-
-      result
-        ? result -= $selector.outerHeight()
-        : result += $selector.outerHeight();
-
-      return result;
+    function init(){
+      this.height = $(this.class('selector')).outerHeight();
+      this.prop('on').init && this.prop('on').init($(this.class('selector')));
+      change.call(this, 0);
     }
 
-    function change($buttons, index){
+    function handlerTransform(event){
+      var $selector = $(this.class('selector'));
+      var $button = $(this.class('button')).filter(this.class('active'))
+      var index = $button.length ? $button.index() : 0;
+
+      $selector.hasClass(this.prop('scroll'))
+        ? $selector.removeClass(this.prop('scroll'))
+        : $selector.addClass(this.prop('scroll'));
+
+      change.call(this, index);
+    }
+
+    function change(index){
       var $overflow = $(this.class('overflow'))
-        , $button = $buttons.eq(index);
+        , $buttons = $(this.class('button'))
+        , $button = $buttons.eq(index)
+        , scrollLeft = $overflow.scrollLeft() + $button.position().left - this.prop('buffer') * 2;
 
-      if (!$button.hasClass(this.prop('active'))) {
-        $buttons.removeClass(this.prop('active'));
-        $button.addClass(this.prop('active'));
+      $buttons.removeClass(this.prop('active'));
+      $button.addClass(this.prop('active'));
 
-        $overflow.scrollLeft(function(){
-          return $button.prev().length
-            ? $overflow.scrollLeft() +  $button.position().left - this.prop('space')
-            : 0;
-        }.call(this));
-      }
+      $overflow.stop().animate({ scrollLeft: scrollLeft }, { duration: this.prop('duration') });
     }
 
     function handlerClick(event){
-      var $target = $($(event.target).closest(this.class('button')).attr('href'));
+      var $button = $(event.target).closest(this.class('button'))
+        , $target = $($button.attr('href'))
+        , scrollTop = 0, index = 0;
 
-      $(this.prop('scroller')).stop().animate({ scrollTop: offset.call(this, $target) });
+      if ($button.length) {
+        scrollTop = $target.position().top - this.height;
+        index = $button.index();
+      }
+
+      this.prop('handler', false);
+      $(this.prop('scroller')).stop().animate({ scrollTop: scrollTop }, { duration: this.prop('duration') });
+      change.call(this, index);
+
+      clearTimeout(this.timeout);
+      this.timeout = setTimeout(function(){
+        this.prop('handler', true);
+      }.bind(this), this.prop('duration') * 1.25);
+
       event.preventDefault();
     }
 
-    function handlerScroll(event){
+    function handlerHorizontal(event){
+      var $scroller = $(event.target);
+
+      if ($scroller.scrollLeft() > 0) {
+        $(this.class('selector')).addClass(this.prop('before'));
+      }
+      else {
+        $(this.class('selector')).removeClass(this.prop('before'));
+      }
+
+      if ($scroller.scrollLeft() + $scroller.width() == $scroller.prop('scrollWidth')) {
+        $(this.class('selector')).removeClass(this.prop('after'));
+      }
+      else {
+        $(this.class('selector')).addClass(this.prop('after'));
+      }
+    }
+
+    function handlerVertical(event){
       var $scroller = $(this.prop('scroller'))
         , $buttons = $(this.class('button'))
-        , $targets = $(this.class('target'));
+        , $targets = $(this.class('target'))
+        , scrollTop = $scroller.scrollTop() + this.height;
+
+      if (!this.prop('handler')) return;
 
       $.each($targets, function(index, target){
-        if ($scroller.scrollTop() + offset.call(this) + this.prop('space') > $targets.eq(index).offset().top) {
-          if ($targets.eq(index + 1).length) {
-            if ($scroller.scrollTop() + offset.call(this) + this.prop('space') < $targets.eq(index + 1).offset().top) {
-              change.call(this, $buttons, index);
-            }
-          }
+        var $target = $(target);
+
+        if ($target.position().top <= scrollTop && $target.position().top + $target.outerHeight() > scrollTop) {
+          if ($buttons.eq(index).hasClass(this.prop('active'))) return;
+          change.call(this, index);
         }
       }.bind(this));
 
-      if ($scroller.prop('scrollHeight') <= $scroller.scrollTop() + $scroller.height()) {
-        change.call(this, $buttons, $buttons.length - 1);
+      if ($scroller.scrollTop() + $scroller.height() - this.prop('buffer') > $scroller.prop('scrollHeight') - this.prop('buffer') * 2) {
+        if ($buttons.eq($buttons.last().index()).hasClass(this.prop('active'))) return;
+        change.call(this, $buttons.last().index());
       }
     }
 
     component.bind = function(options){
       $(this.prop('container')).off('click', `${this.class('selector')} ${this.class('button')}`);
+      $(this.prop('container')).off('click', `${this.class('selector')} ${this.class('transform')}`);
 
       $.extend(this.options, options);
 
       $(this.prop('container')).on('click', `${this.class('selector')} ${this.class('button')}`, handlerClick.bind(this));
-      $(document).on('scroll', handlerScroll.bind(this));
+      $(this.prop('container')).on('click', `${this.class('selector')} ${this.class('transform')}`, handlerTransform.bind(this));
+      $(this.class('overflow')).on('scroll', handlerHorizontal.bind(this));
+      $(window).on('scroll', handlerVertical.bind(this));
+
+      init.call(this);
     };
 
     return component;

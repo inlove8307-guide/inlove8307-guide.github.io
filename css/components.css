@@ -590,17 +590,19 @@ dl.table dd {flex-grow: 1; flex-shrink: 0; flex-basis: 25%; padding: 8px; border
 
 /* ANCHOR */
 ._anchor {position: sticky; top: 0; left: 0; margin-top: -10px; padding-top: 10px;}
-._anchor-inner {overflow: hidden; position: relative; padding: 10px; border-radius: 12px; background-color: rgba(255, 255, 255, 0.75); box-shadow: 0 2px 16px -4px rgba(0, 0, 0, 0.15); backdrop-filter: blur(4px); -webkit-backdrop-filter: blur(4px);}
+._anchor-round {overflow: hidden; position: relative; padding: 10px 50px 10px 10px; border-radius: 12px; background-color: rgb(255, 255, 255); box-shadow: 0 2px 8px -2px rgba(0, 0, 0, 0.15);}
 ._anchor-buttons {display: flex; flex-wrap: wrap; margin: -10px 0 0 -10px;}
 ._anchor-button {margin: 10px 0 0 10px;}
 ._anchor-button._active {border-color: rgb(17, 17, 17); background-color: rgb(17, 17, 17); color: rgb(255, 255, 255);}
-._anchor-target {}
-._anchor._scroll ._anchor-overflow {overflow: hidden; overflow-x: auto; -ms-overflow-style: none; scrollbar-width: none; scroll-behavior: smooth;}
+._anchor-transform {position: absolute; top: 10px; right: 10px; width: 32px; height: 32px; border-radius: 16px; background-color: rgb(0, 0, 0);}
+._anchor._scroll ._anchor-overflow {overflow: hidden; overflow-x: auto; -ms-overflow-style: none; scrollbar-width: none;}
 ._anchor._scroll ._anchor-overflow::before,
-._anchor._scroll ._anchor-overflow::after {content: ''; position: absolute; top: 0px; width: 52px; height: 100%; pointer-events: none;}
-._anchor._scroll ._anchor-overflow::before {left: 0px; background: linear-gradient(90deg, rgba(255, 255, 255, 1) 0%, rgba(255, 255, 255, 0) 100%);}
-._anchor._scroll ._anchor-overflow::after {right: 0px; background: linear-gradient(270deg, rgba(255, 255, 255, 1) 0%, rgba(255, 255, 255, 0) 100%);}
+._anchor._scroll ._anchor-overflow::after {content: ''; position: absolute; top: 0px; width: 52px; height: 100%; opacity: 0; pointer-events: none;}
+._anchor._scroll ._anchor-overflow::before {left: 0px; background: linear-gradient(90deg, rgba(255, 255, 255, 1) 15%, rgba(255, 255, 255, 0) 100%);}
+._anchor._scroll ._anchor-overflow::after {right: 50px; background: linear-gradient(270deg, rgba(255, 255, 255, 1) 15%, rgba(255, 255, 255, 0) 100%);}
 ._anchor._scroll ._anchor-buttons {flex-wrap: nowrap;}
+._anchor._scroll._before ._anchor-overflow::before {opacity: 1;}
+._anchor._scroll._after ._anchor-overflow::after {opacity: 1;}
 
 /* LOCK */
 html._lockup,
