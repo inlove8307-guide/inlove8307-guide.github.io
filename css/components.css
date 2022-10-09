@@ -536,7 +536,7 @@ dl.table dd {flex-grow: 1; flex-shrink: 0; flex-basis: 25%; padding: 8px; border
 ._popover-content._active {opacity: 1;}
 
 /* TOAST */
-._toast {position: fixed; bottom: 0; left: 0; padding: 0 16px 24px; width: 100%; opacity: 0;}
+._toast {position: fixed; bottom: 0; left: 0; padding: 0 16px 32px; width: 100%; opacity: 0;}
 ._toast-message {display: block; padding: 12px; border-radius: 12px; background-color: rgba(0, 0, 0, 0.75); color: rgb(255, 255, 255); backdrop-filter: blur(5px); -webkit-backdrop-filter: blur(5px);}
 ._toast._active {opacity: 1;}
 
@@ -590,20 +590,20 @@ dl.table dd {flex-grow: 1; flex-shrink: 0; flex-basis: 25%; padding: 8px; border
 
 /* ANCHOR */
 ._anchor {position: sticky; top: 0; left: 0; margin-top: -10px; padding-top: 10px;}
-._anchor-round {overflow: hidden; position: relative; padding: 10px 50px 10px 10px; border-radius: 12px; background-color: rgb(255, 255, 255); box-shadow: 0 2px 8px -2px rgba(0, 0, 0, 0.15);}
+._anchor-round {overflow: hidden; position: relative; padding: 10px 40px 10px 10px; border-radius: 12px; background-color: rgb(255, 255, 255); box-shadow: 0 2px 8px -2px rgba(0, 0, 0, 0.15);}
 ._anchor-buttons {display: flex; flex-wrap: wrap; margin: -10px 0 0 -10px;}
 ._anchor-button {margin: 10px 0 0 10px;}
 ._anchor-button._active {border-color: rgb(17, 17, 17); background-color: rgb(17, 17, 17); color: rgb(255, 255, 255);}
-._anchor-transform {position: absolute; top: 10px; right: 10px; width: 32px; height: 32px;}
+._anchor-transform {position: absolute; top: 10px; right: 4px; width: 32px; height: 32px;}
 ._anchor-transform::after {content: ''; position: absolute; top: 50%; left: 50%; width: 16px; height: 16px; background-image: var(--icon-000); background-position: 0 0; background-repeat: no-repeat; background-size: contain; transform: translate(-50%, -50%);}
-._anchor-top {position: fixed; bottom: 16px; right: 16px; width: 32px; height: 32px; border: 1px solid rgb(0, 0, 0, 0.25); border-radius: 16px; background-color: rgba(255, 255, 255, 0.75); backdrop-filter: blur(2px); -webkit-backdrop-filter: blur(2px);}
+._anchor-top {position: fixed; bottom: 32px; right: 16px; width: 36px; height: 36px; border: 1px solid rgb(0, 0, 0, 0.25); border-radius: 12px; background-color: rgba(255, 255, 255, 0.75); backdrop-filter: blur(2px); -webkit-backdrop-filter: blur(2px);}
 ._anchor-top::after {content: ''; position: absolute; top: 50%; left: 50%; width: 16px; height: 16px; background-image: var(--icon-000); background-position: 0 0; background-repeat: no-repeat; background-size: contain; transform: translate(-50%, -50%);}
 ._anchor._scroll ._anchor-transform::after {transform: translate(-50%, -50%) rotate(180deg);}
 ._anchor._scroll ._anchor-overflow {overflow: hidden; overflow-x: auto; -ms-overflow-style: none; scrollbar-width: none;}
 ._anchor._scroll ._anchor-overflow::before,
 ._anchor._scroll ._anchor-overflow::after {content: ''; position: absolute; top: 0px; width: 52px; height: 100%; border-radius: 12px; opacity: 0; pointer-events: none;}
 ._anchor._scroll ._anchor-overflow::before {left: 0px; background: linear-gradient(90deg, rgba(255, 255, 255, 1) 15%, rgba(255, 255, 255, 0) 100%);}
-._anchor._scroll ._anchor-overflow::after {right: 50px; background: linear-gradient(270deg, rgba(255, 255, 255, 1) 15%, rgba(255, 255, 255, 0) 100%);}
+._anchor._scroll ._anchor-overflow::after {right: 40px; background: linear-gradient(270deg, rgba(255, 255, 255, 1) 15%, rgba(255, 255, 255, 0) 100%);}
 ._anchor._scroll ._anchor-buttons {flex-wrap: nowrap;}
 ._anchor._scroll._before ._anchor-overflow::before {opacity: 1;}
 ._anchor._scroll._after ._anchor-overflow::after {opacity: 1;}

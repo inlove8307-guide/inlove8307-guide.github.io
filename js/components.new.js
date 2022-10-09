@@ -17,6 +17,11 @@ window[namespace] = window[namespace] || {};
 (function(global){
   'use strict';
 
+  global.$window = $(window);
+  global.$document = $(document);
+  global.$html = $('html');
+  global.$body = $('body');
+
   global.ua = function(){
     try {
       if (UAParser) return new UAParser();
@@ -31,16 +36,14 @@ window[namespace] = window[namespace] || {};
     global.isTablet = global.ua.getDevice().type === 'tablet';
     global.isIOS = global.ua.getOS().name === 'iOS';
     global.isAOS = global.ua.getOS().name === 'Android';
-  }
+    global.isDesktop = !global.isMobile && !global.isTablet && true;
 
-  // console.log('getBrowser', global.ua.getBrowser());
-  // console.log('getCPU', global.ua.getCPU());
-  // console.log('getDevice', global.ua.getDevice());
-  // console.log('getEngine', global.ua.getEngine());
-  // console.log('getOS', global.ua.getOS());
-  // console.log('getResult', global.ua.getResult());
-  // console.log('getUA', global.ua.getUA());
-  // console.log('setUA', global.ua.setUA());
+    global.isMobile && global.$html.addClass('_mobile');
+    global.isTablet && global.$html.addClass('_tablet');
+    global.isIOS && global.$html.addClass('_ios');
+    global.isAOS && global.$html.addClass('_aos');
+    global.isDesktop && global.$html.addClass('_desktop');
+  }
 }(window[namespace]));
 /* [E] USER AGENT */
 
@@ -1317,7 +1320,7 @@ window[namespace] = window[namespace] || {};
       var $html = $(markup)
         , $target = $(options.selector)
         , width = function(){
-          var deviceWidth = $(window).width();
+          var deviceWidth = global.$window.width();
 
           switch(options.direction){
             case 'top':
@@ -2162,6 +2165,8 @@ window[namespace] = window[namespace] || {};
       $(this.prop('container')).off('click', `${this.class('selector')} ${this.class('button')}`);
       $(this.prop('container')).off('click', `${this.class('selector')} ${this.class('top')}`);
       $(this.prop('container')).off('click', `${this.class('selector')} ${this.class('transform')}`);
+      $(this.class('overflow')).off('scroll', handlerHorizontal);
+      global.$window.off('scroll', handlerVertical);
 
       $.extend(this.options, options);
 
@@ -2169,7 +2174,7 @@ window[namespace] = window[namespace] || {};
       $(this.prop('container')).on('click', `${this.class('selector')} ${this.class('top')}`, handlerClick.bind(this));
       $(this.prop('container')).on('click', `${this.class('selector')} ${this.class('transform')}`, handlerTransform.bind(this));
       $(this.class('overflow')).on('scroll', handlerHorizontal.bind(this)).scroll();
-      $(window).on('scroll', handlerVertical.bind(this));
+      global.$window.on('scroll', handlerVertical.bind(this));
 
       init.call(this);
     };
