@@ -2052,7 +2052,7 @@ window[namespace] = window[namespace] || {};
       var $overflow = $(this.class('overflow'))
         , $buttons = $(this.class('button'))
         , $button = $buttons.eq(index)
-        , scrollLeft = $overflow.scrollLeft() + $button.position().left - this.prop('buffer') * 2;
+        , scrollLeft = $overflow.scrollLeft() + $button.position().left + $button.outerWidth() / 2 - $overflow.width() / 2;
 
       $buttons.removeClass(this.prop('active'));
       $button.addClass(this.prop('active'));
