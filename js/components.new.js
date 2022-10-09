@@ -210,7 +210,7 @@ window[namespace] = window[namespace] || {};
       weeks: ['일', '월', '화', '수', '목', '금', '토']
     });
 
-    function init(){
+    function initial(){
       this.prop('on').init && this.prop('on').init($(this.class('selector')));
       this.change.observe(this);
       this.scroll.observe(this);
@@ -471,7 +471,7 @@ window[namespace] = window[namespace] || {};
     component.bind = function(options){
       $.extend(this.options, options);
 
-      init.call(this);
+      initial.call(this);
     };
 
     return component;
@@ -496,7 +496,7 @@ window[namespace] = window[namespace] || {};
       easing: 'cubic-bezier(.65,.05,.36,1)'
     });
 
-    function init(){
+    function initial(){
       this.style(this.prop('container'), style.call(this));
       this.prop('on').init && this.prop('on').init($(this.class('selector')));
       this.change.observe(this);
@@ -569,7 +569,7 @@ window[namespace] = window[namespace] || {};
       $(this.prop('container')).on('TransitionEnd webkitTransitionEnd', `${this.class('selector')} ${this.class('target')}`, handlerEnd.bind(this));
       $(this.prop('container')).on('click', `${this.class('selector')} ${this.class('button')}`, handlerClick.bind(this));
 
-      init.call(this);
+      initial.call(this);
     };
 
     return component;
@@ -593,7 +593,7 @@ window[namespace] = window[namespace] || {};
       easing: 'cubic-bezier(.65,.05,.36,1)'
     });
 
-    function init(){
+    function initial(){
       this.style(this.prop('container'), style.call(this));
       this.prop('on').init && this.prop('on').init($(this.class('selector')));
       this.change.observe(this);
@@ -645,7 +645,7 @@ window[namespace] = window[namespace] || {};
       $(this.prop('container')).on('TransitionEnd webkitTransitionEnd', `${this.class('selector')} ${this.class('target')}`, handlerEnd.bind(this));
       $(this.prop('container')).on('click', `${this.class('selector')} ${this.class('button')}`, handlerClick.bind(this));
 
-      init.call(this);
+      initial.call(this);
     };
 
     return component;
@@ -676,7 +676,7 @@ window[namespace] = window[namespace] || {};
       easing: 'cubic-bezier(.86, 0, .07, 1)'
     });
 
-    function init(){
+    function initial(){
       this.style(this.prop('container'), style.call(this));
       this.prop('on').init && this.prop('on').init($(this.class('selector')));
     }
@@ -760,7 +760,7 @@ window[namespace] = window[namespace] || {};
       $(this.prop('container')).on('click', `${this.class('selector')} ${this.class('cancel')}`, handlerClick.bind(this));
       $(this.prop('container')).on('click', `${this.class('selector')} ${this.class('confirm')}`, handlerClick.bind(this));
 
-      init.call(this);
+      initial.call(this);
     };
 
     return component;
@@ -780,7 +780,7 @@ window[namespace] = window[namespace] || {};
       cancel: '_alert-cancel'
     });
 
-    function init(){
+    function initial(){
       this.prop('on').init && this.prop('on').init($(this.class('selector')));
     }
 
@@ -851,7 +851,7 @@ window[namespace] = window[namespace] || {};
       $(this.prop('container')).on('click', `${this.class('selector')} ${this.class('cancel')}`, handlerClick.bind(this));
       $(this.prop('container')).on('click', `${this.class('selector')} ${this.class('confirm')}`, handlerClick.bind(this));
 
-      init.call(this);
+      initial.call(this);
     };
 
     return component;
@@ -874,7 +874,7 @@ window[namespace] = window[namespace] || {};
       confirm: '_datepicker-confirm'
     });
 
-    function init(){
+    function initial(){
       this.style(this.prop('container'), style.call(this));
       this.prop('on').init && this.prop('on').init($(this.class('selector')));
     }
@@ -984,7 +984,7 @@ window[namespace] = window[namespace] || {};
       $(this.prop('container')).on('click', `${this.class('selector')} ${this.class('cancel')}`, handlerClick.bind(this));
       $(this.prop('container')).on('click', `${this.class('selector')} ${this.class('confirm')}`, handlerClick.bind(this));
 
-      init.call(this);
+      initial.call(this);
     };
 
     return component;
@@ -1010,7 +1010,7 @@ window[namespace] = window[namespace] || {};
       easing: 'cubic-bezier(.86, 0, .07, 1)'
     });
 
-    function init(){
+    function initial(){
       this.prop('on').init && this.prop('on').init($(this.class('selector')));
     }
 
@@ -1076,7 +1076,7 @@ window[namespace] = window[namespace] || {};
       $(this.prop('container')).on('click', `${this.class('selector')} ${this.class('cancel')}`, handlerClick.bind(this));
       $(this.prop('container')).on('click', `${this.class('selector')} ${this.class('confirm')}`, handlerClick.bind(this));
 
-      init.call(this);
+      initial.call(this);
     };
 
     return component;
@@ -1102,7 +1102,7 @@ window[namespace] = window[namespace] || {};
       cancel: '_pdf-cancel'
     });
 
-    function init(){
+    function initial(){
       this.prop('on').init && this.prop('on').init($(this.class('selector')));
     }
 
@@ -1229,7 +1229,7 @@ window[namespace] = window[namespace] || {};
       $(this.prop('container')).on('click', `${this.class('selector')} ${this.class('cancel')}`, handlerClick.bind(this));
       $(this.prop('container')).on('click', `${this.class('selector')} ${this.class('confirm')}`, handlerClick.bind(this));
 
-      init.call(this);
+      initial.call(this);
     };
 
     return component;
@@ -1295,7 +1295,7 @@ window[namespace] = window[namespace] || {};
       padding: 32
     });
 
-    function init(){
+    function initial(){
       this.style(this.prop('container'), style.call(this));
       this.prop('on').init && this.prop('on').init($(this.class('selector')));
     }
@@ -1401,7 +1401,7 @@ window[namespace] = window[namespace] || {};
 
       $(this.prop('container')).on('TransitionEnd webkitTransitionEnd', `${this.class('selector')} ${this.class('content')}`, handlerEnd.bind(this));
 
-      init.call(this);
+      initial.call(this);
     };
 
     return component;
@@ -1424,7 +1424,7 @@ window[namespace] = window[namespace] || {};
       delay: 3000
     });
 
-    function init(){
+    function initial(){
       this.style(this.prop('container'), style.call(this));
       this.prop('on').init && this.prop('on').init($(this.class('selector')));
     }
@@ -1477,7 +1477,7 @@ window[namespace] = window[namespace] || {};
 
       $(this.prop('container')).on('TransitionEnd webkitTransitionEnd', this.class('selector'), handlerEnd.bind(this));
 
-      init.call(this);
+      initial.call(this);
     };
 
     return component;
@@ -1506,7 +1506,7 @@ window[namespace] = window[namespace] || {};
       easing: 'cubic-bezier(.86, 0, .07, 1)'
     });
 
-    function init(){
+    function initial(){
       this.style(this.prop('container'), style.call(this));
       this.prop('on').init && this.prop('on').init($(this.class('selector')));
       this.change.observe(this);
@@ -1611,7 +1611,7 @@ window[namespace] = window[namespace] || {};
       $(this.prop('container')).on('click', `${this.class('selector')} ${this.class('option')}`, handlerOption.bind(this));
       $(this.prop('container')).on('click', this.class('replace'), handlerReplace.bind(this));
 
-      init.call(this);
+      initial.call(this);
     };
 
     return component;
@@ -1631,7 +1631,7 @@ window[namespace] = window[namespace] || {};
       active: '_active'
     });
 
-    function init(){
+    function initial(){
       this.prop('on').init && this.prop('on').init($(this.class('selector')));
     }
 
@@ -1664,7 +1664,7 @@ window[namespace] = window[namespace] || {};
       $(this.prop('container')).on('keydown', `${this.class('selector')} input`, handlerChange.bind(this));
       $(this.prop('container')).on('change', `${this.class('selector')} input`, handlerChange.bind(this));
 
-      init.call(this);
+      initial.call(this);
     };
 
     return component;
@@ -1687,7 +1687,7 @@ window[namespace] = window[namespace] || {};
       phone: '_phone',
     });
 
-    function init(){
+    function initial(){
       this.prop('on').init && this.prop('on').init($(this.class('selector')));
       this.change.observe(this);
       this.scroll.observe(this);
@@ -1767,7 +1767,7 @@ window[namespace] = window[namespace] || {};
 
       $(this.prop('container')).on('focusin', this.class('selector'), handler.bind(this));
 
-      init.call(this);
+      initial.call(this);
     };
 
     return component;
@@ -1785,7 +1785,7 @@ window[namespace] = window[namespace] || {};
       selector: '_checkbox'
     });
 
-    function init(){
+    function initial(){
       this.style(this.prop('container'), style.call(this));
       this.prop('on').init && this.prop('on').init($(this.class('selector')));
     }
@@ -1798,7 +1798,7 @@ window[namespace] = window[namespace] || {};
 
       $.extend(this.options, options);
 
-      init.call(this);
+      initial.call(this);
     };
 
     return component;
@@ -1826,7 +1826,7 @@ window[namespace] = window[namespace] || {};
       delay: 250
     });
 
-    function init(){
+    function initial(){
       this.style(this.prop('container'), style.call(this));
       this.prop('on').init && this.prop('on').init($(this.class('selector')));
       this.change.observe(this);
@@ -1913,7 +1913,7 @@ window[namespace] = window[namespace] || {};
 
       $(this.prop('container')).on('TransitionEnd webkitTransitionEnd', `${this.class('selector')} ${this.class('value')}`, handlerEnd.bind(this));
 
-      init.call(this);
+      initial.call(this);
     };
 
     return component;
@@ -1940,7 +1940,7 @@ window[namespace] = window[namespace] || {};
       delay: 250
     });
 
-    function init(){
+    function initial(){
       this.style(this.prop('container'), style.call(this));
       this.prop('on').init && this.prop('on').init($(this.class('selector')));
       this.change.observe(this);
@@ -2016,7 +2016,7 @@ window[namespace] = window[namespace] || {};
 
       $(this.prop('container')).on('TransitionEnd webkitTransitionEnd', `${this.class('selector')} ${this.class('value')}`, handlerEnd.bind(this));
 
-      init.call(this);
+      initial.call(this);
     };
 
     return component;
@@ -2046,7 +2046,7 @@ window[namespace] = window[namespace] || {};
       disable: false
     });
 
-    function init(){
+    function initial(){
       this.height = $(this.class('selector')).outerHeight();
       this.prop('on').init && this.prop('on').init($(this.class('selector')));
     }
@@ -2176,7 +2176,7 @@ window[namespace] = window[namespace] || {};
       $(this.class('overflow')).on('scroll', handlerHorizontal.bind(this)).scroll();
       global.$window.on('scroll', handlerVertical.bind(this));
 
-      init.call(this);
+      initial.call(this);
     };
 
     return component;
@@ -2186,7 +2186,7 @@ window[namespace] = window[namespace] || {};
 
 /* [S] INITIALIZE */
 $(function(global){
-  global.init = function(){
+  global.initial = function(){
     this.calendar.bind();
     this.collapse.bind();
     this.tabs.bind();
@@ -2207,6 +2207,6 @@ $(function(global){
     this.anchor.bind();
   };
 
-  global.init();
+  global.initial();
 }(window[namespace]));
 /* [E] INITIALIZE */
