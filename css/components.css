@@ -239,11 +239,11 @@ dl.table dd {flex-grow: 1; flex-shrink: 0; flex-basis: 25%; padding: 8px; border
 .button.dark {border: 0; background-color: var(--dark2); color: var(--light0);}
 .button.dark:focus {background-color: var(--dark0);}
 /* BUTTON - SIZE */
-.button.xs {padding: 0 8px; min-height: initial; height: 24px; font-size: 14px;}
-.button.sm {padding: 0 12px; min-height: initial; height: 32px;}
-.button.md {padding: 0 14px; min-height: initial; height: 40px;}
-.button.lg {padding: 0 16px; min-height: initial; height: 48px;}
-.button.xl {min-height: initial; height: 56px;}
+.button.xs {padding: 0 8px; min-height: initial; height: 24px; font-size: var(--font-xs);}
+.button.sm {padding: 0 12px; min-height: initial; height: 32px; font-size: var(--font-sm);}
+.button.md {padding: 0 14px; min-height: initial; height: 40px; font-size: var(--font-md);}
+.button.lg {padding: 0 16px; min-height: initial; height: 48px; font-size: var(--font-lg);}
+.button.xl {padding: 0 18px; min-height: initial; height: 56px; font-size: var(--font-xl);}
 /* BUTTON - ROUND */
 .button.xs.round {border-radius: 12px;}
 .button.sm.round {border-radius: 16px;}

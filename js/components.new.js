@@ -2165,10 +2165,10 @@ window[namespace] = window[namespace] || {};
 
       $.extend(this.options, options);
 
-      $(this.prop('container')).on('click', `${this.class('selector')} ${this.class('button')}`, handlerClick.bind(this));
+      $(this.prop('container')).on('click', `${this.class('selector')} ${this.class('button')}`, handlerClick.bind(this)).click();
       $(this.prop('container')).on('click', `${this.class('selector')} ${this.class('top')}`, handlerClick.bind(this));
       $(this.prop('container')).on('click', `${this.class('selector')} ${this.class('transform')}`, handlerTransform.bind(this));
-      $(this.class('overflow')).on('scroll', handlerHorizontal.bind(this));
+      $(this.class('overflow')).on('scroll', handlerHorizontal.bind(this)).scroll();
       $(window).on('scroll', handlerVertical.bind(this));
 
       init.call(this);
