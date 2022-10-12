@@ -1354,9 +1354,7 @@ window[namespace] = window[namespace] || {};
 
     function handlerEnd(event){
       if (!$(event.target).hasClass(this.prop('active'))) {
-        $(event.target).closest(this.class('selector')).removeClass(this.prop('selector'));
-        $(event.target).remove();
-
+        $(event.target).unwrap().remove();
         this.prop('on').hide && this.prop('on').hide();
       }
     }
@@ -1368,22 +1366,19 @@ window[namespace] = window[namespace] || {};
           direction: this.prop('direction'),
           padding: this.prop('padding'),
           space: this.prop('space')
-        }, options)
-        , timeout;
+        }, options);
 
       if (!options.selector) return;
+      if ($(options.selector).closest(this.class('selector')).length) return this.hide();
 
-      if ($(this.class('content'), options.selector).length) return this.hide();
+      $(this.class('content')).unwrap().remove();
 
-      $(this.class('selector')).removeClass(this.prop('selector'));
-      $(this.class('content')).remove();
+      $(options.selector).wrap($('<span>', { class: this.prop('selector') }));
+      $(options.selector).after(html.call(this, options));
 
-      $(options.selector).addClass(this.prop('selector'));
-      $(options.selector).append(html.call(this, options));
+      clearTimeout(this.timeout);
 
-      clearTimeout(timeout);
-
-      timeout = setTimeout(function(){
+      this.timeout = setTimeout(function(){
         $(this.class('content')).addClass(this.prop('active'));
       }.bind(this), 10);
 
